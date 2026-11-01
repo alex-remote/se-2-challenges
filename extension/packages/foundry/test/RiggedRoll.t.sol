@@ -40,14 +40,14 @@ contract RiggedRollTest is Test {
                 return expectedRoll;
             }
 
-            // Roll to advance nonce
+            // 掷一次骰子以推进 nonce
             vm.deal(address(this), ROLL_AMOUNT);
             diceGame.rollTheDice{ value: ROLL_AMOUNT }();
         }
     }
 
     // ============================================================
-    // Checkpoint 1: Receiving ETH
+    // Checkpoint 1: 接收 ETH
     // ============================================================
 
     function test_Checkpoint1_ShouldAcceptETHTransfers() public {
@@ -57,7 +57,7 @@ contract RiggedRollTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 2: Rigged Contract
+    // Checkpoint 2: 作弊合约
     // ============================================================
 
     function test_Checkpoint2_ShouldDeployContracts() public view {
@@ -89,12 +89,12 @@ contract RiggedRollTest is Test {
         vm.recordLogs();
         riggedRoll.riggedRoll();
 
-        // Verify Roll event was emitted with winning roll
+        // 验证已触发带有获胜点数的 Roll 事件
         Vm.Log[] memory entries = vm.getRecordedLogs();
         bool foundRoll = false;
         bool foundWinner = false;
         for (uint256 i = 0; i < entries.length; i++) {
-            // Roll event: Roll(address indexed player, uint256 amount, uint256 roll)
+            // Roll 事件：Roll(address indexed player, uint256 amount, uint256 roll)
             if (entries[i].topics[0] == IDiceGame.Roll.selector) {
                 (uint256 amount, uint256 roll) = abi.decode(entries[i].data, (uint256, uint256));
                 assertEq(entries[i].topics[1], bytes32(uint256(uint160(address(riggedRoll)))), "Player should be RiggedRoll");
@@ -102,7 +102,7 @@ contract RiggedRollTest is Test {
                 assertEq(roll, expectedRoll, "Roll should match expected");
                 foundRoll = true;
             }
-            // Winner event
+            // Winner 事件
             if (entries[i].topics[0] == IDiceGame.Winner.selector) {
                 foundWinner = true;
             }
@@ -126,7 +126,7 @@ contract RiggedRollTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 3: Where's my money?!?
+    // Checkpoint 3: 我的钱呢？！？
     // ============================================================
 
     function test_Checkpoint3_ShouldWithdrawFunds() public {

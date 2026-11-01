@@ -11,7 +11,7 @@ export default deployScript(
       args: [],
     });
 
-    // env.deploy ignores `value`; fund the contract separately (DiceGame has receive())
+    // env.deploy 会忽略 `value`；因此单独给合约注资（DiceGame 有 receive()）
     await env.tx({
       account: deployer,
       to: diceGame.address,

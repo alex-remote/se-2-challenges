@@ -11,7 +11,7 @@ type TAmountProps = {
 };
 
 /**
- * Display (ETH & USD) balance of an ETH address.
+ * 显示某个 ETH 地址的余额（ETH 和 USD）。
  */
 export const Amount = ({
   isLoading,

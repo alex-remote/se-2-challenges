@@ -16,14 +16,14 @@ jobs:
       - name: Extract challenge name from branch
         id: extract_challenge
         run: |
-          # Get the branch name
+          # 获取分支名
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             BRANCH_NAME="${{ github.event.pull_request.base.ref }}"
           else
             BRANCH_NAME="${{ github.ref_name }}"
           fi
 
-          # Extract challenge name from branch (e.g., challenge-tokenization -> tokenization)
+          # 从分支名中提取挑战名称（例如 challenge-tokenization -> tokenization）
           if [[ $BRANCH_NAME =~ ^challenge-(.+)$ ]]; then
             CHALLENGE_NAME="${BASH_REMATCH[1]}"
             echo "challenge_name=$CHALLENGE_NAME" >> $GITHUB_OUTPUT

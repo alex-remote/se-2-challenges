@@ -23,11 +23,11 @@ export const postContent = `
   --radius-box: 0rem;
   --radius-selector: 0rem;
 
-  /* tooltip tail width */
+  /* tooltip 尾部小箭头的宽度 */
   --tt-tailw: 6px;
 }
 
-/* —— DARK THEME —— */
+/* —— 深色主题 —— */
 @plugin "daisyui/theme" {
   name: "dark";
 
@@ -53,14 +53,14 @@ export const postContent = `
   --radius-selector: 0rem;
 
   --tt-tailw: 6px;
-  --tt-bg: var(--color-primary); /* if you need a tooltip bg override */
+  --tt-bg: var(--color-primary); /* 如需覆盖 tooltip 背景色可用此变量 */
 }
 
 @theme inline {
   --font-space-grotesk: var(--font-space-grotesk);
 };
 
-/* Override Scaffold UI theme colors */
+/* 覆盖 Scaffold UI 的主题颜色 */
 html[data-theme] {
   --color-sui-primary: var(--color-primary);
   --color-sui-primary-content: var(--color-primary-content);

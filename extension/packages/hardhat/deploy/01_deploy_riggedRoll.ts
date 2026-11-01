@@ -5,14 +5,14 @@ export default deployScript(
     const diceGame = env.get("DiceGame");
     const diceGameAddress = diceGame.address;
 
-    // Uncomment to deploy RiggedRoll contract
+    // 取消注释以部署 RiggedRoll 合约
     // const riggedRoll = await env.deploy("RiggedRoll", {
     //   account: env.namedAccounts.deployer,
     //   artifact: artifacts.RiggedRoll,
     //   args: [diceGameAddress],
     // });
 
-    // Please replace the text "Your Address" with your own address.
+    // 请把文本 "Your Address" 替换为你自己的地址。
     // try {
     //   await env.execute(riggedRoll, {
     //     functionName: "transferOwnership",

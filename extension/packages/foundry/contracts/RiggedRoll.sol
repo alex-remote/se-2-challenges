@@ -1,4 +1,4 @@
-pragma solidity >=0.8.0 <0.9.0; //Do not change the solidity version as it negatively impacts submission grading
+pragma solidity >=0.8.0 <0.9.0; //不要修改 solidity 版本，否则会对提交评分产生负面影响
 //SPDX-License-Identifier: MIT
 
 import "./DiceGame.sol";
@@ -6,19 +6,19 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract RiggedRoll is Ownable {
     /////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
-    // Errors go here...
+    // 在这里定义错误...
 
     //////////////////////
-    /// State Variables //
+    /// 状态变量 //
     //////////////////////
 
     DiceGame public diceGame;
 
     ///////////////////
-    /// Constructor ///
+    /// 构造函数 ///
     ///////////////////
 
     constructor(address payable diceGameAddress) Ownable(msg.sender) {
@@ -26,8 +26,8 @@ contract RiggedRoll is Ownable {
     }
 
     ///////////////////
-    /// Functions /////
+    /// 函数 /////
     ///////////////////
 
-    // Functions go here...
+    // 在这里编写函数...
 }

@@ -10,11 +10,11 @@ contract DeployDiceGame is ScaffoldETHDeploy {
         DiceGame diceGame = new DiceGame{ value: 0.05 ether }();
         console.logString(string.concat("DiceGame deployed at: ", vm.toString(address(diceGame))));
 
-        // Uncomment to deploy RiggedRoll contract
+        // 取消注释以部署 RiggedRoll 合约
         // RiggedRoll riggedRoll = new RiggedRoll(payable(address(diceGame)));
         // console.logString(string.concat("RiggedRoll deployed at: ", vm.toString(address(riggedRoll))));
 
-        // Please replace the text "Your Address" with your own address.
+        // 请把文本 "Your Address" 替换为你自己的地址。
         // riggedRoll.transferOwnership(Your Address);
     }
 }

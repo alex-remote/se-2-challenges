@@ -51,7 +51,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: Receiving ETH
+  # CHECKPOINT 1: 接收 ETH
   # ============================================================
   - id: "receive-eth"
     title: "Receiving ETH"
@@ -156,7 +156,7 @@ checkpoints:
         receive() external payable {}
 
   # ============================================================
-  # CHECKPOINT 2: Predicting Randomness
+  # CHECKPOINT 2: 预测随机性
   # ============================================================
   - id: "rigged-roll"
     title: "Predicting Randomness"
@@ -333,7 +333,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 3: Withdrawing Funds
+  # CHECKPOINT 3: 提取资金
   # ============================================================
   - id: "withdraw"
     title: "Withdrawing Funds"

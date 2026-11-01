@@ -99,7 +99,7 @@ const DiceGame: NextPage = () => {
 
   useEffect(() => {
     if (videoRef.current && !isRolling) {
-      // show last frame
+      // 显示最后一帧
       videoRef.current.currentTime = 9999;
     }
   }, [isRolling]);

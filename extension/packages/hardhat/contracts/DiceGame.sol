@@ -1,31 +1,31 @@
-pragma solidity >=0.8.0 <0.9.0; //Do not change the solidity version as it negatively impacts submission grading
+pragma solidity >=0.8.0 <0.9.0; //不要修改 solidity 版本，否则会对提交评分产生负面影响
 //SPDX-License-Identifier: MIT
 
 import "hardhat/console.sol";
 
 contract DiceGame {
     /////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
     error NotEnoughEther();
 
     //////////////////////
-    /// State Variables //
+    /// 状态变量 //
     //////////////////////
 
     uint256 public nonce = 0;
     uint256 public prize = 0;
 
     ////////////////
-    /// Events /////
+    /// 事件 /////
     ////////////////
 
     event Roll(address indexed player, uint256 amount, uint256 roll);
     event Winner(address winner, uint256 amount);
 
     ///////////////////
-    /// Constructor ///
+    /// 构造函数 ///
     ///////////////////
 
     constructor() payable {
@@ -33,7 +33,7 @@ contract DiceGame {
     }
 
     ///////////////////
-    /// Functions /////
+    /// 函数 /////
     ///////////////////
 
     function resetPrize() private {
