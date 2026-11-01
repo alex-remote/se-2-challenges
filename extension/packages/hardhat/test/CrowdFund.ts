@@ -1,5 +1,5 @@
 //
-// This script executes when you run 'yarn test'
+// 运行 'yarn test' 时会执行此脚本
 //
 import { network } from "hardhat";
 import { expect } from "chai";
@@ -21,7 +21,7 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
 
     let contractArtifact: string;
     if (contractAddress) {
-      // For the autograder.
+      // 供自动评分程序使用。
       contractArtifact = `contracts/download-${contractAddress}.sol:CrowdFund`;
     } else {
       contractArtifact = "contracts/CrowdFund.sol:CrowdFund";
@@ -41,7 +41,7 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
       });
 
       const getContributionEventsFromReceipt = (receipt: any) => {
-        // We avoid chai matchers like `.to.emit` so this works in minimal environments.
+        // 我们不使用 `.to.emit` 之类的 chai 匹配器，这样在精简环境中也能运行。
         const parsed = receipt.logs
           .map((log: any) => {
             try {
@@ -128,20 +128,20 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
       });
 
       const setOpenToWithdrawTrue = async () => {
-        // Checkpoint 2 doesn't include a setter for `openToWithdraw`, so we toggle it directly in storage.
+        // Checkpoint 2 中没有 `openToWithdraw` 的 setter，所以我们直接在存储中切换它。
         //
-        // Don't worry if you don't understand the wizardry that happens here.
+        // 如果你看不懂这里施展的“魔法”，也不用担心。
         //
-        // Important: `openToWithdraw` might be:
-        // - in its own storage slot (bool uses the least-significant byte of the slot), OR
-        // - packed into an existing slot (e.g. declared right after an `address`, so it shares slot 0),
-        //   in which case flipping `0x...01` for the whole slot DOES NOT necessarily flip the bool.
+        // 重要：`openToWithdraw` 可能：
+        // - 独占一个存储槽（bool 使用该槽的最低有效字节），或者
+        // - 被打包进已有的槽（例如紧跟在一个 `address` 之后声明，于是与它共享 slot 0），
+        //   这种情况下，把整个槽设为 `0x...01` 并不一定能翻转这个 bool。
         //
-        // So we probe (slot, byteOffset) by mutating ONE byte at a time and checking which mutation makes
-        // `openToWithdraw()` return true. This effectively answers: "which storage location impacts this variable?"
+        // 因此我们每次只修改一个字节来探测 (slot, byteOffset)，并检查哪次修改能让
+        // `openToWithdraw()` 返回 true。这实际上回答了：“哪个存储位置会影响这个变量？”
         const target = await crowdFundContract.getAddress();
 
-        // If it's already open, nothing to do.
+        // 如果已经开放，就无需处理。
         if (await crowdFundContract.openToWithdraw()) return;
 
         const writeStorageAt = async (slot: bigint, value: string) => {
@@ -150,7 +150,7 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
         };
 
         const hexToBytes32 = (hex: string) => {
-          // Expect 0x-prefixed 32-byte hex from `getStorage`.
+          // `getStorage` 返回的应是带 0x 前缀的 32 字节十六进制串。
           const normalized = hex.startsWith("0x") ? hex.slice(2) : hex;
           const padded = normalized.padStart(64, "0");
           const out: number[] = [];
@@ -165,17 +165,17 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
           return "0x" + hex;
         };
 
-        // Probe a reasonable number of slots so re-ordering / adding variables doesn't break tests.
-        // (Mapping `balances` lives at a slot too, but since we always revert unsuccessful writes,
-        //  it's safe to probe it.)
+        // 探测足够多的槽，这样调整变量顺序或新增变量都不会破坏测试。
+        // （映射 `balances` 也位于某个槽中，但由于我们总会还原不成功的写入，
+        //  所以探测它也是安全的。）
         for (let s = 0n; s <= 20n; s++) {
           const original = await ethers.provider.getStorage(target, s);
           const originalBytes = hexToBytes32(original);
 
           try {
-            // Try flipping each byte to 0x01 (leaving all other bytes unchanged).
-            // Storage words are represented big-endian in hex, but since we probe ALL 32 bytes,
-            // we don't need to reason about endianness/packing direction here.
+            // 尝试把每个字节依次设为 0x01（其他字节保持不变）。
+            // 存储字在十六进制中以大端序表示，但由于我们会探测全部 32 个字节，
+            // 这里无需考虑字节序/打包方向。
             for (let byteIdx = 0; byteIdx < 32; byteIdx++) {
               const mutated = [...originalBytes];
               mutated[byteIdx] = 0x01;
@@ -183,18 +183,18 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
 
               const isOpen = await crowdFundContract.openToWithdraw();
               if (isOpen === true) {
-                // Found the (slot, byteIdx) that impacts `openToWithdraw`.
-                // We intentionally keep this storage mutation for the test.
+                // 找到了影响 `openToWithdraw` 的 (slot, byteIdx)。
+                // 我们有意为本测试保留这次存储修改。
                 return;
               }
 
-              // Not the right byte → restore original before continuing.
+              // 不是这个字节 → 继续之前先恢复原值。
               await writeStorageAt(s, original);
             }
           } catch {
-            // If the function doesn't exist yet, nothing to do here.
+            // 如果该函数尚不存在，这里无需处理。
           }
-          // Ensure we leave storage exactly as we found it before moving to the next slot.
+          // 确保在进入下一个槽之前，把存储恢复成原样。
           await writeStorageAt(s, original);
         }
 
@@ -215,7 +215,7 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
         await (await crowdFundContract.connect(contributor).contribute({ value: amount })).wait();
         expect(await crowdFundContract.balances(contributor.address)).to.equal(amount);
 
-        // We modify storage directly to set openToWithdraw to true since we have not implemented the setter yet.
+        // 由于还没有实现 setter，我们直接修改存储，把 openToWithdraw 设为 true。
         await setOpenToWithdrawTrue();
 
         const startingBalance = await ethers.provider.getBalance(contributor.address);
@@ -239,13 +239,13 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
         const amount = ethers.parseEther("0.001");
         await (await crowdFundContract.connect(contributor).contribute({ value: amount })).wait();
 
-        // We modify storage directly to set openToWithdraw to true since we have not implemented the setter yet.
+        // 由于还没有实现 setter，我们直接修改存储，把 openToWithdraw 设为 true。
         await setOpenToWithdrawTrue();
 
         await (await crowdFundContract.connect(contributor).withdraw()).wait();
         const balanceAfterFirst = await ethers.provider.getBalance(contributor.address);
 
-        // Second withdraw should refund 0; only gas should change wallet balance.
+        // 第二次 withdraw 应退还 0；只有 gas 会改变钱包余额。
         const secondTx = await crowdFundContract.connect(contributor).withdraw();
         const tx = await ethers.provider.getTransaction(secondTx.hash);
         if (!tx) throw new Error("Cannot resolve transaction");
@@ -310,7 +310,7 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
         const endRecipientBal = await ethers.provider.getBalance(await fundingRecipient.getAddress());
         const endContractBal = await ethers.provider.getBalance(await crowdFundContract.getAddress());
 
-        // Funds should have moved into the FundingRecipient via `complete{value: ...}()`
+        // 资金应已通过 `complete{value: ...}()` 转入 FundingRecipient
         expect(endRecipientBal).to.equal(startRecipientBal + startContractBal);
         expect(endContractBal).to.equal(0n);
       });
@@ -331,8 +331,8 @@ describe("🚩 Challenge: 📣 Crowdfunding App", function () {
         const result = await fundingRecipient.completed();
         expect(result).to.equal(false);
 
-        // If `openToWithdraw` is implemented (Checkpoint 2/3), it should now be true.
-        // We use `as any` so earlier checkpoints can still compile this test file.
+        // 如果已实现 `openToWithdraw`（Checkpoint 2/3），它现在应为 true。
+        // 我们使用 `as any`，这样在更早的 checkpoint 阶段这个测试文件也能编译。
         if ((crowdFundContract as any).openToWithdraw) {
           const isOpen = await (crowdFundContract as any).openToWithdraw();
           expect(isOpen).to.equal(true);

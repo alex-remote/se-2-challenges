@@ -8,7 +8,7 @@ type TBalanceProps = {
 };
 
 /**
- * Display (ETH & USD) value for the input value provided.
+ * 根据传入的值显示其（ETH 与 USD）价值。
  */
 export const ETHToPrice = ({ value, className = "" }: TBalanceProps) => {
   const [isEthBalance, setIsEthBalance] = useState(true);

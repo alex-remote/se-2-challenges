@@ -22,7 +22,7 @@ contract CrowdFundTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 1: Contributing
+    // Checkpoint 1: 出资
     // ============================================================
 
     function test_Checkpoint1_BalancesGoUpOnContribute() public {
@@ -44,7 +44,7 @@ contract CrowdFundTest is Test {
         crowdFund.contribute{ value: amount }();
     }
 
-    // Declare the event to match against
+    // 声明用于匹配的事件
     event Contribution(address, uint256);
 
     function test_Checkpoint1_AccumulatesMultipleContributions() public {
@@ -87,17 +87,17 @@ contract CrowdFundTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 2: Withdrawing Funds
+    // Checkpoint 2: 提取资金
     // ============================================================
 
-    /// @dev Toggle openToWithdraw via storage since no setter exists at Checkpoint 2.
-    /// Probes slots 0-20 byte-by-byte (like the Hardhat tests) to find the bool.
+    /// @dev 由于 Checkpoint 2 中还没有 setter，这里通过直接修改存储来切换 openToWithdraw。
+    /// 逐字节探测 0-20 号存储槽（与 Hardhat 测试的做法相同），以找到这个 bool。
     function _setOpenToWithdrawTrue() internal {
-        // If already open, nothing to do.
+        // 如果已经开放，就无需处理。
         try crowdFund.openToWithdraw() returns (bool isOpen) {
             if (isOpen) return;
         } catch {
-            return; // function doesn't exist yet
+            return; // 函数尚不存在
         }
 
         for (uint256 s = 0; s <= 20; s++) {
@@ -105,7 +105,7 @@ contract CrowdFundTest is Test {
 
             for (uint256 byteIdx = 0; byteIdx < 32; byteIdx++) {
                 bytes32 mutated = original;
-                // Set the byte at byteIdx to 0x01
+                // 将 byteIdx 处的字节设为 0x01
                 mutated = bytes32(
                     (uint256(original) & ~(uint256(0xFF) << (8 * (31 - byteIdx))))
                         | (uint256(0x01) << (8 * (31 - byteIdx)))
@@ -113,10 +113,10 @@ contract CrowdFundTest is Test {
                 vm.store(address(crowdFund), bytes32(s), mutated);
 
                 try crowdFund.openToWithdraw() returns (bool isOpen) {
-                    if (isOpen) return; // Found it, leave the mutation
+                    if (isOpen) return; // 找到了，保留这次修改
                 } catch { }
 
-                // Restore original before trying next byte
+                // 尝试下一个字节之前先恢复原值
                 vm.store(address(crowdFund), bytes32(s), original);
             }
         }
@@ -157,7 +157,7 @@ contract CrowdFundTest is Test {
         crowdFund.withdraw();
         uint256 balanceAfterFirst = user1.balance;
 
-        // Second withdraw should send 0
+        // 第二次 withdraw 应发送 0
         vm.prank(user1);
         crowdFund.withdraw();
         uint256 balanceAfterSecond = user1.balance;
@@ -167,7 +167,7 @@ contract CrowdFundTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 3: State Machine / Timing
+    // Checkpoint 3: 状态机 / 计时
     // ============================================================
 
     function test_Checkpoint3_ExecuteRevertsBeforeDeadline() public {
@@ -218,7 +218,7 @@ contract CrowdFundTest is Test {
 
         assertFalse(fundingRecipient.completed());
 
-        // openToWithdraw should now be true
+        // openToWithdraw 现在应为 true
         assertTrue(crowdFund.openToWithdraw());
 
         uint256 startingBalance = user2.balance;
@@ -229,7 +229,7 @@ contract CrowdFundTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 4: Receive Function / UX
+    // Checkpoint 4: receive 函数 / 用户体验
     // ============================================================
 
     function test_Checkpoint4_DirectETHTransferBehavesLikeContribute() public {

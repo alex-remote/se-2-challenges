@@ -1,29 +1,29 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20; // Do not change the solidity version as it negatively impacts submission grading
+pragma solidity 0.8.20; // 不要修改 solidity 版本，否则会影响提交评分
 
 import "./FundingRecipient.sol";
 
 contract CrowdFund {
     /////////////////
-    /// Errors //////
+    /// 错误 ////////
     /////////////////
 
-    // Errors go here...
+    // 在这里定义错误...
 
     //////////////////////
-    /// State Variables //
+    /// 状态变量 /////////
     //////////////////////
 
     FundingRecipient public fundingRecipient;
 
     ////////////////
-    /// Events /////
+    /// 事件 ///////
     ////////////////
 
-    // Events go here...
+    // 在这里定义事件...
 
     ///////////////////
-    /// Modifiers /////
+    /// 修饰器 ////////
     ///////////////////
 
     modifier notCompleted() {
@@ -31,7 +31,7 @@ contract CrowdFund {
     }
 
     ///////////////////
-    /// Constructor ///
+    /// 构造函数 //////
     ///////////////////
 
     constructor(address fundingRecipientAddress) {
@@ -39,7 +39,7 @@ contract CrowdFund {
     }
 
     ///////////////////
-    /// Functions /////
+    /// 函数 //////////
     ///////////////////
 
     function contribute() public payable {
@@ -59,7 +59,7 @@ contract CrowdFund {
     }
 
     ////////////////////////
-    /// View Functions /////
+    /// 视图函数 ///////////
     ////////////////////////
 
     function timeLeft() public view returns (uint256) {

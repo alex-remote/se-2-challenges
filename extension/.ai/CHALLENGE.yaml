@@ -4,8 +4,8 @@ description: "Build a decentralized crowdfunding contract where users pool ETH, 
 difficulty: "beginner"
 estimated_time: "3 - 8 hours"
 
-# CODE-WRITING challenge — the contract already has a skeleton with empty function bodies.
-# No setup.template needed.
+# 编写代码类挑战——合约已有骨架，函数体为空。
+# 不需要 setup.template。
 setup:
   file:
     hardhat: "packages/hardhat/contracts/CrowdFund.sol"
@@ -50,7 +50,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: Contributing
+  # CHECKPOINT 1: 出资
   # ============================================================
   - id: "contributing"
     title: "Contributing"
@@ -188,7 +188,7 @@ checkpoints:
         emit Contribution(msg.sender, msg.value);
 
   # ============================================================
-  # CHECKPOINT 2: Withdrawing Funds
+  # CHECKPOINT 2: 提取资金
   # ============================================================
   - id: "withdrawing"
     title: "Withdrawing Funds"
@@ -355,7 +355,7 @@ checkpoints:
         if (!success) revert WithdrawTransferFailed(msg.sender, balance);
 
   # ============================================================
-  # CHECKPOINT 3: State Machine / Timing
+  # CHECKPOINT 3: 状态机 / 计时
   # ============================================================
   - id: "state-machine"
     title: "State Machine / Timing"
@@ -529,7 +529,7 @@ checkpoints:
         return deadline > block.timestamp ? deadline - block.timestamp : 0;
 
   # ============================================================
-  # CHECKPOINT 4: Receive Function / UX
+  # CHECKPOINT 4: receive 函数 / 用户体验
   # ============================================================
   - id: "receive-function"
     title: "Receive Function / UX"

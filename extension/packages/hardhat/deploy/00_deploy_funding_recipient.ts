@@ -1,7 +1,7 @@
 import { artifacts, deployScript } from "../rocketh/deploy.js";
 
 /**
- * Deploys a contract named "FundingRecipient" using the deployer account.
+ * 使用 deployer 账户部署名为 "FundingRecipient" 的合约。
  */
 export default deployScript(
   async ({ deploy, namedAccounts }) => {
