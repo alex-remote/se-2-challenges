@@ -12,8 +12,8 @@ import { useRaceStore } from "~~/services/store/raceStore";
 const RaceTrack: React.FC = () => {
   const { resolvedTheme } = useTheme();
 
-  // Race configuration
-  const RACE_DURATION = 30; // Duration in seconds
+  // 比赛配置
+  const RACE_DURATION = 30; // 持续时间（秒）
 
   const {
     raceStarted,
@@ -33,12 +33,12 @@ const RaceTrack: React.FC = () => {
 
   const raceInterval = useRef<NodeJS.Timeout | null>(null);
 
-  // Start the race with a fixed duration
+  // 以固定时长开始比赛
   const startRace = () => {
     if (raceStarted || raceFinished) {
       resetRace();
 
-      // Wait 1 second before starting a new race
+      // 等待 1 秒后再开始新一轮比赛
       setTimeout(() => {
         const newStartTime = Date.now();
         setStartTime(newStartTime);
@@ -48,17 +48,17 @@ const RaceTrack: React.FC = () => {
         });
         setRaceStarted(true);
 
-        // Clear any existing interval
+        // 清除已有的定时器
         if (raceInterval.current) {
           clearInterval(raceInterval.current);
         }
 
-        // Start new interval
+        // 启动新的定时器
         raceInterval.current = setInterval(() => {
-          const currentTime = (Date.now() - newStartTime) / 1000; // seconds elapsed
+          const currentTime = (Date.now() - newStartTime) / 1000; // 已经过的秒数
 
           if (currentTime >= RACE_DURATION) {
-            // At race end, set final positions
+            // 比赛结束时，设置最终位置
             setElapsedTime(RACE_DURATION);
             setCars([
               { id: 1, position: carSpeeds[0] * RACE_DURATION, lane: 0, color: "#2ecc71" },
@@ -68,14 +68,14 @@ const RaceTrack: React.FC = () => {
             if (raceInterval.current) clearInterval(raceInterval.current);
           } else {
             setElapsedTime(currentTime);
-            // Update positions based on random speeds
+            // 根据随机速度更新位置
             setCars([
               { id: 1, position: carSpeeds[0] * currentTime, lane: 0, color: "#2ecc71" },
               { id: 2, position: carSpeeds[1] * currentTime, lane: 1, color: "#e74c3c" },
             ]);
           }
-        }, 100); // update every 100ms
-      }, 1000); // 1 second delay before starting the new race
+        }, 100); // 每 100ms 更新一次
+      }, 1000); // 开始新一轮比赛前延迟 1 秒
 
       return;
     }
@@ -88,17 +88,17 @@ const RaceTrack: React.FC = () => {
     setStartTime(newStartTime);
     setRaceStarted(true);
 
-    // Clear any existing interval
+    // 清除已有的定时器
     if (raceInterval.current) {
       clearInterval(raceInterval.current);
     }
 
-    // Start new interval
+    // 启动新的定时器
     raceInterval.current = setInterval(() => {
-      const currentTime = (Date.now() - newStartTime) / 1000; // seconds elapsed
+      const currentTime = (Date.now() - newStartTime) / 1000; // 已经过的秒数
 
       if (currentTime >= RACE_DURATION) {
-        // At race end, set final positions
+        // 比赛结束时，设置最终位置
         setElapsedTime(RACE_DURATION);
         setCars([
           { id: 1, position: carSpeeds[0] * RACE_DURATION, lane: 0, color: "#2ecc71" },
@@ -108,40 +108,40 @@ const RaceTrack: React.FC = () => {
         if (raceInterval.current) clearInterval(raceInterval.current);
       } else {
         setElapsedTime(currentTime);
-        // Update positions based on random speeds
+        // 根据随机速度更新位置
         setCars([
           { id: 1, position: carSpeeds[0] * currentTime, lane: 0, color: "#2ecc71" },
           { id: 2, position: carSpeeds[1] * currentTime, lane: 1, color: "#e74c3c" },
         ]);
       }
-    }, 100); // update every 100ms
+    }, 100); // 每 100ms 更新一次
   };
 
-  // Format elapsed time as MM:SS
+  // 将已用时间格式化为 MM:SS
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Handle visibility change and race state
+  // 处理页面可见性变化与比赛状态
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        // Tab is hidden, clear the interval
+        // 标签页被隐藏，清除定时器
         if (raceInterval.current) {
           clearInterval(raceInterval.current);
         }
       } else if (raceStarted && !raceFinished && startTime) {
-        // Tab is visible and race is in progress, restart the interval
+        // 标签页可见且比赛正在进行，重新启动定时器
         const currentTime = (Date.now() - startTime) / 1000;
         if (currentTime < RACE_DURATION) {
-          // Clear any existing interval
+          // 清除已有的定时器
           if (raceInterval.current) {
             clearInterval(raceInterval.current);
           }
 
-          // Start new interval
+          // 启动新的定时器
           raceInterval.current = setInterval(() => {
             const updatedTime = (Date.now() - startTime) / 1000;
             if (updatedTime >= RACE_DURATION) {
@@ -163,7 +163,7 @@ const RaceTrack: React.FC = () => {
             }
           }, 100);
         } else {
-          // Race has finished while tab was hidden
+          // 比赛在标签页隐藏期间已经结束
           setElapsedTime(RACE_DURATION);
           setCars([
             { id: 1, position: carSpeeds[0] * RACE_DURATION, lane: 0, color: "#2ecc71" },
@@ -174,7 +174,7 @@ const RaceTrack: React.FC = () => {
       }
     };
 
-    // Initial setup if race is already started
+    // 如果比赛已经开始，进行初始设置
     if (raceStarted && !raceFinished && startTime) {
       const currentTime = (Date.now() - startTime) / 1000;
       if (currentTime < RACE_DURATION) {

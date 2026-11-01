@@ -3,16 +3,16 @@ import { parseEther } from "viem";
 import * as fs from "fs";
 
 /**
- * Deploys a contract named "PredictionMarket" using the deployer account.
+ * 使用部署者账户部署名为 "PredictionMarket" 的合约。
  *
- * On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
+ * 在 localhost 上，部署者账户是 Hardhat 自带的账户，已经预先充值。
  *
- * When deploying to live networks (e.g `yarn deploy --network sepolia`), the deployer account
- * should have sufficient balance to pay for the gas fees for contract creation.
+ * 部署到真实网络时（例如 `yarn deploy --network sepolia`），部署者账户
+ * 需要有足够的余额来支付创建合约的 gas 费用。
  *
- * You can generate a random account with `yarn generate` or `yarn account:import` to import your
- * existing PK which will fill DEPLOYER_PRIVATE_KEY_ENCRYPTED in the .env file (used in hardhat.config.ts).
- * Run `yarn account` to check the deployer balance on every network.
+ * 你可以用 `yarn generate` 生成一个随机账户，或用 `yarn account:import` 导入你
+ * 现有的私钥，它会写入 .env 文件中的 DEPLOYER_PRIVATE_KEY_ENCRYPTED（在 hardhat.config.ts 中使用）。
+ * 运行 `yarn account` 查看部署者在各个网络上的余额。
  */
 export default deployScript(
   async env => {
@@ -35,7 +35,7 @@ export default deployScript(
 
     console.log("PredictionMarket deployed to:", predictionMarket.address);
 
-    // Get the deployed contract's address and ABI for the YES and NO tokens and copy them to the deployments directory
+    // 获取已部署的 YES 和 NO 代币合约的地址与 ABI，并将它们复制到 deployments 目录
     try {
       const i_yesToken = (await env.read(predictionMarket, { functionName: "i_yesToken" })) as `0x${string}`;
       const i_noToken = (await env.read(predictionMarket, { functionName: "i_noToken" })) as `0x${string}`;
@@ -51,7 +51,7 @@ export default deployScript(
       console.error("Error handling token files:", error);
     }
   },
-  // Tags are useful if you have multiple deploy files and only want to run one of them.
-  // e.g. yarn deploy --tags PredictionMarket
+  // 当你有多个部署文件而只想运行其中一个时，标签（tags）非常有用。
+  // 例如：yarn deploy --tags PredictionMarket
   { tags: ["PredictionMarket"] },
 );

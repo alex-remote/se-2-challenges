@@ -3,7 +3,7 @@ pragma solidity >=0.8.0 <0.9.0;
 
 interface IPredictionMarket {
     /////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
     error PredictionMarket__MustProvideETHForInitialLiquidity();
@@ -24,7 +24,7 @@ interface IPredictionMarket {
     error PredictionMarket__InvalidPercentageToLock();
 
     //////////////////////////
-    /// Enums ////////////////
+    /// 枚举 ////////////////
     //////////////////////////
 
     enum Outcome {
@@ -33,7 +33,7 @@ interface IPredictionMarket {
     }
 
     /////////////////////////
-    /// Events //////////////
+    /// 事件 //////////////
     /////////////////////////
 
     event TokensPurchased(address indexed buyer, Outcome outcome, uint256 amount, uint256 ethAmount);
@@ -45,7 +45,7 @@ interface IPredictionMarket {
     event LiquidityRemoved(address indexed provider, uint256 ethAmount, uint256 tokensAmount);
 
     /////////////////////////
-    /// Functions ///////////
+    /// 函数 ///////////
     /////////////////////////
 
     function addLiquidity() external payable;
@@ -81,7 +81,7 @@ interface IPredictionMarket {
         );
 
     /////////////////////////
-    /// Getters /////////////
+    /// Getter 函数 /////////////
     /////////////////////////
 
     function i_oracle() external view returns (address);

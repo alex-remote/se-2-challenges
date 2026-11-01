@@ -1,4 +1,4 @@
-# dependencies
+# 依赖
 node_modules
 
 # yarn
@@ -12,7 +12,7 @@ node_modules
 # eslint
 .eslintcache
 
-# misc
+# 杂项
 .DS_Store
 
 # IDE
@@ -22,5 +22,5 @@ node_modules
 # cli
 dist
 
-# AI Challenge Progress (personal progress tracking)
+# AI 挑战进度（个人进度跟踪）
 .challenge-ai/

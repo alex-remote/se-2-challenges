@@ -45,8 +45,8 @@ contract PredictionMarketTest is Test {
             PERCENTAGE_LOCKED
         )));
 
-        // Tolerate missing i_yesToken/i_noToken selectors so Checkpoint 2 tests can run
-        // before the learner has implemented Checkpoint 3.
+        // 允许 i_yesToken/i_noToken 选择器不存在，这样在学习者实现 Checkpoint 3 之前，
+        // Checkpoint 2 的测试也能运行。
         (bool yesOk, bytes memory yesData) =
             address(predictionMarket).staticcall(abi.encodeWithSignature("i_yesToken()"));
         (bool noOk, bytes memory noData) =
@@ -56,7 +56,7 @@ contract PredictionMarketTest is Test {
     }
 
     // ============================================================
-    // CHECKPOINT 2: Constructor Validation
+    // CHECKPOINT 2: 构造函数校验
     // ============================================================
 
     function test_Checkpoint2_RevertWhenNoETHProvided() public {
@@ -68,14 +68,14 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint2_RevertWhenInvalidProbability() public {
-        // probability = 0
+        // 概率为 0
         vm.expectRevert(IPredictionMarket.PredictionMarket__InvalidProbability.selector);
         vm.prank(owner);
         new PredictionMarket{value: INITIAL_LIQUIDITY}(
             owner, oracle, "Test Question", INITIAL_TOKEN_VALUE, 0, PERCENTAGE_LOCKED
         );
 
-        // probability = 100
+        // 概率为 100
         vm.expectRevert(IPredictionMarket.PredictionMarket__InvalidProbability.selector);
         vm.prank(owner);
         new PredictionMarket{value: INITIAL_LIQUIDITY}(
@@ -84,14 +84,14 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint2_RevertWhenInvalidPercentageToLock() public {
-        // percentageToLock = 0
+        // percentageToLock 为 0
         vm.expectRevert(IPredictionMarket.PredictionMarket__InvalidPercentageToLock.selector);
         vm.prank(owner);
         new PredictionMarket{value: INITIAL_LIQUIDITY}(
             owner, oracle, "Test Question", INITIAL_TOKEN_VALUE, INITIAL_PROBABILITY, 0
         );
 
-        // percentageToLock = 100
+        // percentageToLock 为 100
         vm.expectRevert(IPredictionMarket.PredictionMarket__InvalidPercentageToLock.selector);
         vm.prank(owner);
         new PredictionMarket{value: INITIAL_LIQUIDITY}(
@@ -120,7 +120,7 @@ contract PredictionMarketTest is Test {
     }
 
     // ============================================================
-    // CHECKPOINT 3: Token Deployment and Locking
+    // CHECKPOINT 3: 代币部署与锁定
     // ============================================================
 
     function test_Checkpoint3_CorrectInitialTokenAmounts() public {
@@ -138,7 +138,7 @@ contract PredictionMarketTest is Test {
         PredictionMarketToken yt = PredictionMarketToken(pm.i_yesToken());
         PredictionMarketToken nt = PredictionMarketToken(pm.i_noToken());
 
-        uint256 initialTokenAmount = (liquidity * PRECISION) / tokenValue; // 100 tokens
+        uint256 initialTokenAmount = (liquidity * PRECISION) / tokenValue; // 100 个代币
 
         assertEq(yt.totalSupply(), initialTokenAmount);
         assertEq(nt.totalSupply(), initialTokenAmount);
@@ -168,7 +168,7 @@ contract PredictionMarketTest is Test {
     }
 
     // ============================================================
-    // CHECKPOINT 4: Liquidity Management
+    // CHECKPOINT 4: 流动性管理
     // ============================================================
 
     function test_Checkpoint4_AddLiquidity() public {
@@ -188,7 +188,7 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint4_RevertRemoveTooMuchLiquidity() public {
-        uint256 ethToRemove = 11 ether; // More than 10 ETH available
+        uint256 ethToRemove = 11 ether; // 超过可用的 10 ETH
 
         vm.prank(owner);
         vm.expectRevert();
@@ -230,7 +230,7 @@ contract PredictionMarketTest is Test {
     }
 
     // ============================================================
-    // CHECKPOINT 5: Oracle Reporting
+    // CHECKPOINT 5: 预言机报告
     // ============================================================
 
     function test_Checkpoint5_RevertAddLiquidityAfterReport() public {
@@ -271,14 +271,14 @@ contract PredictionMarketTest is Test {
     function test_Checkpoint5_SetsWinningTokenAndIsReported() public {
         assertEq(predictionMarket.s_isReported(), false);
 
-        // Report YES
+        // 报告 YES
         vm.prank(oracle);
         predictionMarket.report(IPredictionMarket.Outcome.YES);
 
         assertEq(predictionMarket.s_isReported(), true);
         assertEq(predictionMarket.s_winningToken(), address(yesToken));
 
-        // Deploy new instance for NO test
+        // 为 NO 的测试部署新实例
         vm.prank(owner);
         IPredictionMarket pm2 = IPredictionMarket(address(new PredictionMarket{value: INITIAL_LIQUIDITY}(
             owner, oracle, "Test Question 2", INITIAL_TOKEN_VALUE, INITIAL_PROBABILITY, PERCENTAGE_LOCKED
@@ -299,13 +299,13 @@ contract PredictionMarketTest is Test {
         emit IPredictionMarket.MarketReported(oracle, IPredictionMarket.Outcome.YES, address(yesToken));
         predictionMarket.report(IPredictionMarket.Outcome.YES);
 
-        // Deploy new instance for NO event test
+        // 为 NO 的事件测试部署新实例
         vm.prank(owner);
         IPredictionMarket pm2 = IPredictionMarket(address(new PredictionMarket{value: INITIAL_LIQUIDITY}(
             owner, oracle, "Test Question 2", INITIAL_TOKEN_VALUE, INITIAL_PROBABILITY, PERCENTAGE_LOCKED
         )));
 
-        // Hoist token read before vm.prank — pm2.i_noToken() inline would consume the prank.
+        // 把代币读取提前到 vm.prank 之前——如果内联调用 pm2.i_noToken()，会消耗掉这次 prank。
         address pm2NoToken = pm2.i_noToken();
         vm.prank(oracle);
         vm.expectEmit(true, false, false, true);
@@ -314,7 +314,7 @@ contract PredictionMarketTest is Test {
     }
 
     // ============================================================
-    // CHECKPOINT 6: Market Resolution
+    // CHECKPOINT 6: 市场结算
     // ============================================================
 
     function test_Checkpoint6_RevertResolveBeforeReport() public {
@@ -327,30 +327,30 @@ contract PredictionMarketTest is Test {
         uint256 initialOwnerBalance = owner.balance;
         uint256 initialContractBalance = address(predictionMarket).balance;
 
-        // Report YES
+        // 报告 YES
         vm.prank(oracle);
         predictionMarket.report(IPredictionMarket.Outcome.YES);
 
-        // Calculate expected amounts
+        // 计算预期金额
         uint256 contractWinningTokens = yesToken.balanceOf(address(predictionMarket));
         uint256 lpTradingRevenue = predictionMarket.s_lpTradingRevenue();
         uint256 ethFromTokens = (contractWinningTokens * INITIAL_TOKEN_VALUE) / PRECISION;
         uint256 expectedTotalEth = ethFromTokens + lpTradingRevenue;
 
-        // Non-owner cannot resolve
+        // 非所有者不能结算
         address nonOwner = makeAddr("nonOwner");
         vm.prank(nonOwner);
         vm.expectRevert();
         predictionMarket.resolveMarketAndWithdraw();
 
-        // Owner resolves
+        // 所有者结算
         vm.prank(owner);
         predictionMarket.resolveMarketAndWithdraw();
 
-        // Verify winning tokens burned
+        // 验证获胜代币已被销毁
         assertEq(yesToken.balanceOf(address(predictionMarket)), 0);
 
-        // Verify ETH transferred
+        // 验证 ETH 已转出
         uint256 finalOwnerBalance = owner.balance;
         uint256 finalContractBalance = address(predictionMarket).balance;
         assertEq(finalOwnerBalance - initialOwnerBalance, expectedTotalEth);
@@ -377,7 +377,7 @@ contract PredictionMarketTest is Test {
     }
 
     // ============================================================
-    // CHECKPOINT 7: Pricing Calculations
+    // CHECKPOINT 7: 价格计算
     // ============================================================
 
     function test_Checkpoint7_CalculateBuyPrice() public {
@@ -386,7 +386,7 @@ contract PredictionMarketTest is Test {
 
         uint256 buyPrice = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, tradingAmount);
 
-        // Calculate expected price
+        // 计算预期价格
         uint256 currentTokenSoldBefore = initialTokenAmount - yesToken.balanceOf(address(predictionMarket));
         uint256 currentOtherTokenSold = initialTokenAmount - noToken.balanceOf(address(predictionMarket));
         uint256 totalTokensSoldBefore = currentTokenSoldBefore + currentOtherTokenSold;
@@ -409,7 +409,7 @@ contract PredictionMarketTest is Test {
 
         uint256 sellPrice = predictionMarket.getSellPriceInEth(IPredictionMarket.Outcome.YES, tradingAmount);
 
-        // Calculate expected price
+        // 计算预期价格
         uint256 currentTokenSoldBefore = initialTokenAmount - yesToken.balanceOf(address(predictionMarket));
         uint256 currentOtherTokenSold = initialTokenAmount - noToken.balanceOf(address(predictionMarket));
         uint256 totalTokensSoldBefore = currentTokenSoldBefore + currentOtherTokenSold;
@@ -435,10 +435,10 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint7_ProbabilityWithLiquidityChanges() public {
-        // Use live totalSupply() as the "tokens sold" reference. A frozen initialTokenAmount
-        // underflows after addLiquidity grows supply (JS BigInt masks this via signed arithmetic).
+        // 使用实时的 totalSupply() 作为“已售代币”的基准。若使用固定的 initialTokenAmount，
+        // 在 addLiquidity 增加供应量后会发生下溢（JS 的 BigInt 通过有符号运算掩盖了这一问题）。
 
-        // Add liquidity - probability should stay 50%
+        // 添加流动性——概率应保持 50%
         vm.prank(owner);
         predictionMarket.addLiquidity{value: 10 ether}();
 
@@ -447,7 +447,7 @@ contract PredictionMarketTest is Test {
         uint256 probability = (currentTokenSold * PRECISION) / totalTokensSold;
         assertEq(probability, PRECISION / 2);
 
-        // Add more liquidity - still 50%
+        // 再添加更多流动性——仍为 50%
         vm.prank(owner);
         predictionMarket.addLiquidity{value: 20 ether}();
 
@@ -461,14 +461,14 @@ contract PredictionMarketTest is Test {
         uint256 initialYesReserve = yesToken.balanceOf(address(predictionMarket));
         uint256 initialNoReserve = noToken.balanceOf(address(predictionMarket));
 
-        // Small amount to test price calculation
+        // 用少量代币测试价格计算
         uint256 smallAmount = 1e15;
         uint256 yesPrice = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, smallAmount);
         uint256 noPrice = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.NO, smallAmount);
         assertGt(yesPrice, 0);
         assertGt(noPrice, 0);
 
-        // Add liquidity
+        // 添加流动性
         vm.prank(owner);
         predictionMarket.addLiquidity{value: 5 ether}();
 
@@ -479,7 +479,7 @@ contract PredictionMarketTest is Test {
         assertGt(newNoReserve, initialNoReserve);
         assertEq(newYesReserve, newNoReserve);
 
-        // Prices still valid
+        // 价格仍然有效
         uint256 yesPriceAfter = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, smallAmount);
         uint256 noPriceAfter = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.NO, smallAmount);
         assertGt(yesPriceAfter, 0);
@@ -487,28 +487,28 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint7_ProbabilityEdgeCases() public {
-        // These are pure math checks matching the hardhat test pattern
+        // 这些是纯数学检查，与 hardhat 测试的写法一致
         uint256 initialTokenAmount = (INITIAL_LIQUIDITY * PRECISION) / INITIAL_TOKEN_VALUE;
 
-        // Very small tokens sold
+        // 售出的代币极少
         uint256 prob1 = (uint256(1) * PRECISION) / uint256(2);
         assertEq(prob1, PRECISION / 2);
 
-        // Almost all tokens sold
+        // 几乎所有代币都已售出
         uint256 prob2 = ((initialTokenAmount - 1) * PRECISION) / (initialTokenAmount * 2 - 2);
         assertEq(prob2, PRECISION / 2);
 
-        // Uneven: half YES sold out of total
+        // 不均衡：YES 售出量占总量的一半
         uint256 prob3 = ((initialTokenAmount / 2) * PRECISION) / initialTokenAmount;
         assertEq(prob3, PRECISION / 2);
 
-        // Uneven: quarter YES sold out of total
+        // 不均衡：YES 售出量占总量的四分之一
         uint256 prob4 = ((initialTokenAmount / 4) * PRECISION) / initialTokenAmount;
         assertEq(prob4, PRECISION / 4);
     }
 
     // ============================================================
-    // CHECKPOINT 8: Buy/Sell Tokens
+    // CHECKPOINT 8: 买入/卖出代币
     // ============================================================
 
     function test_Checkpoint8_RevertBuyZeroAmount() public {
@@ -547,13 +547,13 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint8_SellTokens() public {
-        // First buy some tokens
+        // 先买入一些代币
         uint256 amountToBuy = yesToken.balanceOf(address(predictionMarket)) / 10;
         uint256 requiredEth = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
         vm.prank(seller);
         predictionMarket.buyTokensWithETH{value: requiredEth}(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Approve tokens
+        // 授权代币
         vm.prank(seller);
         yesToken.approve(address(predictionMarket), amountToBuy);
 
@@ -572,17 +572,17 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint8_RevertSellMoreThanOwned() public {
-        // Buy some tokens
+        // 买入一些代币
         uint256 amountToBuy = yesToken.balanceOf(address(predictionMarket)) / 10;
         uint256 requiredEth = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
         vm.prank(seller);
         predictionMarket.buyTokensWithETH{value: requiredEth}(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Approve
+        // 授权
         vm.prank(seller);
         yesToken.approve(address(predictionMarket), amountToBuy + 1);
 
-        // Try to sell more than owned
+        // 尝试卖出超过持有量的代币
         vm.prank(seller);
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -595,13 +595,13 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint8_RevertSellWithoutApproval() public {
-        // Buy some tokens
+        // 买入一些代币
         uint256 amountToBuy = yesToken.balanceOf(address(predictionMarket)) / 10;
         uint256 requiredEth = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
         vm.prank(seller);
         predictionMarket.buyTokensWithETH{value: requiredEth}(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Try to sell without approval
+        // 尝试在未授权的情况下卖出
         vm.prank(seller);
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -617,19 +617,19 @@ contract PredictionMarketTest is Test {
         uint256 amountToBuy = yesToken.balanceOf(address(predictionMarket)) / 10;
         uint256 requiredEth = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Buy and check event
+        // 买入并检查事件
         vm.prank(buyer);
         vm.expectEmit(true, false, false, true);
         emit IPredictionMarket.TokensPurchased(buyer, IPredictionMarket.Outcome.YES, amountToBuy, requiredEth);
         predictionMarket.buyTokensWithETH{value: requiredEth}(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Approve for selling
+        // 为卖出进行授权
         vm.prank(buyer);
         yesToken.approve(address(predictionMarket), amountToBuy);
 
         uint256 ethToReceive = predictionMarket.getSellPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Sell and check event
+        // 卖出并检查事件
         vm.prank(buyer);
         vm.expectEmit(true, false, false, true);
         emit IPredictionMarket.TokensSold(buyer, IPredictionMarket.Outcome.YES, amountToBuy, ethToReceive);
@@ -649,21 +649,21 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint8_RevertSellAfterReport() public {
-        // Buy first
+        // 先买入
         uint256 amountToBuy = yesToken.balanceOf(address(predictionMarket)) / 10;
         uint256 requiredEth = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
         vm.prank(seller);
         predictionMarket.buyTokensWithETH{value: requiredEth}(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Approve
+        // 授权
         vm.prank(seller);
         yesToken.approve(address(predictionMarket), amountToBuy);
 
-        // Report
+        // 报告
         vm.prank(oracle);
         predictionMarket.report(IPredictionMarket.Outcome.YES);
 
-        // Try to sell
+        // 尝试卖出
         vm.prank(seller);
         vm.expectRevert(IPredictionMarket.PredictionMarket__PredictionAlreadyReported.selector);
         predictionMarket.sellTokensForEth(IPredictionMarket.Outcome.YES, amountToBuy);
@@ -673,19 +673,19 @@ contract PredictionMarketTest is Test {
         uint256 amountToBuy = yesToken.balanceOf(address(predictionMarket)) / 10;
         uint256 requiredEth = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Owner tries to buy
+        // 所有者尝试买入
         vm.prank(owner);
         vm.expectRevert(IPredictionMarket.PredictionMarket__OwnerCannotCall.selector);
         predictionMarket.buyTokensWithETH{value: requiredEth}(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Owner tries to sell
+        // 所有者尝试卖出
         vm.prank(owner);
         vm.expectRevert(IPredictionMarket.PredictionMarket__OwnerCannotCall.selector);
         predictionMarket.sellTokensForEth(IPredictionMarket.Outcome.YES, amountToBuy);
     }
 
     // ============================================================
-    // CHECKPOINT 9: Token Redemption
+    // CHECKPOINT 9: 代币赎回
     // ============================================================
 
     function test_Checkpoint9_RevertRedeemBeforeReport() public {
@@ -713,13 +713,13 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint9_RedeemWinningTokens() public {
-        // Buy YES tokens
+        // 买入 YES 代币
         uint256 amountToBuy = yesToken.balanceOf(address(predictionMarket)) / 10;
         uint256 requiredEth = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
         vm.prank(redeemer);
         predictionMarket.buyTokensWithETH{value: requiredEth}(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Report YES wins
+        // 报告 YES 获胜
         vm.prank(oracle);
         predictionMarket.report(IPredictionMarket.Outcome.YES);
 
@@ -728,7 +728,7 @@ contract PredictionMarketTest is Test {
         uint256 initialRedeemerTokens = yesToken.balanceOf(redeemer);
         uint256 expectedEth = (amountToBuy * INITIAL_TOKEN_VALUE) / PRECISION;
 
-        // Redeem
+        // 赎回
         vm.prank(redeemer);
         predictionMarket.redeemWinningTokens(amountToBuy);
 
@@ -738,13 +738,13 @@ contract PredictionMarketTest is Test {
     }
 
     function test_Checkpoint9_EmitsRedeemEvent() public {
-        // Buy YES tokens
+        // 买入 YES 代币
         uint256 amountToBuy = yesToken.balanceOf(address(predictionMarket)) / 10;
         uint256 requiredEth = predictionMarket.getBuyPriceInEth(IPredictionMarket.Outcome.YES, amountToBuy);
         vm.prank(redeemer);
         predictionMarket.buyTokensWithETH{value: requiredEth}(IPredictionMarket.Outcome.YES, amountToBuy);
 
-        // Report YES wins
+        // 报告 YES 获胜
         vm.prank(oracle);
         predictionMarket.report(IPredictionMarket.Outcome.YES);
 

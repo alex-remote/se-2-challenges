@@ -3,7 +3,7 @@ import { network } from "hardhat";
 import type { PredictionMarket, PredictionMarket__factory } from "../types/ethers-contracts/index.js";
 
 describe("📈📉🏎️ Prediction Markets Challenge", function () {
-  // We define a fixture to reuse the same setup in every test.
+  // 我们定义一个 fixture，以便在每个测试中复用相同的初始设置。
 
   let ethers: Awaited<ReturnType<typeof network.create>>["ethers"];
   let predictionMarket: PredictionMarket;
@@ -14,7 +14,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
   if (process.env.CONTRACT_ADDRESS) {
     contractArtifact = `contracts/download-${process.env.CONTRACT_ADDRESS}.sol:PredictionMarket`;
   } else {
-    // Use short name so hardhat-ethers returns PredictionMarket__factory (typed methods)
+    // 使用短名称，使 hardhat-ethers 返回 PredictionMarket__factory（带类型的方法）
     contractArtifact = "PredictionMarket";
   }
 
@@ -51,7 +51,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
           ethers.parseEther("1"),
           50,
           20,
-          { value: 0 }, // No ETH provided
+          { value: 0 }, // 未提供 ETH
         ),
       ).to.be.revertedWithCustomError(predictionMarketFactory, "PredictionMarket__MustProvideETHForInitialLiquidity");
     });
@@ -60,27 +60,27 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       const [owner, oracle] = await ethers.getSigners();
       const predictionMarketFactory = await getPredictionMarketFactory();
 
-      // Test case 1: initialYesProbability = 0
+      // 测试用例 1：initialYesProbability = 0
       await expect(
         predictionMarketFactory.deploy(
           owner.address,
           oracle.address,
           "Test Question",
           ethers.parseEther("1"),
-          0, // Invalid probability (0)
+          0, // 无效概率（0）
           20,
           { value: ethers.parseEther("10") },
         ),
       ).to.be.revertedWithCustomError(predictionMarketFactory, "PredictionMarket__InvalidProbability");
 
-      // Test case 2: initialYesProbability = 100
+      // 测试用例 2：initialYesProbability = 100
       await expect(
         predictionMarketFactory.deploy(
           owner.address,
           oracle.address,
           "Test Question",
           ethers.parseEther("1"),
-          100, // Invalid probability (>= 100)
+          100, // 无效概率（>= 100）
           20,
           { value: ethers.parseEther("10") },
         ),
@@ -91,7 +91,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       const [owner, oracle] = await ethers.getSigners();
       const predictionMarketFactory = await getPredictionMarketFactory();
 
-      // Test case 1: percentageToLock = 0
+      // 测试用例 1：percentageToLock = 0
       await expect(
         predictionMarketFactory.deploy(
           owner.address,
@@ -99,12 +99,12 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
           "Test Question",
           ethers.parseEther("1"),
           50,
-          0, // Invalid percentage (0)
+          0, // 无效百分比（0）
           { value: ethers.parseEther("10") },
         ),
       ).to.be.revertedWithCustomError(predictionMarketFactory, "PredictionMarket__InvalidPercentageToLock");
 
-      // Test case 2: percentageToLock = 100
+      // 测试用例 2：percentageToLock = 100
       await expect(
         predictionMarketFactory.deploy(
           owner.address,
@@ -112,7 +112,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
           "Test Question",
           ethers.parseEther("1"),
           50,
-          100, // Invalid percentage (>= 100)
+          100, // 无效百分比（>= 100）
           { value: ethers.parseEther("10") },
         ),
       ).to.be.revertedWithCustomError(predictionMarketFactory, "PredictionMarket__InvalidPercentageToLock");
@@ -137,7 +137,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Verify all state variables are set correctly
+      // 验证所有状态变量都已正确设置
       expect(await predictionMarket.i_oracle()).to.equal(oracle.address);
       expect(await predictionMarket.s_question()).to.equal(question);
       expect(await predictionMarket.i_initialTokenValue()).to.equal(initialTokenValue);
@@ -168,17 +168,17 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contracts
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const noTokenAddress = await predictionMarket.i_noToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const noToken = await ethers.getContractAt("PredictionMarketToken", noTokenAddress);
 
-      // Calculate expected values
-      const PRECISION = BigInt(1e18); // 1e18 precision
-      const initialTokenAmount = (initialLiquidity * PRECISION) / initialTokenValue; // 10 tokens
+      // 计算预期值
+      const PRECISION = BigInt(1e18); // 1e18 精度
+      const initialTokenAmount = (initialLiquidity * PRECISION) / initialTokenValue; // 10 个代币
 
-      // Verify token amounts
+      // 验证代币数量
       expect(await yesToken.totalSupply()).to.equal(initialTokenAmount);
       expect(await noToken.totalSupply()).to.equal(initialTokenAmount);
     });
@@ -203,22 +203,22 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contracts
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const noTokenAddress = await predictionMarket.i_noToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const noToken = await ethers.getContractAt("PredictionMarketToken", noTokenAddress);
 
-      // Calculate expected values
-      const PRECISION = BigInt(1e18); // 1e18 precision
-      const initialTokenAmount = (initialLiquidity * PRECISION) / initialTokenValue; // 10 tokens
+      // 计算预期值
+      const PRECISION = BigInt(1e18); // 1e18 精度
+      const initialTokenAmount = (initialLiquidity * PRECISION) / initialTokenValue; // 10 个代币
       const initialYesAmountLocked =
         (initialTokenAmount * BigInt(initialYesProbability) * BigInt(percentageToLock) * BigInt(2)) / BigInt(10000);
       const initialNoAmountLocked =
         (initialTokenAmount * BigInt(100 - initialYesProbability) * BigInt(percentageToLock) * BigInt(2)) /
         BigInt(10000);
 
-      // Verify locked token transfers to deployer
+      // 验证锁定的代币已转给部署者
       expect(await yesToken.balanceOf(owner.address)).to.equal(initialYesAmountLocked);
       expect(await noToken.balanceOf(owner.address)).to.equal(initialNoAmountLocked);
     });
@@ -241,16 +241,16 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       const initialEthCollateral = await predictionMarket.s_ethCollateral();
       const liquidityToAdd = ethers.parseEther("5");
       const expectedTokenAmount = (liquidityToAdd * BigInt(1e18)) / ethers.parseEther("1");
-      // Get initial token balances
+      // 获取初始代币余额
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const noTokenAddress = await predictionMarket.i_noToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const noToken = await ethers.getContractAt("PredictionMarketToken", noTokenAddress);
       const initialYesTokenBalance = await yesToken.balanceOf(predictionMarket.getAddress());
       const initialNoTokenBalance = await noToken.balanceOf(predictionMarket.getAddress());
-      // Add liquidity
+      // 添加流动性
       await predictionMarket.connect(owner).addLiquidity({ value: liquidityToAdd });
-      // Verify state changes
+      // 验证状态变化
       expect(await predictionMarket.s_ethCollateral()).to.equal(initialEthCollateral + liquidityToAdd);
       expect(await yesToken.balanceOf(predictionMarket.getAddress())).to.equal(
         initialYesTokenBalance + expectedTokenAmount,
@@ -274,10 +274,10 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Try to remove more ETH than we initially provided
-      const ethToRemove = ethers.parseEther("11"); // Try to remove 11 ETH when we only have 10 ETH worth of tokens
+      // 尝试移除比我们最初提供的更多的 ETH
+      const ethToRemove = ethers.parseEther("11"); // 尝试移除 11 ETH，而我们只有价值 10 ETH 的代币
 
-      // Try to remove liquidity with more tokens than available
+      // 尝试移除超出可用代币数量的流动性
       await expect(predictionMarket.connect(owner).removeLiquidity(ethToRemove)).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__InsufficientTokenReserve",
@@ -299,16 +299,16 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       const initialEthCollateral = await predictionMarket.s_ethCollateral();
       const ethToRemove = ethers.parseEther("5");
       const expectedTokenAmount = (ethToRemove * BigInt(1e18)) / ethers.parseEther("1");
-      // Get initial token balances
+      // 获取初始代币余额
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const noTokenAddress = await predictionMarket.i_noToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const noToken = await ethers.getContractAt("PredictionMarketToken", noTokenAddress);
       const initialYesTokenBalance = await yesToken.balanceOf(predictionMarket.getAddress());
       const initialNoTokenBalance = await noToken.balanceOf(predictionMarket.getAddress());
-      // Remove liquidity
+      // 移除流动性
       await predictionMarket.connect(owner).removeLiquidity(ethToRemove);
-      // Verify state changes
+      // 验证状态变化
       expect(await predictionMarket.s_ethCollateral()).to.equal(initialEthCollateral - ethToRemove);
       expect(await yesToken.balanceOf(predictionMarket.getAddress())).to.equal(
         initialYesTokenBalance - expectedTokenAmount,
@@ -332,20 +332,20 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Test LiquidityAdded event
+      // 测试 LiquidityAdded 事件
       const liquidityToAdd = ethers.parseEther("5");
       const expectedTokenAmount = (liquidityToAdd * BigInt(1e18)) / ethers.parseEther("1");
 
-      // Add liquidity and expect event
+      // 添加流动性，并预期触发事件
       await expect(predictionMarket.connect(owner).addLiquidity({ value: liquidityToAdd }))
         .to.emit(predictionMarket, "LiquidityAdded")
         .withArgs(owner.address, liquidityToAdd, expectedTokenAmount);
 
-      // Test LiquidityRemoved event
+      // 测试 LiquidityRemoved 事件
       const ethToRemove = ethers.parseEther("3");
       const expectedTokenAmountToRemove = (ethToRemove * BigInt(1e18)) / ethers.parseEther("1");
 
-      // Remove liquidity and expect event
+      // 移除流动性，并预期触发事件
       await expect(predictionMarket.connect(owner).removeLiquidity(ethToRemove))
         .to.emit(predictionMarket, "LiquidityRemoved")
         .withArgs(owner.address, ethToRemove, expectedTokenAmountToRemove);
@@ -354,10 +354,10 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
 
   describe("Checkpoint5", function () {
     it("Should revert when trying to add liquidity after prediction is reported", async function () {
-      // First report the prediction
-      await predictionMarket.connect(oracle).report(0); // Report YES as winning option
+      // 先报告预测结果
+      await predictionMarket.connect(oracle).report(0); // 报告 YES 为获胜选项
 
-      // Try to add liquidity after prediction is reported
+      // 尝试在预测结果报告后添加流动性
       await expect(
         predictionMarket.connect(owner).addLiquidity({ value: ethers.parseEther("1") }),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__PredictionAlreadyReported");
@@ -377,10 +377,10 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // First report the prediction
-      await predictionMarket.connect(oracle).report(0); // Report YES as winning option
+      // 先报告预测结果
+      await predictionMarket.connect(oracle).report(0); // 报告 YES 为获胜选项
 
-      // Try to remove liquidity after prediction is reported
+      // 尝试在预测结果报告后移除流动性
       await expect(
         predictionMarket.connect(owner).removeLiquidity(ethers.parseEther("1")),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__PredictionAlreadyReported");
@@ -400,10 +400,10 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // First report the prediction
-      await predictionMarket.connect(oracle).report(0); // Report YES as winning option
+      // 先报告预测结果
+      await predictionMarket.connect(oracle).report(0); // 报告 YES 为获胜选项
 
-      // Try to report again
+      // 尝试再次报告
       await expect(predictionMarket.connect(oracle).report(0)).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__PredictionAlreadyReported",
@@ -424,7 +424,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Try to report from non-oracle account
+      // 尝试从非预言机账户报告
       await expect(predictionMarket.connect(nonOracle).report(0)).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__OnlyOracleCanReport",
@@ -445,22 +445,22 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token addresses before reporting
+      // 在报告之前获取代币地址
       const yesTokenAddress = await predictionMarket.i_yesToken();
 
-      // Initially isReported should be false
+      // 初始时 isReported 应为 false
       expect(await predictionMarket.s_isReported()).to.equal(false);
 
-      // Report YES outcome
+      // 报告 YES 结果
       await predictionMarket.connect(oracle).report(0);
 
-      // Verify isReported is set to true
+      // 验证 isReported 已被设为 true
       expect(await predictionMarket.s_isReported()).to.equal(true);
 
-      // Verify winning token is set to YES token
+      // 验证获胜代币被设为 YES 代币
       expect(await predictionMarket.s_winningToken()).to.equal(yesTokenAddress);
 
-      // Deploy a new instance for testing NO outcome
+      // 部署一个新实例来测试 NO 结果
       const predictionMarket2 = await predictionMarketFactory.deploy(
         owner.address,
         oracle.address,
@@ -472,19 +472,19 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket2.waitForDeployment();
 
-      // Get token addresses for second instance
+      // 获取第二个实例的代币地址
       const noTokenAddress2 = await predictionMarket2.i_noToken();
 
-      // Initially isReported should be false
+      // 初始时 isReported 应为 false
       expect(await predictionMarket2.s_isReported()).to.equal(false);
 
-      // Report NO outcome
+      // 报告 NO 结果
       await predictionMarket2.connect(oracle).report(1);
 
-      // Verify isReported is set to true
+      // 验证 isReported 已被设为 true
       expect(await predictionMarket2.s_isReported()).to.equal(true);
 
-      // Verify winning token is set to NO token
+      // 验证获胜代币被设为 NO 代币
       expect(await predictionMarket2.s_winningToken()).to.equal(noTokenAddress2);
     });
 
@@ -502,15 +502,15 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token addresses before reporting
+      // 在报告之前获取代币地址
       const yesTokenAddress = await predictionMarket.i_yesToken();
 
-      // Report YES outcome and expect event
+      // 报告 YES 结果，并预期触发事件
       await expect(predictionMarket.connect(oracle).report(0))
         .to.emit(predictionMarket, "MarketReported")
-        .withArgs(oracle.address, 0, yesTokenAddress); // 0 represents YES outcome
+        .withArgs(oracle.address, 0, yesTokenAddress); // 0 代表 YES 结果
 
-      // Deploy a new instance for testing NO outcome
+      // 部署一个新实例来测试 NO 结果
       const predictionMarket2 = await predictionMarketFactory.deploy(
         owner.address,
         oracle.address,
@@ -522,13 +522,13 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket2.waitForDeployment();
 
-      // Get token addresses for second instance
+      // 获取第二个实例的代币地址
       const noTokenAddress2 = await predictionMarket2.i_noToken();
 
-      // Report NO outcome and expect event
+      // 报告 NO 结果，并预期触发事件
       await expect(predictionMarket2.connect(oracle).report(1))
         .to.emit(predictionMarket2, "MarketReported")
-        .withArgs(oracle.address, 1, noTokenAddress2); // 1 represents NO outcome
+        .withArgs(oracle.address, 1, noTokenAddress2); // 1 代表 NO 结果
     });
   });
 
@@ -547,7 +547,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Try to resolve before reporting
+      // 尝试在报告之前结算
       await expect(predictionMarket.connect(owner).resolveMarketAndWithdraw()).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__PredictionNotReported",
@@ -568,53 +568,53 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get initial balances
+      // 获取初始余额
       const initialOwnerBalance = await ethers.provider.getBalance(owner.address);
       const initialContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
 
-      // Report the prediction
-      await predictionMarket.connect(oracle).report(0); // Report YES as winning option
+      // 报告预测结果
+      await predictionMarket.connect(oracle).report(0); // 报告 YES 为获胜选项
 
-      // Get winning token contract and initial values
+      // 获取获胜代币合约及初始值
       const winningTokenAddress = await predictionMarket.s_winningToken();
       const winningToken = await ethers.getContractAt("PredictionMarketToken", winningTokenAddress);
       const initialWinningTokens = await winningToken.balanceOf(predictionMarket.getAddress());
       const initialLpTradingRevenue = await predictionMarket.s_lpTradingRevenue();
 
-      // Calculate expected amounts before resolving
+      // 在结算之前计算预期金额
       const expectedEthAmount = (initialWinningTokens * ethers.parseEther("1")) / BigInt(1e18);
       const expectedTotalEthToSend = expectedEthAmount + initialLpTradingRevenue;
 
-      // Try to resolve from non-owner account (should fail)
+      // 尝试从非所有者账户结算（应当失败）
       await expect(predictionMarket.connect(nonOwner).resolveMarketAndWithdraw()).to.be.revertedWithCustomError(
         predictionMarket,
         "OwnableUnauthorizedAccount",
       );
 
-      // Resolve market
+      // 结算市场
       const tx = await predictionMarket.connect(owner).resolveMarketAndWithdraw();
       const receipt = await tx.wait();
 
-      // Get final balances
+      // 获取最终余额
       const finalOwnerBalance = await ethers.provider.getBalance(owner.address);
       const finalContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
       const finalWinningTokens = await winningToken.balanceOf(predictionMarket.getAddress());
 
-      // Verify state changes
+      // 验证状态变化
       const expectedWinningTokens = BigInt(0);
-      expect(finalWinningTokens).to.equal(expectedWinningTokens); // All winning tokens should be burned
+      expect(finalWinningTokens).to.equal(expectedWinningTokens); // 所有获胜代币都应被销毁
 
-      // Account for gas costs in balance calculations
+      // 在余额计算中把 gas 费用考虑在内
       const gasUsed = receipt?.gasUsed || BigInt(0);
       const gasPrice = tx.gasPrice || BigInt(0);
       const gasCost = gasUsed * gasPrice;
       const actualEthReceived = finalOwnerBalance - initialOwnerBalance + gasCost;
 
-      // Verify the exact amount was sent
+      // 验证发送的金额准确无误
       expect(actualEthReceived).to.equal(expectedTotalEthToSend);
       expect(finalContractBalance).to.equal(initialContractBalance - expectedTotalEthToSend);
 
-      // Verify event emission
+      // 验证事件已触发
       const marketResolvedEvent = receipt?.logs.find(log => {
         try {
           return predictionMarket.interface.parseLog({ topics: log.topics, data: log.data })?.name === "MarketResolved";
@@ -640,40 +640,40 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get initial balances
+      // 获取初始余额
       const initialOwnerBalance = await ethers.provider.getBalance(owner.address);
       const initialContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
       const initialLpTradingRevenue = await predictionMarket.s_lpTradingRevenue();
 
-      // Report the prediction
-      await predictionMarket.connect(oracle).report(0); // Report YES as winning option
+      // 报告预测结果
+      await predictionMarket.connect(oracle).report(0); // 报告 YES 为获胜选项
 
-      // Get winning token contract and balance
+      // 获取获胜代币合约及余额
       const winningTokenAddress = await predictionMarket.s_winningToken();
       const winningToken = await ethers.getContractAt("PredictionMarketToken", winningTokenAddress);
       const contractWinningTokens = await winningToken.balanceOf(predictionMarket.getAddress());
 
-      // Calculate expected ETH amount from winning tokens
+      // 根据获胜代币计算预期的 ETH 数量
       const ethFromWinningTokens = (contractWinningTokens * ethers.parseEther("1")) / BigInt(1e18);
 
-      // Calculate expected total ETH to send
+      // 计算预期发送的 ETH 总额
       const expectedTotalEthToSend = ethFromWinningTokens + initialLpTradingRevenue;
 
-      // Resolve market and get transaction
+      // 结算市场并获取交易
       const tx = await predictionMarket.connect(owner).resolveMarketAndWithdraw();
       const receipt = await tx.wait();
 
-      // Get final balances
+      // 获取最终余额
       const finalOwnerBalance = await ethers.provider.getBalance(owner.address);
       const finalContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
 
-      // Calculate actual ETH sent (accounting for gas costs)
+      // 计算实际发送的 ETH（把 gas 费用考虑在内）
       const gasUsed = receipt?.gasUsed || BigInt(0);
       const gasPrice = tx.gasPrice || BigInt(0);
       const gasCost = gasUsed * gasPrice;
       const actualEthReceived = finalOwnerBalance - initialOwnerBalance + gasCost;
 
-      // Verify the exact amount was sent
+      // 验证发送的金额准确无误
       expect(actualEthReceived).to.equal(expectedTotalEthToSend);
       expect(finalContractBalance).to.equal(initialContractBalance - expectedTotalEthToSend);
     });
@@ -694,21 +694,21 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contracts
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const noTokenAddress = await predictionMarket.i_noToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const noToken = await ethers.getContractAt("PredictionMarketToken", noTokenAddress);
 
-      // Calculate expected values
+      // 计算预期值
       const PRECISION = BigInt(1e18);
       const initialTokenAmount = (ethers.parseEther("10") * PRECISION) / ethers.parseEther("1");
-      const tradingAmount = initialTokenAmount / BigInt(10); // Buy 10% of total supply
+      const tradingAmount = initialTokenAmount / BigInt(10); // 购买总供应量的 10%
 
-      // Get buy price for YES tokens
+      // 获取 YES 代币的买入价格
       const buyPrice = await predictionMarket.getBuyPriceInEth(0, tradingAmount);
 
-      // Verify price calculation
+      // 验证价格计算
       const currentTokenSoldBefore = initialTokenAmount - (await yesToken.balanceOf(predictionMarket.getAddress()));
       const currentOtherTokenSold = initialTokenAmount - (await noToken.balanceOf(predictionMarket.getAddress()));
       const totalTokensSoldBefore = currentTokenSoldBefore + currentOtherTokenSold;
@@ -739,21 +739,21 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contracts
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const noTokenAddress = await predictionMarket.i_noToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const noToken = await ethers.getContractAt("PredictionMarketToken", noTokenAddress);
 
-      // Calculate expected values
+      // 计算预期值
       const PRECISION = BigInt(1e18);
       const initialTokenAmount = (ethers.parseEther("10") * PRECISION) / ethers.parseEther("1");
-      const tradingAmount = initialTokenAmount / BigInt(10); // Sell 10% of total supply
+      const tradingAmount = initialTokenAmount / BigInt(10); // 卖出总供应量的 10%
 
-      // Get sell price for YES tokens
+      // 获取 YES 代币的卖出价格
       const sellPrice = await predictionMarket.getSellPriceInEth(0, tradingAmount);
 
-      // Verify price calculation
+      // 验证价格计算
       const currentTokenSoldBefore = initialTokenAmount - (await yesToken.balanceOf(predictionMarket.getAddress()));
       const currentOtherTokenSold = initialTokenAmount - (await noToken.balanceOf(predictionMarket.getAddress()));
       const totalTokensSoldBefore = currentTokenSoldBefore + currentOtherTokenSold;
@@ -784,11 +784,11 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // Try to buy more tokens than available in reserve
+      // 尝试购买超过储备中可用数量的代币
       const reserveAmount = await yesToken.balanceOf(predictionMarket.getAddress());
       const tooManyTokens = reserveAmount + BigInt(1);
 
@@ -812,27 +812,27 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contracts
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const noTokenAddress = await predictionMarket.i_noToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const noToken = await ethers.getContractAt("PredictionMarketToken", noTokenAddress);
 
-      // Calculate expected values
+      // 计算预期值
       const PRECISION = BigInt(1e18);
       const initialTokenAmount = (ethers.parseEther("10") * PRECISION) / ethers.parseEther("1");
 
-      // Test different scenarios
+      // 测试不同场景
       const scenarios = [
-        { liquidityToAdd: ethers.parseEther("10"), expectedProbability: PRECISION / BigInt(2) }, // 50% YES (initial state)
-        { liquidityToAdd: ethers.parseEther("20"), expectedProbability: PRECISION / BigInt(2) }, // Still 50% YES
+        { liquidityToAdd: ethers.parseEther("10"), expectedProbability: PRECISION / BigInt(2) }, // 50% YES（初始状态）
+        { liquidityToAdd: ethers.parseEther("20"), expectedProbability: PRECISION / BigInt(2) }, // 仍为 50% YES
       ];
 
       for (const scenario of scenarios) {
-        // Add liquidity to create token balances
+        // 添加流动性以产生代币余额
         await predictionMarket.connect(owner).addLiquidity({ value: scenario.liquidityToAdd });
 
-        // Calculate probability
+        // 计算概率
         const currentTokenSold = initialTokenAmount - (await yesToken.balanceOf(predictionMarket.getAddress()));
         const totalTokensSold =
           initialTokenAmount -
@@ -858,42 +858,42 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contracts
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const noTokenAddress = await predictionMarket.i_noToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const noToken = await ethers.getContractAt("PredictionMarketToken", noTokenAddress);
 
-      // Get initial reserves
+      // 获取初始储备
       const initialYesReserve = await yesToken.balanceOf(predictionMarket.getAddress());
       const initialNoReserve = await noToken.balanceOf(predictionMarket.getAddress());
 
-      // Test reserves through price calculation for YES outcome
-      const smallAmount = BigInt(1e15); // Small amount to minimize price impact
+      // 通过 YES 结果的价格计算来测试储备
+      const smallAmount = BigInt(1e15); // 使用小额以尽量减小价格影响
       const yesPrice = await predictionMarket.getBuyPriceInEth(0, smallAmount);
-      expect(yesPrice).to.be.gt(0); // Price should be calculated correctly
+      expect(yesPrice).to.be.gt(0); // 价格应被正确计算
 
-      // Test reserves through price calculation for NO outcome
+      // 通过 NO 结果的价格计算来测试储备
       const noPrice = await predictionMarket.getBuyPriceInEth(1, smallAmount);
-      expect(noPrice).to.be.gt(0); // Price should be calculated correctly
+      expect(noPrice).to.be.gt(0); // 价格应被正确计算
 
-      // Add some liquidity to change reserves
+      // 添加一些流动性以改变储备
       await predictionMarket.connect(owner).addLiquidity({ value: ethers.parseEther("5") });
 
-      // Get new reserves
+      // 获取新的储备
       const newYesReserve = await yesToken.balanceOf(predictionMarket.getAddress());
       const newNoReserve = await noToken.balanceOf(predictionMarket.getAddress());
 
-      // Verify reserves increased equally
+      // 验证两种储备等量增加
       expect(newYesReserve).to.be.gt(initialYesReserve);
       expect(newNoReserve).to.be.gt(initialNoReserve);
       expect(newYesReserve).to.equal(newNoReserve);
 
-      // Test reserves again through price calculation
+      // 再次通过价格计算来测试储备
       const yesPriceAfter = await predictionMarket.getBuyPriceInEth(0, smallAmount);
       const noPriceAfter = await predictionMarket.getBuyPriceInEth(1, smallAmount);
 
-      // Prices should still be calculated correctly with new reserves
+      // 在新的储备下，价格仍应被正确计算
       expect(yesPriceAfter).to.be.gt(0);
       expect(noPriceAfter).to.be.gt(0);
     });
@@ -912,31 +912,31 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Calculate expected values
+      // 计算预期值
       const PRECISION = BigInt(1e18);
       const initialTokenAmount = (ethers.parseEther("10") * PRECISION) / ethers.parseEther("1");
 
-      // Test different scenarios for probability calculation
+      // 测试概率计算的不同场景
       const scenarios = [
-        // Very small amount of tokens sold (almost all in reserve)
+        // 售出的代币极少（几乎全部仍在储备中）
         {
           yesTokensSold: BigInt(1),
           totalTokensSold: BigInt(2),
           expectedProbability: PRECISION / BigInt(2), // 50%
         },
-        // Almost all tokens sold (very small reserve)
+        // 几乎所有代币都已售出（储备极少）
         {
           yesTokensSold: initialTokenAmount - BigInt(1),
           totalTokensSold: initialTokenAmount * BigInt(2) - BigInt(2),
           expectedProbability: PRECISION / BigInt(2), // 50%
         },
-        // Uneven distribution (more YES tokens sold)
+        // 分布不均（售出的 YES 代币更多）
         {
           yesTokensSold: initialTokenAmount / BigInt(2),
           totalTokensSold: initialTokenAmount,
           expectedProbability: PRECISION / BigInt(2), // 50%
         },
-        // Uneven distribution (more NO tokens sold)
+        // 分布不均（售出的 NO 代币更多）
         {
           yesTokensSold: initialTokenAmount / BigInt(4),
           totalTokensSold: initialTokenAmount,
@@ -945,13 +945,13 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       ];
 
       for (const scenario of scenarios) {
-        // Calculate probability using the contract's formula
+        // 使用合约中的公式计算概率
         const probability = (scenario.yesTokensSold * PRECISION) / scenario.totalTokensSold;
 
-        // Verify the probability calculation
+        // 验证概率计算
         expect(probability).to.equal(scenario.expectedProbability);
 
-        // Verify that the probability is within valid range (0 to 1)
+        // 验证概率处于有效范围内（0 到 1）
         expect(probability).to.be.gte(BigInt(0));
         expect(probability).to.be.lte(PRECISION);
       }
@@ -973,7 +973,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Try to buy tokens with zero amount
+      // 尝试以零数量购买代币
       await expect(
         predictionMarket.connect(owner).buyTokensWithETH(0, 0, { value: ethers.parseEther("1") }),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__AmountMustBeGreaterThanZero");
@@ -993,7 +993,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Try to sell tokens with zero amount
+      // 尝试以零数量卖出代币
       await expect(predictionMarket.connect(owner).sellTokensForEth(0, 0)).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__AmountMustBeGreaterThanZero",
@@ -1014,15 +1014,15 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // Calculate amount to buy
+      // 计算要购买的数量
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
 
-      // Try to buy with incorrect ETH amount
+      // 尝试用不正确的 ETH 数额购买
       await expect(
         predictionMarket.connect(buyer).buyTokensWithETH(0, amountToBuy, { value: requiredEth + BigInt(1) }),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__MustSendExactETHAmount");
@@ -1042,26 +1042,26 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // Calculate amount to buy
+      // 计算要购买的数量
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
 
-      // Get initial balances
+      // 获取初始余额
       const initialBuyerBalance = await yesToken.balanceOf(buyer.address);
       const initialContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
 
-      // Buy tokens
+      // 购买代币
       await predictionMarket.connect(buyer).buyTokensWithETH(0, amountToBuy, { value: requiredEth });
 
-      // Get final balances
+      // 获取最终余额
       const finalBuyerBalance = await yesToken.balanceOf(buyer.address);
       const finalContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
 
-      // Verify token transfer
+      // 验证代币转账
       expect(finalBuyerBalance).to.equal(initialBuyerBalance + amountToBuy);
       expect(finalContractBalance).to.equal(initialContractBalance + requiredEth);
     });
@@ -1080,42 +1080,42 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // First buy some tokens
+      // 先购买一些代币
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
       await predictionMarket.connect(seller).buyTokensWithETH(0, amountToBuy, { value: requiredEth });
 
-      // Approve tokens for selling
+      // 授权代币以便卖出
       await yesToken.connect(seller).approve(predictionMarket.getAddress(), amountToBuy);
 
-      // Get initial balances
+      // 获取初始余额
       const initialSellerBalance = await ethers.provider.getBalance(seller.address);
       const initialContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
       const initialSellerTokens = await yesToken.balanceOf(seller.address);
 
-      // Calculate ETH to receive
+      // 计算将收到的 ETH
       const ethToReceive = await predictionMarket.getSellPriceInEth(0, amountToBuy);
 
-      // Sell tokens
+      // 卖出代币
       const tx = await predictionMarket.connect(seller).sellTokensForEth(0, amountToBuy);
       const receipt = await tx.wait();
 
-      // Get final balances
+      // 获取最终余额
       const finalSellerBalance = await ethers.provider.getBalance(seller.address);
       const finalContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
       const finalSellerTokens = await yesToken.balanceOf(seller.address);
 
-      // Calculate actual ETH received (accounting for gas costs)
+      // 计算实际收到的 ETH（把 gas 费用考虑在内）
       const gasUsed = receipt?.gasUsed || BigInt(0);
       const gasPrice = tx.gasPrice || BigInt(0);
       const gasCost = gasUsed * gasPrice;
       const actualEthReceived = finalSellerBalance - initialSellerBalance + gasCost;
 
-      // Verify token transfer and ETH received
+      // 验证代币转账及收到的 ETH
       expect(finalSellerTokens).to.equal(initialSellerTokens - amountToBuy);
       expect(actualEthReceived).to.equal(ethToReceive);
       expect(finalContractBalance).to.equal(initialContractBalance - ethToReceive);
@@ -1135,19 +1135,19 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // First buy some tokens
+      // 先购买一些代币
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
       await predictionMarket.connect(seller).buyTokensWithETH(0, amountToBuy, { value: requiredEth });
 
-      // Approve tokens for selling
+      // 授权代币以便卖出
       await yesToken.connect(seller).approve(predictionMarket.getAddress(), amountToBuy);
 
-      // Try to sell more tokens than owned
+      // 尝试卖出超过持有数量的代币
       const tooManyTokens = amountToBuy + BigInt(1);
       await expect(predictionMarket.connect(seller).sellTokensForEth(0, tooManyTokens)).to.be.revertedWithCustomError(
         predictionMarket,
@@ -1169,16 +1169,16 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // First buy some tokens
+      // 先购买一些代币
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
       await predictionMarket.connect(seller).buyTokensWithETH(0, amountToBuy, { value: requiredEth });
 
-      // Try to sell tokens without approval
+      // 尝试在未授权的情况下卖出代币
       await expect(predictionMarket.connect(seller).sellTokensForEth(0, amountToBuy)).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__InsufficientAllowance",
@@ -1199,26 +1199,26 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // Calculate amount to buy
+      // 计算要购买的数量
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
 
-      // Buy tokens and expect event
+      // 购买代币，并预期触发事件
       await expect(predictionMarket.connect(trader).buyTokensWithETH(0, amountToBuy, { value: requiredEth }))
         .to.emit(predictionMarket, "TokensPurchased")
         .withArgs(trader.address, 0, amountToBuy, requiredEth);
 
-      // Approve tokens for selling
+      // 授权代币以便卖出
       await yesToken.connect(trader).approve(predictionMarket.getAddress(), amountToBuy);
 
-      // Calculate ETH to receive
+      // 计算将收到的 ETH
       const ethToReceive = await predictionMarket.getSellPriceInEth(0, amountToBuy);
 
-      // Sell tokens and expect event
+      // 卖出代币，并预期触发事件
       await expect(predictionMarket.connect(trader).sellTokensForEth(0, amountToBuy))
         .to.emit(predictionMarket, "TokensSold")
         .withArgs(trader.address, 0, amountToBuy, ethToReceive);
@@ -1238,18 +1238,18 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // Calculate amount to buy
+      // 计算要购买的数量
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
 
-      // Report the prediction
+      // 报告预测结果
       await predictionMarket.connect(oracle).report(0);
 
-      // Try to buy tokens after prediction is reported
+      // 尝试在预测结果报告后购买代币
       await expect(
         predictionMarket.connect(buyer).buyTokensWithETH(0, amountToBuy, { value: requiredEth }),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__PredictionAlreadyReported");
@@ -1269,22 +1269,22 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // First buy some tokens
+      // 先购买一些代币
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
       await predictionMarket.connect(seller).buyTokensWithETH(0, amountToBuy, { value: requiredEth });
 
-      // Approve tokens for selling
+      // 授权代币以便卖出
       await yesToken.connect(seller).approve(predictionMarket.getAddress(), amountToBuy);
 
-      // Report the prediction
+      // 报告预测结果
       await predictionMarket.connect(oracle).report(0);
 
-      // Try to sell tokens after prediction is reported
+      // 尝试在预测结果报告后卖出代币
       await expect(predictionMarket.connect(seller).sellTokensForEth(0, amountToBuy)).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__PredictionAlreadyReported",
@@ -1305,18 +1305,18 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
 
-      // Owner tries to buy tokens
+      // 所有者尝试购买代币
       await expect(
         predictionMarket.connect(owner).buyTokensWithETH(0, amountToBuy, { value: requiredEth }),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__OwnerCannotCall");
 
-      // Owner tries to sell tokens (even if owner doesn't have tokens, should revert on owner check)
+      // 所有者尝试卖出代币（即使所有者没有代币，也应在所有者检查处回滚）
       await expect(predictionMarket.connect(owner).sellTokensForEth(0, amountToBuy)).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__OwnerCannotCall",
@@ -1339,7 +1339,7 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Try to redeem before prediction is reported
+      // 尝试在预测结果报告前赎回
       await expect(
         predictionMarket.connect(redeemer).redeemWinningTokens(ethers.parseEther("1")),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__PredictionNotReported");
@@ -1359,10 +1359,10 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Report the prediction
-      await predictionMarket.connect(oracle).report(0); // Report YES as winning outcome
+      // 报告预测结果
+      await predictionMarket.connect(oracle).report(0); // 报告 YES 为获胜结果
 
-      // Try to redeem more tokens than owned
+      // 尝试赎回超过持有数量的代币
       await expect(
         predictionMarket.connect(redeemer).redeemWinningTokens(ethers.parseEther("1")),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__InsufficientWinningTokens");
@@ -1382,10 +1382,10 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Report the prediction
+      // 报告预测结果
       await predictionMarket.connect(oracle).report(0);
 
-      // Try to redeem zero tokens
+      // 尝试赎回零个代币
       await expect(predictionMarket.connect(redeemer).redeemWinningTokens(0)).to.be.revertedWithCustomError(
         predictionMarket,
         "PredictionMarket__AmountMustBeGreaterThanZero",
@@ -1406,42 +1406,42 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // First buy some YES tokens
+      // 先购买一些 YES 代币
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
       await predictionMarket.connect(redeemer).buyTokensWithETH(0, amountToBuy, { value: requiredEth });
 
-      // Report YES as winning outcome
+      // 报告 YES 为获胜结果
       await predictionMarket.connect(oracle).report(0);
 
-      // Get initial balances
+      // 获取初始余额
       const initialRedeemerBalance = await ethers.provider.getBalance(redeemer.address);
       const initialContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
       const initialRedeemerTokens = await yesToken.balanceOf(redeemer.address);
 
-      // Calculate expected ETH to receive
+      // 计算预期将收到的 ETH
       const expectedEthToReceive = (amountToBuy * ethers.parseEther("1")) / BigInt(1e18);
 
-      // Redeem tokens
+      // 赎回代币
       const tx = await predictionMarket.connect(redeemer).redeemWinningTokens(amountToBuy);
       const receipt = await tx.wait();
 
-      // Get final balances
+      // 获取最终余额
       const finalRedeemerBalance = await ethers.provider.getBalance(redeemer.address);
       const finalContractBalance = await ethers.provider.getBalance(predictionMarket.getAddress());
       const finalRedeemerTokens = await yesToken.balanceOf(redeemer.address);
 
-      // Calculate actual ETH received (accounting for gas costs)
+      // 计算实际收到的 ETH（把 gas 费用考虑在内）
       const gasUsed = receipt?.gasUsed || BigInt(0);
       const gasPrice = tx.gasPrice || BigInt(0);
       const gasCost = gasUsed * gasPrice;
       const actualEthReceived = finalRedeemerBalance - initialRedeemerBalance + gasCost;
 
-      // Verify token burning and ETH transfer
+      // 验证代币销毁及 ETH 转账
       expect(finalRedeemerTokens).to.equal(initialRedeemerTokens - amountToBuy);
       expect(actualEthReceived).to.equal(expectedEthToReceive);
       expect(finalContractBalance).to.equal(initialContractBalance - expectedEthToReceive);
@@ -1461,22 +1461,22 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Get token contract
+      // 获取代币合约
       const yesTokenAddress = await predictionMarket.i_yesToken();
       const yesToken = await ethers.getContractAt("PredictionMarketToken", yesTokenAddress);
 
-      // First buy some YES tokens
+      // 先购买一些 YES 代币
       const amountToBuy = (await yesToken.balanceOf(predictionMarket.getAddress())) / BigInt(10);
       const requiredEth = await predictionMarket.getBuyPriceInEth(0, amountToBuy);
       await predictionMarket.connect(redeemer).buyTokensWithETH(0, amountToBuy, { value: requiredEth });
 
-      // Report YES as winning outcome
+      // 报告 YES 为获胜结果
       await predictionMarket.connect(oracle).report(0);
 
-      // Calculate expected ETH to receive
+      // 计算预期将收到的 ETH
       const expectedEthToReceive = (amountToBuy * ethers.parseEther("1")) / BigInt(1e18);
 
-      // Redeem tokens and expect event
+      // 赎回代币，并预期触发事件
       await expect(predictionMarket.connect(redeemer).redeemWinningTokens(amountToBuy))
         .to.emit(predictionMarket, "WinningTokensRedeemed")
         .withArgs(redeemer.address, amountToBuy, expectedEthToReceive);
@@ -1496,10 +1496,10 @@ describe("📈📉🏎️ Prediction Markets Challenge", function () {
       );
       await predictionMarket.waitForDeployment();
 
-      // Report YES as winning outcome
+      // 报告 YES 为获胜结果
       await predictionMarket.connect(oracle).report(0);
 
-      // Attempt to redeem as owner (should revert)
+      // 尝试以所有者身份赎回（应当回滚）
       await expect(
         predictionMarket.connect(owner).redeemWinningTokens(ethers.parseEther("1")),
       ).to.be.revertedWithCustomError(predictionMarket, "PredictionMarket__OwnerCannotCall");

@@ -12,7 +12,7 @@ const RaceEffects: React.FC<RaceEffectsProps> = ({ isRacing }) => {
 
   return (
     <>
-      {/* Speed lines */}
+      {/* 速度线 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 20 }).map((_, index) => (
           <div
@@ -29,7 +29,7 @@ const RaceEffects: React.FC<RaceEffectsProps> = ({ isRacing }) => {
         ))}
       </div>
 
-      {/* Dust particles */}
+      {/* 尘土粒子 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 15 }).map((_, index) => (
           <div

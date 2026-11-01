@@ -16,7 +16,7 @@ jobs:
       - name: Extract challenge ID from branch
         id: extract_challenge
         run: |
-          # Get the branch name
+          # 获取分支名
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             BRANCH_NAME="${{ github.event.pull_request.base.ref }}"
           else
@@ -25,7 +25,7 @@ jobs:
 
           echo "Branch name: $BRANCH_NAME"
 
-          # Use the full branch name as challenge ID (e.g., challenge-simple-nft-example)
+          # 使用完整分支名作为挑战 ID（例如 challenge-simple-nft-example）
           if [[ $BRANCH_NAME =~ ^challenge-.+$ ]]; then
             CHALLENGE_ID="$BRANCH_NAME"
             echo "challenge_id=$CHALLENGE_ID" >> $GITHUB_OUTPUT

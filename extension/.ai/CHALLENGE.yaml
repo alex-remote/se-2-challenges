@@ -59,7 +59,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: Constructor Setup
+  # CHECKPOINT 1: 构造函数设置
   # ============================================================
   - id: "constructor-setup"
     title: "Market Setup — Constructor"
@@ -186,7 +186,7 @@ checkpoints:
         s_ethCollateral = msg.value;
 
   # ============================================================
-  # CHECKPOINT 2: Mint Tokens
+  # CHECKPOINT 2: 铸造代币
   # ============================================================
   - id: "mint-tokens"
     title: "Mint Outcome Tokens"
@@ -310,7 +310,7 @@ checkpoints:
         if (!success1 || !success2) revert PredictionMarket__TokenTransferFailed();
 
   # ============================================================
-  # CHECKPOINT 3: Liquidity Management
+  # CHECKPOINT 3: 流动性管理
   # ============================================================
   - id: "liquidity"
     title: "Add and Remove Liquidity"
@@ -414,7 +414,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 4: Oracle Report & Market Resolution
+  # CHECKPOINT 4: 预言机报告与市场结算
   # ============================================================
   - id: "oracle-resolution"
     title: "Oracle Report & Market Resolution"
@@ -565,7 +565,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 5: Pricing Engine
+  # CHECKPOINT 5: 定价引擎
   # ============================================================
   - id: "pricing"
     title: "Pricing & Probability Calculations"
@@ -697,7 +697,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 6: Buy/Sell Tokens
+  # CHECKPOINT 6: 买入/卖出代币
   # ============================================================
   - id: "trading"
     title: "Buy and Sell Tokens"
@@ -803,7 +803,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 7: Redeem Winning Tokens
+  # CHECKPOINT 7: 赎回获胜代币
   # ============================================================
   - id: "redeem"
     title: "Redeem Winning Tokens"

@@ -39,11 +39,11 @@ export function ProbabilityDisplay({
 
     if (_token1Reserve === totalSupply && _token2Reserve === totalSupply) return 0.5;
 
-    // Calculate tokens sold for each option
+    // 计算每个选项已售出的代币数量
     const token1Sold = totalSupply - _token1Reserve;
     const token2Sold = totalSupply - _token2Reserve;
 
-    // Calculate total tokens sold
+    // 计算已售出的代币总量
     const totalTokensSold = token1Sold + token2Sold;
 
     const probability = Number(token1Sold * BigInt(1e18)) / Number(totalTokensSold);

@@ -1,6 +1,6 @@
 export const skipQuickStart = true;
-// README.md file in the extension root so it is recommended to copy the template in a markdown file and then
-// update extraContents after confirming the template is correct.
+// README.md 文件放在扩展根目录下，因此建议先把模板复制到一个 markdown 文件中，在确认模板无误后再
+// 更新 extraContents。
 export const extraContents = ({solidityFramework}) => `
 # 📈📉🏎️ Prediction Markets Challenge
 
