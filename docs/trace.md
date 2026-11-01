@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:00 UTC　｜　总进度：**86 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:01 UTC　｜　总进度：**109 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -18,14 +18,14 @@
 | [`main`](#main) | 3 | 3 | 0 | 188 | 2 / 3 | `main_zh` |
 | [`base-challenge-template`](#base-challenge-template) | 27 | 26 | 1 | 1332 | 7 / 26 | `base-challenge-template_zh` |
 | [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 24 / 46 | `challenge-crowdfunding_zh` |
-| [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 0 / 43 | `challenge-dex_zh` |
+| [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 22 / 43 | `challenge-dex_zh` |
 | [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 26 / 46 | `challenge-dice-game_zh` |
 | [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 0 / 123 | `challenge-oracles_zh` |
 | [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 0 / 65 | `challenge-over-collateralized-lending_zh` |
 | [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 0 / 66 | `challenge-prediction-markets_zh` |
 | [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 0 / 77 | `challenge-stablecoins_zh` |
 | [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 0 / 43 | `challenge-token-vendor_zh` |
-| [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 27 / 48 | `challenge-tokenization_zh` |
+| [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 28 / 48 | `challenge-tokenization_zh` |
 | [`challenge-zk-voting`](#challenge-zk-voting) | 72 | 61 | 11 | 10180 | 0 / 61 | `challenge-zk-voting_zh` |
 
 ## 子代理分组
@@ -40,7 +40,7 @@
 | `crowd-readme` | 1 | 644 | 🔄 进行中 |
 | `crowd-code` | 24 | 2656 | ✅ 已完成 |
 | `dex-readme` | 1 | 736 | 🔄 进行中 |
-| `dex-code` | 22 | 3558 | 🔄 进行中 |
+| `dex-code` | 22 | 3558 | ✅ 已完成 |
 | `dice-readme` | 1 | 468 | ✅ 已完成 |
 | `dice-code` | 25 | 2250 | ✅ 已完成 |
 | `orc-readme-p1` | 1 | 541 | ⏸️ 待启动 |
@@ -56,7 +56,7 @@
 | `lend-web` | 22 | 3019 | 🔄 进行中 |
 | `lend-sol` | 20 | 2248 | 🔄 进行中 |
 | `pm-readme-p1` | 1 | 627 | 🔄 进行中 |
-| `pm-readme-p2` | 1 | 662 | ⏸️ 待启动 |
+| `pm-readme-p2` | 1 | 662 | 🔄 进行中 |
 | `pm-readme-p3` | 1 | 482 | ⏸️ 待启动 |
 | `pm-web` | 33 | 6291 | ⏸️ 待启动 |
 | `pm-sol` | 11 | 1590 | ⏸️ 待启动 |
@@ -68,7 +68,7 @@
 | `stab-test` | 10 | 3573 | 🔄 进行中 |
 | `vendor-readme` | 1 | 682 | 🔄 进行中 |
 | `vendor-code` | 21 | 2640 | 🔄 进行中 |
-| `nft-readme` | 1 | 366 | 🔄 进行中 |
+| `nft-readme` | 1 | 366 | ✅ 已完成 |
 | `nft-code` | 27 | 2045 | ✅ 已完成 |
 | `zk-readme-p1` | 1 | 462 | ⏸️ 待启动 |
 | `zk-readme-p2` | 1 | 556 | ⏸️ 待启动 |
@@ -185,7 +185,7 @@
 
 ### challenge-dex
 
-文本文件 43 个（已完成 0），二进制 3 个 → 目标分支 `challenge-dex_zh`
+文本文件 43 个（已完成 22），二进制 3 个 → 目标分支 `challenge-dex_zh`
 
 - [ ] `.cursorignore.example` — 4 行 · `common-shared`
 - [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
@@ -194,8 +194,8 @@
 - [ ] `.gitignore.example` — 26 行 · `common-shared`
 - [ ] `LICENCE.txt` — 21 行 · `common-shared`
 - [ ] `README.md` — 736 行 · `dex-readme`
-- [ ] `extension/.ai/CHALLENGE.yaml` — 745 行 · `dex-code`
-- [ ] `extension/.ai/CONCEPTS.yaml` — 90 行 · `dex-code`
+- [x] `extension/.ai/CHALLENGE.yaml` — 745 行 · `dex-code` · ✅ 已翻译注释（改动 4 行（结构层 # CHECKPOINT 注释）；块标量内 Markdown 正文未动）
+- [x] `extension/.ai/CONCEPTS.yaml` — 90 行 · `dex-code` · ✅ 无需改动（无结构层 # 注释，正文均为 YAML 字符串值）
 - [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
 - [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
 - [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
@@ -207,26 +207,26 @@
 - [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
 - [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
 - [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
-- [ ] `extension/AGENTS.md.args.mjs` — 240 行 · `dex-code`
-- [ ] `extension/README.md.args.mjs` — 573 行 · `dex-code`
-- [ ] `extension/packages/foundry/contracts/Balloons.sol` — 10 行 · `dex-code`
-- [ ] `extension/packages/foundry/contracts/DEX.sol` — 64 行 · `dex-code`
-- [ ] `extension/packages/foundry/contracts/IDEX.sol` — 38 行 · `dex-code`
-- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `dex-code`
-- [ ] `extension/packages/foundry/script/DeployDEX.s.sol` — 23 行 · `dex-code`
-- [ ] `extension/packages/foundry/test/DEX.t.sol` — 232 行 · `dex-code`
-- [ ] `extension/packages/hardhat/contracts/Balloons.sol` — 10 行 · `dex-code`
-- [ ] `extension/packages/hardhat/contracts/DEX.sol` — 65 行 · `dex-code`
-- [ ] `extension/packages/hardhat/deploy/00_deploy_dex.ts` — 46 行 · `dex-code`
-- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 16 行 · `dex-code`
-- [ ] `extension/packages/hardhat/test/DEX.ts` — 219 行 · `dex-code`
-- [ ] `extension/packages/nextjs/app/dex/_components/Curve.tsx` — 543 行 · `dex-code`
-- [ ] `extension/packages/nextjs/app/dex/_components/index.tsx` — 1 行 · `dex-code`
-- [ ] `extension/packages/nextjs/app/dex/page.tsx` — 350 行 · `dex-code`
-- [ ] `extension/packages/nextjs/app/events/page.tsx` — 216 行 · `dex-code`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `dex-code`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 40 行 · `dex-code`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 17 行 · `dex-code`
+- [x] `extension/AGENTS.md.args.mjs` — 240 行 · `dex-code` · ✅ 已翻译注释（改动 1 行（第 1 行 JS 注释）；模板字符串内的 AGENTS.md 正文（含代码块里的 # 注释）按要求未译）
+- [x] `extension/README.md.args.mjs` — 573 行 · `dex-code` · ✅ 无需改动（模板字符串外无注释；模板内 README 正文（含代码块）是字符串，未译）
+- [x] `extension/packages/foundry/contracts/Balloons.sol` — 10 行 · `dex-code` · ✅ 已翻译注释（改动 1 行；与 hardhat 版译文一致）
+- [x] `extension/packages/foundry/contracts/DEX.sol` — 64 行 · `dex-code` · ✅ 已翻译注释（改动 15 行（含分节横幅标题，已按显示宽度补齐斜杠）；与 hardhat 版译文一致）
+- [x] `extension/packages/foundry/contracts/IDEX.sol` — 38 行 · `dex-code` · ✅ 已翻译注释（改动 3 行（分节横幅标题，译法同 DEX.sol））
+- [x] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `dex-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/foundry/script/DeployDEX.s.sol` — 23 行 · `dex-code` · ✅ 已翻译注释（改动 2 行；被注释掉的代码保持原样）
+- [x] `extension/packages/foundry/test/DEX.t.sol` — 232 行 · `dex-code` · ✅ 已翻译注释（改动 7 行；L71 "Checkpoint 3: price()" 只有标记和函数名，保持原样）
+- [x] `extension/packages/hardhat/contracts/Balloons.sol` — 10 行 · `dex-code` · ✅ 已翻译注释（改动 1 行；与 foundry 版译文一致）
+- [x] `extension/packages/hardhat/contracts/DEX.sol` — 65 行 · `dex-code` · ✅ 已翻译注释（改动 15 行；与 foundry 版译文一致）
+- [x] `extension/packages/hardhat/deploy/00_deploy_dex.ts` — 46 行 · `dex-code` · ✅ 已翻译注释（改动 12 行；被注释掉的代码保持原样）
+- [x] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 16 行 · `dex-code` · ✅ 无需改动（只有纯 URL 注释）
+- [x] `extension/packages/hardhat/test/DEX.ts` — 219 行 · `dex-code` · ✅ 已翻译注释（改动 7 行；L5-8 为 yarn 命令，保持原样）
+- [x] `extension/packages/nextjs/app/dex/_components/Curve.tsx` — 543 行 · `dex-code` · ✅ 已翻译注释（改动 34 行）
+- [x] `extension/packages/nextjs/app/dex/_components/index.tsx` — 1 行 · `dex-code` · ✅ 无需改动（无注释（仅一行 export））
+- [x] `extension/packages/nextjs/app/dex/page.tsx` — 350 行 · `dex-code` · ✅ 已翻译注释（改动 5 行；其中 3 行 @ts-expect-error 指令保留，只译了 "-" 后面的说明文字）
+- [x] `extension/packages/nextjs/app/events/page.tsx` — 216 行 · `dex-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `dex-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 40 行 · `dex-code` · ✅ 无需改动（无注释（模板字符串里是 JSX 界面文案））
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 17 行 · `dex-code` · ✅ 无需改动（无注释）
 - [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
 - [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
 - [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
@@ -763,7 +763,7 @@
 
 ### challenge-tokenization
 
-文本文件 48 个（已完成 27），二进制 5 个 → 目标分支 `challenge-tokenization_zh`
+文本文件 48 个（已完成 28），二进制 5 个 → 目标分支 `challenge-tokenization_zh`
 
 - [ ] `.cursorignore.example` — 4 行 · `common-shared`
 - [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
@@ -771,7 +771,7 @@
 - [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
 - [ ] `.gitignore.example` — 26 行 · `common-shared`
 - [ ] `LICENCE.txt` — 21 行 · `common-shared`
-- [ ] `README.md` — 366 行 · `nft-readme`
+- [x] `README.md` — 366 行 · `nft-readme` · ✅ 已生成 `README_zh.md`（/home/user/se-2-challenges/.worktrees/challenge-tokenization/README_zh.md，366 行，check_md [OK] WARN 0；第 137、157 行裸 URL 改为 <http://localhost:3000> 自动链接，避免 GFM 把紧随的中文句号吞进链接）
 - [x] `extension/.ai/CHALLENGE.yaml` — 420 行 · `nft-code` · ✅ 已翻译注释（改动 6 行：仅翻译结构层 checkpoint 分隔注释（# 1.~# 6.）；setup.template 块标量里的 Solidity TODO[...] 注释及各块标量 Markdown 正文按规范视为字符串未译）
 - [x] `extension/.ai/CONCEPTS.yaml` — 119 行 · `nft-code` · ✅ 无需改动（无结构层 # 注释，全部内容为字符串/块标量）
 - [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
