@@ -1,0 +1,907 @@
+# 英文注释中文翻译 · 任务进度跟踪
+
+> 最后更新：2026-11-01 15:57 UTC　｜　总进度：**0 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+
+## 任务规则
+
+1. 代码 / 配置文件：在英文原文的位置直接替换为中文注释，**文件行数保持不变**；代码、字符串字面量、标识符不改。
+2. 保留专有名词、函数名、变量名、合约名等代码内的明确指代；被注释掉的代码、SPDX / eslint 等机器指令保持原样。
+3. 英文 `.md` 文件：在同一路径生成 `<原文件名>_zh.md` 译文，逐行对应，行数与原文一致。
+4. 二进制文件（图片、视频）不处理，仅计数。
+5. 每个分支在独立 worktree 中处理，结果提交到 `<分支名>_zh` 分支。
+6. 勾选框：`[ ]` 未处理，`[x]` 已处理（已翻译 / 已确认无需改动）。
+
+## 分支总览
+
+| 分支 | 文件总数 | 文本文件 | 二进制 | 文本总行数 | 已完成 | 目标分支 |
+|---|---:|---:|---:|---:|---:|---|
+| [`main`](#main) | 3 | 3 | 0 | 188 | 0 / 3 | `main_zh` |
+| [`base-challenge-template`](#base-challenge-template) | 27 | 26 | 1 | 1332 | 0 / 26 | `base-challenge-template_zh` |
+| [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 0 / 46 | `challenge-crowdfunding_zh` |
+| [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 0 / 43 | `challenge-dex_zh` |
+| [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 0 / 46 | `challenge-dice-game_zh` |
+| [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 0 / 123 | `challenge-oracles_zh` |
+| [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 0 / 65 | `challenge-over-collateralized-lending_zh` |
+| [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 0 / 66 | `challenge-prediction-markets_zh` |
+| [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 0 / 77 | `challenge-stablecoins_zh` |
+| [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 0 / 43 | `challenge-token-vendor_zh` |
+| [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 0 / 48 | `challenge-tokenization_zh` |
+| [`challenge-zk-voting`](#challenge-zk-voting) | 72 | 61 | 11 | 10180 | 0 / 61 | `challenge-zk-voting_zh` |
+
+## 子代理分组
+
+共享文件（多个分支内容完全相同）只翻译一次，再复制到各分支；大 README 按 Checkpoint 切分为多段并行翻译。
+
+| 分组 | 文件数 | 行数 | 状态 |
+|---|---:|---:|---|
+| `common-shared` | 24 个（复制到各分支共 215 份） | 6594 | 🔄 进行中 |
+| `base-main` | 9 | 521 | 🔄 进行中 |
+| `common-start` | 1 个（复制到各分支共 11 份） | 4576 | 🔄 进行中 |
+| `crowd-readme` | 1 | 644 | 🔄 进行中 |
+| `crowd-code` | 24 | 2656 | 🔄 进行中 |
+| `dex-readme` | 1 | 736 | 🔄 进行中 |
+| `dex-code` | 22 | 3558 | 🔄 进行中 |
+| `dice-readme` | 1 | 468 | 🔄 进行中 |
+| `dice-code` | 25 | 2250 | 🔄 进行中 |
+| `orc-readme-p1` | 1 | 541 | ⏸️ 待启动 |
+| `orc-readme-p2` | 1 | 456 | ⏸️ 待启动 |
+| `orc-readme-p3` | 1 | 623 | ⏸️ 待启动 |
+| `orc-readme-p4` | 1 | 610 | ⏸️ 待启动 |
+| `orc-sol` | 21 | 5567 | ⏸️ 待启动 |
+| `orc-ftest` | 16 | 3345 | ⏸️ 待启动 |
+| `orc-htest` | 15 | 3065 | ⏸️ 待启动 |
+| `orc-web` | 49 | 4239 | ⏸️ 待启动 |
+| `lend-readme-p1` | 1 | 521 | 🔄 进行中 |
+| `lend-readme-p2` | 1 | 567 | 🔄 进行中 |
+| `lend-web` | 22 | 3019 | 🔄 进行中 |
+| `lend-sol` | 20 | 2248 | 🔄 进行中 |
+| `pm-readme-p1` | 1 | 627 | ⏸️ 待启动 |
+| `pm-readme-p2` | 1 | 662 | ⏸️ 待启动 |
+| `pm-readme-p3` | 1 | 482 | ⏸️ 待启动 |
+| `pm-web` | 33 | 6291 | ⏸️ 待启动 |
+| `pm-sol` | 11 | 1590 | ⏸️ 待启动 |
+| `pm-test` | 1 | 1508 | ⏸️ 待启动 |
+| `stab-readme-p1` | 1 | 645 | 🔄 进行中 |
+| `stab-readme-p2` | 1 | 570 | 🔄 进行中 |
+| `stab-web` | 26 | 4439 | ⏸️ 待启动 |
+| `stab-sol` | 19 | 1556 | 🔄 进行中 |
+| `stab-test` | 10 | 3573 | ⏸️ 待启动 |
+| `vendor-readme` | 1 | 682 | 🔄 进行中 |
+| `vendor-code` | 21 | 2640 | 🔄 进行中 |
+| `nft-readme` | 1 | 366 | 🔄 进行中 |
+| `nft-code` | 27 | 2045 | 🔄 进行中 |
+| `zk-readme-p1` | 1 | 462 | ⏸️ 待启动 |
+| `zk-readme-p2` | 1 | 556 | ⏸️ 待启动 |
+| `zk-readme-p3` | 1 | 548 | ⏸️ 待启动 |
+| `zk-readme-p4` | 1 | 529 | ⏸️ 待启动 |
+| `zk-sol` | 20 | 4872 | ⏸️ 待启动 |
+| `zk-web` | 20 | 2214 | ⏸️ 待启动 |
+
+## 文件清单
+
+### main
+
+文本文件 3 个（已完成 0），二进制 0 个 → 目标分支 `main_zh`
+
+- [ ] `LICENCE.txt` — 21 行 · `base-main`
+- [ ] `README.md` — 162 行 · `base-main`
+- [ ] `funding.json` — 5 行 · `common-shared`
+
+### base-challenge-template
+
+文本文件 26 个（已完成 0），二进制 1 个 → 目标分支 `base-challenge-template_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 6 行 · `base-main`
+- [ ] `extension/.ai/CHALLENGE.yaml.example` — 183 行 · `base-main`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/README.md.args.mjs` — 79 行 · `base-main`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 16 行 · `base-main`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 31 行 · `base-main`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 15 行 · `base-main`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 8 行 · `base-main`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+
+<details><summary>二进制文件 1 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-crowdfunding
+
+文本文件 46 个（已完成 0），二进制 3 个 → 目标分支 `challenge-crowdfunding_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 644 行 · `crowd-readme`
+- [ ] `extension/.ai/CHALLENGE.yaml` — 619 行 · `crowd-code`
+- [ ] `extension/.ai/CONCEPTS.yaml` — 91 行 · `crowd-code`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 223 行 · `crowd-code`
+- [ ] `extension/README.md.args.mjs` — 524 行 · `crowd-code`
+- [ ] `extension/packages/foundry/contracts/CrowdFund.sol` — 68 行 · `crowd-code`
+- [ ] `extension/packages/foundry/contracts/FundingRecipient.sol` — 10 行 · `crowd-code`
+- [ ] `extension/packages/foundry/contracts/ICrowdFund.sol` — 11 行 · `crowd-code`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `crowd-code`
+- [ ] `extension/packages/foundry/script/DeployCrowdFund.s.sol` — 16 行 · `crowd-code`
+- [ ] `extension/packages/foundry/test/CrowdFund.t.sol` — 246 行 · `crowd-code`
+- [ ] `extension/packages/hardhat/contracts/CrowdFund.sol` — 69 行 · `crowd-code`
+- [ ] `extension/packages/hardhat/contracts/FundingRecipient.sol` — 10 行 · `crowd-code`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_funding_recipient.ts` — 17 行 · `crowd-code`
+- [ ] `extension/packages/hardhat/deploy/01_deploy_crowdfund.ts` — 19 行 · `crowd-code`
+- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 24 行 · `common-shared`
+- [ ] `extension/packages/hardhat/test/CrowdFund.ts` — 375 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/app/contributions/page.tsx` — 63 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/app/crowdfund/_components/ContributeContractInteraction.tsx` — 143 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/app/crowdfund/_components/EthToPrice.tsx` — 53 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/app/crowdfund/_components/index.tsx` — 2 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/app/crowdfund/page.tsx` — 12 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 40 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 17 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/package.json` — 8 行 · `crowd-code`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+
+<details><summary>二进制文件 3 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/thumbnail-challenge.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-dex
+
+文本文件 43 个（已完成 0），二进制 3 个 → 目标分支 `challenge-dex_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 736 行 · `dex-readme`
+- [ ] `extension/.ai/CHALLENGE.yaml` — 745 行 · `dex-code`
+- [ ] `extension/.ai/CONCEPTS.yaml` — 90 行 · `dex-code`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 240 行 · `dex-code`
+- [ ] `extension/README.md.args.mjs` — 573 行 · `dex-code`
+- [ ] `extension/packages/foundry/contracts/Balloons.sol` — 10 行 · `dex-code`
+- [ ] `extension/packages/foundry/contracts/DEX.sol` — 64 行 · `dex-code`
+- [ ] `extension/packages/foundry/contracts/IDEX.sol` — 38 行 · `dex-code`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `dex-code`
+- [ ] `extension/packages/foundry/script/DeployDEX.s.sol` — 23 行 · `dex-code`
+- [ ] `extension/packages/foundry/test/DEX.t.sol` — 232 行 · `dex-code`
+- [ ] `extension/packages/hardhat/contracts/Balloons.sol` — 10 行 · `dex-code`
+- [ ] `extension/packages/hardhat/contracts/DEX.sol` — 65 行 · `dex-code`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_dex.ts` — 46 行 · `dex-code`
+- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 16 行 · `dex-code`
+- [ ] `extension/packages/hardhat/test/DEX.ts` — 219 行 · `dex-code`
+- [ ] `extension/packages/nextjs/app/dex/_components/Curve.tsx` — 543 行 · `dex-code`
+- [ ] `extension/packages/nextjs/app/dex/_components/index.tsx` — 1 行 · `dex-code`
+- [ ] `extension/packages/nextjs/app/dex/page.tsx` — 350 行 · `dex-code`
+- [ ] `extension/packages/nextjs/app/events/page.tsx` — 216 行 · `dex-code`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `dex-code`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 40 行 · `dex-code`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 17 行 · `dex-code`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+
+<details><summary>二进制文件 3 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/thumbnail-challenge.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-dice-game
+
+文本文件 46 个（已完成 0），二进制 20 个 → 目标分支 `challenge-dice-game_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 468 行 · `dice-readme`
+- [ ] `extension/.ai/CHALLENGE.yaml` — 504 行 · `dice-code`
+- [ ] `extension/.ai/CONCEPTS.yaml` — 86 行 · `dice-code`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 221 行 · `dice-code`
+- [ ] `extension/README.md.args.mjs` — 307 行 · `dice-code`
+- [ ] `extension/packages/foundry/contracts/DiceGame.sol` — 68 行 · `dice-code`
+- [ ] `extension/packages/foundry/contracts/IDiceGame.sol` — 13 行 · `dice-code`
+- [ ] `extension/packages/foundry/contracts/IRiggedRoll.sol` — 14 行 · `dice-code`
+- [ ] `extension/packages/foundry/contracts/RiggedRoll.sol` — 33 行 · `dice-code`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `dice-code`
+- [ ] `extension/packages/foundry/script/DeployDiceGame.s.sol` — 20 行 · `dice-code`
+- [ ] `extension/packages/foundry/test/RiggedRoll.t.sol` — 163 行 · `dice-code`
+- [ ] `extension/packages/hardhat/contracts/DiceGame.sol` — 72 行 · `dice-code`
+- [ ] `extension/packages/hardhat/contracts/RiggedRoll.sol` — 34 行 · `dice-code`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_diceGame.ts` — 30 行 · `dice-code`
+- [ ] `extension/packages/hardhat/deploy/01_deploy_riggedRoll.ts` — 29 行 · `dice-code`
+- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 10 行 · `dice-code`
+- [ ] `extension/packages/hardhat/test/RiggedRoll.ts` — 186 行 · `dice-code`
+- [ ] `extension/packages/nextjs/app/dice/_components/Amount.tsx` — 68 行 · `dice-code`
+- [ ] `extension/packages/nextjs/app/dice/_components/RollEvents.tsx` — 48 行 · `dice-code`
+- [ ] `extension/packages/nextjs/app/dice/_components/WinnerEvents.tsx` — 65 行 · `dice-code`
+- [ ] `extension/packages/nextjs/app/dice/_components/index.ts` — 3 行 · `dice-code`
+- [ ] `extension/packages/nextjs/app/dice/page.tsx` — 192 行 · `dice-code`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `dice-code`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 52 行 · `dice-code`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 12 行 · `dice-code`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+
+<details><summary>二进制文件 20 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/rolls/0.webm`
+- `extension/packages/nextjs/public/rolls/1.webm`
+- `extension/packages/nextjs/public/rolls/2.webm`
+- `extension/packages/nextjs/public/rolls/3.webm`
+- `extension/packages/nextjs/public/rolls/4.webm`
+- `extension/packages/nextjs/public/rolls/5.webm`
+- `extension/packages/nextjs/public/rolls/6.webm`
+- `extension/packages/nextjs/public/rolls/7.webm`
+- `extension/packages/nextjs/public/rolls/8.webm`
+- `extension/packages/nextjs/public/rolls/9.webm`
+- `extension/packages/nextjs/public/rolls/A.webm`
+- `extension/packages/nextjs/public/rolls/B.webm`
+- `extension/packages/nextjs/public/rolls/C.webm`
+- `extension/packages/nextjs/public/rolls/D.webm`
+- `extension/packages/nextjs/public/rolls/E.webm`
+- `extension/packages/nextjs/public/rolls/F.webm`
+- `extension/packages/nextjs/public/rolls/Spin.webm`
+- `extension/packages/nextjs/public/thumbnail-challenge.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-oracles
+
+文本文件 123 个（已完成 0），二进制 3 个 → 目标分支 `challenge-oracles_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 2230 行 · `orc-readme-p1, orc-readme-p2, orc-readme-p3, orc-readme-p4` · ⏳ 分段翻译进度 0/4
+- [ ] `extension/.ai/CHALLENGE.yaml` — 1240 行 · `orc-sol`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 551 行 · `orc-sol`
+- [ ] `extension/README.md.args.mjs` — 2075 行 · `orc-sol`
+- [ ] `extension/package.json` — 7 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/00_Whitelist/IWhitelistOracle.sol` — 24 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/00_Whitelist/SimpleOracle.sol` — 73 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/00_Whitelist/WhitelistOracle.sol` — 89 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/01_Staking/IStakingOracle.sol` — 60 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/01_Staking/OracleToken.sol` — 65 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/01_Staking/StakingOracle.sol` — 236 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/02_Optimistic/Decider.sol` — 42 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/02_Optimistic/IOptimisticOracle.sol` — 72 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/02_Optimistic/OptimisticOracle.sol` — 211 行 · `orc-sol`
+- [ ] `extension/packages/foundry/contracts/utils/StatisticsUtils.sol` — 54 行 · `orc-sol`
+- [ ] `extension/packages/foundry/package.json` — 11 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/root.package.json` — 7 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 13 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/script/DeployOptimistic.s.sol` — 20 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/script/DeployStaking.s.sol` — 22 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/script/DeployWhitelist.s.sol` — 46 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/scripts-js/oracle-bot/config.json` — 56 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/scripts-js/simulate/accounts.js` — 44 行 · `common-shared`
+- [ ] `extension/packages/foundry/scripts-js/simulate/contractHelper.js` — 120 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/scripts-js/simulate/fetchPriceFromUniswap.js` — 116 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/scripts-js/simulate/runOptimisticBots.js` — 316 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/scripts-js/simulate/runStakingOracleBots.js` — 766 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/scripts-js/simulate/runWhitelistOracleBots.js` — 121 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/scripts-js/simulate/utils.js` — 93 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/test/OptimisticOracle.t.sol` — 582 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/test/StakingOracle.t.sol` — 832 行 · `orc-ftest`
+- [ ] `extension/packages/foundry/test/WhitelistOracle.t.sol` — 224 行 · `orc-ftest`
+- [ ] `extension/packages/hardhat/contracts/00_Whitelist/SimpleOracle.sol` — 73 行 · `orc-sol`
+- [ ] `extension/packages/hardhat/contracts/00_Whitelist/WhitelistOracle.sol` — 89 行 · `orc-sol`
+- [ ] `extension/packages/hardhat/contracts/01_Staking/OracleToken.sol` — 65 行 · `orc-sol`
+- [ ] `extension/packages/hardhat/contracts/01_Staking/StakingOracle.sol` — 234 行 · `orc-sol`
+- [ ] `extension/packages/hardhat/contracts/02_Optimistic/Decider.sol` — 42 行 · `orc-sol`
+- [ ] `extension/packages/hardhat/contracts/02_Optimistic/OptimisticOracle.sol` — 211 行 · `orc-sol`
+- [ ] `extension/packages/hardhat/contracts/utils/StatisticsUtils.sol` — 54 行 · `orc-sol`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_whitelist.ts` — 67 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/deploy/01_deploy_staking.ts` — 42 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/deploy/02_deploy_optimistic.ts` — 44 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 15 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/package.json` — 10 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/scripts/fetchPriceFromUniswap.ts` — 88 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/scripts/oracle-bot/config.json` — 56 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/scripts/oracle-bot/types.ts` — 19 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/scripts/runOptimisticBots.ts` — 310 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/scripts/runStakingOracleBots.ts` — 695 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/scripts/runWhitelistOracleBots.ts` — 134 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/scripts/utils.ts` — 106 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/test/OptimisticOracle.ts` — 669 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/test/StakingOracle.ts` — 574 行 · `orc-htest`
+- [ ] `extension/packages/hardhat/test/WhitelistOracle.ts` — 236 行 · `orc-htest`
+- [ ] `extension/packages/nextjs/app/api/config/price-variance/route.ts` — 58 行 · `orc-web`
+- [ ] `extension/packages/nextjs/app/api/config/skip-probability/route.ts` — 58 行 · `orc-web`
+- [ ] `extension/packages/nextjs/app/api/ora-faucet/route.ts` — 88 行 · `orc-web`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `orc-web`
+- [ ] `extension/packages/nextjs/app/optimistic/page.tsx` — 117 行 · `orc-web`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 41 行 · `orc-web`
+- [ ] `extension/packages/nextjs/app/staking/page.tsx` — 42 行 · `orc-web`
+- [ ] `extension/packages/nextjs/app/whitelist/page.tsx` — 26 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 18 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/ScaffoldEthAppWithProviders.tsx.args.mjs` — 3 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/TooltipInfo.tsx` — 33 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/BucketCountdown.tsx` — 86 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/BuyOraWidget.tsx` — 74 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/ConfigSlider.tsx` — 84 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/EditableCell.tsx` — 148 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/HighlightedCell.tsx` — 41 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/NodeRow.tsx` — 200 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/NodesTable.tsx` — 665 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/PriceWidget.tsx` — 103 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/SelfNodeReporter.tsx` — 212 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/SelfNodeRow.tsx` — 278 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/StakingEditableCell.tsx` — 177 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/TimeAgo.tsx` — 55 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/TotalSlashedWidget.tsx` — 36 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/AssertedRow.tsx` — 50 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/AssertedTable.tsx` — 34 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/AssertionModal.tsx` — 260 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/DisputedRow.tsx` — 48 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/DisputedTable.tsx` — 33 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/EmptyRow.tsx` — 15 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/ExpiredRow.tsx` — 62 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/ExpiredTable.tsx` — 31 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/LoadingRow.tsx` — 21 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/ProposedRow.tsx` — 52 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/ProposedTable.tsx` — 32 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/SettledRow.tsx` — 75 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/SettledTable.tsx` — 32 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/SubmitAssertionButton.tsx` — 245 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/optimistic/TimeLeft.tsx` — 62 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/types.ts` — 69 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/whitelist/AddOracleButton.tsx` — 40 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/whitelist/WhitelistRow.tsx` — 67 行 · `orc-web`
+- [ ] `extension/packages/nextjs/components/oracle/whitelist/WhitelistTable.tsx` — 110 行 · `orc-web`
+- [ ] `extension/packages/nextjs/next.config.js.args.mjs` — 1 行 · `orc-web`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/services/store/challengeStore.ts` — 40 行 · `orc-web`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/configUpdater.ts` — 40 行 · `orc-web`
+- [ ] `extension/packages/nextjs/utils/constants.ts` — 124 行 · `orc-web`
+- [ ] `extension/packages/nextjs/utils/helpers.ts` — 36 行 · `orc-web`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `orc-web`
+- [ ] `funding.json` — 5 行 · `common-shared`
+
+<details><summary>二进制文件 3 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/social-card.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-over-collateralized-lending
+
+文本文件 65 个（已完成 0），二进制 2 个 → 目标分支 `challenge-over-collateralized-lending_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 1088 行 · `lend-readme-p1, lend-readme-p2` · ⏳ 分段翻译进度 0/2
+- [ ] `extension/.ai/CHALLENGE.yaml` — 617 行 · `lend-web`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 268 行 · `lend-web`
+- [ ] `extension/README.md.args.mjs` — 916 行 · `lend-web`
+- [ ] `extension/package.json` — 5 行 · `lend-web`
+- [ ] `extension/packages/foundry/contracts/Corn.sol` — 25 行 · `lend-sol`
+- [ ] `extension/packages/foundry/contracts/CornDEX.sol` — 176 行 · `lend-sol`
+- [ ] `extension/packages/foundry/contracts/ILending.sol` — 38 行 · `lend-sol`
+- [ ] `extension/packages/foundry/contracts/Lending.sol` — 103 行 · `lend-sol`
+- [ ] `extension/packages/foundry/contracts/MovePrice.sol` — 30 行 · `lend-sol`
+- [ ] `extension/packages/foundry/package.json` — 9 行 · `lend-sol`
+- [ ] `extension/packages/foundry/root.package.json` — 5 行 · `lend-sol`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `lend-sol`
+- [ ] `extension/packages/foundry/script/DeployLending.s.sol` — 42 行 · `lend-sol`
+- [ ] `extension/packages/foundry/scripts-js/simulate/accounts.js` — 44 行 · `common-shared`
+- [ ] `extension/packages/foundry/scripts-js/simulate/contractHelper.js` — 118 行 · `lend-sol`
+- [ ] `extension/packages/foundry/scripts-js/simulate/marketSimulator.js` — 371 行 · `lend-sol`
+- [ ] `extension/packages/foundry/test/Lending.t.sol` — 334 行 · `lend-sol`
+- [ ] `extension/packages/hardhat/contracts/Corn.sol` — 25 行 · `lend-sol`
+- [ ] `extension/packages/hardhat/contracts/CornDEX.sol` — 176 行 · `lend-sol`
+- [ ] `extension/packages/hardhat/contracts/Lending.sol` — 103 行 · `lend-sol`
+- [ ] `extension/packages/hardhat/contracts/MovePrice.sol` — 30 行 · `lend-sol`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_contracts.ts` — 88 行 · `lend-sol`
+- [ ] `extension/packages/hardhat/package.json` — 5 行 · `lend-sol`
+- [ ] `extension/packages/hardhat/scripts/marketSimulator.ts` — 324 行 · `lend-sol`
+- [ ] `extension/packages/hardhat/test/Lending.ts` — 241 行 · `lend-sol`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/BorrowOperations.tsx` — 127 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/CollateralGraph.tsx` — 172 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/CollateralOperations.tsx` — 87 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/Modals/TokenSwapModal.tsx` — 186 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/Modals/TokenTransferModal.tsx` — 91 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/PriceActions.tsx` — 70 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/RatioChange.tsx` — 58 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/TokenActions.tsx` — 79 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/TooltipInfo.tsx` — 21 行 · `common-shared`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/UserPosition.tsx` — 104 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/_components/UserPositionsTable.tsx` — 98 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/dashboard/page.tsx` — 37 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `lend-web`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 35 行 · `lend-web`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 12 行 · `lend-web`
+- [ ] `extension/packages/nextjs/hooks/scaffold-eth/useAnimationConfig.ts` — 20 行 · `lend-web`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/package.json` — 5 行 · `lend-web`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/constant.ts` — 3 行 · `lend-web`
+- [ ] `extension/packages/nextjs/utils/helpers.ts` — 14 行 · `lend-web`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+
+<details><summary>二进制文件 2 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-prediction-markets
+
+文本文件 66 个（已完成 0），二进制 12 个 → 目标分支 `challenge-prediction-markets_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 1771 行 · `pm-readme-p1, pm-readme-p2, pm-readme-p3` · ⏳ 分段翻译进度 0/3
+- [ ] `extension/.ai/CHALLENGE.yaml` — 919 行 · `pm-web`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 300 行 · `pm-web`
+- [ ] `extension/README.md.args.mjs` — 1594 行 · `pm-web`
+- [ ] `extension/packages/foundry/contracts/IPredictionMarket.sol` — 98 行 · `pm-sol`
+- [ ] `extension/packages/foundry/contracts/PredictionMarket.sol` — 255 行 · `pm-sol`
+- [ ] `extension/packages/foundry/contracts/PredictionMarketToken.sol` — 52 行 · `pm-sol`
+- [ ] `extension/packages/foundry/foundry.toml.args.mjs` — 1 行 · `pm-sol`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `pm-sol`
+- [ ] `extension/packages/foundry/script/DeployPredictionMarket.s.sol` — 31 行 · `pm-sol`
+- [ ] `extension/packages/foundry/test/PredictionMarket.t.sol` — 767 行 · `pm-sol`
+- [ ] `extension/packages/hardhat/contracts/PredictionMarket.sol` — 255 行 · `pm-sol`
+- [ ] `extension/packages/hardhat/contracts/PredictionMarketToken.sol` — 52 行 · `pm-sol`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_your_contract.ts` — 57 行 · `pm-sol`
+- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 17 行 · `pm-sol`
+- [ ] `extension/packages/hardhat/test/PredictionMarket.ts` — 1508 行 · `pm-test`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `pm-web`
+- [ ] `extension/packages/nextjs/app/liquidity-provider/page.tsx` — 72 行 · `pm-web`
+- [ ] `extension/packages/nextjs/app/oracle/page.tsx` — 59 行 · `pm-web`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 39 行 · `pm-web`
+- [ ] `extension/packages/nextjs/app/user/page.tsx` — 57 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 22 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/assets/race-assets/background-dark.svg` — 184 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/assets/race-assets/background.svg` — 120 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/assets/race-assets/crown.svg` — 28 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/assets/race-assets/green-car.svg` — 492 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/assets/race-assets/red-car.svg` — 492 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/constants.ts` — 16 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/liquidity-provider/AddRemoveLiquidty.tsx` — 154 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/liquidity-provider/LPAddress.tsx` — 38 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/liquidity-provider/LPFinalTokenBalance.tsx` — 64 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/liquidity-provider/PredictionMarketInfoLP.tsx` — 248 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/liquidity-provider/ResolveMarketAndWithdraw.tsx` — 90 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/oracle/OracleAddress.tsx` — 40 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/oracle/ReportPrediction.tsx` — 79 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/race/Car.tsx` — 49 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/race/Race.tsx` — 296 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/race/RaceEffects.tsx` — 78 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/user/GiveAllowance.tsx` — 72 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/user/OverviewBuySellShares.tsx` — 89 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/user/PredictionBuySellShare.tsx` — 244 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/user/PredictionMarketInfo.tsx` — 56 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/user/ProbabilityDisplay.tsx` — 85 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/user/Redeem.tsx` — 76 行 · `pm-web`
+- [ ] `extension/packages/nextjs/components/user/TokenBalance.tsx` — 65 行 · `pm-web`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/services/store/raceStore.ts` — 59 行 · `pm-web`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+
+<details><summary>二进制文件 12 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero-home.png`
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/lp1.png`
+- `extension/packages/nextjs/public/lp2.png`
+- `extension/packages/nextjs/public/lp3.png`
+- `extension/packages/nextjs/public/oracle1.png`
+- `extension/packages/nextjs/public/oracle2.png`
+- `extension/packages/nextjs/public/priceTable.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+- `extension/packages/nextjs/public/user1.png`
+- `extension/packages/nextjs/public/user2.png`
+- `extension/packages/nextjs/public/user3.png`
+
+</details>
+
+### challenge-stablecoins
+
+文本文件 77 个（已完成 0），二进制 2 个 → 目标分支 `challenge-stablecoins_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 1215 行 · `stab-readme-p1, stab-readme-p2` · ⏳ 分段翻译进度 0/2
+- [ ] `extension/.ai/CHALLENGE.yaml` — 970 行 · `stab-web`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 379 行 · `stab-web`
+- [ ] `extension/README.md.args.mjs` — 1138 行 · `stab-web`
+- [ ] `extension/package.json` — 6 行 · `stab-web`
+- [ ] `extension/packages/foundry/contracts/DEX.sol` — 177 行 · `stab-sol`
+- [ ] `extension/packages/foundry/contracts/IMyUSDEngine.sol` — 47 行 · `stab-sol`
+- [ ] `extension/packages/foundry/contracts/MyUSD.sol` — 81 行 · `stab-sol`
+- [ ] `extension/packages/foundry/contracts/MyUSDEngine.sol` — 133 行 · `stab-sol`
+- [ ] `extension/packages/foundry/contracts/MyUSDStaking.sol` — 163 行 · `stab-sol`
+- [ ] `extension/packages/foundry/contracts/Oracle.sol` — 32 行 · `stab-sol`
+- [ ] `extension/packages/foundry/contracts/RateController.sol` — 35 行 · `stab-sol`
+- [ ] `extension/packages/foundry/package.json` — 12 行 · `stab-sol`
+- [ ] `extension/packages/foundry/root.package.json` — 6 行 · `stab-sol`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `stab-sol`
+- [ ] `extension/packages/foundry/script/DeployMyUSD.s.sol` — 79 行 · `stab-sol`
+- [ ] `extension/packages/foundry/scripts-js/simulate/accounts.js` — 55 行 · `stab-test`
+- [ ] `extension/packages/foundry/scripts-js/simulate/contractHelper.js` — 114 行 · `stab-test`
+- [ ] `extension/packages/foundry/scripts-js/simulate/interestRateController.js` — 284 行 · `stab-test`
+- [ ] `extension/packages/foundry/scripts-js/simulate/marketSimulator.js` — 623 行 · `stab-test`
+- [ ] `extension/packages/foundry/test/MyUSDEngine.t.sol` — 657 行 · `stab-test`
+- [ ] `extension/packages/hardhat/contracts/DEX.sol` — 177 行 · `stab-sol`
+- [ ] `extension/packages/hardhat/contracts/MyUSD.sol` — 81 行 · `stab-sol`
+- [ ] `extension/packages/hardhat/contracts/MyUSDEngine.sol` — 133 行 · `stab-sol`
+- [ ] `extension/packages/hardhat/contracts/MyUSDStaking.sol` — 163 行 · `stab-sol`
+- [ ] `extension/packages/hardhat/contracts/Oracle.sol` — 32 行 · `stab-sol`
+- [ ] `extension/packages/hardhat/contracts/RateController.sol` — 36 行 · `stab-sol`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_contracts.ts` — 153 行 · `stab-sol`
+- [ ] `extension/packages/hardhat/package.json` — 11 行 · `stab-sol`
+- [ ] `extension/packages/hardhat/scripts/deployments.ts` — 15 行 · `stab-test`
+- [ ] `extension/packages/hardhat/scripts/fetchPriceFromUniswap.ts` — 86 行 · `stab-test`
+- [ ] `extension/packages/hardhat/scripts/interestRateController.ts` — 291 行 · `stab-test`
+- [ ] `extension/packages/hardhat/scripts/marketSimulator.ts` — 790 行 · `stab-test`
+- [ ] `extension/packages/hardhat/test/MyUSDEngine.ts` — 658 行 · `stab-test`
+- [ ] `extension/packages/nextjs/app/_components/CollateralOperations.tsx` — 87 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/MintOperations.tsx` — 152 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/Modals/TokenSwapModal.tsx` — 181 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/Modals/TokenTransferModal.tsx` — 95 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/PriceGraph.tsx` — 187 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/RateControls.tsx` — 163 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/RatioChange.tsx` — 58 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/SideButtons.tsx` — 127 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/StakeOperations.tsx` — 98 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/StakersTable.tsx` — 90 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/SupplyGraph.tsx` — 245 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/TokenActions.tsx` — 87 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/TooltipInfo.tsx` — 21 行 · `common-shared`
+- [ ] `extension/packages/nextjs/app/_components/UserPosition.tsx` — 124 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/_components/UserPositionsTable.tsx` — 99 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/dashboard/page.tsx` — 41 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 14 行 · `stab-web`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 35 行 · `stab-web`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 13 行 · `stab-web`
+- [ ] `extension/packages/nextjs/hooks/scaffold-eth/useAnimationConfig.ts` — 19 行 · `stab-web`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/package.json` — 5 行 · `stab-web`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/constant.ts` — 2 行 · `stab-web`
+- [ ] `extension/packages/nextjs/utils/helpers.ts` — 24 行 · `stab-web`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+
+<details><summary>二进制文件 2 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-token-vendor
+
+文本文件 43 个（已完成 0），二进制 3 个 → 目标分支 `challenge-token-vendor_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 682 行 · `vendor-readme`
+- [ ] `extension/.ai/CHALLENGE.yaml` — 661 行 · `vendor-code`
+- [ ] `extension/.ai/CONCEPTS.yaml` — 93 行 · `vendor-code`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 248 行 · `vendor-code`
+- [ ] `extension/README.md.args.mjs` — 499 行 · `vendor-code`
+- [ ] `extension/packages/foundry/contracts/IVendor.sol` — 19 行 · `vendor-code`
+- [ ] `extension/packages/foundry/contracts/Vendor.sol` — 49 行 · `vendor-code`
+- [ ] `extension/packages/foundry/contracts/YourToken.sol` — 12 行 · `vendor-code`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `vendor-code`
+- [ ] `extension/packages/foundry/script/DeployYourToken.s.sol` — 46 行 · `vendor-code`
+- [ ] `extension/packages/foundry/test/Vendor.t.sol` — 206 行 · `vendor-code`
+- [ ] `extension/packages/hardhat/contracts/Vendor.sol` — 49 行 · `vendor-code`
+- [ ] `extension/packages/hardhat/contracts/YourToken.sol` — 12 行 · `vendor-code`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_your_token.ts` — 28 行 · `vendor-code`
+- [ ] `extension/packages/hardhat/deploy/01_deploy_vendor.ts` — 74 行 · `vendor-code`
+- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 24 行 · `common-shared`
+- [ ] `extension/packages/hardhat/test/Vendor.ts` — 246 行 · `vendor-code`
+- [ ] `extension/packages/nextjs/app/events/page.tsx` — 116 行 · `vendor-code`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `vendor-code`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 40 行 · `vendor-code`
+- [ ] `extension/packages/nextjs/app/token-vendor/page.tsx` — 189 行 · `vendor-code`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 17 行 · `vendor-code`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/priceInWei.ts` — 16 行 · `vendor-code`
+
+<details><summary>二进制文件 3 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/thumbnail-challenge.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-tokenization
+
+文本文件 48 个（已完成 0），二进制 5 个 → 目标分支 `challenge-tokenization_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 366 行 · `nft-readme`
+- [ ] `extension/.ai/CHALLENGE.yaml` — 420 行 · `nft-code`
+- [ ] `extension/.ai/CONCEPTS.yaml` — 119 行 · `nft-code`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 181 行 · `nft-code`
+- [ ] `extension/README.md.args.mjs` — 286 行 · `nft-code`
+- [ ] `extension/packages/foundry/contracts/YourCollectible.sol` — 49 行 · `nft-code`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `nft-code`
+- [ ] `extension/packages/foundry/script/DeployYourCollectible.s.sol` — 12 行 · `nft-code`
+- [ ] `extension/packages/foundry/test/YourCollectible.t.sol` — 55 行 · `nft-code`
+- [ ] `extension/packages/hardhat/contracts/YourCollectible.sol` — 49 行 · `nft-code`
+- [ ] `extension/packages/hardhat/deploy/01_deploy_your_collectible.ts` — 28 行 · `nft-code`
+- [ ] `extension/packages/hardhat/test/YourCollectible.ts` — 63 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/api/ipfs/add/route.ts` — 15 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/api/ipfs/get-metadata/route.ts` — 13 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/ipfsDownload/page.tsx` — 82 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/ipfsUpload/page.tsx` — 81 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/myNFTs/_components/MyHoldings.tsx` — 104 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/myNFTs/_components/NFTCard.tsx` — 67 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/myNFTs/_components/index.ts` — 1 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/myNFTs/page.tsx` — 84 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 38 行 · `nft-code`
+- [ ] `extension/packages/nextjs/app/transfers/page.tsx` — 69 行 · `nft-code`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 29 行 · `nft-code`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/package.json` — 5 行 · `nft-code`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/tokenization/ipfs-fetch.ts` — 18 行 · `nft-code`
+- [ ] `extension/packages/nextjs/utils/tokenization/ipfs.ts` — 31 行 · `nft-code`
+- [ ] `extension/packages/nextjs/utils/tokenization/nftsMetadata.ts` — 126 行 · `nft-code`
+
+<details><summary>二进制文件 5 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/hero.png`
+- `extension/packages/nextjs/public/import-nft.png`
+- `extension/packages/nextjs/public/nfts.png`
+- `extension/packages/nextjs/public/thumbnail-challenge.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+
+</details>
+
+### challenge-zk-voting
+
+文本文件 61 个（已完成 0），二进制 11 个 → 目标分支 `challenge-zk-voting_zh`
+
+- [ ] `.cursorignore.example` — 4 行 · `common-shared`
+- [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
+- [ ] `.github/workflows/grader-update-challenge.yml` — 84 行 · `common-shared`
+- [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
+- [ ] `.gitignore.example` — 26 行 · `common-shared`
+- [ ] `LICENCE.txt` — 21 行 · `common-shared`
+- [ ] `README.md` — 2095 行 · `zk-readme-p1, zk-readme-p2, zk-readme-p3, zk-readme-p4` · ⏳ 分段翻译进度 0/4
+- [ ] `extension/.ai/CHALLENGE.yaml` — 1363 行 · `zk-sol`
+- [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
+- [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
+- [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
+- [ ] `extension/.claude/agents/progress-tracker.md` — 8 行 · `common-shared`
+- [ ] `extension/.claude/settings.local.json.template.mjs` — 9 行 · `common-shared`
+- [ ] `extension/.claude/skills/skip/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.claude/skills/start/SKILL.md` — 10 行 · `common-shared`
+- [ ] `extension/.cursor/agents/progress-tracker.md` — 6 行 · `common-shared`
+- [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
+- [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
+- [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
+- [ ] `extension/AGENTS.md.args.mjs` — 407 行 · `zk-sol`
+- [ ] `extension/README.md.args.mjs` — 1970 行 · `zk-sol`
+- [ ] `extension/packages/circuits/Nargo.toml` — 7 行 · `zk-sol`
+- [ ] `extension/packages/circuits/src/main.nr` — 25 行 · `zk-sol`
+- [ ] `extension/packages/foundry/contracts/IVoting.sol` — 42 行 · `zk-sol`
+- [ ] `extension/packages/foundry/contracts/Verifier.sol` — 6 行 · `zk-sol`
+- [ ] `extension/packages/foundry/contracts/Voting.sol` — 137 行 · `zk-sol`
+- [ ] `extension/packages/foundry/contracts/mocks/VerifierMock.sol` — 51 行 · `zk-sol`
+- [ ] `extension/packages/foundry/package.json` — 10 行 · `zk-sol`
+- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 6 行 · `zk-sol`
+- [ ] `extension/packages/foundry/script/DeployVoting.s.sol` — 30 行 · `zk-sol`
+- [ ] `extension/packages/foundry/test/Voting.t.sol` — 267 行 · `zk-sol`
+- [ ] `extension/packages/hardhat/contracts/Verifier.sol` — 6 行 · `zk-sol`
+- [ ] `extension/packages/hardhat/contracts/Voting.sol` — 137 行 · `zk-sol`
+- [ ] `extension/packages/hardhat/contracts/mocks/VerifierMock.sol` — 54 行 · `zk-sol`
+- [ ] `extension/packages/hardhat/deploy/00_deploy_your_voting_contract.ts` — 68 行 · `zk-sol`
+- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 22 行 · `zk-sol`
+- [ ] `extension/packages/hardhat/package.json` — 5 行 · `zk-sol`
+- [ ] `extension/packages/hardhat/test/Voting.ts` — 259 行 · `zk-sol`
+- [ ] `extension/packages/nextjs/.env.example.args.mjs` — 5 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/api/circuit/route.ts` — 24 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 46 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_challengeComponents/CreateCommitment.tsx` — 157 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_challengeComponents/GenerateProof.tsx` — 193 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_challengeComponents/VoteWithBurnerHardhat.tsx` — 210 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_challengeComponents/VoteWithBurnerSepolia.tsx` — 316 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_components/AddVotersModal.tsx` — 191 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_components/ClearStorageButton.tsx` — 80 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_components/LogStorageButton.tsx` — 99 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_components/ShowVotersButton.tsx` — 176 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_components/VoteChoice.tsx` — 28 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/_components/VotingStats.tsx` — 58 行 · `zk-web`
+- [ ] `extension/packages/nextjs/app/voting/page.tsx` — 58 行 · `zk-web`
+- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 12 行 · `zk-web`
+- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
+- [ ] `extension/packages/nextjs/package.json` — 9 行 · `zk-web`
+- [ ] `extension/packages/nextjs/scaffold.config.ts.args.mjs` — 8 行 · `zk-web`
+- [ ] `extension/packages/nextjs/services/store/challengeStore.ts` — 48 行 · `zk-web`
+- [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
+- [ ] `extension/packages/nextjs/utils/proofStorage.ts` — 481 行 · `zk-web`
+- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
+
+<details><summary>二进制文件 11 个（不处理）</summary>
+
+- `extension/packages/nextjs/public/generateproof-zk.png`
+- `extension/packages/nextjs/public/home-zk.png`
+- `extension/packages/nextjs/public/loglocalstorage-zk.png`
+- `extension/packages/nextjs/public/overview-zk.png`
+- `extension/packages/nextjs/public/proofgenerated-zk.png`
+- `extension/packages/nextjs/public/readme-zk.png`
+- `extension/packages/nextjs/public/registered-zk.png`
+- `extension/packages/nextjs/public/sepoliavote-zk.png`
+- `extension/packages/nextjs/public/thumbnail.png`
+- `extension/packages/nextjs/public/voted-zk.png`
+- `extension/packages/nextjs/public/votingstats-zk.png`
+
+</details>
