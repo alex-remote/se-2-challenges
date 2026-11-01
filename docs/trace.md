@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:05 UTC　｜　总进度：**492 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:06 UTC　｜　总进度：**512 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -26,7 +26,7 @@
 | [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 77 / 77 ✅ | `challenge-stablecoins_zh` |
 | [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 43 / 43 ✅ | `challenge-token-vendor_zh` |
 | [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 48 / 48 ✅ | `challenge-tokenization_zh` |
-| [`challenge-zk-voting`](#challenge-zk-voting) | 72 | 61 | 11 | 10180 | 20 / 61 | `challenge-zk-voting_zh` |
+| [`challenge-zk-voting`](#challenge-zk-voting) | 72 | 61 | 11 | 10180 | 40 / 61 | `challenge-zk-voting_zh` |
 
 ## 子代理分组
 
@@ -75,7 +75,7 @@
 | `zk-readme-p3` | 1 | 548 | 🔄 进行中 |
 | `zk-readme-p4` | 1 | 529 | 🔄 进行中 |
 | `zk-sol` | 20 | 4872 | 🔄 进行中 |
-| `zk-web` | 20 | 2214 | 🔄 进行中 |
+| `zk-web` | 20 | 2214 | ✅ 已完成 |
 
 ## 文件清单
 
@@ -826,7 +826,7 @@
 
 ### challenge-zk-voting
 
-文本文件 61 个（已完成 20），二进制 11 个 → 目标分支 `challenge-zk-voting_zh`
+文本文件 61 个（已完成 40），二进制 11 个 → 目标分支 `challenge-zk-voting_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -866,28 +866,28 @@
 - [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 22 行 · `zk-sol`
 - [ ] `extension/packages/hardhat/package.json` — 5 行 · `zk-sol`
 - [ ] `extension/packages/hardhat/test/Voting.ts` — 259 行 · `zk-sol`
-- [ ] `extension/packages/nextjs/.env.example.args.mjs` — 5 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/api/circuit/route.ts` — 24 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 46 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_challengeComponents/CreateCommitment.tsx` — 157 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_challengeComponents/GenerateProof.tsx` — 193 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_challengeComponents/VoteWithBurnerHardhat.tsx` — 210 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_challengeComponents/VoteWithBurnerSepolia.tsx` — 316 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_components/AddVotersModal.tsx` — 191 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_components/ClearStorageButton.tsx` — 80 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_components/LogStorageButton.tsx` — 99 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_components/ShowVotersButton.tsx` — 176 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_components/VoteChoice.tsx` — 28 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/_components/VotingStats.tsx` — 58 行 · `zk-web`
-- [ ] `extension/packages/nextjs/app/voting/page.tsx` — 58 行 · `zk-web`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 12 行 · `zk-web`
+- [x] `extension/packages/nextjs/.env.example.args.mjs` — 5 行 · `zk-web` · ✅ 已翻译注释（改动 3 行（args 参考说明、默认参数注释；URL 原样保留））
+- [x] `extension/packages/nextjs/app/api/circuit/route.ts` — 24 行 · `zk-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `zk-web` · ✅ 无需改动（无注释（模板字符串内也无注释））
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 46 行 · `zk-web` · ✅ 无需改动（无注释（模板字符串为 JSX 文案，不翻译））
+- [x] `extension/packages/nextjs/app/voting/_challengeComponents/CreateCommitment.tsx` — 157 行 · `zk-web` · ✅ 已翻译注释（改动 3 行（// placeholder→// 占位值）；Checkpoint 7 标记与被注释的 import 保留原样）
+- [x] `extension/packages/nextjs/app/voting/_challengeComponents/GenerateProof.tsx` — 193 行 · `zk-web` · ✅ 已翻译注释（改动 2 行；Checkpoint 8 标记与被注释的 import 保留原样）
+- [x] `extension/packages/nextjs/app/voting/_challengeComponents/VoteWithBurnerHardhat.tsx` — 210 行 · `zk-web` · ✅ 已翻译注释（改动 3 行（// placeholder→// 占位值）；Checkpoint 9 标记与被注释的 import 保留原样）
+- [x] `extension/packages/nextjs/app/voting/_challengeComponents/VoteWithBurnerSepolia.tsx` — 316 行 · `zk-web` · ✅ 已翻译注释（改动 10 行；Checkpoint 10 标记与被注释的 RPC_URL 代码保留原样）
+- [x] `extension/packages/nextjs/app/voting/_components/AddVotersModal.tsx` — 191 行 · `zk-web` · ✅ 已翻译注释（改动 6 行（含 1 处 JSX 注释））
+- [x] `extension/packages/nextjs/app/voting/_components/ClearStorageButton.tsx` — 80 行 · `zk-web` · ✅ 已翻译注释（改动 6 行）
+- [x] `extension/packages/nextjs/app/voting/_components/LogStorageButton.tsx` — 99 行 · `zk-web` · ✅ 已翻译注释（改动 5 行）
+- [x] `extension/packages/nextjs/app/voting/_components/ShowVotersButton.tsx` — 176 行 · `zk-web` · ✅ 已翻译注释（改动 2 行（JSX 注释））
+- [x] `extension/packages/nextjs/app/voting/_components/VoteChoice.tsx` — 28 行 · `zk-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/voting/_components/VotingStats.tsx` — 58 行 · `zk-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/voting/page.tsx` — 58 行 · `zk-web` · ✅ 已翻译注释（改动 1 行（JSX 注释））
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 12 行 · `zk-web` · ✅ 无需改动（无注释）
 - [x] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared` · ✅ 无需改动（无注释）
-- [ ] `extension/packages/nextjs/package.json` — 9 行 · `zk-web`
-- [ ] `extension/packages/nextjs/scaffold.config.ts.args.mjs` — 8 行 · `zk-web`
-- [ ] `extension/packages/nextjs/services/store/challengeStore.ts` — 48 行 · `zk-web`
+- [x] `extension/packages/nextjs/package.json` — 9 行 · `zk-web` · ✅ 无需改动（JSON 无注释）
+- [x] `extension/packages/nextjs/scaffold.config.ts.args.mjs` — 8 行 · `zk-web` · ✅ 已翻译注释（改动 3 行（args 参考说明、默认参数注释；URL 原样保留））
+- [x] `extension/packages/nextjs/services/store/challengeStore.ts` — 48 行 · `zk-web` · ✅ 已翻译注释（改动 4 行）
 - [x] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared` · ✅ 已翻译注释（改动 4 行；校验 CODE-CHANGED(误报,已确认)；模板字符串内 CSS 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
-- [ ] `extension/packages/nextjs/utils/proofStorage.ts` — 481 行 · `zk-web`
+- [x] `extension/packages/nextjs/utils/proofStorage.ts` — 481 行 · `zk-web` · ✅ 已翻译注释（改动 34 行；eslint-disable 指令保留原样）
 - [x] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared` · ✅ 无需改动（无注释）
 
 <details><summary>二进制文件 11 个（不处理）</summary>
