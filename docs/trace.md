@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:01 UTC　｜　总进度：**418 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:04 UTC　｜　总进度：**458 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -17,14 +17,14 @@
 |---|---:|---:|---:|---:|---:|---|
 | [`main`](#main) | 3 | 3 | 0 | 188 | 3 / 3 ✅ | `main_zh` |
 | [`base-challenge-template`](#base-challenge-template) | 27 | 26 | 1 | 1332 | 26 / 26 ✅ | `base-challenge-template_zh` |
-| [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 45 / 46 | `challenge-crowdfunding_zh` |
+| [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 46 / 46 ✅ | `challenge-crowdfunding_zh` |
 | [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 43 / 43 ✅ | `challenge-dex_zh` |
 | [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 46 / 46 ✅ | `challenge-dice-game_zh` |
 | [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 21 / 123 | `challenge-oracles_zh` |
-| [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 64 / 65 | `challenge-over-collateralized-lending_zh` |
+| [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 65 / 65 ✅ | `challenge-over-collateralized-lending_zh` |
 | [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 20 / 66 | `challenge-prediction-markets_zh` |
-| [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 40 / 77 | `challenge-stablecoins_zh` |
-| [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 42 / 43 | `challenge-token-vendor_zh` |
+| [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 77 / 77 ✅ | `challenge-stablecoins_zh` |
+| [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 43 / 43 ✅ | `challenge-token-vendor_zh` |
 | [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 48 / 48 ✅ | `challenge-tokenization_zh` |
 | [`challenge-zk-voting`](#challenge-zk-voting) | 72 | 61 | 11 | 10180 | 20 / 61 | `challenge-zk-voting_zh` |
 
@@ -37,19 +37,19 @@
 | `common-shared` | 24 个（复制到各分支共 215 份） | 6594 | ✅ 已完成 |
 | `base-main` | 9 | 521 | ✅ 已完成 |
 | `common-start` | 1 个（复制到各分支共 11 份） | 4576 | ✅ 已完成 |
-| `crowd-readme` | 1 | 644 | 🔄 进行中 |
+| `crowd-readme` | 1 | 644 | ✅ 已完成 |
 | `crowd-code` | 24 | 2656 | ✅ 已完成 |
 | `dex-readme` | 1 | 736 | ✅ 已完成 |
 | `dex-code` | 22 | 3558 | ✅ 已完成 |
 | `dice-readme` | 1 | 468 | ✅ 已完成 |
 | `dice-code` | 25 | 2250 | ✅ 已完成 |
-| `orc-readme-p1` | 1 | 541 | ⏸️ 待启动 |
-| `orc-readme-p2` | 1 | 456 | ⏸️ 待启动 |
-| `orc-readme-p3` | 1 | 623 | ⏸️ 待启动 |
-| `orc-readme-p4` | 1 | 610 | ⏸️ 待启动 |
-| `orc-sol` | 21 | 5567 | ⏸️ 待启动 |
-| `orc-ftest` | 16 | 3345 | ⏸️ 待启动 |
-| `orc-htest` | 15 | 3065 | ⏸️ 待启动 |
+| `orc-readme-p1` | 1 | 541 | 🔄 进行中 |
+| `orc-readme-p2` | 1 | 456 | 🔄 进行中 |
+| `orc-readme-p3` | 1 | 623 | 🔄 进行中 |
+| `orc-readme-p4` | 1 | 610 | 🔄 进行中 |
+| `orc-sol` | 21 | 5567 | 🔄 进行中 |
+| `orc-ftest` | 16 | 3345 | 🔄 进行中 |
+| `orc-htest` | 15 | 3065 | 🔄 进行中 |
 | `orc-web` | 49 | 4239 | ⏸️ 待启动 |
 | `lend-readme-p1` | 1 | 521 | ✅ 已完成 |
 | `lend-readme-p2` | 1 | 567 | ✅ 已完成 |
@@ -62,20 +62,20 @@
 | `pm-sol` | 11 | 1590 | 🔄 进行中 |
 | `pm-test` | 1 | 1508 | 🔄 进行中 |
 | `stab-readme-p1` | 1 | 645 | ✅ 已完成 |
-| `stab-readme-p2` | 1 | 570 | 🔄 进行中 |
-| `stab-web` | 26 | 4439 | 🔄 进行中 |
+| `stab-readme-p2` | 1 | 570 | ✅ 已完成 |
+| `stab-web` | 26 | 4439 | ✅ 已完成 |
 | `stab-sol` | 19 | 1556 | ✅ 已完成 |
-| `stab-test` | 10 | 3573 | 🔄 进行中 |
-| `vendor-readme` | 1 | 682 | 🔄 进行中 |
+| `stab-test` | 10 | 3573 | ✅ 已完成 |
+| `vendor-readme` | 1 | 682 | ✅ 已完成 |
 | `vendor-code` | 21 | 2640 | ✅ 已完成 |
 | `nft-readme` | 1 | 366 | ✅ 已完成 |
 | `nft-code` | 27 | 2045 | ✅ 已完成 |
 | `zk-readme-p1` | 1 | 462 | 🔄 进行中 |
-| `zk-readme-p2` | 1 | 556 | ⏸️ 待启动 |
-| `zk-readme-p3` | 1 | 548 | ⏸️ 待启动 |
-| `zk-readme-p4` | 1 | 529 | ⏸️ 待启动 |
-| `zk-sol` | 20 | 4872 | ⏸️ 待启动 |
-| `zk-web` | 20 | 2214 | ⏸️ 待启动 |
+| `zk-readme-p2` | 1 | 556 | 🔄 进行中 |
+| `zk-readme-p3` | 1 | 548 | 🔄 进行中 |
+| `zk-readme-p4` | 1 | 529 | 🔄 进行中 |
+| `zk-sol` | 20 | 4872 | 🔄 进行中 |
+| `zk-web` | 20 | 2214 | 🔄 进行中 |
 
 ## 文件清单
 
@@ -126,7 +126,7 @@
 
 ### challenge-crowdfunding
 
-文本文件 46 个（已完成 45），二进制 3 个 → 目标分支 `challenge-crowdfunding_zh`
+文本文件 46 个（已完成 46），二进制 3 个 → 目标分支 `challenge-crowdfunding_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -134,7 +134,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 644 行 · `crowd-readme`
+- [x] `README.md` — 644 行 · `crowd-readme` · ✅ 已生成 `README_zh.md`（/home/user/se-2-challenges/.worktrees/challenge-crowdfunding/README_zh.md，644 行（与原文一致）；check_md [OK]，WARN 11 条已逐条确认：9 条为代码块内注释翻译（L232、L519-L539，代码与缩进未变），2 条为纯行内代码行（L244、L246，无需翻译））
 - [x] `extension/.ai/CHALLENGE.yaml` — 619 行 · `crowd-code` · ✅ 已翻译注释（改动 6 行（结构层 # 注释：L7-8 及 4 个 CHECKPOINT 分隔标题）；块标量内的 Markdown 正文未动）
 - [x] `extension/.ai/CONCEPTS.yaml` — 91 行 · `crowd-code` · ✅ 无需改动（无注释（全部为 YAML 值/块标量正文））
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
@@ -453,7 +453,7 @@
 
 ### challenge-over-collateralized-lending
 
-文本文件 65 个（已完成 64），二进制 2 个 → 目标分支 `challenge-over-collateralized-lending_zh`
+文本文件 65 个（已完成 65），二进制 2 个 → 目标分支 `challenge-over-collateralized-lending_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -461,7 +461,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 1088 行 · `lend-readme-p1, lend-readme-p2` · ⏳ 分段翻译进度 2/2
+- [x] `README.md` — 1088 行 · `lend-readme-p1, lend-readme-p2` · ✅ 已生成 `README_zh.md`（分段拼接，1088 行）
 - [x] `extension/.ai/CHALLENGE.yaml` — 617 行 · `lend-web` · ✅ 已翻译注释（改动 4 行：结构层 # CHECKPOINT 1-4 注释（CHECKPOINT 标记保留英文）；块标量内的 Markdown 与代码注释属字符串，未改；check_inplace [OK]）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
@@ -618,7 +618,7 @@
 
 ### challenge-stablecoins
 
-文本文件 77 个（已完成 40），二进制 2 个 → 目标分支 `challenge-stablecoins_zh`
+文本文件 77 个（已完成 77），二进制 2 个 → 目标分支 `challenge-stablecoins_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -626,8 +626,8 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 1215 行 · `stab-readme-p1, stab-readme-p2` · ⏳ 分段翻译进度 1/2
-- [ ] `extension/.ai/CHALLENGE.yaml` — 970 行 · `stab-web`
+- [x] `README.md` — 1215 行 · `stab-readme-p1, stab-readme-p2` · ✅ 已生成 `README_zh.md`（分段拼接，1215 行）
+- [x] `extension/.ai/CHALLENGE.yaml` — 970 行 · `stab-web` · ✅ 已翻译注释（改动 5 行（结构层 # CHECKPOINT 1-5 注释，冒号后译）；纯分隔线保留；块标量内 Markdown 正文及 solution 代码里的 // 函数名注释属于 YAML 字符串值，未译）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start` · ✅ 已生成 `start-content_zh.md`（/home/user/se-2-challenges/.worktrees/challenge-stablecoins/extension/.ai/instructions/start-content_zh.md（416 行，check_md OK；WARN 47 条均为代码块内自然语言消息模板的翻译，已人工确认））
@@ -639,9 +639,9 @@
 - [x] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared` · ✅ 已生成 `skip_zh.md`（extension/.cursor/commands/skip_zh.md，5 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.cursor/commands/start.md` — 5 行 · `common-shared` · ✅ 已生成 `start_zh.md`（extension/.cursor/commands/start_zh.md，5 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.vscode/settings.json` — 5 行 · `common-shared` · ✅ 无需改动（JSON 配置，无注释）
-- [ ] `extension/AGENTS.md.args.mjs` — 379 行 · `stab-web`
-- [ ] `extension/README.md.args.mjs` — 1138 行 · `stab-web`
-- [ ] `extension/package.json` — 6 行 · `stab-web`
+- [x] `extension/AGENTS.md.args.mjs` — 379 行 · `stab-web` · ✅ 已翻译注释（改动 1 行（L1 JS 注释）；模板字符串中的 AGENTS.md 正文按要求视为字符串未译）
+- [x] `extension/README.md.args.mjs` — 1138 行 · `stab-web` · ✅ 无需改动（模板字符串外无 JS 注释；README 正文（含 L648-718 Solidity 代码块内的 // 注释）属于模板字符串，按要求未译）
+- [x] `extension/package.json` — 6 行 · `stab-web` · ✅ 无需改动（JSON，无注释）
 - [x] `extension/packages/foundry/contracts/DEX.sol` — 177 行 · `stab-sol` · ✅ 已翻译注释（改动 25 行；与 hardhat 同名文件译文一致）
 - [x] `extension/packages/foundry/contracts/IMyUSDEngine.sol` — 47 行 · `stab-sol` · ✅ 已翻译注释（改动 4 行）
 - [x] `extension/packages/foundry/contracts/MyUSD.sol` — 81 行 · `stab-sol` · ✅ 已翻译注释（改动 7 行；与 hardhat 同名文件译文一致）
@@ -653,11 +653,11 @@
 - [x] `extension/packages/foundry/root.package.json` — 6 行 · `stab-sol` · ✅ 无需改动（JSON 文件，无注释）
 - [x] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `stab-sol` · ✅ 无需改动（无注释（仅模板字符串代码））
 - [x] `extension/packages/foundry/script/DeployMyUSD.s.sol` — 79 行 · `stab-sol` · ✅ 已翻译注释（改动 17 行；SPDX 行保留）
-- [ ] `extension/packages/foundry/scripts-js/simulate/accounts.js` — 55 行 · `stab-test`
-- [ ] `extension/packages/foundry/scripts-js/simulate/contractHelper.js` — 114 行 · `stab-test`
-- [ ] `extension/packages/foundry/scripts-js/simulate/interestRateController.js` — 284 行 · `stab-test`
-- [ ] `extension/packages/foundry/scripts-js/simulate/marketSimulator.js` — 623 行 · `stab-test`
-- [ ] `extension/packages/foundry/test/MyUSDEngine.t.sol` — 657 行 · `stab-test`
+- [x] `extension/packages/foundry/scripts-js/simulate/accounts.js` — 55 行 · `stab-test` · ✅ 已翻译注释（改动 3 行）
+- [x] `extension/packages/foundry/scripts-js/simulate/contractHelper.js` — 114 行 · `stab-test` · ✅ 已翻译注释（改动 7 行）
+- [x] `extension/packages/foundry/scripts-js/simulate/interestRateController.js` — 284 行 · `stab-test` · ✅ 已翻译注释（改动 15 行；纯数字注释（// 2%、// 30%）保留）
+- [x] `extension/packages/foundry/scripts-js/simulate/marketSimulator.js` — 623 行 · `stab-test` · ✅ 已翻译注释（改动 22 行）
+- [x] `extension/packages/foundry/test/MyUSDEngine.t.sol` — 657 行 · `stab-test` · ✅ 已翻译注释（改动 31 行；SPDX、分隔线、算式注释（2000 * 1000 = ...）保留）
 - [x] `extension/packages/hardhat/contracts/DEX.sol` — 177 行 · `stab-sol` · ✅ 已翻译注释（改动 25 行；与 foundry 同名文件逐字节一致）
 - [x] `extension/packages/hardhat/contracts/MyUSD.sol` — 81 行 · `stab-sol` · ✅ 已翻译注释（改动 7 行；与 foundry 同名文件逐字节一致）
 - [x] `extension/packages/hardhat/contracts/MyUSDEngine.sol` — 133 行 · `stab-sol` · ✅ 已翻译注释（改动 12 行；与 foundry 同名文件逐字节一致）
@@ -666,36 +666,36 @@
 - [x] `extension/packages/hardhat/contracts/RateController.sol` — 36 行 · `stab-sol` · ✅ 已翻译注释（改动 4 行）
 - [x] `extension/packages/hardhat/deploy/00_deploy_contracts.ts` — 153 行 · `stab-sol` · ✅ 已翻译注释（改动 25 行）
 - [x] `extension/packages/hardhat/package.json` — 11 行 · `stab-sol` · ✅ 无需改动（JSON 文件，无注释）
-- [ ] `extension/packages/hardhat/scripts/deployments.ts` — 15 行 · `stab-test`
-- [ ] `extension/packages/hardhat/scripts/fetchPriceFromUniswap.ts` — 86 行 · `stab-test`
-- [ ] `extension/packages/hardhat/scripts/interestRateController.ts` — 291 行 · `stab-test`
-- [ ] `extension/packages/hardhat/scripts/marketSimulator.ts` — 790 行 · `stab-test`
-- [ ] `extension/packages/hardhat/test/MyUSDEngine.ts` — 658 行 · `stab-test`
-- [ ] `extension/packages/nextjs/app/_components/CollateralOperations.tsx` — 87 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/MintOperations.tsx` — 152 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/Modals/TokenSwapModal.tsx` — 181 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/Modals/TokenTransferModal.tsx` — 95 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/PriceGraph.tsx` — 187 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/RateControls.tsx` — 163 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/RatioChange.tsx` — 58 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/SideButtons.tsx` — 127 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/StakeOperations.tsx` — 98 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/StakersTable.tsx` — 90 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/SupplyGraph.tsx` — 245 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/TokenActions.tsx` — 87 行 · `stab-web`
+- [x] `extension/packages/hardhat/scripts/deployments.ts` — 15 行 · `stab-test` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/hardhat/scripts/fetchPriceFromUniswap.ts` — 86 行 · `stab-test` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/hardhat/scripts/interestRateController.ts` — 291 行 · `stab-test` · ✅ 已翻译注释（改动 26 行；与 foundry 版同句译法一致）
+- [x] `extension/packages/hardhat/scripts/marketSimulator.ts` — 790 行 · `stab-test` · ✅ 已翻译注释（改动 108 行；eslint-disable 指令保留）
+- [x] `extension/packages/hardhat/test/MyUSDEngine.ts` — 658 行 · `stab-test` · ✅ 已翻译注释（改动 67 行；eslint-disable 指令保留，it()/describe() 字符串未动）
+- [x] `extension/packages/nextjs/app/_components/CollateralOperations.tsx` — 87 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/MintOperations.tsx` — 152 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/Modals/TokenSwapModal.tsx` — 181 行 · `stab-web` · ✅ 已翻译注释（改动 1 行（L110 JSX {/* */} 注释））
+- [x] `extension/packages/nextjs/app/_components/Modals/TokenTransferModal.tsx` — 95 行 · `stab-web` · ✅ 已翻译注释（改动 1 行（L45 JSX {/* */} 注释））
+- [x] `extension/packages/nextjs/app/_components/PriceGraph.tsx` — 187 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/RateControls.tsx` — 163 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/RatioChange.tsx` — 58 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/SideButtons.tsx` — 127 行 · `stab-web` · ✅ 已翻译注释（改动 2 行（L105、L114 JSX {/* */} 注释））
+- [x] `extension/packages/nextjs/app/_components/StakeOperations.tsx` — 98 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/StakersTable.tsx` — 90 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/SupplyGraph.tsx` — 245 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/TokenActions.tsx` — 87 行 · `stab-web` · ✅ 无需改动（无注释）
 - [x] `extension/packages/nextjs/app/_components/TooltipInfo.tsx` — 21 行 · `common-shared` · ✅ 已翻译注释（改动 1 行；校验 OK）
-- [ ] `extension/packages/nextjs/app/_components/UserPosition.tsx` — 124 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/_components/UserPositionsTable.tsx` — 99 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/dashboard/page.tsx` — 41 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 14 行 · `stab-web`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 35 行 · `stab-web`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 13 行 · `stab-web`
-- [ ] `extension/packages/nextjs/hooks/scaffold-eth/useAnimationConfig.ts` — 19 行 · `stab-web`
+- [x] `extension/packages/nextjs/app/_components/UserPosition.tsx` — 124 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/_components/UserPositionsTable.tsx` — 99 行 · `stab-web` · ✅ 已翻译注释（改动 1 行（L76 行尾 // 注释））
+- [x] `extension/packages/nextjs/app/dashboard/page.tsx` — 41 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 14 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 35 行 · `stab-web` · ✅ 无需改动（无注释（模板字符串内为 JSX/UI 文案，不译））
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 13 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/hooks/scaffold-eth/useAnimationConfig.ts` — 19 行 · `stab-web` · ✅ 无需改动（无注释）
 - [x] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared` · ✅ 无需改动（无注释）
-- [ ] `extension/packages/nextjs/package.json` — 5 行 · `stab-web`
+- [x] `extension/packages/nextjs/package.json` — 5 行 · `stab-web` · ✅ 无需改动（JSON，无注释）
 - [x] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared` · ✅ 已翻译注释（改动 4 行；校验 CODE-CHANGED(误报,已确认)；模板字符串内 CSS 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
-- [ ] `extension/packages/nextjs/utils/constant.ts` — 2 行 · `stab-web`
-- [ ] `extension/packages/nextjs/utils/helpers.ts` — 24 行 · `stab-web`
+- [x] `extension/packages/nextjs/utils/constant.ts` — 2 行 · `stab-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/utils/helpers.ts` — 24 行 · `stab-web` · ✅ 已翻译注释（改动 2 行（L12、L13 行尾 // 注释））
 - [x] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared` · ✅ 无需改动（无注释）
 
 <details><summary>二进制文件 2 个（不处理）</summary>
@@ -707,7 +707,7 @@
 
 ### challenge-token-vendor
 
-文本文件 43 个（已完成 42），二进制 3 个 → 目标分支 `challenge-token-vendor_zh`
+文本文件 43 个（已完成 43），二进制 3 个 → 目标分支 `challenge-token-vendor_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -715,7 +715,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 682 行 · `vendor-readme`
+- [x] `README.md` — 682 行 · `vendor-readme` · ✅ 已生成 `README_zh.md`（/home/user/se-2-challenges/.worktrees/challenge-token-vendor/README_zh.md，682 行（与原文一致）；check_md [OK]，8 条 WARN 均为纯行内代码/文件路径行（L103/110/132/213/220/276/280/402），按规范保留原样）
 - [x] `extension/.ai/CHALLENGE.yaml` — 661 行 · `vendor-code` · ✅ 已翻译注释（改动6行：顶部说明注释2行+4个 CHECKPOINT 分隔注释；块标量内的 Markdown 标题未动）
 - [x] `extension/.ai/CONCEPTS.yaml` — 93 行 · `vendor-code` · ✅ 无需改动（无任何 # 注释，全部为 YAML 值/块标量字符串）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
