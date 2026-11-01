@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:07 UTC　｜　总进度：**560 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:07 UTC　｜　总进度：**609 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -20,7 +20,7 @@
 | [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 46 / 46 ✅ | `challenge-crowdfunding_zh` |
 | [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 43 / 43 ✅ | `challenge-dex_zh` |
 | [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 46 / 46 ✅ | `challenge-dice-game_zh` |
-| [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 37 / 123 | `challenge-oracles_zh` |
+| [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 86 / 123 | `challenge-oracles_zh` |
 | [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 65 / 65 ✅ | `challenge-over-collateralized-lending_zh` |
 | [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 66 / 66 ✅ | `challenge-prediction-markets_zh` |
 | [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 77 / 77 ✅ | `challenge-stablecoins_zh` |
@@ -50,7 +50,7 @@
 | `orc-sol` | 21 | 5567 | 🔄 进行中 |
 | `orc-ftest` | 16 | 3345 | ✅ 已完成 |
 | `orc-htest` | 15 | 3065 | 🔄 进行中 |
-| `orc-web` | 49 | 4239 | 🔄 进行中 |
+| `orc-web` | 49 | 4239 | ✅ 已完成 |
 | `lend-readme-p1` | 1 | 521 | ✅ 已完成 |
 | `lend-readme-p2` | 1 | 567 | ✅ 已完成 |
 | `lend-web` | 22 | 3019 | ✅ 已完成 |
@@ -317,7 +317,7 @@
 
 ### challenge-oracles
 
-文本文件 123 个（已完成 37），二进制 3 个 → 目标分支 `challenge-oracles_zh`
+文本文件 123 个（已完成 86），二进制 3 个 → 目标分支 `challenge-oracles_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -390,57 +390,57 @@
 - [ ] `extension/packages/hardhat/test/OptimisticOracle.ts` — 669 行 · `orc-htest`
 - [ ] `extension/packages/hardhat/test/StakingOracle.ts` — 574 行 · `orc-htest`
 - [ ] `extension/packages/hardhat/test/WhitelistOracle.ts` — 236 行 · `orc-htest`
-- [ ] `extension/packages/nextjs/app/api/config/price-variance/route.ts` — 58 行 · `orc-web`
-- [ ] `extension/packages/nextjs/app/api/config/skip-probability/route.ts` — 58 行 · `orc-web`
-- [ ] `extension/packages/nextjs/app/api/ora-faucet/route.ts` — 88 行 · `orc-web`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `orc-web`
-- [ ] `extension/packages/nextjs/app/optimistic/page.tsx` — 117 行 · `orc-web`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 41 行 · `orc-web`
-- [ ] `extension/packages/nextjs/app/staking/page.tsx` — 42 行 · `orc-web`
-- [ ] `extension/packages/nextjs/app/whitelist/page.tsx` — 26 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 18 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/ScaffoldEthAppWithProviders.tsx.args.mjs` — 3 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/TooltipInfo.tsx` — 33 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/BucketCountdown.tsx` — 86 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/BuyOraWidget.tsx` — 74 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/ConfigSlider.tsx` — 84 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/EditableCell.tsx` — 148 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/HighlightedCell.tsx` — 41 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/NodeRow.tsx` — 200 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/NodesTable.tsx` — 665 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/PriceWidget.tsx` — 103 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/SelfNodeReporter.tsx` — 212 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/SelfNodeRow.tsx` — 278 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/StakingEditableCell.tsx` — 177 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/TimeAgo.tsx` — 55 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/TotalSlashedWidget.tsx` — 36 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/AssertedRow.tsx` — 50 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/AssertedTable.tsx` — 34 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/AssertionModal.tsx` — 260 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/DisputedRow.tsx` — 48 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/DisputedTable.tsx` — 33 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/EmptyRow.tsx` — 15 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/ExpiredRow.tsx` — 62 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/ExpiredTable.tsx` — 31 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/LoadingRow.tsx` — 21 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/ProposedRow.tsx` — 52 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/ProposedTable.tsx` — 32 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/SettledRow.tsx` — 75 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/SettledTable.tsx` — 32 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/SubmitAssertionButton.tsx` — 245 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/optimistic/TimeLeft.tsx` — 62 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/types.ts` — 69 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/whitelist/AddOracleButton.tsx` — 40 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/whitelist/WhitelistRow.tsx` — 67 行 · `orc-web`
-- [ ] `extension/packages/nextjs/components/oracle/whitelist/WhitelistTable.tsx` — 110 行 · `orc-web`
-- [ ] `extension/packages/nextjs/next.config.js.args.mjs` — 1 行 · `orc-web`
+- [x] `extension/packages/nextjs/app/api/config/price-variance/route.ts` — 58 行 · `orc-web` · ✅ 已翻译注释（改动 3 行）
+- [x] `extension/packages/nextjs/app/api/config/skip-probability/route.ts` — 58 行 · `orc-web` · ✅ 已翻译注释（改动 3 行）
+- [x] `extension/packages/nextjs/app/api/ora-faucet/route.ts` — 88 行 · `orc-web` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `orc-web` · ✅ 无需改动（无注释（模板字符串与导出常量））
+- [x] `extension/packages/nextjs/app/optimistic/page.tsx` — 117 行 · `orc-web` · ✅ 已翻译注释（改动 11 行）
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 41 行 · `orc-web` · ✅ 无需改动（无注释（模板字符串内为 JSX 文案，不翻译））
+- [x] `extension/packages/nextjs/app/staking/page.tsx` — 42 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/whitelist/page.tsx` — 26 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 18 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/ScaffoldEthAppWithProviders.tsx.args.mjs` — 3 行 · `orc-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/components/TooltipInfo.tsx` — 33 行 · `orc-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/components/oracle/BucketCountdown.tsx` — 86 行 · `orc-web` · ✅ 已翻译注释（改动 6 行；保留 eslint-disable 指令）
+- [x] `extension/packages/nextjs/components/oracle/BuyOraWidget.tsx` — 74 行 · `orc-web` · ✅ 已翻译注释（改动 5 行）
+- [x] `extension/packages/nextjs/components/oracle/ConfigSlider.tsx` — 84 行 · `orc-web` · ✅ 已翻译注释（改动 4 行）
+- [x] `extension/packages/nextjs/components/oracle/EditableCell.tsx` — 148 行 · `orc-web` · ✅ 已翻译注释（改动 5 行）
+- [x] `extension/packages/nextjs/components/oracle/HighlightedCell.tsx` — 41 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/oracle/NodeRow.tsx` — 200 行 · `orc-web` · ✅ 已翻译注释（改动 8 行）
+- [x] `extension/packages/nextjs/components/oracle/NodesTable.tsx` — 665 行 · `orc-web` · ✅ 已翻译注释（改动 18 行）
+- [x] `extension/packages/nextjs/components/oracle/PriceWidget.tsx` — 103 行 · `orc-web` · ✅ 已翻译注释（改动 6 行）
+- [x] `extension/packages/nextjs/components/oracle/SelfNodeReporter.tsx` — 212 行 · `orc-web` · ✅ 已翻译注释（改动 7 行）
+- [x] `extension/packages/nextjs/components/oracle/SelfNodeRow.tsx` — 278 行 · `orc-web` · ✅ 已翻译注释（改动 10 行）
+- [x] `extension/packages/nextjs/components/oracle/StakingEditableCell.tsx` — 177 行 · `orc-web` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/nextjs/components/oracle/TimeAgo.tsx` — 55 行 · `orc-web` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/nextjs/components/oracle/TotalSlashedWidget.tsx` — 36 行 · `orc-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/AssertedRow.tsx` — 50 行 · `orc-web` · ✅ 已翻译注释（改动 5 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/AssertedTable.tsx` — 34 行 · `orc-web` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/AssertionModal.tsx` — 260 行 · `orc-web` · ✅ 已翻译注释（改动 7 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/DisputedRow.tsx` — 48 行 · `orc-web` · ✅ 已翻译注释（改动 4 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/DisputedTable.tsx` — 33 行 · `orc-web` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/EmptyRow.tsx` — 15 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/ExpiredRow.tsx` — 62 行 · `orc-web` · ✅ 已翻译注释（改动 4 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/ExpiredTable.tsx` — 31 行 · `orc-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/LoadingRow.tsx` — 21 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/ProposedRow.tsx` — 52 行 · `orc-web` · ✅ 已翻译注释（改动 5 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/ProposedTable.tsx` — 32 行 · `orc-web` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/SettledRow.tsx` — 75 行 · `orc-web` · ✅ 已翻译注释（改动 5 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/SettledTable.tsx` — 32 行 · `orc-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/SubmitAssertionButton.tsx` — 245 行 · `orc-web` · ✅ 已翻译注释（改动 12 行）
+- [x] `extension/packages/nextjs/components/oracle/optimistic/TimeLeft.tsx` — 62 行 · `orc-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/components/oracle/types.ts` — 69 行 · `orc-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/components/oracle/whitelist/AddOracleButton.tsx` — 40 行 · `orc-web` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/nextjs/components/oracle/whitelist/WhitelistRow.tsx` — 67 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/oracle/whitelist/WhitelistTable.tsx` — 110 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/next.config.js.args.mjs` — 1 行 · `orc-web` · ✅ 无需改动（无注释）
 - [x] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared` · ✅ 无需改动（无注释）
-- [ ] `extension/packages/nextjs/services/store/challengeStore.ts` — 40 行 · `orc-web`
+- [x] `extension/packages/nextjs/services/store/challengeStore.ts` — 40 行 · `orc-web` · ✅ 已翻译注释（改动 10 行）
 - [x] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared` · ✅ 已翻译注释（改动 4 行；校验 CODE-CHANGED(误报,已确认)；模板字符串内 CSS 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
-- [ ] `extension/packages/nextjs/utils/configUpdater.ts` — 40 行 · `orc-web`
-- [ ] `extension/packages/nextjs/utils/constants.ts` — 124 行 · `orc-web`
-- [ ] `extension/packages/nextjs/utils/helpers.ts` — 36 行 · `orc-web`
-- [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `orc-web`
+- [x] `extension/packages/nextjs/utils/configUpdater.ts` — 40 行 · `orc-web` · ✅ 已翻译注释（改动 5 行）
+- [x] `extension/packages/nextjs/utils/constants.ts` — 124 行 · `orc-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/utils/helpers.ts` — 36 行 · `orc-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `orc-web` · ✅ 无需改动（无注释）
 - [x] `funding.json` — 5 行 · `common-shared` · ✅ 无需改动（funding.json，JSON 无注释）
 
 <details><summary>二进制文件 3 个（不处理）</summary>
