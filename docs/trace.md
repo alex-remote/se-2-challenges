@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:00 UTC　｜　总进度：**37 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:00 UTC　｜　总进度：**86 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -17,9 +17,9 @@
 |---|---:|---:|---:|---:|---:|---|
 | [`main`](#main) | 3 | 3 | 0 | 188 | 2 / 3 | `main_zh` |
 | [`base-challenge-template`](#base-challenge-template) | 27 | 26 | 1 | 1332 | 7 / 26 | `base-challenge-template_zh` |
-| [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 0 / 46 | `challenge-crowdfunding_zh` |
+| [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 24 / 46 | `challenge-crowdfunding_zh` |
 | [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 0 / 43 | `challenge-dex_zh` |
-| [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 1 / 46 | `challenge-dice-game_zh` |
+| [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 26 / 46 | `challenge-dice-game_zh` |
 | [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 0 / 123 | `challenge-oracles_zh` |
 | [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 0 / 65 | `challenge-over-collateralized-lending_zh` |
 | [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 0 / 66 | `challenge-prediction-markets_zh` |
@@ -38,11 +38,11 @@
 | `base-main` | 9 | 521 | ✅ 已完成 |
 | `common-start` | 1 个（复制到各分支共 11 份） | 4576 | 🔄 进行中 |
 | `crowd-readme` | 1 | 644 | 🔄 进行中 |
-| `crowd-code` | 24 | 2656 | 🔄 进行中 |
+| `crowd-code` | 24 | 2656 | ✅ 已完成 |
 | `dex-readme` | 1 | 736 | 🔄 进行中 |
 | `dex-code` | 22 | 3558 | 🔄 进行中 |
 | `dice-readme` | 1 | 468 | ✅ 已完成 |
-| `dice-code` | 25 | 2250 | 🔄 进行中 |
+| `dice-code` | 25 | 2250 | ✅ 已完成 |
 | `orc-readme-p1` | 1 | 541 | ⏸️ 待启动 |
 | `orc-readme-p2` | 1 | 456 | ⏸️ 待启动 |
 | `orc-readme-p3` | 1 | 623 | ⏸️ 待启动 |
@@ -55,7 +55,7 @@
 | `lend-readme-p2` | 1 | 567 | 🔄 进行中 |
 | `lend-web` | 22 | 3019 | 🔄 进行中 |
 | `lend-sol` | 20 | 2248 | 🔄 进行中 |
-| `pm-readme-p1` | 1 | 627 | ⏸️ 待启动 |
+| `pm-readme-p1` | 1 | 627 | 🔄 进行中 |
 | `pm-readme-p2` | 1 | 662 | ⏸️ 待启动 |
 | `pm-readme-p3` | 1 | 482 | ⏸️ 待启动 |
 | `pm-web` | 33 | 6291 | ⏸️ 待启动 |
@@ -126,7 +126,7 @@
 
 ### challenge-crowdfunding
 
-文本文件 46 个（已完成 0），二进制 3 个 → 目标分支 `challenge-crowdfunding_zh`
+文本文件 46 个（已完成 24），二进制 3 个 → 目标分支 `challenge-crowdfunding_zh`
 
 - [ ] `.cursorignore.example` — 4 行 · `common-shared`
 - [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
@@ -135,8 +135,8 @@
 - [ ] `.gitignore.example` — 26 行 · `common-shared`
 - [ ] `LICENCE.txt` — 21 行 · `common-shared`
 - [ ] `README.md` — 644 行 · `crowd-readme`
-- [ ] `extension/.ai/CHALLENGE.yaml` — 619 行 · `crowd-code`
-- [ ] `extension/.ai/CONCEPTS.yaml` — 91 行 · `crowd-code`
+- [x] `extension/.ai/CHALLENGE.yaml` — 619 行 · `crowd-code` · ✅ 已翻译注释（改动 6 行（结构层 # 注释：L7-8 及 4 个 CHECKPOINT 分隔标题）；块标量内的 Markdown 正文未动）
+- [x] `extension/.ai/CONCEPTS.yaml` — 91 行 · `crowd-code` · ✅ 无需改动（无注释（全部为 YAML 值/块标量正文））
 - [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
 - [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
 - [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
@@ -148,30 +148,30 @@
 - [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
 - [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
 - [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
-- [ ] `extension/AGENTS.md.args.mjs` — 223 行 · `crowd-code`
-- [ ] `extension/README.md.args.mjs` — 524 行 · `crowd-code`
-- [ ] `extension/packages/foundry/contracts/CrowdFund.sol` — 68 行 · `crowd-code`
-- [ ] `extension/packages/foundry/contracts/FundingRecipient.sol` — 10 行 · `crowd-code`
-- [ ] `extension/packages/foundry/contracts/ICrowdFund.sol` — 11 行 · `crowd-code`
-- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `crowd-code`
-- [ ] `extension/packages/foundry/script/DeployCrowdFund.s.sol` — 16 行 · `crowd-code`
-- [ ] `extension/packages/foundry/test/CrowdFund.t.sol` — 246 行 · `crowd-code`
-- [ ] `extension/packages/hardhat/contracts/CrowdFund.sol` — 69 行 · `crowd-code`
-- [ ] `extension/packages/hardhat/contracts/FundingRecipient.sol` — 10 行 · `crowd-code`
-- [ ] `extension/packages/hardhat/deploy/00_deploy_funding_recipient.ts` — 17 行 · `crowd-code`
-- [ ] `extension/packages/hardhat/deploy/01_deploy_crowdfund.ts` — 19 行 · `crowd-code`
+- [x] `extension/AGENTS.md.args.mjs` — 223 行 · `crowd-code` · ✅ 已翻译注释（改动 1 行（L1 JS 注释）；模板字符串中的 AGENTS.md 正文（含其代码块内的 #/// 注释）按要求视为字符串未译）
+- [x] `extension/README.md.args.mjs` — 524 行 · `crowd-code` · ✅ 无需改动（模板字符串外无 JS 注释；README 正文（含代码块内注释）为字符串，不译）
+- [x] `extension/packages/foundry/contracts/CrowdFund.sol` — 68 行 · `crowd-code` · ✅ 已翻译注释（改动 10 行（pragma 行尾注释、区块标题横幅、占位注释）；SPDX 保留）
+- [x] `extension/packages/foundry/contracts/FundingRecipient.sol` — 10 行 · `crowd-code` · ✅ 已翻译注释（改动 1 行（pragma 行尾注释）；与 hardhat 副本译文完全一致）
+- [x] `extension/packages/foundry/contracts/ICrowdFund.sol` — 11 行 · `crowd-code` · ✅ 无需改动（仅有 SPDX 许可证标识）
+- [x] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `crowd-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/foundry/script/DeployCrowdFund.s.sol` — 16 行 · `crowd-code` · ✅ 无需改动（仅有 SPDX 许可证标识）
+- [x] `extension/packages/foundry/test/CrowdFund.t.sol` — 246 行 · `crowd-code` · ✅ 已翻译注释（改动 14 行（含 NatSpec @dev，标签保留）；SPDX 保留）
+- [x] `extension/packages/hardhat/contracts/CrowdFund.sol` — 69 行 · `crowd-code` · ✅ 已翻译注释（改动 10 行；与 foundry 版译文一致（行号因多一行 console.sol import 偏移 1））
+- [x] `extension/packages/hardhat/contracts/FundingRecipient.sol` — 10 行 · `crowd-code` · ✅ 已翻译注释（改动 1 行（pragma 行尾注释）；与 foundry 副本译文完全一致）
+- [x] `extension/packages/hardhat/deploy/00_deploy_funding_recipient.ts` — 17 行 · `crowd-code` · ✅ 已翻译注释（改动 1 行（JSDoc））
+- [x] `extension/packages/hardhat/deploy/01_deploy_crowdfund.ts` — 19 行 · `crowd-code` · ✅ 已翻译注释（改动 1 行（JSDoc））
 - [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 24 行 · `common-shared`
-- [ ] `extension/packages/hardhat/test/CrowdFund.ts` — 375 行 · `crowd-code`
-- [ ] `extension/packages/nextjs/app/contributions/page.tsx` — 63 行 · `crowd-code`
-- [ ] `extension/packages/nextjs/app/crowdfund/_components/ContributeContractInteraction.tsx` — 143 行 · `crowd-code`
-- [ ] `extension/packages/nextjs/app/crowdfund/_components/EthToPrice.tsx` — 53 行 · `crowd-code`
-- [ ] `extension/packages/nextjs/app/crowdfund/_components/index.tsx` — 2 行 · `crowd-code`
-- [ ] `extension/packages/nextjs/app/crowdfund/page.tsx` — 12 行 · `crowd-code`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `crowd-code`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 40 行 · `crowd-code`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 17 行 · `crowd-code`
+- [x] `extension/packages/hardhat/test/CrowdFund.ts` — 375 行 · `crowd-code` · ✅ 已翻译注释（改动 30 行；eslint-disable 指令与空 // 行保留）
+- [x] `extension/packages/nextjs/app/contributions/page.tsx` — 63 行 · `crowd-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/crowdfund/_components/ContributeContractInteraction.tsx` — 143 行 · `crowd-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/crowdfund/_components/EthToPrice.tsx` — 53 行 · `crowd-code` · ✅ 已翻译注释（改动 1 行（JSDoc））
+- [x] `extension/packages/nextjs/app/crowdfund/_components/index.tsx` — 2 行 · `crowd-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/crowdfund/page.tsx` — 12 行 · `crowd-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `crowd-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 40 行 · `crowd-code` · ✅ 无需改动（无注释（模板中为 JSX 界面文案，不译））
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 17 行 · `crowd-code` · ✅ 无需改动（无注释）
 - [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
-- [ ] `extension/packages/nextjs/package.json` — 8 行 · `crowd-code`
+- [x] `extension/packages/nextjs/package.json` — 8 行 · `crowd-code` · ✅ 无需改动（JSON 无注释）
 - [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
 - [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
 
@@ -241,7 +241,7 @@
 
 ### challenge-dice-game
 
-文本文件 46 个（已完成 1），二进制 20 个 → 目标分支 `challenge-dice-game_zh`
+文本文件 46 个（已完成 26），二进制 20 个 → 目标分支 `challenge-dice-game_zh`
 
 - [ ] `.cursorignore.example` — 4 行 · `common-shared`
 - [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
@@ -250,8 +250,8 @@
 - [ ] `.gitignore.example` — 26 行 · `common-shared`
 - [ ] `LICENCE.txt` — 21 行 · `common-shared`
 - [x] `README.md` — 468 行 · `dice-readme` · ✅ 已生成 `README_zh.md`（/home/user/se-2-challenges/.worktrees/challenge-dice-game/README_zh.md，468 行（与原文一致）；check_md [OK]，9 条 WARN 已确认：L187 为代码块内注释翻译，其余 8 条为行内代码文件路径（不译））
-- [ ] `extension/.ai/CHALLENGE.yaml` — 504 行 · `dice-code`
-- [ ] `extension/.ai/CONCEPTS.yaml` — 86 行 · `dice-code`
+- [x] `extension/.ai/CHALLENGE.yaml` — 504 行 · `dice-code` · ✅ 已翻译注释（改动 3 行（结构层 # CHECKPOINT 注释）；块标量内正文/代码未动）
+- [x] `extension/.ai/CONCEPTS.yaml` — 86 行 · `dice-code` · ✅ 无需改动（无注释（全部为 YAML 值/块标量内容））
 - [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
 - [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
 - [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
@@ -263,29 +263,29 @@
 - [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
 - [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
 - [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
-- [ ] `extension/AGENTS.md.args.mjs` — 221 行 · `dice-code`
-- [ ] `extension/README.md.args.mjs` — 307 行 · `dice-code`
-- [ ] `extension/packages/foundry/contracts/DiceGame.sol` — 68 行 · `dice-code`
-- [ ] `extension/packages/foundry/contracts/IDiceGame.sol` — 13 行 · `dice-code`
-- [ ] `extension/packages/foundry/contracts/IRiggedRoll.sol` — 14 行 · `dice-code`
-- [ ] `extension/packages/foundry/contracts/RiggedRoll.sol` — 33 行 · `dice-code`
-- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `dice-code`
-- [ ] `extension/packages/foundry/script/DeployDiceGame.s.sol` — 20 行 · `dice-code`
-- [ ] `extension/packages/foundry/test/RiggedRoll.t.sol` — 163 行 · `dice-code`
-- [ ] `extension/packages/hardhat/contracts/DiceGame.sol` — 72 行 · `dice-code`
-- [ ] `extension/packages/hardhat/contracts/RiggedRoll.sol` — 34 行 · `dice-code`
-- [ ] `extension/packages/hardhat/deploy/00_deploy_diceGame.ts` — 30 行 · `dice-code`
-- [ ] `extension/packages/hardhat/deploy/01_deploy_riggedRoll.ts` — 29 行 · `dice-code`
-- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 10 行 · `dice-code`
-- [ ] `extension/packages/hardhat/test/RiggedRoll.ts` — 186 行 · `dice-code`
-- [ ] `extension/packages/nextjs/app/dice/_components/Amount.tsx` — 68 行 · `dice-code`
-- [ ] `extension/packages/nextjs/app/dice/_components/RollEvents.tsx` — 48 行 · `dice-code`
-- [ ] `extension/packages/nextjs/app/dice/_components/WinnerEvents.tsx` — 65 行 · `dice-code`
-- [ ] `extension/packages/nextjs/app/dice/_components/index.ts` — 3 行 · `dice-code`
-- [ ] `extension/packages/nextjs/app/dice/page.tsx` — 192 行 · `dice-code`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `dice-code`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 52 行 · `dice-code`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 12 行 · `dice-code`
+- [x] `extension/AGENTS.md.args.mjs` — 221 行 · `dice-code` · ✅ 已翻译注释（改动 30 行：L1 文件注释 + 模板字符串内目录树/bash 代码块的 # 注释；check_inplace 报 CODE-CHANGED 均为模板字符串内代码片段注释，已人工确认；Markdown 正文未译）
+- [x] `extension/README.md.args.mjs` — 307 行 · `dice-code` · ✅ 已翻译注释（改动 1 行：L155 模板字符串内 Solidity 代码片段注释；CODE-CHANGED 为此误报，已人工确认；Markdown 正文未译）
+- [x] `extension/packages/foundry/contracts/DiceGame.sol` — 68 行 · `dice-code` · ✅ 已翻译注释（改动 6 行（与 hardhat 版译法一致））
+- [x] `extension/packages/foundry/contracts/IDiceGame.sol` — 13 行 · `dice-code` · ✅ 无需改动（仅 SPDX 行）
+- [x] `extension/packages/foundry/contracts/IRiggedRoll.sol` — 14 行 · `dice-code` · ✅ 无需改动（仅 SPDX 行）
+- [x] `extension/packages/foundry/contracts/RiggedRoll.sol` — 33 行 · `dice-code` · ✅ 已翻译注释（改动 7 行（与 hardhat 版译法一致））
+- [x] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `dice-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/foundry/script/DeployDiceGame.s.sol` — 20 行 · `dice-code` · ✅ 已翻译注释（改动 2 行；被注释掉的代码保留原样）
+- [x] `extension/packages/foundry/test/RiggedRoll.t.sol` — 163 行 · `dice-code` · ✅ 已翻译注释（改动 7 行）
+- [x] `extension/packages/hardhat/contracts/DiceGame.sol` — 72 行 · `dice-code` · ✅ 已翻译注释（改动 6 行）
+- [x] `extension/packages/hardhat/contracts/RiggedRoll.sol` — 34 行 · `dice-code` · ✅ 已翻译注释（改动 7 行）
+- [x] `extension/packages/hardhat/deploy/00_deploy_diceGame.ts` — 30 行 · `dice-code` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/hardhat/deploy/01_deploy_riggedRoll.ts` — 29 行 · `dice-code` · ✅ 已翻译注释（改动 2 行；被注释掉的代码保留原样）
+- [x] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 10 行 · `dice-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/hardhat/test/RiggedRoll.ts` — 186 行 · `dice-code` · ✅ 无需改动（仅有被注释掉的代码（L3 import））
+- [x] `extension/packages/nextjs/app/dice/_components/Amount.tsx` — 68 行 · `dice-code` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/app/dice/_components/RollEvents.tsx` — 48 行 · `dice-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/dice/_components/WinnerEvents.tsx` — 65 行 · `dice-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/dice/_components/index.ts` — 3 行 · `dice-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/dice/page.tsx` — 192 行 · `dice-code` · ✅ 已翻译注释（改动 1 行；L152-169 被注释掉的 JSX 按钮代码保留原样）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `dice-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 52 行 · `dice-code` · ✅ 无需改动（无注释（模板字符串内为 JSX/UI 文案））
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 12 行 · `dice-code` · ✅ 无需改动（无注释）
 - [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
 - [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
 - [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
