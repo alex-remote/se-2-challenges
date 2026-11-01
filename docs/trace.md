@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:07 UTC　｜　总进度：**609 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:08 UTC　｜　总进度：**624 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -20,7 +20,7 @@
 | [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 46 / 46 ✅ | `challenge-crowdfunding_zh` |
 | [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 43 / 43 ✅ | `challenge-dex_zh` |
 | [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 46 / 46 ✅ | `challenge-dice-game_zh` |
-| [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 86 / 123 | `challenge-oracles_zh` |
+| [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 101 / 123 | `challenge-oracles_zh` |
 | [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 65 / 65 ✅ | `challenge-over-collateralized-lending_zh` |
 | [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 66 / 66 ✅ | `challenge-prediction-markets_zh` |
 | [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 77 / 77 ✅ | `challenge-stablecoins_zh` |
@@ -46,10 +46,10 @@
 | `orc-readme-p1` | 1 | 541 | ✅ 已完成 |
 | `orc-readme-p2` | 1 | 456 | ✅ 已完成 |
 | `orc-readme-p3` | 1 | 623 | 🔄 进行中 |
-| `orc-readme-p4` | 1 | 610 | 🔄 进行中 |
+| `orc-readme-p4` | 1 | 610 | ✅ 已完成 |
 | `orc-sol` | 21 | 5567 | 🔄 进行中 |
 | `orc-ftest` | 16 | 3345 | ✅ 已完成 |
-| `orc-htest` | 15 | 3065 | 🔄 进行中 |
+| `orc-htest` | 15 | 3065 | ✅ 已完成 |
 | `orc-web` | 49 | 4239 | ✅ 已完成 |
 | `lend-readme-p1` | 1 | 521 | ✅ 已完成 |
 | `lend-readme-p2` | 1 | 567 | ✅ 已完成 |
@@ -317,7 +317,7 @@
 
 ### challenge-oracles
 
-文本文件 123 个（已完成 86），二进制 3 个 → 目标分支 `challenge-oracles_zh`
+文本文件 123 个（已完成 101），二进制 3 个 → 目标分支 `challenge-oracles_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -325,7 +325,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 2230 行 · `orc-readme-p1, orc-readme-p2, orc-readme-p3, orc-readme-p4` · ⏳ 分段翻译进度 2/4
+- [ ] `README.md` — 2230 行 · `orc-readme-p1, orc-readme-p2, orc-readme-p3, orc-readme-p4` · ⏳ 分段翻译进度 3/4
 - [ ] `extension/.ai/CHALLENGE.yaml` — 1240 行 · `orc-sol`
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
@@ -375,21 +375,21 @@
 - [ ] `extension/packages/hardhat/contracts/02_Optimistic/Decider.sol` — 42 行 · `orc-sol`
 - [ ] `extension/packages/hardhat/contracts/02_Optimistic/OptimisticOracle.sol` — 211 行 · `orc-sol`
 - [ ] `extension/packages/hardhat/contracts/utils/StatisticsUtils.sol` — 54 行 · `orc-sol`
-- [ ] `extension/packages/hardhat/deploy/00_deploy_whitelist.ts` — 67 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/deploy/01_deploy_staking.ts` — 42 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/deploy/02_deploy_optimistic.ts` — 44 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 15 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/package.json` — 10 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/scripts/fetchPriceFromUniswap.ts` — 88 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/scripts/oracle-bot/config.json` — 56 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/scripts/oracle-bot/types.ts` — 19 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/scripts/runOptimisticBots.ts` — 310 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/scripts/runStakingOracleBots.ts` — 695 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/scripts/runWhitelistOracleBots.ts` — 134 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/scripts/utils.ts` — 106 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/test/OptimisticOracle.ts` — 669 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/test/StakingOracle.ts` — 574 行 · `orc-htest`
-- [ ] `extension/packages/hardhat/test/WhitelistOracle.ts` — 236 行 · `orc-htest`
+- [x] `extension/packages/hardhat/deploy/00_deploy_whitelist.ts` — 67 行 · `orc-htest` · ✅ 已翻译注释（改动 9 行）
+- [x] `extension/packages/hardhat/deploy/01_deploy_staking.ts` — 42 行 · `orc-htest` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/hardhat/deploy/02_deploy_optimistic.ts` — 44 行 · `orc-htest` · ✅ 已翻译注释（改动 5 行）
+- [x] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 15 行 · `orc-htest` · ✅ 无需改动（无注释（仅模板字符串与配置对象））
+- [x] `extension/packages/hardhat/package.json` — 10 行 · `orc-htest` · ✅ 无需改动（JSON 无注释）
+- [x] `extension/packages/hardhat/scripts/fetchPriceFromUniswap.ts` — 88 行 · `orc-htest` · ✅ 已翻译注释（改动 3 行）
+- [x] `extension/packages/hardhat/scripts/oracle-bot/config.json` — 56 行 · `orc-htest` · ✅ 无需改动（JSON 无注释）
+- [x] `extension/packages/hardhat/scripts/oracle-bot/types.ts` — 19 行 · `orc-htest` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/hardhat/scripts/runOptimisticBots.ts` — 310 行 · `orc-htest` · ✅ 已翻译注释（改动 9 行；L234 原文“thex”疑为笔误，译文中已注明）
+- [x] `extension/packages/hardhat/scripts/runStakingOracleBots.ts` — 695 行 · `orc-htest` · ✅ 已翻译注释（改动 41 行；bucket 保留英文，slashing 译为“罚没（slashing）”，与 foundry 版一致）
+- [x] `extension/packages/hardhat/scripts/runWhitelistOracleBots.ts` — 134 行 · `orc-htest` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/hardhat/scripts/utils.ts` — 106 行 · `orc-htest` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/hardhat/test/OptimisticOracle.ts` — 669 行 · `orc-htest` · ✅ 已翻译注释（改动 50 行；eslint-disable 指令保留，it()/describe() 字符串未动）
+- [x] `extension/packages/hardhat/test/StakingOracle.ts` — 574 行 · `orc-htest` · ✅ 已翻译注释（改动 36 行；区间表达式注释（// 0..bucketWindow-1）保留，it()/describe() 字符串未动）
+- [x] `extension/packages/hardhat/test/WhitelistOracle.ts` — 236 行 · `orc-htest` · ✅ 已翻译注释（改动 11 行；it()/describe() 字符串未动）
 - [x] `extension/packages/nextjs/app/api/config/price-variance/route.ts` — 58 行 · `orc-web` · ✅ 已翻译注释（改动 3 行）
 - [x] `extension/packages/nextjs/app/api/config/skip-probability/route.ts` — 58 行 · `orc-web` · ✅ 已翻译注释（改动 3 行）
 - [x] `extension/packages/nextjs/app/api/ora-faucet/route.ts` — 88 行 · `orc-web` · ✅ 已翻译注释（改动 2 行）
