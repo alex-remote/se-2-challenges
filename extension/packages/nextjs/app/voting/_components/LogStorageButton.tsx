@@ -6,8 +6,8 @@ import { DocumentTextIcon } from "@heroicons/react/24/outline";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-eth";
 
 /**
- * Button component that logs all zk-voting related localStorage data
- * This includes proof data, commitment data, and burner wallet data for the current app
+ * 按钮组件：在控制台打印所有与 zk-voting 相关的 localStorage 数据
+ * 包括当前应用的证明数据、承诺数据和 burner wallet（临时钱包）数据
  */
 export const LogStorageButton = () => {
   const [isLogging, setIsLogging] = useState(false);
@@ -28,7 +28,7 @@ export const LogStorageButton = () => {
         return;
       }
 
-      // Keys of interest: commitment and proof
+      // 关注的键：承诺和证明
       const commitmentKey = `zk-voting-commitment-data-${contractAddress}-${walletAddress}`;
       const proofKey = `zk-voting-proof-data-${contractAddress}-${walletAddress}`;
 
@@ -36,7 +36,7 @@ export const LogStorageButton = () => {
       console.log(`Contract: ${contractAddress}`);
       console.log(`User:     ${walletAddress}`);
 
-      // Commitment details
+      // 承诺详情
       const commitmentRaw = localStorage.getItem(commitmentKey);
       if (commitmentRaw) {
         try {
@@ -52,7 +52,7 @@ export const LogStorageButton = () => {
         console.log("\nCommitment: not found for this contract + user");
       }
 
-      // Proof details (log full array)
+      // 证明详情（打印完整数组）
       const proofRaw = localStorage.getItem(proofKey);
       if (proofRaw) {
         try {

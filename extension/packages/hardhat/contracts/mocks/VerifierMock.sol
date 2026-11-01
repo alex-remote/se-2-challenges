@@ -7,7 +7,7 @@ import { IVerifier } from "../Verifier.sol";
 contract VerifierMock is IVerifier {
     bool public shouldVerify = true;
 
-    // Optional: enforce an exact public inputs set and order for tests
+    // 可选：在测试中强制要求公开输入的集合与顺序完全一致
     bool public enforceExpectedInputs;
     bytes32 public expectedNullifier;
     bytes32 public expectedRoot;

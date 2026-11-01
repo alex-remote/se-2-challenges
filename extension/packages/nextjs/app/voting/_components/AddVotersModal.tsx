@@ -16,7 +16,7 @@ export const AddVotersModal = () => {
   const [voters, setVoters] = useState<VoterEntry[]>([{ address: "", status: true }]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Check if the connected user is the owner of the contract
+  // 检查已连接的用户是否为合约的所有者（owner）
   const { data: contractOwner } = useScaffoldReadContract({
     contractName: "Voting",
     functionName: "owner",
@@ -26,7 +26,7 @@ export const AddVotersModal = () => {
     contractName: "Voting",
   });
 
-  // Only show the modal if the connected user is the owner
+  // 仅当已连接的用户是所有者时才显示模态框
   const isOwner = connectedAddress && contractOwner && connectedAddress.toLowerCase() === contractOwner.toLowerCase();
 
   const addVoterEntry = () => {
@@ -55,7 +55,7 @@ export const AddVotersModal = () => {
     try {
       setIsSubmitting(true);
 
-      // Filter out empty addresses
+      // 过滤掉空地址
       const validVoters = voters.filter(voter => voter.address.trim() !== "");
 
       if (validVoters.length === 0) {
@@ -71,10 +71,10 @@ export const AddVotersModal = () => {
         args: [addresses, statuses],
       });
 
-      // Reset form
+      // 重置表单
       setVoters([{ address: "", status: true }]);
 
-      // Close modal
+      // 关闭模态框
       const modal = document.getElementById("add-voters-modal") as HTMLInputElement;
       if (modal) modal.checked = false;
     } catch (error) {
@@ -104,7 +104,7 @@ export const AddVotersModal = () => {
           <input type="checkbox" id="add-voters-modal" className="modal-toggle" />
           <label htmlFor="add-voters-modal" className="modal cursor-pointer">
             <label className="modal-box relative max-w-2xl">
-              {/* dummy input to capture event onclick on modal box */}
+              {/* 用于捕获模态框 onclick 事件的占位 input */}
               <input className="h-0 w-0 absolute top-0 left-0" />
               <h3 className="text-xl font-bold mb-3">Add Voters</h3>
               <label htmlFor="add-voters-modal" className="btn btn-ghost btn-sm btn-square absolute right-3 top-3">

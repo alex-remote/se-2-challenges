@@ -19,7 +19,7 @@ describe("🗳️ ZK Voting Challenge", function () {
   describe("Checkpoint2", function () {
     async function deployLibrariesAndVoting() {
       const [owner, alice, bob] = await ethers.getSigners();
-      // Deploy PoseidonT3 → LeanIMT and link LeanIMT into Voting
+      // 依次部署 PoseidonT3 → LeanIMT，并把 LeanIMT 链接到 Voting
       const PoseidonFactory = await ethers.getContractFactory("PoseidonT3");
       const poseidon = await PoseidonFactory.deploy();
       await poseidon.waitForDeployment();
@@ -134,7 +134,7 @@ describe("🗳️ ZK Voting Challenge", function () {
       )) as unknown as Voting;
       await voting.waitForDeployment();
 
-      // allowlist and register a voter to set a non-zero root
+      // 把一个投票者加入白名单并注册，使根不为零
       await voting.connect(owner).addVoters([alice.address], [true]);
       const commitment = 123n;
       await voting.connect(alice).register(commitment);
@@ -148,9 +148,9 @@ describe("🗳️ ZK Voting Challenge", function () {
     it("prevents double voting via nullifier reuse", async function () {
       const { voting, verifier, alice, rootAfter, depthAfter } = await deployAll();
 
-      const nullifier = ethers.ZeroHash as `0x${string}`; // bytes32 0x00..00 ok for test
+      const nullifier = ethers.ZeroHash as `0x${string}`; // 测试中使用 bytes32 0x00..00 即可
       const yesVote = ethers.toBeHex(1, 32) as `0x${string}`;
-      const dummyProof = ethers.randomBytes(32 * 440); // correct length for Honk proof
+      const dummyProof = ethers.randomBytes(32 * 440); // Honk 证明的正确长度
 
       await (verifier as any).setExpectedInputs(nullifier, rootAfter, yesVote, depthAfter);
       await (verifier as any).setShouldVerify(true);
@@ -184,7 +184,7 @@ describe("🗳️ ZK Voting Challenge", function () {
 
       await voting.connect(owner).addVoters([bob.address], [true]);
       await (voting as any).connect(bob).register(456n);
-      // After both alice and bob have registered, get the current root
+      // alice 和 bob 都注册之后，获取当前的根
       const [, , , , , depthNum2, rootNum2] = await (voting as any).getVotingData();
       const root2 = ethers.zeroPadValue(ethers.toBeHex(rootNum2), 32) as `0x${string}`;
       const depth2 = ethers.zeroPadValue(ethers.toBeHex(depthNum2), 32) as `0x${string}`;
@@ -193,13 +193,13 @@ describe("🗳️ ZK Voting Challenge", function () {
       const yes = ethers.toBeHex(1, 32) as `0x${string}`;
       const no = ethers.toBeHex(0, 32) as `0x${string}`;
 
-      // First voter (alice) votes yes using the current root (after both registered)
+      // 第一个投票者（alice）使用当前的根（两人都注册之后）投赞成票
       const n1 = ethers.hexlify(ethers.randomBytes(32)) as `0x${string}`;
       await (verifier as any).setExpectedInputs(n1, root2, yes, depth2);
       await (verifier as any).setShouldVerify(true);
       await (voting as any).connect(alice).vote(proof, n1, root2, yes, depth2);
 
-      // Second voter (bob) votes no using the same root
+      // 第二个投票者（bob）使用同一个根投反对票
       const n2 = ethers.hexlify(ethers.randomBytes(32)) as `0x${string}`;
       await (verifier as any).setExpectedInputs(n2, root2, no, depth2);
       await (voting as any).connect(bob).vote(proof, n2, root2, no, depth2);
@@ -228,11 +228,11 @@ describe("🗳️ ZK Voting Challenge", function () {
       const nullifier = ethers.hexlify(ethers.randomBytes(32)) as `0x${string}`;
       const emptyRoot = ethers.ZeroHash as `0x${string}`; // bytes32(0)
 
-      // Set up verifier to accept the proof
+      // 设置验证器，使其接受该证明
       await (verifier as any).setExpectedInputs(nullifier, emptyRoot, yes, depthAfter);
       await (verifier as any).setShouldVerify(true);
 
-      // Should revert with Voting__EmptyTree when root is bytes32(0)
+      // 当根为 bytes32(0) 时，应以 Voting__EmptyTree 回滚
       await expect(
         (voting as any).connect(alice).vote(proof, nullifier, emptyRoot, yes, depthAfter),
       ).to.be.revertedWithCustomError(voting, "Voting__EmptyTree");
@@ -243,14 +243,14 @@ describe("🗳️ ZK Voting Challenge", function () {
       const proof = ethers.randomBytes(32 * 440);
       const yes = ethers.toBeHex(1, 32) as `0x${string}`;
       const nullifier = ethers.hexlify(ethers.randomBytes(32)) as `0x${string}`;
-      // Use a random invalid root (not bytes32(0), but also not the actual tree root)
+      // 使用一个随机的无效根（不是 bytes32(0)，但也不是实际的树根）
       const invalidRoot = ethers.hexlify(ethers.randomBytes(32)) as `0x${string}`;
 
-      // Set up verifier to accept the proof
+      // 设置验证器，使其接受该证明
       await (verifier as any).setExpectedInputs(nullifier, invalidRoot, yes, depthAfter);
       await (verifier as any).setShouldVerify(true);
 
-      // Should revert with Voting__InvalidRoot when root doesn't match s_tree.root()
+      // 当根与 s_tree.root() 不匹配时，应以 Voting__InvalidRoot 回滚
       await expect(
         (voting as any).connect(alice).vote(proof, nullifier, invalidRoot, yes, depthAfter),
       ).to.be.revertedWithCustomError(voting, "Voting__InvalidRoot");

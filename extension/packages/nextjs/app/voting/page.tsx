@@ -41,7 +41,7 @@ const VotingPage: NextPage = () => {
             {network.targetNetwork.id === hardhat.id && <VoteWithBurnerHardhat />}
             {network.targetNetwork.id === sepolia.id && <VoteWithBurnerSepolia />}
 
-            {/* Storage Management Buttons - placed at the bottom for safety */}
+            {/* 存储管理按钮——出于安全考虑放在底部 */}
             <div className="mt-8 pt-6 border-t border-base-300">
               <div className="flex justify-center gap-4">
                 <LogStorageButton />

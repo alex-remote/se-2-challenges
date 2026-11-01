@@ -41,7 +41,7 @@ export const ShowVotersButton = () => {
         <span>View Voters ({uniqueVoters.length})</span>
       </label>
 
-      {/* Modal - only mounted when open */}
+      {/* 模态框——仅在打开时挂载 */}
       {isModalOpen && (
         <ShowVotersModal
           isOpen={isModalOpen}
@@ -106,7 +106,7 @@ const ShowVotersModal = ({
       <input type="checkbox" id="show-voters-modal" className="modal-toggle" checked={isOpen} readOnly />
       <label htmlFor="show-voters-modal" className="modal cursor-pointer" onClick={onClose}>
         <label className="modal-box relative max-w-3xl" onClick={e => e.stopPropagation()}>
-          {/* dummy input to capture event onclick on modal box */}
+          {/* 用于捕获模态框 onclick 事件的占位 input */}
           <input className="h-0 w-0 absolute top-0 left-0" />
           <h3 className="text-xl font-bold flex items-center gap-2">
             <EyeIcon className="h-5 w-5" />

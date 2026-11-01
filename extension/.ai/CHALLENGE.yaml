@@ -64,7 +64,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: Registration with Merkle Tree
+  # CHECKPOINT 1: 使用默克尔树进行注册
   # ============================================================
   - id: "register"
     title: "Register with a Merkle Tree"
@@ -241,7 +241,7 @@ checkpoints:
         registered = s_hasRegistered[_voter];
 
   # ============================================================
-  # CHECKPOINT 2: ZK Circuit — Commitment Scheme
+  # CHECKPOINT 2: ZK 电路——承诺方案
   # ============================================================
   - id: "commitment-circuit"
     title: "Write Your First ZK Circuit — Commitment Scheme"
@@ -346,7 +346,7 @@ checkpoints:
         let commitment: Field = hash_2([nullifier, secret]);
 
   # ============================================================
-  # CHECKPOINT 3: ZK Circuit — Merkle Root Verification
+  # CHECKPOINT 3: ZK 电路——默克尔根验证
   # ============================================================
   - id: "merkle-circuit"
     title: "Implement Merkle Root Check in ZK Circuit"
@@ -521,7 +521,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 4: Generate the Solidity Verifier Contract
+  # CHECKPOINT 4: 生成 Solidity 验证器合约
   # ============================================================
   - id: "verifier-generation"
     title: "Generate the Solidity Verifier Contract"
@@ -604,7 +604,7 @@ checkpoints:
         bb write_solidity_verifier -k ./target/vk -o ./target/Verifier.sol
 
   # ============================================================
-  # CHECKPOINT 5: Enable Voting with ZK Proof Verification
+  # CHECKPOINT 5: 启用带 ZK 证明验证的投票
   # ============================================================
   - id: "vote"
     title: "Enable Voting — Verify ZK Proofs On-Chain"
@@ -827,7 +827,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 6: Create Your Commitment — Frontend
+  # CHECKPOINT 6: 创建你的承诺——前端
   # ============================================================
   - id: "create-commitment"
     title: "Create Your Commitment — Frontend Integration"
@@ -959,7 +959,7 @@ checkpoints:
         };
 
   # ============================================================
-  # CHECKPOINT 7: Generate Your ZK Proof — Frontend
+  # CHECKPOINT 7: 生成你的 ZK 证明——前端
   # ============================================================
   - id: "generate-proof"
     title: "Generate Your ZK Proof"
@@ -1156,7 +1156,7 @@ checkpoints:
         return { proof, publicInputs };
 
   # ============================================================
-  # CHECKPOINT 8: Vote with a Burner Wallet — Frontend
+  # CHECKPOINT 8: 用 burner wallet（临时钱包）投票——前端
   # ============================================================
   - id: "burner-wallet-vote"
     title: "Vote with a Burner Wallet"

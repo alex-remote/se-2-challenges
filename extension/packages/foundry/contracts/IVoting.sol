@@ -2,7 +2,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 interface IVoting {
-    // Errors
+    // 错误
     error Voting__CommitmentAlreadyAdded(uint256 commitment);
     error Voting__NullifierHashAlreadyUsed(bytes32 nullifierHash);
     error Voting__InvalidProof();
@@ -10,7 +10,7 @@ interface IVoting {
     error Voting__EmptyTree();
     error Voting__InvalidRoot();
 
-    // Events
+    // 事件
     event VoterAdded(address indexed voter);
     event NewLeaf(uint256 index, uint256 value);
     event VoteCast(
@@ -22,7 +22,7 @@ interface IVoting {
         uint256 totalNo
     );
 
-    // Functions
+    // 函数
     function addVoters(address[] calldata voters, bool[] calldata statuses) external;
     function register(uint256 _commitment) external;
     function vote(bytes memory _proof, bytes32 _nullifierHash, bytes32 _root, bytes32 _vote, bytes32 _depth) external;

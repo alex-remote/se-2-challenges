@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
 /**
- * Zustand Store
+ * Zustand 状态仓库（Store）
  *
- * You can add global state to the app using this useGlobalState, to get & set
- * values from anywhere in the app.
+ * 你可以用这个 useGlobalState 为应用添加全局状态，从而在应用的任何地方
+ * 获取和设置这些值。
  *
- * Think about it as a global useState.
+ * 可以把它看作一个全局的 useState。
  */
 
 type CommitmentData = {

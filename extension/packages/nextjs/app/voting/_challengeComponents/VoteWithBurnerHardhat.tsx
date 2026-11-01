@@ -43,8 +43,8 @@ const sendVoteWithBurner = async ({
     !!walletAddress,
     !!proofData,
     uint8ArrayToHexString(new Uint8Array(0)),
-  ); // placeholder
-  throw new Error("Checkpoint 9"); // placeholder
+  ); // 占位代码
+  throw new Error("Checkpoint 9"); // 占位代码
 };
 
 export const VoteWithBurnerHardhat = ({ contractAddress }: { contractAddress?: `0x${string}` }) => {
@@ -57,7 +57,7 @@ export const VoteWithBurnerHardhat = ({ contractAddress }: { contractAddress?: `
 
   const generateBurnerWallet = () => {
     ////// Checkpoint 9 //////
-    const wallet = undefined as unknown as { address: `0x${string}`; privateKey: `0x${string}` }; // placeholder
+    const wallet = undefined as unknown as { address: `0x${string}`; privateKey: `0x${string}` }; // 占位值
 
     setBurnerWallet(wallet);
 

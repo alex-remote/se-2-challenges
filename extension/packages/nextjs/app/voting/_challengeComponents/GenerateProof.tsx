@@ -75,13 +75,13 @@ export const GenerateProof = ({ leafEvents = [] }: CreateCommitmentProps) => {
   const getCircuitDataAndGenerateProof = async () => {
     setIsLoading(true);
     try {
-      // Ensure commitment inputs are loaded from localStorage when available
+      // 确保在 localStorage 中有可用数据时加载承诺输入
       const storedCommitment =
         deployedContractData?.address && userAddress
           ? loadCommitmentFromLocalStorage(deployedContractData.address, userAddress)
           : null;
 
-      // Reflect stored values in the UI if inputs are empty
+      // 如果输入框为空，就在界面中回填已存储的值
       if ((!nullifierInput || !secretInput || indexInput?.trim() === "") && storedCommitment) {
         setNullifierInput(storedCommitment.nullifier);
         setSecretInput(storedCommitment.secret);

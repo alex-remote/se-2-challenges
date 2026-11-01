@@ -4,8 +4,8 @@ import { useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
 /**
- * Button component that clears all zk-voting related localStorage data
- * This includes proof data, commitment data, and burner wallet data for the current app
+ * 按钮组件：清除所有与 zk-voting 相关的 localStorage 数据
+ * 包括当前应用的证明数据、承诺数据和 burner wallet（临时钱包）数据
  */
 export const ClearStorageButton = () => {
   const [isClearing, setIsClearing] = useState(false);
@@ -15,10 +15,10 @@ export const ClearStorageButton = () => {
     setIsClearing(true);
 
     try {
-      // Get all localStorage keys
+      // 获取 localStorage 中的所有键
       const keys = Object.keys(localStorage);
 
-      // Filter keys that belong to this zk-voting app
+      // 筛选出属于本 zk-voting 应用的键
       const zkVotingKeys = keys.filter(
         key =>
           key.startsWith("zk-voting-proof-data") ||
@@ -27,14 +27,14 @@ export const ClearStorageButton = () => {
           key.startsWith("zk-voting-transaction-result"),
       );
 
-      // Remove all zk-voting related keys
+      // 移除所有与 zk-voting 相关的键
       zkVotingKeys.forEach(key => {
         localStorage.removeItem(key);
       });
 
       console.log(`Cleared ${zkVotingKeys.length} zk-voting storage items:`, zkVotingKeys);
 
-      // Force page reload to reset any cached state
+      // 强制重新加载页面，以重置所有缓存的状态
       window.location.reload();
     } catch (error) {
       console.error("Failed to clear zk-voting storage:", error);

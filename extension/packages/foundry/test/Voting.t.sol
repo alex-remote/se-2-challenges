@@ -134,7 +134,7 @@ contract VotingCheckpoint6Test is Test {
         vm.prank(owner);
         voting = IVoting(address(new Voting(owner, address(verifier), "Question?")));
 
-        // Allowlist and register alice to set a non-zero root
+        // 把 alice 加入白名单并注册，使根不为零
         address[] memory voters = new address[](1);
         voters[0] = alice;
         bool[] memory statuses = new bool[](1);
@@ -181,7 +181,7 @@ contract VotingCheckpoint6Test is Test {
     }
 
     function test_Checkpoint6_IncrementsYesNoVoteCountsCorrectly() public {
-        // Register bob too
+        // 同样注册 bob
         address[] memory voters = new address[](1);
         voters[0] = bob;
         bool[] memory statuses = new bool[](1);
@@ -193,7 +193,7 @@ contract VotingCheckpoint6Test is Test {
         vm.prank(bob);
         voting.register(456);
 
-        // Get updated root after both registrations
+        // 两人都注册后，获取更新后的根
         (,,,, , uint256 depthNum2, uint256 rootNum2) = voting.getVotingData();
         bytes32 root2 = bytes32(rootNum2);
         bytes32 depth2 = bytes32(depthNum2);
@@ -202,7 +202,7 @@ contract VotingCheckpoint6Test is Test {
         bytes32 yes = bytes32(uint256(1));
         bytes32 no = bytes32(uint256(0));
 
-        // Alice votes yes
+        // Alice 投赞成票
         bytes32 n1 = keccak256("nullifier1");
         verifier.setExpectedInputs(n1, root2, yes, depth2);
         verifier.setShouldVerify(true);
@@ -210,7 +210,7 @@ contract VotingCheckpoint6Test is Test {
         vm.prank(alice);
         voting.vote(proof, n1, root2, yes, depth2);
 
-        // Bob votes no
+        // Bob 投反对票
         bytes32 n2 = keccak256("nullifier2");
         verifier.setExpectedInputs(n2, root2, no, depth2);
 

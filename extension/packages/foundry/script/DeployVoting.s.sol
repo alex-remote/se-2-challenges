@@ -9,7 +9,7 @@ contract DeployVoting is ScaffoldETHDeploy {
         address ownerAddress = address(0x1);
 
         /// Checkpoint 6 //////
-        address verifierAddress = address(0x2); // placeholder
+        address verifierAddress = address(0x2); // 占位值
         // HonkVerifier verifier = new HonkVerifier();
         // address verifierAddress = address(verifier);
         // console.logString(
@@ -17,9 +17,9 @@ contract DeployVoting is ScaffoldETHDeploy {
         // );
 
         /// Checkpoint 2 //////
-        // NOTE: In Foundry, library linking is handled automatically.
-        // PoseidonT3 and LeanIMT are linked at compile time when Voting.sol imports them.
-        // No manual library deployment needed for the Voting contract.
+        // NOTE: 在 Foundry 中，库链接是自动处理的。
+        // Voting.sol 导入 PoseidonT3 和 LeanIMT 时，它们会在编译期被自动链接。
+        // Voting 合约无需手动部署这些库。
 
         Voting voting = new Voting(ownerAddress, verifierAddress, "Should we build zk apps?");
 

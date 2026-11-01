@@ -10,7 +10,7 @@ contract Voting is Ownable {
     using LeanIMT for LeanIMTData;
 
     //////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
     error Voting__CommitmentAlreadyAdded(uint256 commitment);
@@ -21,7 +21,7 @@ contract Voting is Ownable {
     error Voting__InvalidRoot();
 
     ///////////////////////
-    /// State Variables ///
+    /// 状态变量 ///
     ///////////////////////
 
     string private s_question;
@@ -34,7 +34,7 @@ contract Voting is Ownable {
     /// Checkpoint 6 //////
 
     //////////////
-    /// Events ///
+    /// 事件 ///
     //////////////
 
     event VoterAdded(address indexed voter);
@@ -49,7 +49,7 @@ contract Voting is Ownable {
     );
 
     //////////////////
-    ////Constructor///
+    ////构造函数///
     //////////////////
 
     constructor(address _owner, address _verifier, string memory _question) Ownable(_owner) {
@@ -58,14 +58,14 @@ contract Voting is Ownable {
     }
 
     //////////////////
-    /// Functions ///
+    /// 函数 ///
     //////////////////
 
     /**
-     * @notice Batch updates the allowlist of voter EOAs
-     * @dev Only the contract owner can call this function. Emits `VoterAdded` for each updated entry.
-     * @param voters Addresses to update in the allowlist
-     * @param statuses True to allow, false to revoke
+     * @notice 批量更新投票者 EOA 的白名单
+     * @dev 只有合约所有者可以调用此函数。每更新一个条目就触发一次 `VoterAdded`。
+     * @param voters 要在白名单中更新的地址
+     * @param statuses true 表示允许，false 表示撤销
      */
     function addVoters(address[] calldata voters, bool[] calldata statuses) public onlyOwner {
         require(voters.length == statuses.length, "Voters and statuses length mismatch");
@@ -77,33 +77,33 @@ contract Voting is Ownable {
     }
 
     /**
-     * @notice Registers a commitment leaf for an allowlisted address
-     * @dev A given allowlisted address can register exactly once. Reverts if
-     *      the caller is not allowlisted or has already registered, or if the
-     *      same commitment has been previously inserted. Emits `NewLeaf`.
-     * @param _commitment The Poseidon-based commitment to insert into the IMT
+     * @notice 为白名单中的地址注册一个承诺叶子
+     * @dev 每个白名单地址只能注册一次。以下情况会回滚（revert）：
+     *      调用者不在白名单中或已经注册过，或者
+     *      相同的承诺之前已被插入过。触发 `NewLeaf`。
+     * @param _commitment 要插入 IMT 的基于 Poseidon 的承诺
      */
     function register(uint256 _commitment) public {
         /// Checkpoint 2 //////
     }
 
     /**
-     * @notice Casts a vote using a zero-knowledge proof
-     * @dev Enforces single-use via `s_nullifierHashes`. Public inputs order must
-     *      match the circuit: nullifierHash, root, vote, depth. The `_vote`
-     *      value is interpreted as: 1 => yes, any other value => no. Emits `VoteCast`.
-     * @param _proof Ultra Honk proof bytes
-     * @param _root Merkle root corresponding to the registered commitments tree
-     * @param _nullifierHash Unique nullifier to prevent double voting
-     * @param _vote Encoded vote: 1 for yes, otherwise counted as no
-     * @param _depth Tree depth used by the circuit
+     * @notice 使用零知识证明进行投票
+     * @dev 通过 `s_nullifierHashes` 保证每个无效化值（nullifier）只能使用一次。公开输入的顺序必须
+     *      与电路一致：nullifierHash、root、vote、depth。`_vote`
+     *      的值按如下方式解释：1 => 赞成，其他任何值 => 反对。触发 `VoteCast`。
+     * @param _proof Ultra Honk 证明的字节数据
+     * @param _root 与已注册承诺树对应的默克尔根
+     * @param _nullifierHash 用于防止重复投票的唯一无效化值
+     * @param _vote 编码后的投票：1 表示赞成，否则计为反对
+     * @param _depth 电路使用的树深度
      */
     function vote(bytes memory _proof, bytes32 _nullifierHash, bytes32 _root, bytes32 _vote, bytes32 _depth) public {
         /// Checkpoint 6 //////
     }
 
     /////////////////////////
-    /// Getter Functions ///
+    /// Getter 函数 ///
     ////////////////////////
 
     function getVotingData()

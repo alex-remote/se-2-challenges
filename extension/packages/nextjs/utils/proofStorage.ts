@@ -1,9 +1,9 @@
 /**
- * Utility functions for storing and retrieving proof data and commitment data from localStorage
+ * 用于在 localStorage 中存储和读取证明数据与承诺数据的工具函数
  */
 
 export interface SerializableProofData {
-  proof: number[]; // Uint8Array serialized as number array
+  proof: number[]; // Uint8Array 序列化为数字数组
   publicInputs: any[];
   timestamp: number;
   contractAddress?: string;
@@ -26,7 +26,7 @@ export interface SerializableCommitmentData extends CommitmentData {
 const PROOF_STORAGE_KEY_PREFIX = "zk-voting-proof-data";
 
 /**
- * Generate contract and user-specific storage key
+ * 生成特定于合约和用户的存储键
  */
 const getStorageKey = (contractAddress?: string, userAddress?: string): string => {
   if (!contractAddress && !userAddress) {
@@ -42,7 +42,7 @@ const getStorageKey = (contractAddress?: string, userAddress?: string): string =
 };
 
 /**
- * Convert ProofData to a serializable format for localStorage
+ * 将 ProofData 转换为可存入 localStorage 的可序列化格式
  */
 export const serializeProofData = (
   proofData: { proof: Uint8Array; publicInputs: any[] },
@@ -50,7 +50,7 @@ export const serializeProofData = (
   voteChoice?: boolean,
 ): SerializableProofData => {
   return {
-    proof: Array.from(proofData.proof), // Convert Uint8Array to number array
+    proof: Array.from(proofData.proof), // 将 Uint8Array 转换为数字数组
     publicInputs: proofData.publicInputs,
     timestamp: Date.now(),
     contractAddress,
@@ -59,19 +59,19 @@ export const serializeProofData = (
 };
 
 /**
- * Convert serialized data back to ProofData format
+ * 将序列化数据转换回 ProofData 格式
  */
 export const deserializeProofData = (
   serializedData: SerializableProofData,
 ): { proof: Uint8Array; publicInputs: any[] } => {
   return {
-    proof: new Uint8Array(serializedData.proof), // Convert number array back to Uint8Array
+    proof: new Uint8Array(serializedData.proof), // 将数字数组转换回 Uint8Array
     publicInputs: serializedData.publicInputs,
   };
 };
 
 /**
- * Save proof data to localStorage
+ * 将证明数据保存到 localStorage
  */
 export const saveProofToLocalStorage = (
   proofData: { proof: Uint8Array; publicInputs: any[] },
@@ -90,7 +90,7 @@ export const saveProofToLocalStorage = (
 };
 
 /**
- * Load proof data from localStorage
+ * 从 localStorage 加载证明数据
  */
 export const loadProofFromLocalStorage = (
   contractAddress?: string,
@@ -110,7 +110,7 @@ export const loadProofFromLocalStorage = (
 };
 
 /**
- * Get full serialized proof data with metadata from localStorage
+ * 从 localStorage 获取包含元数据的完整序列化证明数据
  */
 export const getStoredProofMetadata = (
   contractAddress?: string,
@@ -128,7 +128,7 @@ export const getStoredProofMetadata = (
 };
 
 /**
- * Clear proof data from localStorage
+ * 从 localStorage 清除证明数据
  */
 export const clearProofFromLocalStorage = (contractAddress?: string, userAddress?: string): void => {
   try {
@@ -141,7 +141,7 @@ export const clearProofFromLocalStorage = (contractAddress?: string, userAddress
 };
 
 /**
- * Check if proof data exists in localStorage
+ * 检查 localStorage 中是否存在证明数据
  */
 export const hasStoredProof = (contractAddress?: string, userAddress?: string): boolean => {
   try {
@@ -152,11 +152,11 @@ export const hasStoredProof = (contractAddress?: string, userAddress?: string): 
   }
 };
 
-// Commitment storage functions
+// 承诺存储相关函数
 const COMMITMENT_STORAGE_KEY_PREFIX = "zk-voting-commitment-data";
 
 /**
- * Generate contract and user-specific storage key for commitments
+ * 为承诺生成特定于合约和用户的存储键
  */
 const getCommitmentStorageKey = (contractAddress?: string, userAddress?: string): string => {
   if (!contractAddress && !userAddress) {
@@ -172,7 +172,7 @@ const getCommitmentStorageKey = (contractAddress?: string, userAddress?: string)
 };
 
 /**
- * Save commitment data to localStorage
+ * 将承诺数据保存到 localStorage
  */
 export const saveCommitmentToLocalStorage = (
   commitmentData: CommitmentData,
@@ -195,7 +195,7 @@ export const saveCommitmentToLocalStorage = (
 };
 
 /**
- * Load commitment data from localStorage
+ * 从 localStorage 加载承诺数据
  */
 export const loadCommitmentFromLocalStorage = (
   contractAddress?: string,
@@ -207,7 +207,7 @@ export const loadCommitmentFromLocalStorage = (
     if (!stored) return null;
 
     const serialized: SerializableCommitmentData = JSON.parse(stored);
-    // Return only the commitment data without metadata
+    // 只返回承诺数据，不含元数据
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { timestamp, contractAddress: _, userAddress: __, ...commitmentData } = serialized;
     return commitmentData;
@@ -218,7 +218,7 @@ export const loadCommitmentFromLocalStorage = (
 };
 
 /**
- * Get full serialized commitment data with metadata from localStorage
+ * 从 localStorage 获取包含元数据的完整序列化承诺数据
  */
 export const getStoredCommitmentMetadata = (
   contractAddress?: string,
@@ -236,7 +236,7 @@ export const getStoredCommitmentMetadata = (
 };
 
 /**
- * Clear commitment data from localStorage
+ * 从 localStorage 清除承诺数据
  */
 export const clearCommitmentFromLocalStorage = (contractAddress?: string, userAddress?: string): void => {
   try {
@@ -249,7 +249,7 @@ export const clearCommitmentFromLocalStorage = (contractAddress?: string, userAd
 };
 
 /**
- * Check if commitment data exists in localStorage
+ * 检查 localStorage 中是否存在承诺数据
  */
 export const hasStoredCommitment = (contractAddress?: string, userAddress?: string): boolean => {
   try {
@@ -260,7 +260,7 @@ export const hasStoredCommitment = (contractAddress?: string, userAddress?: stri
   }
 };
 
-// Burner wallet storage functions
+// burner wallet（临时钱包）存储相关函数
 export interface SerializableBurnerWalletData {
   privateKey: string;
   address: string;
@@ -272,7 +272,7 @@ export interface SerializableBurnerWalletData {
 const BURNER_WALLET_STORAGE_KEY_PREFIX = "zk-voting-burner-wallet";
 
 /**
- * Generate contract and user-specific storage key for burner wallets
+ * 为 burner wallet 生成特定于合约和用户的存储键
  */
 const getBurnerWalletStorageKey = (contractAddress?: string, userAddress?: string): string => {
   if (!contractAddress && !userAddress) {
@@ -288,7 +288,7 @@ const getBurnerWalletStorageKey = (contractAddress?: string, userAddress?: strin
 };
 
 /**
- * Save burner wallet data to localStorage
+ * 将 burner wallet 数据保存到 localStorage
  */
 export const saveBurnerWalletToLocalStorage = (
   privateKey: string,
@@ -313,7 +313,7 @@ export const saveBurnerWalletToLocalStorage = (
 };
 
 /**
- * Load burner wallet data from localStorage
+ * 从 localStorage 加载 burner wallet 数据
  */
 export const loadBurnerWalletFromLocalStorage = (
   contractAddress?: string,
@@ -336,7 +336,7 @@ export const loadBurnerWalletFromLocalStorage = (
 };
 
 /**
- * Get full serialized burner wallet data with metadata from localStorage
+ * 从 localStorage 获取包含元数据的完整序列化 burner wallet 数据
  */
 export const getStoredBurnerWalletMetadata = (
   contractAddress?: string,
@@ -354,7 +354,7 @@ export const getStoredBurnerWalletMetadata = (
 };
 
 /**
- * Clear burner wallet data from localStorage
+ * 从 localStorage 清除 burner wallet 数据
  */
 export const clearBurnerWalletFromLocalStorage = (contractAddress?: string, userAddress?: string): void => {
   try {
@@ -367,7 +367,7 @@ export const clearBurnerWalletFromLocalStorage = (contractAddress?: string, user
 };
 
 /**
- * Check if burner wallet data exists in localStorage
+ * 检查 localStorage 中是否存在 burner wallet 数据
  */
 export const hasStoredBurnerWallet = (contractAddress?: string, userAddress?: string): boolean => {
   try {
@@ -378,20 +378,20 @@ export const hasStoredBurnerWallet = (contractAddress?: string, userAddress?: st
   }
 };
 
-// Transaction result storage functions
+// 交易结果存储相关函数
 export interface TransactionResult {
   userOpHash: string;
   success: boolean;
   timestamp: number;
   contractAddress?: string;
-  receipt?: any; // Full receipt data
+  receipt?: any; // 完整的回执数据
   errorMessage?: string;
 }
 
 const TRANSACTION_RESULT_STORAGE_KEY_PREFIX = "zk-voting-transaction-result";
 
 /**
- * Generate contract and user-specific storage key for transaction results
+ * 为交易结果生成特定于合约和用户的存储键
  */
 const getTransactionResultStorageKey = (contractAddress?: string, userAddress?: string): string => {
   if (!contractAddress && !userAddress) {
@@ -407,7 +407,7 @@ const getTransactionResultStorageKey = (contractAddress?: string, userAddress?: 
 };
 
 /**
- * Save transaction result to localStorage
+ * 将交易结果保存到 localStorage
  */
 export const saveTransactionResultToLocalStorage = (
   userOpHash: string,
@@ -437,7 +437,7 @@ export const saveTransactionResultToLocalStorage = (
 };
 
 /**
- * Load transaction result from localStorage
+ * 从 localStorage 加载交易结果
  */
 export const loadTransactionResultFromLocalStorage = (
   contractAddress?: string,
@@ -456,7 +456,7 @@ export const loadTransactionResultFromLocalStorage = (
 };
 
 /**
- * Clear transaction result from localStorage
+ * 从 localStorage 清除交易结果
  */
 export const clearTransactionResultFromLocalStorage = (contractAddress?: string, userAddress?: string): void => {
   try {
@@ -469,7 +469,7 @@ export const clearTransactionResultFromLocalStorage = (contractAddress?: string,
 };
 
 /**
- * Check if transaction result exists in localStorage
+ * 检查 localStorage 中是否存在交易结果
  */
 export const hasStoredTransactionResult = (contractAddress?: string, userAddress?: string): boolean => {
   try {

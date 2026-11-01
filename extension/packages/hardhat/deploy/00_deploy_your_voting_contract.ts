@@ -1,16 +1,16 @@
 import { artifacts, deployScript } from "../rocketh/deploy.js";
 
 /**
- * Deploys a contract named "Voting" using the deployer account.
+ * 使用部署者账户部署名为 "Voting" 的合约。
  *
- * On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
+ * 在 localhost 上，部署者账户是 Hardhat 自带的账户，已经预先注入了资金。
  *
- * When deploying to live networks (e.g `yarn deploy --network sepolia`), the deployer account
- * should have sufficient balance to pay for the gas fees for contract creation.
+ * 部署到线上网络（例如 `yarn deploy --network sepolia`）时，部署者账户
+ * 需要有足够的余额来支付创建合约的 gas 费用。
  *
- * You can generate a random account with `yarn generate` or `yarn account:import` to import your
- * existing PK which will fill DEPLOYER_PRIVATE_KEY_ENCRYPTED in the .env file (used in hardhat.config.ts).
- * Run `yarn account` to check the deployer balance on every network.
+ * 你可以用 `yarn generate` 生成一个随机账户，或用 `yarn account:import` 导入你
+ * 已有的私钥，这会填写 .env 文件中的 DEPLOYER_PRIVATE_KEY_ENCRYPTED（供 hardhat.config.ts 使用）。
+ * 运行 `yarn account` 可以查看部署者在各个网络上的余额。
  */
 export default deployScript(
   async ({ deploy, namedAccounts }) => {
@@ -19,7 +19,7 @@ export default deployScript(
     const ownerAddress = "0x0000000000000000000000000000000000000001";
 
     /// checkpoint 6 //////
-    const verifierAddress = "0x0000000000000000000000000000000000000002"; // placeholder
+    const verifierAddress = "0x0000000000000000000000000000000000000002"; // 占位值
     // const verifier = await deploy("HonkVerifier", {
     //   account: deployer,
     //   artifact: artifacts.HonkVerifier,
@@ -27,7 +27,7 @@ export default deployScript(
     // });
 
     /// checkpoint 2 //////
-    const leanIMTAddress = "0x0000000000000000000000000000000000000003"; // placeholder
+    const leanIMTAddress = "0x0000000000000000000000000000000000000003"; // 占位值
     // const poseidon3 = await deploy("PoseidonT3", {
     //   account: deployer,
     //   artifact: artifacts.PoseidonT3,
@@ -62,7 +62,7 @@ export default deployScript(
       },
     );
   },
-  // Tags are useful if you have multiple deploy files and only want to run one of them.
-  // e.g. yarn deploy --tags YourVotingContract
+  // 当你有多个部署文件而只想运行其中一个时，标签（tags）非常有用。
+  // 例如：yarn deploy --tags YourVotingContract
   { tags: ["YourVotingContract"] },
 );

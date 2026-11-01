@@ -12,9 +12,9 @@ import { saveCommitmentToLocalStorage } from "~~/utils/proofStorage";
 
 const generateCommitment = async (): Promise<CommitmentData> => {
   ////// Checkpoint 7 //////
-  const commitmentHex = "0x01"; // placeholder
-  const nullifierHex = "0x02"; // placeholder
-  const secretHex = "0x03"; // placeholder
+  const commitmentHex = "0x01"; // 占位值
+  const nullifierHex = "0x02"; // 占位值
+  const secretHex = "0x03"; // 占位值
 
   return {
     commitment: commitmentHex,

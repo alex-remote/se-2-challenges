@@ -43,9 +43,9 @@ const createSmartAccount = async (): Promise<{
 }> => {
   try {
     //// Checkpoint 10 //////
-    void [createSmartAccountClient, toSafeSmartAccount, createPublicClient, generatePrivateKey, privateKeyToAccount]; // placeholder
+    void [createSmartAccountClient, toSafeSmartAccount, createPublicClient, generatePrivateKey, privateKeyToAccount]; // 占位代码
 
-    throw new Error("Checkpoint 10: implement createSmartAccount"); // placeholder
+    throw new Error("Checkpoint 10: implement createSmartAccount"); // 占位代码
   } catch (error) {
     console.error("Error creating smart account:", error);
     throw error;
@@ -65,9 +65,9 @@ const voteOnSepolia = async ({
 }): Promise<{ userOpHash: `0x${string}` }> => {
   if (!contractInfo && !contractAddress) throw new Error("Contract not found");
   //// Checkpoint 10 //////
-  void [encodeFunctionData, toHex, proofData, smartAccountClient]; // placeholder
+  void [encodeFunctionData, toHex, proofData, smartAccountClient]; // 占位代码
 
-  throw new Error("Checkpoint 10: implement voteOSepolia"); // placeholder
+  throw new Error("Checkpoint 10: implement voteOSepolia"); // 占位代码
 };
 
 export const VoteWithBurnerSepolia = ({ contractAddress }: { contractAddress?: `0x${string}` }) => {
@@ -83,7 +83,7 @@ export const VoteWithBurnerSepolia = ({ contractAddress }: { contractAddress?: `
 
   const { data: contractInfo } = useDeployedContractInfo({ contractName: "Voting" });
 
-  // Reset client and owner when account/contract changes
+  // 账户/合约变化时重置客户端和所有者（owner）
   useEffect(() => {
     const effectiveContractAddress = contractAddress || contractInfo?.address;
     if (!effectiveContractAddress || !userAddress) {
@@ -125,7 +125,7 @@ export const VoteWithBurnerSepolia = ({ contractAddress }: { contractAddress?: `
               setHasSuccessfulVote(Boolean(storedResult.success));
               const fromReceiptSA = storedResult.receipt?.smartAccountAddress as `0x${string}` | undefined;
               setVotedSmartAccount((fromReceiptSA as `0x${string}`) || null);
-              // We only display the smart account publicly; owner is kept internal
+              // 我们只公开显示智能账户；所有者保留在内部
             }
           } catch (error) {
             console.error("Error loading transaction result:", error);
@@ -133,7 +133,7 @@ export const VoteWithBurnerSepolia = ({ contractAddress }: { contractAddress?: `
         } else {
           setHasSuccessfulVote(false);
           setVotedSmartAccount(null);
-          // Reset displayed smart account
+          // 重置显示的智能账户
         }
       } else {
         setHasProofStored(false);
@@ -230,7 +230,7 @@ export const VoteWithBurnerSepolia = ({ contractAddress }: { contractAddress?: `
                       enhancedReceipt,
                     );
                     setVotedSmartAccount((currentSmartAccount as `0x${string}`) || null);
-                    // owner is not displayed; keep internal if needed
+                    // 不显示所有者；如有需要在内部保留
                   }
                 } else {
                   console.error("User operation failed:", receipt);
@@ -251,7 +251,7 @@ export const VoteWithBurnerSepolia = ({ contractAddress }: { contractAddress?: `
                       "User operation failed",
                     );
                     setVotedSmartAccount((currentSmartAccount as `0x${string}`) || null);
-                    // owner is not displayed; keep internal if needed
+                    // 不显示所有者；如有需要在内部保留
                   }
                 }
               } catch (receiptError: any) {
@@ -275,7 +275,7 @@ export const VoteWithBurnerSepolia = ({ contractAddress }: { contractAddress?: `
                       "Transaction submitted successfully but receipt timed out",
                     );
                     setVotedSmartAccount((currentSmartAccount as `0x${string}`) || null);
-                    // owner is not displayed; keep internal if needed
+                    // 不显示所有者；如有需要在内部保留
                   }
                 } else {
                   throw receiptError;
