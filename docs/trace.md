@@ -1,6 +1,43 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:08 UTC　｜　总进度：**647 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:17 UTC　｜　总进度：**647 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+
+
+## 完成情况
+
+全部 647 个文本文件已处理完毕，并通过逐文件校验与分支级术语复核。各分支结果已提交到对应的 `_zh` 分支：
+
+| 目标分支 | 原地翻译注释的文件 | 改动行数（增 = 删，行数不变） | 新增 `_zh.md` |
+|---|---:|---:|---:|
+| `main_zh` | 0 | 0 | 1 |
+| `base-challenge-template_zh` | 10 | 56 | 10 |
+| `challenge-crowdfunding_zh` | 16 | 89 | 10 |
+| `challenge-dex_zh` | 18 | 120 | 10 |
+| `challenge-dice-game_zh` | 17 | 57 | 10 |
+| `challenge-oracles_zh` | 82 | 827 | 10 |
+| `challenge-over-collateralized-lending_zh` | 28 | 222 | 10 |
+| `challenge-prediction-markets_zh` | 20 | 422 | 10 |
+| `challenge-stablecoins_zh` | 38 | 496 | 10 |
+| `challenge-token-vendor_zh` | 19 | 115 | 10 |
+| `challenge-tokenization_zh` | 17 | 48 | 10 |
+| `challenge-zk-voting_zh` | 30 | 193 | 10 |
+
+### 质量保障
+
+- 原地翻译：逐文件校验行数、末尾换行一致，且去掉注释后的代码部分与原文完全相同。
+- `_zh.md`：逐行对应原文，空行、代码围栏、标题级别、列表 / 引用 / 表格前缀位置一致。
+- 多分支共享的文件只翻译一次再复制，11 个分支中的共享译文逐字节相同；hardhat 与 foundry 下的同名合约译文一致。
+- 大 README 分段并行翻译后，每个分支再由一个复核子代理统一术语与固定用语。
+
+### 处理约定与说明
+
+1. `README.md.args.mjs`、`AGENTS.md.args.mjs` 等生成 Markdown 的模板中，模板字符串内容（教程正文及其代码块注释）不翻译，只翻译模板外的 JS 注释；教程正文请阅读各分支根目录的 `README_zh.md`。
+2. `CHALLENGE.yaml` 中 `context: |`、`solution: |` 等块标量是字符串值，不翻译；只翻译 `# CHECKPOINT N: …` 等结构层注释。
+3. 被注释掉的代码、`SPDX` / `eslint-disable` / `@ts-expect-error` 等指令、`TODO` / `CHALLENGE-TODO` / `Checkpoint N` 标记保留英文。
+4. `LICENCE.txt`（许可证法律文本）、JSON、SVG 不改；`extension/.cursor/agents/progress-tracker.md` 没有可翻译文本，未生成 `_zh.md`。
+5. GitHub workflow `run: |` 中的 shell 注释、`globals.css.args.mjs` 模板中的 CSS 注释已翻译（仅改注释，已人工逐行确认）。
+6. 中文 Markdown 中贴着汉字的 `_斜体_` 改为 `*斜体*`，部分裸 URL 改为 `<URL>`，以保证渲染正确；`README_zh.md` 内 `#checkpoint-…` 形式的页内锚点仍指向英文标题，可能无法跳转。
+7. 原文中的个别笔误按原文直译，未做更正。
 
 ## 任务规则
 
