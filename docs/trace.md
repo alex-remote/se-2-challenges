@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:06 UTC　｜　总进度：**543 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:07 UTC　｜　总进度：**560 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -20,9 +20,9 @@
 | [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 46 / 46 ✅ | `challenge-crowdfunding_zh` |
 | [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 43 / 43 ✅ | `challenge-dex_zh` |
 | [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 46 / 46 ✅ | `challenge-dice-game_zh` |
-| [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 21 / 123 | `challenge-oracles_zh` |
+| [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 37 / 123 | `challenge-oracles_zh` |
 | [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 65 / 65 ✅ | `challenge-over-collateralized-lending_zh` |
-| [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 65 / 66 | `challenge-prediction-markets_zh` |
+| [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 66 / 66 ✅ | `challenge-prediction-markets_zh` |
 | [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 77 / 77 ✅ | `challenge-stablecoins_zh` |
 | [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 43 / 43 ✅ | `challenge-token-vendor_zh` |
 | [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 48 / 48 ✅ | `challenge-tokenization_zh` |
@@ -44,11 +44,11 @@
 | `dice-readme` | 1 | 468 | ✅ 已完成 |
 | `dice-code` | 25 | 2250 | ✅ 已完成 |
 | `orc-readme-p1` | 1 | 541 | 🔄 进行中 |
-| `orc-readme-p2` | 1 | 456 | 🔄 进行中 |
+| `orc-readme-p2` | 1 | 456 | ✅ 已完成 |
 | `orc-readme-p3` | 1 | 623 | 🔄 进行中 |
 | `orc-readme-p4` | 1 | 610 | 🔄 进行中 |
 | `orc-sol` | 21 | 5567 | 🔄 进行中 |
-| `orc-ftest` | 16 | 3345 | 🔄 进行中 |
+| `orc-ftest` | 16 | 3345 | ✅ 已完成 |
 | `orc-htest` | 15 | 3065 | 🔄 进行中 |
 | `orc-web` | 49 | 4239 | 🔄 进行中 |
 | `lend-readme-p1` | 1 | 521 | ✅ 已完成 |
@@ -57,7 +57,7 @@
 | `lend-sol` | 20 | 2248 | ✅ 已完成 |
 | `pm-readme-p1` | 1 | 627 | ✅ 已完成 |
 | `pm-readme-p2` | 1 | 662 | ✅ 已完成 |
-| `pm-readme-p3` | 1 | 482 | 🔄 进行中 |
+| `pm-readme-p3` | 1 | 482 | ✅ 已完成 |
 | `pm-web` | 33 | 6291 | ✅ 已完成 |
 | `pm-sol` | 11 | 1590 | ✅ 已完成 |
 | `pm-test` | 1 | 1508 | ✅ 已完成 |
@@ -72,8 +72,8 @@
 | `nft-code` | 27 | 2045 | ✅ 已完成 |
 | `zk-readme-p1` | 1 | 462 | 🔄 进行中 |
 | `zk-readme-p2` | 1 | 556 | 🔄 进行中 |
-| `zk-readme-p3` | 1 | 548 | 🔄 进行中 |
-| `zk-readme-p4` | 1 | 529 | 🔄 进行中 |
+| `zk-readme-p3` | 1 | 548 | ✅ 已完成 |
+| `zk-readme-p4` | 1 | 529 | ✅ 已完成 |
 | `zk-sol` | 20 | 4872 | ✅ 已完成 |
 | `zk-web` | 20 | 2214 | ✅ 已完成 |
 
@@ -317,7 +317,7 @@
 
 ### challenge-oracles
 
-文本文件 123 个（已完成 21），二进制 3 个 → 目标分支 `challenge-oracles_zh`
+文本文件 123 个（已完成 37），二进制 3 个 → 目标分支 `challenge-oracles_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -325,7 +325,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 2230 行 · `orc-readme-p1, orc-readme-p2, orc-readme-p3, orc-readme-p4` · ⏳ 分段翻译进度 0/4
+- [ ] `README.md` — 2230 行 · `orc-readme-p1, orc-readme-p2, orc-readme-p3, orc-readme-p4` · ⏳ 分段翻译进度 1/4
 - [ ] `extension/.ai/CHALLENGE.yaml` — 1240 行 · `orc-sol`
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
@@ -351,23 +351,23 @@
 - [ ] `extension/packages/foundry/contracts/02_Optimistic/IOptimisticOracle.sol` — 72 行 · `orc-sol`
 - [ ] `extension/packages/foundry/contracts/02_Optimistic/OptimisticOracle.sol` — 211 行 · `orc-sol`
 - [ ] `extension/packages/foundry/contracts/utils/StatisticsUtils.sol` — 54 行 · `orc-sol`
-- [ ] `extension/packages/foundry/package.json` — 11 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/root.package.json` — 7 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 13 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/script/DeployOptimistic.s.sol` — 20 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/script/DeployStaking.s.sol` — 22 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/script/DeployWhitelist.s.sol` — 46 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/scripts-js/oracle-bot/config.json` — 56 行 · `orc-ftest`
+- [x] `extension/packages/foundry/package.json` — 11 行 · `orc-ftest` · ✅ 无需改动（JSON 文件，无注释）
+- [x] `extension/packages/foundry/root.package.json` — 7 行 · `orc-ftest` · ✅ 无需改动（JSON 文件，无注释）
+- [x] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 13 行 · `orc-ftest` · ✅ 无需改动（模板字符串内只有代码，无注释）
+- [x] `extension/packages/foundry/script/DeployOptimistic.s.sol` — 20 行 · `orc-ftest` · ✅ 已翻译注释（改动 1 行；保留 SPDX）
+- [x] `extension/packages/foundry/script/DeployStaking.s.sol` — 22 行 · `orc-ftest` · ✅ 已翻译注释（改动 1 行；保留 SPDX）
+- [x] `extension/packages/foundry/script/DeployWhitelist.s.sol` — 46 行 · `orc-ftest` · ✅ 已翻译注释（改动 3 行；保留 SPDX）
+- [x] `extension/packages/foundry/scripts-js/oracle-bot/config.json` — 56 行 · `orc-ftest` · ✅ 无需改动（JSON 配置，无注释）
 - [x] `extension/packages/foundry/scripts-js/simulate/accounts.js` — 44 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
-- [ ] `extension/packages/foundry/scripts-js/simulate/contractHelper.js` — 120 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/scripts-js/simulate/fetchPriceFromUniswap.js` — 116 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/scripts-js/simulate/runOptimisticBots.js` — 316 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/scripts-js/simulate/runStakingOracleBots.js` — 766 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/scripts-js/simulate/runWhitelistOracleBots.js` — 121 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/scripts-js/simulate/utils.js` — 93 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/test/OptimisticOracle.t.sol` — 582 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/test/StakingOracle.t.sol` — 832 行 · `orc-ftest`
-- [ ] `extension/packages/foundry/test/WhitelistOracle.t.sol` — 224 行 · `orc-ftest`
+- [x] `extension/packages/foundry/scripts-js/simulate/contractHelper.js` — 120 行 · `orc-ftest` · ✅ 已翻译注释（改动 9 行）
+- [x] `extension/packages/foundry/scripts-js/simulate/fetchPriceFromUniswap.js` — 116 行 · `orc-ftest` · ✅ 无需改动（无注释（仅字符串 URL））
+- [x] `extension/packages/foundry/scripts-js/simulate/runOptimisticBots.js` — 316 行 · `orc-ftest` · ✅ 已翻译注释（改动 2 行）
+- [x] `extension/packages/foundry/scripts-js/simulate/runStakingOracleBots.js` — 766 行 · `orc-ftest` · ✅ 已翻译注释（改动 10 行；slashing 译为“罚没（slashing）”，bucket 保留英文）
+- [x] `extension/packages/foundry/scripts-js/simulate/runWhitelistOracleBots.js` — 121 行 · `orc-ftest` · ✅ 无需改动（无注释）
+- [x] `extension/packages/foundry/scripts-js/simulate/utils.js` — 93 行 · `orc-ftest` · ✅ 无需改动（无注释）
+- [x] `extension/packages/foundry/test/OptimisticOracle.t.sol` — 582 行 · `orc-ftest` · ✅ 已翻译注释（改动 25 行；行尾 // Invalid/Asserted/Proposed/Disputed/Settled/Expired 为 State 枚举成员名，保留英文；保留 SPDX）
+- [x] `extension/packages/foundry/test/StakingOracle.t.sol` — 832 行 · `orc-ftest` · ✅ 已翻译注释（改动 11 行；保留 SPDX、// Checkpoint 2: StakingOracle（标记+合约名）、// WAITING_PERIOD = 2（常量表达式））
+- [x] `extension/packages/foundry/test/WhitelistOracle.t.sol` — 224 行 · `orc-ftest` · ✅ 已翻译注释（改动 10 行；保留 SPDX、// Checkpoint 1: WhitelistOracle（标记+合约名））
 - [ ] `extension/packages/hardhat/contracts/00_Whitelist/SimpleOracle.sol` — 73 行 · `orc-sol`
 - [ ] `extension/packages/hardhat/contracts/00_Whitelist/WhitelistOracle.sol` — 89 行 · `orc-sol`
 - [ ] `extension/packages/hardhat/contracts/01_Staking/OracleToken.sol` — 65 行 · `orc-sol`
@@ -530,7 +530,7 @@
 
 ### challenge-prediction-markets
 
-文本文件 66 个（已完成 65），二进制 12 个 → 目标分支 `challenge-prediction-markets_zh`
+文本文件 66 个（已完成 66），二进制 12 个 → 目标分支 `challenge-prediction-markets_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -538,7 +538,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 1771 行 · `pm-readme-p1, pm-readme-p2, pm-readme-p3` · ⏳ 分段翻译进度 2/3
+- [x] `README.md` — 1771 行 · `pm-readme-p1, pm-readme-p2, pm-readme-p3` · ✅ 已生成 `README_zh.md`（分段拼接，1771 行）
 - [x] `extension/.ai/CHALLENGE.yaml` — 919 行 · `pm-web` · ✅ 已翻译注释（改动 7 行（结构层 # CHECKPOINT 标题注释）；块标量正文为字符串未译）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
@@ -834,7 +834,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 2095 行 · `zk-readme-p1, zk-readme-p2, zk-readme-p3, zk-readme-p4` · ⏳ 分段翻译进度 0/4
+- [ ] `README.md` — 2095 行 · `zk-readme-p1, zk-readme-p2, zk-readme-p3, zk-readme-p4` · ⏳ 分段翻译进度 2/4
 - [x] `extension/.ai/CHALLENGE.yaml` — 1363 行 · `zk-sol` · ✅ 已翻译注释（改动 8 行：结构层 # CHECKPOINT 1-8 分隔标题（CHECKPOINT 标记保留英文，冒号后译）；纯分隔线保留；块标量内 Markdown 正文与代码（含 Noir/Solidity 注释）属 YAML 字符串值，未译；check_inplace [OK]）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
