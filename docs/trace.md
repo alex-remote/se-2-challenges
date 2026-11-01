@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:04 UTC　｜　总进度：**492 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:05 UTC　｜　总进度：**492 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -56,7 +56,7 @@
 | `lend-web` | 22 | 3019 | ✅ 已完成 |
 | `lend-sol` | 20 | 2248 | ✅ 已完成 |
 | `pm-readme-p1` | 1 | 627 | ✅ 已完成 |
-| `pm-readme-p2` | 1 | 662 | 🔄 进行中 |
+| `pm-readme-p2` | 1 | 662 | ✅ 已完成 |
 | `pm-readme-p3` | 1 | 482 | 🔄 进行中 |
 | `pm-web` | 33 | 6291 | ✅ 已完成 |
 | `pm-sol` | 11 | 1590 | 🔄 进行中 |
@@ -538,7 +538,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 1771 行 · `pm-readme-p1, pm-readme-p2, pm-readme-p3` · ⏳ 分段翻译进度 1/3
+- [ ] `README.md` — 1771 行 · `pm-readme-p1, pm-readme-p2, pm-readme-p3` · ⏳ 分段翻译进度 2/3
 - [x] `extension/.ai/CHALLENGE.yaml` — 919 行 · `pm-web` · ✅ 已翻译注释（改动 7 行（结构层 # CHECKPOINT 标题注释）；块标量正文为字符串未译）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
