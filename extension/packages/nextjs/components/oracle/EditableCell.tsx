@@ -20,14 +20,14 @@ export const EditableCell = ({ value, address, highlightColor = "" }: EditableCe
 
   const { writeContractAsync } = useWriteContract();
 
-  // Update edit value when prop value changes
+  // prop 中的 value 变化时，同步更新编辑值
   useEffect(() => {
     if (!isEditing) {
       setEditValue(Number(value.toString()) || "");
     }
   }, [value, isEditing]);
 
-  // Focus input when editing starts
+  // 开始编辑时让输入框获得焦点
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
@@ -56,7 +56,7 @@ export const EditableCell = ({ value, address, highlightColor = "" }: EditableCe
     }
   };
 
-  // Resubmits the currently displayed value without entering edit mode
+  // 不进入编辑模式，直接重新提交当前显示的值
   const handleRefresh = async () => {
     const parsedValue = Number(value.toString());
     if (isNaN(parsedValue)) {
@@ -90,7 +90,7 @@ export const EditableCell = ({ value, address, highlightColor = "" }: EditableCe
       className={`w-[6rem] max-w-[6rem] whitespace-nowrap overflow-hidden`}
     >
       <div className="flex w-full items-start">
-        {/* 70% width for value display/editing */}
+        {/* 70% 宽度用于显示 / 编辑数值 */}
         <div className="w-[70%]">
           {isEditing ? (
             <div className="relative px-1">
@@ -129,7 +129,7 @@ export const EditableCell = ({ value, address, highlightColor = "" }: EditableCe
           )}
         </div>
 
-        {/* 30% width for action buttons */}
+        {/* 30% 宽度用于操作按钮 */}
         <div className="w-[30%] items-stretch justify-start pl-2">
           {isEditing && (
             <div className="flex items-stretch gap-1 w-full h-full">

@@ -28,13 +28,13 @@ contract OptimisticOracleTest is Test {
         vm.deal(disputer, 100 ether);
         vm.deal(otherUser, 100 ether);
 
-        // Deploy OptimisticOracle with owner as temporary decider
+        // 部署 OptimisticOracle，先用 owner 充当临时裁决者
         optimisticOracle = IOptimisticOracle(address(new OptimisticOracle(owner)));
 
-        // Deploy Decider
+        // 部署 Decider
         deciderContract = new Decider(address(optimisticOracle));
 
-        // Set the decider in the oracle
+        // 在预言机中设置裁决者
         optimisticOracle.setDecider(address(deciderContract));
     }
 
@@ -56,7 +56,7 @@ contract OptimisticOracleTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 4: Deployment, Event Assertion, Proposal, Dispute
+    // Checkpoint 4: 部署、事件断言、提议、争议
     // ============================================================
 
     function test_Checkpoint4_DeploySuccessfully() public view {
@@ -68,8 +68,8 @@ contract OptimisticOracleTest is Test {
     }
 
     function test_Checkpoint4_CorrectConstants() public view {
-        assertEq(optimisticOracle.MINIMUM_ASSERTION_WINDOW(), 180); // 3 minutes
-        assertEq(optimisticOracle.DISPUTE_WINDOW(), 180); // 3 minutes
+        assertEq(optimisticOracle.MINIMUM_ASSERTION_WINDOW(), 180); // 3 分钟
+        assertEq(optimisticOracle.DISPUTE_WINDOW(), 180); // 3 分钟
     }
 
     function test_Checkpoint4_StartsWithNextAssertionId1() public view {
@@ -185,7 +185,7 @@ contract OptimisticOracleTest is Test {
         vm.prank(proposer);
         optimisticOracle.proposeOutcome{ value: bond }(assertionId, true);
 
-        // Fast forward past dispute window
+        // 快进到争议窗口期之后
         vm.warp(block.timestamp + 181);
 
         vm.prank(disputer);
@@ -229,7 +229,7 @@ contract OptimisticOracleTest is Test {
 
         uint256 assertionId = _assertEventWithTimes("short event", reward, start, end);
 
-        // Fast forward past endTime
+        // 快进到 endTime 之后
         vm.warp(block.timestamp + 201);
 
         uint256 bond = reward * 2;
@@ -246,21 +246,21 @@ contract OptimisticOracleTest is Test {
         uint256 assertionId = _assertEventWithTimes("window event", reward, start, end);
         uint256 bond = reward * 2;
 
-        // Before startTime - should fail
+        // 在 startTime 之前——应当失败
         vm.prank(proposer);
         vm.expectRevert(abi.encodeWithSelector(bytes4(keccak256("InvalidTime()"))));
         optimisticOracle.proposeOutcome{ value: bond }(assertionId, true);
 
-        // Move to startTime
+        // 前进到 startTime
         vm.warp(block.timestamp + 10);
 
-        // Now it should work
+        // 现在应当可以成功
         vm.prank(proposer);
         optimisticOracle.proposeOutcome{ value: bond }(assertionId, true);
     }
 
     // ============================================================
-    // Checkpoint 5: Rewards and Refunds
+    // Checkpoint 5: 奖励与退款
     // ============================================================
 
     function test_Checkpoint5_ClaimUndisputedRewardAfterDeadline() public {
@@ -271,7 +271,7 @@ contract OptimisticOracleTest is Test {
         vm.prank(proposer);
         optimisticOracle.proposeOutcome{ value: bond }(assertionId, true);
 
-        // Fast forward past dispute window
+        // 快进到争议窗口期之后
         vm.warp(block.timestamp + 181);
 
         uint256 initialBalance = proposer.balance;
@@ -279,7 +279,7 @@ contract OptimisticOracleTest is Test {
         optimisticOracle.claimUndisputedReward(assertionId);
         uint256 finalBalance = proposer.balance;
 
-        // Proposer should receive reward + bond = 3 ether
+        // 提议者应当收到 reward + bond = 3 ether
         assertEq(finalBalance - initialBalance, reward + bond);
     }
 
@@ -341,7 +341,7 @@ contract OptimisticOracleTest is Test {
         vm.prank(disputer);
         optimisticOracle.disputeOutcome{ value: bond }(assertionId);
 
-        // Settle with proposer winning
+        // 以提议者胜出的结果结算
         deciderContract.settleDispute(assertionId, true);
 
         uint256 initialBalance = proposer.balance;
@@ -349,7 +349,7 @@ contract OptimisticOracleTest is Test {
         optimisticOracle.claimDisputedReward(assertionId);
         uint256 finalBalance = proposer.balance;
 
-        // Proposer wins: reward * 3 (reward + proposer bond + part of disputer bond)
+        // 提议者胜出：reward * 3（奖励 + 提议者保证金 + 部分争议者保证金）
         assertEq(finalBalance - initialBalance, reward * 3);
     }
 
@@ -364,7 +364,7 @@ contract OptimisticOracleTest is Test {
         vm.prank(disputer);
         optimisticOracle.disputeOutcome{ value: bond }(assertionId);
 
-        // Settle with disputer winning
+        // 以争议者胜出的结果结算
         deciderContract.settleDispute(assertionId, false);
 
         uint256 initialBalance = disputer.balance;
@@ -372,7 +372,7 @@ contract OptimisticOracleTest is Test {
         optimisticOracle.claimDisputedReward(assertionId);
         uint256 finalBalance = disputer.balance;
 
-        // Disputer wins: reward * 3
+        // 争议者胜出：reward * 3
         assertEq(finalBalance - initialBalance, reward * 3);
     }
 
@@ -455,7 +455,7 @@ contract OptimisticOracleTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 6: Settlement and State Management
+    // Checkpoint 6: 结算与状态管理
     // ============================================================
 
     function test_Checkpoint6_DeciderSettlesDispute() public {
@@ -481,7 +481,7 @@ contract OptimisticOracleTest is Test {
         }
         assertTrue(found, "AssertionSettled event should be emitted");
 
-        // State should be Settled (4)
+        // 状态应当为 Settled (4)
         IOptimisticOracle.State state = optimisticOracle.getState(assertionId);
         assertEq(uint256(state), 4);
     }
@@ -515,30 +515,30 @@ contract OptimisticOracleTest is Test {
     }
 
     function test_Checkpoint6_StateTransitions() public {
-        // Invalid state for non-existent assertion
+        // 不存在的断言处于 Invalid 状态
         IOptimisticOracle.State state = optimisticOracle.getState(999);
         assertEq(uint256(state), 0); // Invalid
 
-        // Asserted state
+        // Asserted 状态
         uint256 reward = 1 ether;
         uint256 assertionId = _assertEvent("Will Bitcoin reach $1m?", reward);
         state = optimisticOracle.getState(assertionId);
         assertEq(uint256(state), 1); // Asserted
 
-        // Proposed state
+        // Proposed 状态
         uint256 bond = reward * 2;
         vm.prank(proposer);
         optimisticOracle.proposeOutcome{ value: bond }(assertionId, true);
         state = optimisticOracle.getState(assertionId);
         assertEq(uint256(state), 2); // Proposed
 
-        // Disputed state
+        // Disputed 状态
         vm.prank(disputer);
         optimisticOracle.disputeOutcome{ value: bond }(assertionId);
         state = optimisticOracle.getState(assertionId);
         assertEq(uint256(state), 3); // Disputed
 
-        // Settled state
+        // Settled 状态
         deciderContract.settleDispute(assertionId, true);
         state = optimisticOracle.getState(assertionId);
         assertEq(uint256(state), 4); // Settled

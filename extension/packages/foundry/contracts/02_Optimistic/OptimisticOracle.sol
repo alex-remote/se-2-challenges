@@ -3,7 +3,7 @@ pragma solidity >=0.8.0 <0.9.0;
 
 contract OptimisticOracle {
     ////////////////
-    /// Enums //////
+    /// 枚举 //////
     ////////////////
 
     enum State {
@@ -16,7 +16,7 @@ contract OptimisticOracle {
     }
 
     /////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
     error AssertionNotFound();
@@ -34,7 +34,7 @@ contract OptimisticOracle {
     error TransferFailed();
 
     //////////////////////
-    /// State Variables //
+    /// 状态变量 //
     //////////////////////
 
     struct EventAssertion {
@@ -60,7 +60,7 @@ contract OptimisticOracle {
     mapping(uint256 => EventAssertion) public assertions;
 
     ////////////////
-    /// Events /////
+    /// 事件 /////
     ////////////////
 
     event EventAsserted(uint256 assertionId, address asserter, string description, uint256 reward);
@@ -72,12 +72,12 @@ contract OptimisticOracle {
     event RefundClaimed(uint256 assertionId, address asserter, uint256 amount);
 
     ///////////////////
-    /// Modifiers /////
+    /// 修饰器 /////
     ///////////////////
 
     /**
-     * @notice Modifier to restrict function access to the designated decider
-     * @dev Ensures only the decider can settle disputed assertions
+     * @notice 将函数访问权限限制为指定裁决者的修饰器
+     * @dev 确保只有裁决者才能结算有争议的断言
      */
     modifier onlyDecider() {
         if (msg.sender != decider) revert OnlyDecider();
@@ -85,8 +85,8 @@ contract OptimisticOracle {
     }
 
     /**
-     * @notice Modifier to restrict function access to the contract owner
-     * @dev Ensures only the owner can update critical contract parameters
+     * @notice 将函数访问权限限制为合约所有者的修饰器
+     * @dev 确保只有所有者才能更新关键的合约参数
      */
     modifier onlyOwner() {
         if (msg.sender != owner) revert OnlyOwner();
@@ -94,7 +94,7 @@ contract OptimisticOracle {
     }
 
     ///////////////////
-    /// Constructor ///
+    /// 构造函数 ///
     ///////////////////
 
     constructor(address _decider) {
@@ -103,14 +103,14 @@ contract OptimisticOracle {
     }
 
     ///////////////////
-    /// Functions /////
+    /// 函数 /////
     ///////////////////
 
     /**
-     * @notice Updates the decider address (only contract owner)
-     * @dev Changes the address authorized to settle disputed assertions.
-     *      Emits DeciderUpdated event with old and new addresses.
-     * @param _decider The new address that will act as decider for disputed assertions
+     * @notice 更新裁决者地址（仅限合约所有者）
+     * @dev 更改有权结算争议断言的地址。
+     *      触发包含新旧地址的 DeciderUpdated 事件。
+     * @param _decider 将作为争议断言裁决者的新地址
      */
     function setDecider(address _decider) external onlyOwner {
         address oldDecider = address(decider);
@@ -119,23 +119,23 @@ contract OptimisticOracle {
     }
 
     /**
-     * @notice Returns the complete assertion details for a given assertion ID
-     * @dev Provides access to all fields of the EventAssertion struct
-     * @param assertionId The unique identifier of the assertion to retrieve
-     * @return The complete EventAssertion struct containing all assertion data
+     * @notice 返回给定断言 ID 的完整断言详情
+     * @dev 提供对 EventAssertion 结构体所有字段的访问
+     * @param assertionId 要获取的断言的唯一标识符
+     * @return 包含全部断言数据的完整 EventAssertion 结构体
      */
     function getAssertion(uint256 assertionId) external view returns (EventAssertion memory) {
         return assertions[assertionId];
     }
 
     /**
-     * @notice Creates a new assertion about an event with a true/false outcome
-     * @dev Requires ETH payment as reward for correct proposers. Bond requirement is 2x the reward.
-     *      Sets default timestamps if not provided. Validates timing requirements.
-     * @param description Human-readable description of the event (e.g. "Did X happen by time Y?")
-     * @param startTime When proposals can begin (0 for current block timestamp)
-     * @param endTime When the assertion expires (0 for startTime + minimum window)
-     * @return The unique assertion ID for the newly created assertion
+     * @notice 针对一个结果为 true/false 的事件创建新的断言
+     * @dev 需要支付 ETH，作为给正确提议者的奖励。所需保证金（bond）为奖励的 2 倍。
+     *      未提供时间戳时设置默认值，并校验时间要求。
+     * @param description 事件的人类可读描述（例如“X 是否在时间 Y 之前发生？”）
+     * @param startTime 可以开始提议的时间（传 0 表示当前区块时间戳）
+     * @param endTime 断言的过期时间（传 0 表示 startTime + 最短窗口）
+     * @return 新建断言的唯一断言 ID
      */
     function assertEvent(
         string memory description,
@@ -144,68 +144,68 @@ contract OptimisticOracle {
     ) external payable returns (uint256) {}
 
     /**
-     * @notice Proposes the outcome (true or false) for an asserted event
-     * @dev Requires bonding ETH equal to 2x the original reward. Sets dispute window deadline.
-     *      Can only be called once per assertion and within the assertion time window.
-     * @param assertionId The unique identifier of the assertion to propose an outcome for
-     * @param outcome The proposed boolean outcome (true or false) for the event
+     * @notice 为已断言的事件提议结果（true 或 false）
+     * @dev 需要缴纳相当于原始奖励 2 倍的 ETH 作为保证金。设置争议窗口的截止时间。
+     *      每个断言只能调用一次，且必须在断言的时间窗口内调用。
+     * @param assertionId 要为其提议结果的断言的唯一标识符
+     * @param outcome 为该事件提议的布尔结果（true 或 false）
      */
     function proposeOutcome(uint256 assertionId, bool outcome) external payable {}
 
     /**
-     * @notice Disputes a proposed outcome by bonding ETH
-     * @dev Requires bonding ETH equal to the bond amount. Can only dispute once per assertion
-     *      and must be within the dispute window after proposal.
-     * @param assertionId The unique identifier of the assertion to dispute
+     * @notice 通过缴纳 ETH 保证金，对提议的结果发起争议
+     * @dev 需要缴纳与保证金数额相等的 ETH。每个断言只能被争议一次，
+     *      且必须在提议后的争议窗口内发起。
+     * @param assertionId 要发起争议的断言的唯一标识符
      */
     function disputeOutcome(uint256 assertionId) external payable {}
 
     /**
-     * @notice Claims reward for undisputed assertions after dispute window expires
-     * @dev Anyone can trigger this function. Transfers reward + bond to the proposer.
-     *      Can only be called after dispute window has passed without disputes.
-     * @param assertionId The unique identifier of the assertion to claim rewards for
+     * @notice 争议窗口到期后，为无争议的断言领取奖励
+     * @dev 任何人都可以触发此函数。将奖励 + 保证金转给提议者。
+     *      只能在争议窗口结束且无人发起争议后调用。
+     * @param assertionId 要领取奖励的断言的唯一标识符
      */
     function claimUndisputedReward(uint256 assertionId) external {}
 
     /**
-     * @notice Claims reward for disputed assertions after decider settlement
-     * @dev Anyone can trigger this function. Pays decider fee and transfers remaining rewards to winner.
-     *      Can only be called after decider has settled the dispute.
-     * @param assertionId The unique identifier of the disputed assertion to claim rewards for
+     * @notice 裁决者结算后，为有争议的断言领取奖励
+     * @dev 任何人都可以触发此函数。支付裁决者费用，并将剩余奖励转给胜方。
+     *      只能在裁决者结算争议后调用。
+     * @param assertionId 要领取奖励的争议断言的唯一标识符
      */
     function claimDisputedReward(uint256 assertionId) external {}
 
     /**
-     * @notice Claims refund for assertions that receive no proposals before deadline
-     * @dev Anyone can trigger this function. Returns the original reward to the asserter.
-     *      Can only be called after assertion deadline has passed without any proposals.
-     * @param assertionId The unique identifier of the expired assertion to claim refund for
+     * @notice 为截止时间前没有收到任何提议的断言申领退款
+     * @dev 任何人都可以触发此函数。将原始奖励退还给断言者。
+     *      只能在断言截止时间已过且没有任何提议时调用。
+     * @param assertionId 要申领退款的过期断言的唯一标识符
      */
     function claimRefund(uint256 assertionId) external {}
 
     /**
-     * @notice Resolves disputed assertions by determining the correct outcome (only decider)
-     * @dev Sets the resolved outcome and determines winner based on proposal accuracy.
-     * @param assertionId The unique identifier of the disputed assertion to settle
-     * @param resolvedOutcome The decider's determination of the true outcome
+     * @notice 通过判定正确结果来解决有争议的断言（仅限裁决者）
+     * @dev 设置裁定结果，并根据提议是否正确来确定胜方。
+     * @param assertionId 要结算的争议断言的唯一标识符
+     * @param resolvedOutcome 裁决者判定的真实结果
      */
     function settleAssertion(uint256 assertionId, bool resolvedOutcome) external onlyDecider {}
 
     /**
-     * @notice Returns the current state of an assertion based on its lifecycle stage
-     * @dev Evaluates assertion progress through states: Invalid, Asserted, Proposed, Disputed, Settled, Expired
-     * @param assertionId The unique identifier of the assertion to check state for
-     * @return The current State enum value representing the assertion's status
+     * @notice 根据断言所处的生命周期阶段返回其当前状态
+     * @dev 依据以下状态评估断言进度：Invalid、Asserted、Proposed、Disputed、Settled、Expired
+     * @param assertionId 要查询状态的断言的唯一标识符
+     * @return 表示断言状态的当前 State 枚举值
      */
     function getState(uint256 assertionId) external view returns (State) {}
 
     /**
-     * @notice Returns the final resolved outcome of a settled assertion
-     * @dev For undisputed assertions, returns the proposed outcome after dispute window.
-     *      For disputed assertions, returns the decider's resolved outcome.
-     * @param assertionId The unique identifier of the assertion to get resolution for
-     * @return The final boolean outcome of the assertion
+     * @notice 返回已结算断言的最终结果
+     * @dev 对于无争议的断言，在争议窗口结束后返回提议的结果。
+     *      对于有争议的断言，返回裁决者裁定的结果。
+     * @param assertionId 要获取最终结果的断言的唯一标识符
+     * @return 断言的最终布尔结果
      */
     function getResolution(uint256 assertionId) external view returns (bool) {}
 }

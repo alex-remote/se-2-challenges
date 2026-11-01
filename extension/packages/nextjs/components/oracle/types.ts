@@ -2,7 +2,7 @@ export interface NodeRowProps {
   address: string;
   index?: number;
   isStale?: boolean;
-  // When provided, the row should render data for this bucket. If omitted, shows current/latest.
+  // 传入时，该行应渲染此桶的数据；省略时显示当前 / 最新的数据。
   bucketNumber?: bigint | null;
 }
 

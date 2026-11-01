@@ -34,18 +34,18 @@ export const ExpiredRow = ({ assertionId }: { assertionId: number }) => {
 
   return (
     <tr key={assertionId} className={`border-b border-base-300`}>
-      {/* Description Column */}
+      {/* 描述列 */}
       <td>{assertionData.description}</td>
 
-      {/* Asserter Column */}
+      {/* 断言者列 */}
       <td>
         <Address address={assertionData.asserter} format="short" onlyEnsOrAddress disableAddressLink size="sm" />
       </td>
 
-      {/* Reward Column */}
+      {/* 奖励列 */}
       <td>{formatEther(assertionData.reward)} ETH</td>
 
-      {/* Claimed Column */}
+      {/* 已领取列 */}
       <td>
         {assertionData?.claimed ? (
           <button className="btn btn-primary btn-xs" disabled>

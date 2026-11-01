@@ -6,7 +6,7 @@ import "../contracts/00_Whitelist/SimpleOracle.sol";
 import "./DeployHelpers.s.sol";
 
 contract DeployWhitelist is ScaffoldETHDeploy {
-    // Default ETH price (~2000 USD) in 18-decimal format, matching Uniswap price feed format
+    // 默认 ETH 价格（约 2000 USD），采用 18 位小数格式，与 Uniswap 喂价格式一致
     uint256 constant DEFAULT_PRICE = 2000 ether;
 
     function run() external ScaffoldEthDeployerRunner {
@@ -15,7 +15,7 @@ contract DeployWhitelist is ScaffoldETHDeploy {
             string.concat("WhitelistOracle deployed at: ", vm.toString(address(whitelistOracle)))
         );
 
-        // Create 10 SimpleOracle instances with different owners (matching Hardhat deploy)
+        // 创建 10 个拥有者各不相同的 SimpleOracle 实例（与 Hardhat 部署保持一致）
         uint256 oracleCount = 10;
         for (uint256 i = 0; i < oracleCount; i++) {
             address owner = vm.addr(i + 1);
@@ -25,7 +25,7 @@ contract DeployWhitelist is ScaffoldETHDeploy {
             );
         }
 
-        // Seed initial prices on localhost only (Hardhat fetches from Uniswap, we use a default)
+        // 仅在 localhost 上写入初始价格（Hardhat 从 Uniswap 获取价格，这里使用默认值）
         if (block.chainid == 31337) {
             console.logString("Localhost detected: seeding oracle prices...");
             for (uint256 i = 0; i < oracleCount; i++) {

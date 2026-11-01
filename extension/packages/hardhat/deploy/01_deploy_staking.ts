@@ -4,7 +4,7 @@ export default deployScript(
   async env => {
     const { deployer } = env.namedAccounts;
 
-    // Deploy ORA independently, then wire it into StakingOracle and transfer ownership to StakingOracle.
+    // 先单独部署 ORA，再把它接入 StakingOracle，并将所有权转移给 StakingOracle。
     console.log("Deploying ORA token...");
     const oraDeployment = await env.deploy("ORA", {
       account: deployer,
@@ -22,7 +22,7 @@ export default deployScript(
     const stakingOracleAddress = stakingDeployment.address;
     console.log("StakingOracle deployed at:", stakingOracleAddress);
 
-    // Set ORA owner to StakingOracle so it can mint rewards via ORA.mint(...)
+    // 将 ORA 的所有者设为 StakingOracle，使其可以通过 ORA.mint(...) 铸造奖励
     const currentOwner = (await env.read(oraDeployment, { functionName: "owner", args: [] })) as `0x${string}`;
 
     if (currentOwner.toLowerCase() === stakingOracleAddress.toLowerCase()) {

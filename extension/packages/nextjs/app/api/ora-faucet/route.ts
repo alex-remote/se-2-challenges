@@ -29,7 +29,7 @@ const stakingOracleAbi = [
 
 const DEPLOYER_PRIVATE_KEY =
   (process.env.__RUNTIME_DEPLOYER_PRIVATE_KEY as `0x${string}` | undefined) ??
-  // Hardhat default account #0 private key (localhost only).
+  // Hardhat 默认账户 #0 的私钥（仅限 localhost）。
   ("0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80" as const);
 
 function isAddress(value: unknown): value is `0x${string}` {
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid `amount`" }, { status: 400 });
     }
 
-    // Safety: this faucet is intended for local Hardhat usage only.
+    // 安全起见：此水龙头仅供本地 Hardhat 使用。
     if (process.env.NODE_ENV === "production") {
       return NextResponse.json({ error: "ORA faucet disabled in production" }, { status: 403 });
     }

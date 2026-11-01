@@ -15,7 +15,7 @@ contract DeployStaking is ScaffoldETHDeploy {
             string.concat("StakingOracle deployed at: ", vm.toString(address(stakingOracle)))
         );
 
-        // Transfer ORA ownership to StakingOracle so it can mint rewards
+        // 把 ORA 的所有权转移给 StakingOracle，使其能够铸造奖励
         oraToken.transferOwnership(address(stakingOracle));
         console.logString("ORA ownership transferred to StakingOracle");
     }

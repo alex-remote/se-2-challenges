@@ -31,7 +31,7 @@ async function getAllOracles(viem: ViemConnection): Promise<`0x${string}`[]> {
   const whitelist = loadDeployment("WhitelistOracle");
 
   const oracleAddresses: `0x${string}`[] = [];
-  // The public oracles(uint256) getter reverts once index passes the end of the array, ending the loop.
+  // 当索引超出数组末尾时，公开的 oracles(uint256) getter 会回滚（revert），从而结束循环。
   let index = 0n;
   try {
     while (true) {

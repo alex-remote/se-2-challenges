@@ -76,13 +76,13 @@ export const fetchPriceFromUniswap = async (): Promise<bigint> => {
     const tokenReserve = isToken0 ? reserves[0] : reserves[1];
     const daiReserve = isToken0 ? reserves[1] : reserves[0];
 
-    // Calculate price (DAI per token)
+    // 计算价格（每个代币值多少 DAI）
     const price = BigInt(Math.floor((Number(daiReserve) / Number(tokenReserve)) * 1e18));
     return price;
   } catch (error) {
     console.error("Error fetching ETH price from Uniswap: ", error);
-    // Fallback so local deploy/seeding still works when the mainnet RPC is unavailable
-    // (e.g. no/invalid Alchemy key, rate limit, offline). ~ETH/DAI price as of 2025-06-02.
+    // 兜底值：当主网 RPC 不可用时，本地部署/初始数据填充仍能正常进行
+    // （例如没有 Alchemy key 或 key 无效、触发速率限制、离线）。约为截至 2025-06-02 的 ETH/DAI 价格。
     return 2600n * 10n ** 18n;
   }
 };

@@ -27,10 +27,10 @@ const getStateName = (state: number) => {
   }
 };
 
-// Helper function to format timestamp to UTC
+// 辅助函数：把时间戳格式化为 UTC 时间
 const formatTimestamp = (timestamp: bigint | string | number) => {
   const timestampNumber = Number(timestamp);
-  const date = new Date(timestampNumber * 1000); // Convert from seconds to milliseconds
+  const date = new Date(timestampNumber * 1000); // 秒转换为毫秒
   return date.toLocaleString();
 };
 
@@ -132,17 +132,17 @@ export const AssertionModal = () => {
           htmlFor=""
           onClick={e => e.stopPropagation()}
         >
-          {/* dummy input to capture event onclick on modal box */}
+          {/* 占位用的 input，用于捕获弹窗上的 onclick 事件 */}
           <input className="h-0 w-0 absolute top-0 left-0" />
 
-          {/* Close button */}
+          {/* 关闭按钮 */}
           <button onClick={closeAssertionModal} className="btn btn-ghost btn-sm btn-square absolute right-3 top-3">
             ✕
           </button>
 
-          {/* Modal Content */}
+          {/* 弹窗内容 */}
           <div className="">
-            {/* Header with Current State */}
+            {/* 显示当前状态的标题栏 */}
             <div className="text-center mb-6">
               <h2 className="text-lg">
                 Current State: <span className="font-bold">{getStateName(openAssertion.state)}</span>
@@ -153,7 +153,7 @@ export const AssertionModal = () => {
 
             {openAssertion.state === 1 && (
               <>
-                {/* Proposed Outcome Section */}
+                {/* 提议结果区域 */}
                 <div className="p-4">
                   <div className="flex justify-center mb-4">
                     <span className="font-medium">Propose Outcome</span>

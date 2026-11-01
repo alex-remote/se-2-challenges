@@ -8,7 +8,7 @@ interface TooltipInfoProps {
   className?: string;
 }
 
-// Note: The relative positioning is required for the tooltip to work.
+// Note: 必须使用相对定位（relative），提示框才能正常工作。
 const TooltipInfo: React.FC<TooltipInfoProps> = ({ top, right, infoText, className = "" }) => {
   const baseClasses = "tooltip tooltip-secondary font-normal";
   const tooltipClasses = className ? `${baseClasses} ${className}` : `${baseClasses} tooltip-right`;

@@ -6,31 +6,31 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract ORA is ERC20, Ownable {
     //////////////////
-    /// Constants ////
+    /// 常量 ////
     //////////////////
 
-    // 0.5 ETH = 100 ORA  =>  1 ETH = 200 ORA (18 decimals)
+    // 0.5 ETH = 100 ORA  =>  1 ETH = 200 ORA（18 位小数）
     uint256 public constant ORA_PER_ETH = 200;
 
     //////////////////////
-    /// State Variables //
+    /// 状态变量 //
     //////////////////////
 
     ////////////////
-    /// Events /////
+    /// 事件 /////
     ////////////////
 
     event OraPurchased(address indexed buyer, uint256 ethIn, uint256 oraOut);
     event EthWithdrawn(address indexed to, uint256 amount);
 
     /////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
     error EthTransferFailed();
 
     constructor() ERC20("Oracle Token", "ORA") Ownable(msg.sender) {
-        // Mint initial supply to the contract deployer
+        // 向合约部署者铸造初始供应量
         _mint(msg.sender, 1000000000000 ether);
     }
 
@@ -43,7 +43,7 @@ contract ORA is ERC20, Ownable {
     }
 
     /**
-     * @notice Buy ORA at a fixed rate by sending ETH. Mints directly to the buyer.
+     * @notice 发送 ETH 即可按固定比率购买 ORA，代币直接铸造给购买者。
      */
     receive() external payable {
         _buy(msg.sender);

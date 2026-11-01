@@ -13,7 +13,7 @@ import { SubmitAssertionButton } from "~~/components/oracle/optimistic/SubmitAss
 import { useDeployedContractInfo, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { useChallengeState } from "~~/services/store/challengeStore";
 
-// Loading spinner component
+// 加载动画组件
 const LoadingSpinner = () => (
   <div className="flex justify-center items-center min-h-[400px]">
     <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500"></div>
@@ -32,12 +32,12 @@ const Home: NextPage = () => {
     },
   });
 
-  // get deployed contract address
+  // 获取已部署的合约地址
   const { data: deployedContractAddress, isLoading: isLoadingDeployedContract } = useDeployedContractInfo({
     contractName: "OptimisticOracle",
   });
 
-  // Create contracts array to get state for all assertions from 1 to nextAssertionId-1
+  // 构造合约调用数组，用于获取从 1 到 nextAssertionId-1 的所有断言的状态
   const assertionContracts = nextAssertionId
     ? Array.from({ length: Number(nextAssertionId) - 1 }, (_, i) => ({
         address: deployedContractAddress?.address as `0x${string}`,
@@ -58,27 +58,27 @@ const Home: NextPage = () => {
     },
   });
 
-  // Set the refetch function in the global store
+  // 把 refetch 函数存入全局 store
   useEffect(() => {
     if (refetchAssertionStates) {
       setRefetchAssertionStates(refetchAssertionStates);
     }
   }, [refetchAssertionStates, setRefetchAssertionStates]);
 
-  // Map assertion IDs to their states and filter out expired ones (state 5)
+  // 把断言 ID 映射到各自的状态，并过滤掉已过期的断言（状态 5）
   const assertionStateMap =
     nextAssertionId && assertionStates
       ? Array.from({ length: Number(nextAssertionId) - 1 }, (_, i) => ({
           assertionId: i + 1,
-          state: (assertionStates[i]?.result as number) || 0, // Default to 0 (Invalid) if no result
+          state: (assertionStates[i]?.result as number) || 0, // 没有结果时默认为 0（Invalid）
         }))
       : [];
 
-  // Track when initial loading is complete
+  // 跟踪首次加载何时完成
   const isFirstLoading =
     isInitialLoading && (isLoadingNextAssertionId || isLoadingAssertionStates || isLoadingDeployedContract);
 
-  // Mark as initially loaded when all data is available
+  // 所有数据都可用时，标记为首次加载完成
   useEffect(() => {
     if (isInitialLoading && !isLoadingNextAssertionId && !isLoadingDeployedContract && !isLoadingAssertionStates) {
       setIsInitialLoading(false);
@@ -87,15 +87,15 @@ const Home: NextPage = () => {
 
   return (
     <div className="container mx-auto px-8 py-8 max-w-screen-lg xl:max-w-screen-xl">
-      {/* Show loading spinner only during initial load */}
+      {/* 仅在首次加载期间显示加载动画 */}
       {isFirstLoading ? (
         <LoadingSpinner />
       ) : (
         <>
-          {/* Submit Assertion Button with Modal */}
+          {/* 带弹窗的“提交断言”按钮 */}
           <SubmitAssertionButton />
 
-          {/* Tables */}
+          {/* 表格 */}
           <h2 className="text-2xl font-bold my-4">Asserted</h2>
           <AssertedTable assertions={assertionStateMap.filter(assertion => assertion.state === 1)} />
           <h2 className="text-2xl font-bold mt-12 mb-4">Proposed</h2>

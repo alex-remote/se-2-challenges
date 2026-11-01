@@ -2,7 +2,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 interface IOptimisticOracle {
-    // Enums
+    // 枚举
     enum State {
         Invalid,
         Asserted,
@@ -12,7 +12,7 @@ interface IOptimisticOracle {
         Expired
     }
 
-    // Errors
+    // 错误
     error AssertionNotFound();
     error AssertionProposed();
     error InvalidValue();
@@ -27,7 +27,7 @@ interface IOptimisticOracle {
     error OnlyOwner();
     error TransferFailed();
 
-    // Structs
+    // 结构体
     struct EventAssertion {
         address asserter;
         address proposer;
@@ -43,7 +43,7 @@ interface IOptimisticOracle {
         string description;
     }
 
-    // Events
+    // 事件
     event EventAsserted(uint256 assertionId, address asserter, string description, uint256 reward);
     event OutcomeProposed(uint256 assertionId, address proposer, bool outcome);
     event OutcomeDisputed(uint256 assertionId, address disputer);
@@ -52,7 +52,7 @@ interface IOptimisticOracle {
     event RewardClaimed(uint256 assertionId, address winner, uint256 amount);
     event RefundClaimed(uint256 assertionId, address asserter, uint256 amount);
 
-    // Functions
+    // 函数
     function MINIMUM_ASSERTION_WINDOW() external view returns (uint256);
     function DISPUTE_WINDOW() external view returns (uint256);
     function decider() external view returns (address);

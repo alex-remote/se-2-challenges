@@ -7,7 +7,7 @@ import "./DeployHelpers.s.sol";
 
 contract DeployOptimistic is ScaffoldETHDeploy {
     function run() external ScaffoldEthDeployerRunner {
-        // Deploy OptimisticOracle with temporary decider, then update after Decider is deployed
+        // 先用临时裁决者部署 OptimisticOracle，等 Decider 部署完成后再更新
         OptimisticOracle optimisticOracle = new OptimisticOracle(address(0));
         console.logString(string.concat("OptimisticOracle deployed at: ", vm.toString(address(optimisticOracle))));
 

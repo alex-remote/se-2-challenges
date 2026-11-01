@@ -3,13 +3,13 @@ pragma solidity >=0.8.0 <0.9.0;
 
 contract SimpleOracle {
     /////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
     error OnlyOwner();
 
     //////////////////////
-    /// State Variables //
+    /// 状态变量 //
     //////////////////////
 
     uint256 public price;
@@ -17,13 +17,13 @@ contract SimpleOracle {
     address public owner;
 
     ////////////////
-    /// Events /////
+    /// 事件 /////
     ////////////////
 
     event PriceUpdated(uint256 newPrice);
 
     ///////////////////
-    /// Constructor ///
+    /// 构造函数 ///
     ///////////////////
 
     constructor(address _owner) {
@@ -31,28 +31,28 @@ contract SimpleOracle {
     }
 
     ///////////////////
-    /// Modifiers /////
+    /// 修饰器 /////
     ///////////////////
 
     /**
-     * @notice Modifier to restrict function access to the contract owner
-     * @dev Currently disabled to make it easy for you to impersonate the owner
+     * @notice 将函数访问权限限制为合约所有者的修饰器
+     * @dev 目前已禁用，方便你冒充所有者
      */
     modifier onlyOwner() {
-        // Intentionally removing the owner requirement to make it easy for you to impersonate the owner
+        // 有意去掉了所有者检查，方便你冒充所有者
         // if (msg.sender != owner) revert OnlyOwner();
         _;
     }
 
     ///////////////////
-    /// Functions /////
+    /// 函数 /////
     ///////////////////
 
     /**
-     * @notice Updates the oracle price with a new value (only contract owner)
-     * @dev Sets the price and records the current block timestamp for freshness tracking.
-     *      Emits PriceUpdated event upon successful update.
-     * @param _newPrice The new price value to set for this oracle
+     * @notice 用新值更新预言机价格（仅限合约所有者）
+     * @dev 设置价格并记录当前区块时间戳，用于追踪数据新鲜度。
+     *      更新成功后触发 PriceUpdated 事件。
+     * @param _newPrice 要为该预言机设置的新价格
      */
     function setPrice(uint256 _newPrice) public onlyOwner {
         price = _newPrice;
@@ -61,11 +61,11 @@ contract SimpleOracle {
     }
 
     /**
-     * @notice Returns the current price and its timestamp
-     * @dev Provides both the stored price value and when it was last updated.
-     *      Used by aggregators to determine price freshness.
-     * @return price The current price stored in this oracle
-     * @return timestamp The block timestamp when the price was last updated
+     * @notice 返回当前价格及其时间戳
+     * @dev 同时提供存储的价格值及其最近一次更新的时间。
+     *      聚合器用它来判断价格是否新鲜。
+     * @return price 该预言机中存储的当前价格
+     * @return timestamp 价格最近一次更新时的区块时间戳
      */
     function getPrice() public view returns (uint256, uint256) {
         return (price, timestamp);

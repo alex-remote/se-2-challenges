@@ -6,7 +6,7 @@ export default deployScript(
     const { deployer } = env.namedAccounts;
 
     console.log("Deploying OptimisticOracle...");
-    // Get the deployer's current nonce
+    // 获取 deployer 当前的 nonce
     const nonceHex = (await env.network.provider.request({
       method: "eth_getTransactionCount",
       params: [deployer, "pending"],
@@ -15,24 +15,24 @@ export default deployScript(
 
     const futureDeciderAddress = getContractAddress({
       from: deployer,
-      nonce: BigInt(deployerNonce + 1), // +1 because it will be our second deployment
+      nonce: BigInt(deployerNonce + 1), // +1 是因为这将是我们的第二次部署
     });
 
-    // Deploy the OptimisticOracle contract with deployer as temporary decider
+    // 部署 OptimisticOracle 合约，并以 deployer 作为临时裁决者
     const optimisticOracle = await env.deploy("OptimisticOracle", {
       account: deployer,
       artifact: artifacts.OptimisticOracle,
       args: [futureDeciderAddress],
     });
 
-    // Deploy the Decider contract
+    // 部署 Decider 合约
     const decider = await env.deploy("Decider", {
       account: deployer,
       artifact: artifacts.Decider,
       args: [optimisticOracle.address],
     });
 
-    // Check if the decider address matches the expected address
+    // 检查裁决者地址是否与预期地址一致
     if (decider.address.toLowerCase() !== futureDeciderAddress.toLowerCase()) {
       throw new Error("Decider address does not match expected address");
     }

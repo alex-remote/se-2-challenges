@@ -22,22 +22,22 @@ export const DisputedRow = ({ assertionId, state }: { assertionId: number; state
       }}
       className={`group border-b border-base-300 cursor-pointer`}
     >
-      {/* Description Column */}
+      {/* 描述列 */}
       <td>
         <div className="group-hover:text-error">{assertionData.description}</div>
       </td>
 
-      {/* Proposer Column */}
+      {/* 提议者列 */}
       <td>
         <Address address={assertionData.proposer} format="short" onlyEnsOrAddress disableAddressLink size="sm" />
       </td>
 
-      {/* Disputer Column */}
+      {/* 争议者列 */}
       <td>
         <Address address={assertionData.disputer} format="short" onlyEnsOrAddress disableAddressLink size="sm" />
       </td>
 
-      {/* Chevron Column */}
+      {/* 箭头图标列 */}
       <td className="">
         <div className="w-6 h-6 border-error border flex items-center justify-center hover:bg-base-200 group-hover:bg-error transition-colors mx-auto">
           <ChevronRightIcon className="w-4 h-4 text-error group-hover:text-white stroke-2 transition-colors" />

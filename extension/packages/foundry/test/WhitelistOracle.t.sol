@@ -48,11 +48,11 @@ contract WhitelistOracleTest is Test {
 
         whitelistOracle.removeOracle(0);
 
-        // After removal, the oracle at index 0 should be different (swapped from end)
+        // 移除后，索引 0 处的预言机应当变成另一个（由末尾元素换过来）
         address newOracle0Address = address(whitelistOracle.oracles(0));
         assertTrue(newOracle0Address != oracle1Address);
 
-        // Should only have one oracle left
+        // 应当只剩下一个预言机
         vm.expectRevert();
         whitelistOracle.oracles(1);
     }
@@ -82,7 +82,7 @@ contract WhitelistOracleTest is Test {
         bool found = false;
         for (uint256 i = 0; i < entries.length; i++) {
             if (entries[i].topics[0] == keccak256("OracleRemoved(address)")) {
-                // Verify the removed address matches
+                // 验证被移除的地址一致
                 address removedAddr = abi.decode(entries[i].data, (address));
                 if (removedAddr == oracleAddress) {
                     found = true;
@@ -163,14 +163,14 @@ contract WhitelistOracleTest is Test {
         uint256 medianPrice = whitelistOracle.getPrice();
         assertEq(medianPrice, 2000);
 
-        // Advance time by 25 seconds (more than STALE_DATA_WINDOW of 24 seconds)
+        // 时间前进 25 秒（超过 24 秒的 STALE_DATA_WINDOW）
         vm.warp(block.timestamp + 25);
 
-        // Set new prices for only two oracles (the old prices should be stale)
+        // 只为两个预言机设置新价格（旧价格应当已过期）
         oracle1.setPrice(5000);
         oracle2.setPrice(3000);
 
-        // Should only use the two fresh prices: median of [3000, 5000] = 4000
+        // 应当只使用这两个新鲜价格：[3000, 5000] 的中位数 = 4000
         medianPrice = whitelistOracle.getPrice();
         assertEq(medianPrice, 4000);
     }
@@ -193,10 +193,10 @@ contract WhitelistOracleTest is Test {
         address[] memory activeNodes = whitelistOracle.getActiveOracleNodes();
         assertEq(activeNodes.length, 2);
 
-        // Make oracle1's price stale
+        // 让 oracle1 的价格过期
         vm.warp(block.timestamp + 25);
 
-        // Update only oracle2
+        // 只更新 oracle2
         SimpleOracle(oracle2Address).setPrice(3000);
 
         activeNodes = whitelistOracle.getActiveOracleNodes();
@@ -211,11 +211,11 @@ contract WhitelistOracleTest is Test {
         SimpleOracle(address(whitelistOracle.oracles(0))).setPrice(1000);
         SimpleOracle(address(whitelistOracle.oracles(1))).setPrice(2000);
 
-        // Verify median works initially
+        // 先验证中位数一开始能正常计算
         uint256 medianPrice = whitelistOracle.getPrice();
         assertEq(medianPrice, 1500);
 
-        // Make all prices stale
+        // 让所有价格都过期
         vm.warp(block.timestamp + 25);
 
         address[] memory activeNodes = whitelistOracle.getActiveOracleNodes();

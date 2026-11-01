@@ -382,7 +382,7 @@ contract StakingOracleTest is Test {
         vm.prank(node3);
         oracle.reportPrice(1000);
 
-        // Add extra stake so node3 survives the slash
+        // 追加质押，让 node3 在被罚没（slash）后仍能存活
         uint256 extra = MINIMUM_STAKE;
         vm.prank(node1);
         oraToken.transfer(node3, extra);
@@ -415,7 +415,7 @@ contract StakingOracleTest is Test {
         uint256 slasherBalAfter = oraToken.balanceOf(slasher);
         assertEq(slasherBalAfter - slasherBalBefore, expectedReward);
 
-        // Cannot slash again
+        // 不能再次罚没
         vm.prank(slasher);
         vm.expectRevert(abi.encodeWithSelector(bytes4(keccak256("NodeAlreadySlashed()"))));
         oracle.slashNode(node3, bucketB, 2, node3AddressesIndex);
@@ -503,7 +503,7 @@ contract StakingOracleTest is Test {
         vm.prank(node3);
         oracle.reportPrice(1000);
 
-        // Top up node3 to handle inactivity penalties
+        // 为 node3 补充质押，以抵扣不活跃惩罚
         vm.prank(node1);
         oraToken.transfer(node3, MINIMUM_STAKE);
         vm.startPrank(node3);
@@ -519,7 +519,7 @@ contract StakingOracleTest is Test {
         vm.prank(node2);
         oracle.reportPrice(1000);
         vm.prank(node3);
-        oracle.reportPrice(1100); // Exactly 10% deviation
+        oracle.reportPrice(1100); // 恰好偏离 10%
 
         _mineBuckets(1);
         vm.prank(node4);
@@ -655,7 +655,7 @@ contract StakingOracleTest is Test {
         uint256 balAfter = oraToken.balanceOf(node1);
         assertEq(balAfter - balBefore, effectiveStake);
 
-        // Verify node is removed
+        // 验证节点已被移除
         address[] memory addresses = oracle.getNodeAddresses();
         for (uint256 i = 0; i < addresses.length; i++) {
             assertTrue(addresses[i] != node1);
@@ -741,7 +741,7 @@ contract StakingOracleTest is Test {
         vm.prank(node3);
         oracle.reportPrice(1000);
         vm.prank(node4);
-        oracle.reportPrice(1200); // outlier
+        oracle.reportPrice(1200); // 离群值
         vm.prank(node5);
         oracle.reportPrice(1000);
         vm.prank(node6);
@@ -768,13 +768,13 @@ contract StakingOracleTest is Test {
         _moveToFreshBucket();
         uint256 bucketB = oracle.getCurrentBucketNumber();
 
-        // Only 4 reporters (node3 and node6 don't report)
+        // 只有 4 个上报者（node3 和 node6 不上报）
         vm.prank(node1);
         oracle.reportPrice(1000);
         vm.prank(node2);
         oracle.reportPrice(1000);
         vm.prank(node4);
-        oracle.reportPrice(1200); // outlier
+        oracle.reportPrice(1200); // 离群值
         vm.prank(node5);
         oracle.reportPrice(1000);
 
@@ -806,9 +806,9 @@ contract StakingOracleTest is Test {
         vm.prank(node3);
         oracle.reportPrice(1000);
         vm.prank(node4);
-        oracle.reportPrice(1400); // outlier
+        oracle.reportPrice(1400); // 离群值
         vm.prank(node5);
-        oracle.reportPrice(1400); // outlier
+        oracle.reportPrice(1400); // 离群值
         vm.prank(node6);
         oracle.reportPrice(1000);
 
@@ -819,7 +819,7 @@ contract StakingOracleTest is Test {
         address[] memory outliers = oracle.getOutlierNodes(bucketB);
         assertEq(outliers.length, 2);
 
-        // Check both node4 and node5 are in outliers
+        // 检查 node4 和 node5 都在离群节点列表中
         bool foundNode4 = false;
         bool foundNode5 = false;
         for (uint256 i = 0; i < outliers.length; i++) {

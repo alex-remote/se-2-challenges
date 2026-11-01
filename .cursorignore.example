@@ -1,4 +1,4 @@
-# AI mode is ENABLED by default. To disable AI for Cursor and do the challenge manually,
-# uncomment the next line with "*".
+# AI 模式默认处于开启状态。如果要在 Cursor 中禁用 AI 并手动完成挑战，
+# 请取消注释下面带 "*" 的那一行。
 
 # *

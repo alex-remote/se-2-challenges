@@ -17,11 +17,11 @@ export const AddOracleButton = () => {
     }
 
     try {
-      // Generate a new oracle address
+      // 生成一个新的预言机地址
       const privateKey = generatePrivateKey();
       const oracleAddress = privateKeyToAccount(privateKey).address;
 
-      // Add oracle to whitelist
+      // 把预言机添加到白名单
       await writeWhitelistOracle({
         functionName: "addOracle",
         args: [oracleAddress],

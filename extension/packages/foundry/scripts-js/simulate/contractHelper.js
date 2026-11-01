@@ -8,12 +8,12 @@ const BROADCAST_DIR = join(FOUNDRY_ROOT, "broadcast");
 const OUT_DIR = join(FOUNDRY_ROOT, "out");
 
 /**
- * Read a contract's ABI from forge build artifacts (out/).
- * Handles cases where the .sol filename differs from the contract name
- * (e.g. OracleToken.sol contains contract ORA).
+ * 从 forge 构建产物（out/）中读取合约的 ABI。
+ * 能处理 .sol 文件名与合约名不一致的情况
+ * （例如 OracleToken.sol 中包含的是 ORA 合约）。
  */
 function getAbi(contractName) {
-  // Try direct match first: out/ContractName.sol/ContractName.json
+  // 先尝试直接匹配：out/ContractName.sol/ContractName.json
   const directPath = join(
     OUT_DIR,
     `${contractName}.sol`,
@@ -23,7 +23,7 @@ function getAbi(contractName) {
     return JSON.parse(readFileSync(directPath, "utf8")).abi;
   }
 
-  // Search all .sol folders for ContractName.json
+  // 在所有 .sol 文件夹中查找 ContractName.json
   if (existsSync(OUT_DIR)) {
     for (const folder of readdirSync(OUT_DIR)) {
       if (!folder.endsWith(".sol")) continue;
@@ -40,8 +40,8 @@ function getAbi(contractName) {
 }
 
 /**
- * Scan all broadcast run files to find the latest deployed address for a contract.
- * Looks at CREATE transactions across all deploy scripts and chain IDs.
+ * 扫描所有 broadcast 运行记录文件，找出某个合约最新的部署地址。
+ * 会检查所有部署脚本和所有链 ID 下的 CREATE 交易。
  */
 function findDeployedAddress(contractName) {
   if (!existsSync(BROADCAST_DIR)) {
@@ -88,7 +88,7 @@ function findDeployedAddress(contractName) {
           }
         }
       } catch {
-        // skip malformed broadcast files
+        // 跳过格式错误的 broadcast 文件
       }
     }
   }
@@ -103,7 +103,7 @@ function findDeployedAddress(contractName) {
 }
 
 /**
- * Get deployed contract info: { address, abi, deployedBlock }
+ * 获取已部署合约的信息：{ address, abi, deployedBlock }
  */
 export function getContract(contractName) {
   const abi = getAbi(contractName);

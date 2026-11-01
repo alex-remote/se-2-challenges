@@ -12,7 +12,7 @@ export const SelfNodeReporter = () => {
   const publicClient = usePublicClient();
   const [stakeAmount, setStakeAmount] = useState<string>("1000");
   const [newPrice, setNewPrice] = useState<string>("");
-  // Helper to get node index for connected address
+  // 辅助逻辑：获取已连接地址对应的节点索引
   const { data: nodeAddresses } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getNodeAddresses",
@@ -31,7 +31,7 @@ export const SelfNodeReporter = () => {
     args: connectedAddress ? [connectedAddress] : undefined,
     query: { enabled: !!oracleTokenAddress && !!connectedAddress, refetchInterval: 5000 },
   });
-  // Add exit node handler
+  // 添加退出节点的处理函数
   const handleExitNode = async () => {
     if (!isRegistered) {
       return;
@@ -39,7 +39,7 @@ export const SelfNodeReporter = () => {
     if (!nodeAddresses || !connectedAddress) {
       return;
     }
-    // Find index of connected address in nodeAddresses
+    // 在 nodeAddresses 中查找已连接地址的索引
     const index = nodeAddresses.findIndex((addr: string) => addr.toLowerCase() === connectedAddress.toLowerCase());
     if (index === -1) {
       return;
@@ -58,7 +58,7 @@ export const SelfNodeReporter = () => {
     watch: true,
   });
 
-  // firstBucket is at index 4 of OracleNode struct
+  // firstBucket 位于 OracleNode 结构体的索引 4
   const firstBucket = (nodeData?.[4] as bigint | undefined) ?? undefined;
   const lastReportedBucket = (nodeData?.[1] as bigint | undefined) ?? undefined;
   const stakedAmountRaw = (nodeData?.[0] as bigint | undefined) ?? undefined;
@@ -70,7 +70,7 @@ export const SelfNodeReporter = () => {
 
   const isRegistered = Boolean(firstBucket && firstBucket > 0n);
 
-  // Fetch last reported price using helper view: getSlashedStatus(address, bucket)
+  // 通过辅助 view 函数 getSlashedStatus(address, bucket) 获取最近一次上报的价格
   const { data: addressDataAtBucket } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getSlashedStatus",
@@ -163,13 +163,13 @@ export const SelfNodeReporter = () => {
           <div className="font-semibold">{lastReportedPriceFormatted}</div>
           <div className="text-sm text-gray-500">ORA Balance</div>
           <div className="font-semibold">{oraBalanceFormatted}</div>
-          {/* Claim rewards and Exit Node buttons (shown if registered) */}
+          {/* 领取奖励与退出节点按钮（已注册时显示） */}
           {isRegistered && (
             <div className="flex gap-2 mt-2">
               <button className="btn btn-secondary btn-sm" onClick={handleExitNode} disabled={!connectedAddress}>
                 Exit Node
               </button>
-              {/* Placeholder for Claim Rewards button if/when implemented */}
+              {/* 为将来实现的“领取奖励”按钮预留的占位 */}
             </div>
           )}
         </div>

@@ -7,11 +7,11 @@ export type ConfigKey = "PROBABILITY_OF_SKIPPING_REPORT" | "PRICE_VARIANCE";
 
 export async function updateConfigValue(key: ConfigKey, value: number, nodeAddress?: string): Promise<void> {
   try {
-    // Read the current config
+    // 读取当前配置
     const configContent = await fs.promises.readFile(CONFIG_PATH, "utf-8");
     const config = JSON.parse(configContent);
 
-    // Validate the value
+    // 校验取值
     if (typeof value !== "number" || value < 0) {
       throw new Error("Value must be a non-negative number");
     }
@@ -21,17 +21,17 @@ export async function updateConfigValue(key: ConfigKey, value: number, nodeAddre
     }
 
     if (nodeAddress) {
-      // Update node-specific config
+      // 更新该节点专属的配置
       if (!config.NODE_CONFIGS[nodeAddress]) {
         config.NODE_CONFIGS[nodeAddress] = { ...config.NODE_CONFIGS.default };
       }
       config.NODE_CONFIGS[nodeAddress][key] = value;
     } else {
-      // Update default config
+      // 更新默认配置
       config.NODE_CONFIGS.default[key] = value;
     }
 
-    // Write back to file with proper formatting
+    // 以规范的格式写回文件
     await fs.promises.writeFile(CONFIG_PATH, JSON.stringify(config, null, 2));
   } catch (error) {
     console.error("Error updating config:", error);

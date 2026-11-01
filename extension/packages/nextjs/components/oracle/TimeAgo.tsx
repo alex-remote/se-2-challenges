@@ -12,7 +12,7 @@ type TimeAgoProps = {
 const formatTimeAgo = (tsSec: number | undefined, nowSec: number): string => {
   if (tsSec === undefined) return "—";
   if (tsSec === 0) return "never";
-  // Clamp to avoid negative display in rare race conditions
+  // 做下限截断，避免在少见的竞态情况下显示负数
   const diffSec = Math.max(0, nowSec - tsSec);
   if (diffSec < 60) return `${diffSec}s ago`;
   const diffMin = Math.floor(diffSec / 60);
@@ -38,7 +38,7 @@ export const TimeAgo = ({ timestamp, staleWindow, className = "" }: TimeAgoProps
   const displayNow = currentTime;
   const text = formatTimeAgo(tsSec, displayNow);
 
-  // Determine staleness coloring
+  // 根据过期程度确定颜色
   let colorClass = "";
   if (tsSec === undefined) {
     colorClass = "";

@@ -24,7 +24,7 @@ export const PriceWidget = ({ contractName }: PriceWidgetProps) => {
   const prevBucket = useRef<bigint | null>(null);
   const [showBucketLoading, setShowBucketLoading] = useState(false);
 
-  // Poll getCurrentBucketNumber to detect bucket changes
+  // 轮询 getCurrentBucketNumber 以检测桶的切换
   const { data: contractBucketNum } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getCurrentBucketNumber",
@@ -33,10 +33,10 @@ export const PriceWidget = ({ contractName }: PriceWidgetProps) => {
 
   useEffect(() => {
     if (contractBucketNum !== undefined) {
-      // Check if bucket changed
+      // 检查桶是否已切换
       if (prevBucket.current !== null && contractBucketNum !== prevBucket.current) {
         setShowBucketLoading(true);
-        setTimeout(() => setShowBucketLoading(false), 2000); // Show loading for 2 seconds after bucket change
+        setTimeout(() => setShowBucketLoading(false), 2000); // 桶切换后显示 2 秒加载状态
       }
       prevBucket.current = contractBucketNum;
     }
@@ -44,7 +44,7 @@ export const PriceWidget = ({ contractName }: PriceWidgetProps) => {
 
   const isStaking = contractName === "StakingOracle";
 
-  // For WhitelistOracle, check if there are any active oracles (reported within staleness window)
+  // 对于 WhitelistOracle，检查是否存在活跃的预言机（在过期窗口内上报过价格）
   const { data: activeOracles } = useScaffoldReadContract({
     contractName: "WhitelistOracle",
     functionName: "getActiveOracleNodes",
@@ -57,8 +57,8 @@ export const PriceWidget = ({ contractName }: PriceWidgetProps) => {
     watch: true,
   }) as { data: bigint | undefined; isError: boolean; isLoading: boolean };
 
-  // For WhitelistOracle: no active oracles means no fresh price
-  // For StakingOracle: rely on error state
+  // 对于 WhitelistOracle：没有活跃预言机就意味着没有最新价格
+  // 对于 StakingOracle：依据错误状态判断
   const noActiveOracles = !isStaking && activeOracles !== undefined && activeOracles.length === 0;
   const hasValidPrice = !isError && !noActiveOracles && currentPrice !== undefined && currentPrice !== 0n;
 

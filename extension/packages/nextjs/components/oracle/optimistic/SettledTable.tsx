@@ -8,7 +8,7 @@ export const SettledTable = ({ assertions }: OOTableProps) => {
   return (
     <div className="bg-base-100 shadow-lg overflow-x-auto">
       <table className="w-full table-auto [&_th]:px-6 [&_th]:py-4 [&_td]:px-6 [&_td]:py-4">
-        {/* Header */}
+        {/* 表头 */}
         <thead>
           <tr className="bg-base-300">
             <th className="text-left font-semibold w-4/12">Description</th>

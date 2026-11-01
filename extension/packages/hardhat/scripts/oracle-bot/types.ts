@@ -1,6 +1,6 @@
 interface NodeConfig {
   PROBABILITY_OF_SKIPPING_REPORT: number;
-  PRICE_VARIANCE: number; // Higher number means wider price range
+  PRICE_VARIANCE: number; // 数值越大，价格波动范围越宽
 }
 
 export interface Config {

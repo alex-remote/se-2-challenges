@@ -2,7 +2,7 @@ import { createPublicClient, createWalletClient, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { foundry } from "viem/chains";
 
-// Standard anvil private keys (accounts 0-9)
+// anvil 的标准私钥（账户 0-9）
 const ANVIL_PRIVATE_KEYS = [
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
   "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
@@ -16,7 +16,7 @@ const ANVIL_PRIVATE_KEYS = [
   "0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6",
 ];
 
-// SE-2 Foundry uses anvil account 9 as deployer (scaffold-eth-default keystore)
+// SE-2 的 Foundry 版本使用 anvil 第 9 号账户作为部署者（即 scaffold-eth-default keystore）
 export const DEPLOYER_INDEX = 9;
 
 const RPC_URL = process.env.RPC_URL || "http://127.0.0.1:8545";

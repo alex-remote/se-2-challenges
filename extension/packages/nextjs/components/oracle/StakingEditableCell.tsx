@@ -34,7 +34,7 @@ export const StakingEditableCell = ({
 
   const { writeContractAsync: writeStakingOracle } = useScaffoldWriteContract({ contractName: "StakingOracle" });
 
-  // Read current bucket and previous bucket average for refresh
+  // 读取当前桶和上一个桶的平均值，用于刷新
   const { data: currentBucket } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getCurrentBucketNumber",
@@ -84,7 +84,7 @@ export const StakingEditableCell = ({
     }
   };
 
-  // Resubmits the average price from the previous bucket
+  // 重新提交上一个桶的平均价格
   const handleRefresh = async () => {
     if (!prevBucketAverage || prevBucketAverage === 0n) {
       notification.error("No previous bucket average available");

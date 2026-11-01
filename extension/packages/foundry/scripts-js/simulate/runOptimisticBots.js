@@ -102,7 +102,7 @@ const proposeAssertions = async (
         abi,
         assertionId
       );
-      // Drop expired assertions
+      // 丢弃已过期的断言
       if (currentTimestamp >= assertion.endTime) {
         stopTrackingAssertion(accountToAssertionIds, accountAddr, assertionId);
         continue;
@@ -174,7 +174,7 @@ const disputeAssertions = async (
         abi,
         assertionId
       );
-      // Skip if not yet proposed or already disputed
+      // 尚未提议或已被争议时跳过
       if (assertion.proposer === zeroAddress || assertion.disputer !== zeroAddress) {
         continue;
       }

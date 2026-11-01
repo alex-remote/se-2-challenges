@@ -106,7 +106,7 @@ const createAssertions = async (
       });
       console.log(`✅ created assertion ${nextAssertionId}`);
 
-      // Track the assertion for 80% of cases; otherwise, leave it untracked so it will expire
+      // 80% 的情况下跟踪该断言；否则不跟踪，让它自然过期
       if (Math.random() < 0.8) {
         accountToAssertionIds[account.account.address].push(nextAssertionId);
       }
@@ -160,7 +160,7 @@ const proposeAssertions = async (
               value: assertion.bond,
             });
             console.log(`${outcome ? "✅" : "❌"} proposed outcome=${outcome} for assertion ${assertionId}`);
-            // if randomly wallet proposed, then remove the assertion from the account (No need to track and dispute)
+            // 如果是随机钱包提议了结果，就把该断言从该账户的跟踪列表中移除（无需再跟踪和发起争议）
             stopTrackingAssertion(accountToAssertionIds, account, assertionId);
           }
         }
@@ -194,7 +194,7 @@ const disputeAssertions = async (
           value: assertion.bond,
         });
         console.log(`⚔️ disputed assertion ${assertionId}`);
-        // if disputed, then remove the assertion from the account
+        // 如果已发起争议，就把该断言从该账户的跟踪列表中移除
         stopTrackingAssertion(accountToAssertionIds, account, assertionId);
       } else if (
         assertion.proposer.toLowerCase() === falseResponder.account.address.toLowerCase() &&
@@ -208,7 +208,7 @@ const disputeAssertions = async (
           value: assertion.bond,
         });
         console.log(`⚔️ disputed assertion ${assertionId}`);
-        // if disputed, then remove the assertion from the account
+        // 如果已发起争议，就把该断言从该账户的跟踪列表中移除
         stopTrackingAssertion(accountToAssertionIds, account, assertionId);
       }
     }
@@ -228,10 +228,10 @@ const runCycle = async (accountToAssertionIds: Record<string, bigint[]>, account
     const optimisticOracle = makeOptimisticReader(optimisticDeployment);
     const publicClient = await _viem.getPublicClient();
 
-    // get current timestamp
+    // 获取当前时间戳
     const latestBlock = await publicClient.getBlock();
     const currentTimestamp = latestBlock.timestamp;
-    // also track thex of the account start from the third account
+    // 同时也跟踪从第三个账户开始的其余账户的断言
     if (currentAction === 0) {
       console.log(`\n📝 === CREATING ASSERTIONS PHASE ===`);
       await createAssertions(optimisticDeployment, optimisticOracle, otherAccounts, accountToAssertionIds);
@@ -286,7 +286,7 @@ run().catch(error => {
   process.exitCode = 1;
 });
 
-// Handle process termination signals
+// 处理进程终止信号
 process.on("SIGINT", async () => {
   console.log("\nReceived SIGINT (Ctrl+C). Cleaning up...");
   process.exit(0);
@@ -297,13 +297,13 @@ process.on("SIGTERM", async () => {
   process.exit(0);
 });
 
-// Handle uncaught exceptions
+// 处理未捕获的异常
 process.on("uncaughtException", async error => {
   console.error("Uncaught Exception:", error);
   process.exit(1);
 });
 
-// Handle unhandled promise rejections
+// 处理未处理的 promise rejection
 process.on("unhandledRejection", async (reason, promise) => {
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
   process.exit(1);

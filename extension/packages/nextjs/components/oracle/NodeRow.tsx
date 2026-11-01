@@ -20,7 +20,7 @@ interface NodeRowWithEditProps extends NodeRowProps {
 }
 
 export const NodeRow = ({ address, bucketNumber, showInlineSettings }: NodeRowWithEditProps) => {
-  // Hooks and contract reads
+  // Hooks 与合约读取
   const { data: oracleTokenAddress } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "oracleToken",
@@ -62,7 +62,7 @@ export const NodeRow = ({ address, bucketNumber, showInlineSettings }: NodeRowWi
     args: [address],
   }) as { data: bigint | undefined };
 
-  // Get current bucket price
+  // 获取当前桶的价格
   const { data: currentBucketPrice } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getSlashedStatus",
@@ -72,7 +72,7 @@ export const NodeRow = ({ address, bucketNumber, showInlineSettings }: NodeRowWi
 
   const reportedPriceInCurrentBucket = currentBucketPrice?.[0];
 
-  // Past bucket data (always call hook; gate via enabled)
+  // 历史桶数据（hook 始终调用；通过 enabled 控制是否启用）
   const isCurrentView = bucketNumber === null || bucketNumber === undefined;
 
   const { data: addressDataAtBucket } = useScaffoldReadContract({
@@ -94,7 +94,7 @@ export const NodeRow = ({ address, bucketNumber, showInlineSettings }: NodeRowWi
     },
   }) as { data: bigint | undefined };
 
-  // Formatting
+  // 格式化
   const stakedAmountFormatted =
     effectiveStake !== undefined
       ? Number(formatEther(effectiveStake)).toLocaleString(undefined, { maximumFractionDigits: 2 })
@@ -110,7 +110,7 @@ export const NodeRow = ({ address, bucketNumber, showInlineSettings }: NodeRowWi
   const isInsufficientStake =
     effectiveStake !== undefined && minimumStake !== undefined && effectiveStake < (minimumStake as bigint);
 
-  // Calculate deviation for past buckets
+  // 计算历史桶的偏差
   const deviationText = useMemo(() => {
     if (isCurrentView) return "—";
     if (!pastReportedPrice || pastReportedPrice === 0n) return "—";
@@ -123,7 +123,7 @@ export const NodeRow = ({ address, bucketNumber, showInlineSettings }: NodeRowWi
     return `${sign}${pct.toFixed(2)}%`;
   }, [isCurrentView, pastReportedPrice, selectedBucketMedian]);
 
-  // Deviation for current bucket vs previous bucket average
+  // 当前桶相对上一个桶平均值的偏差
   const currentDeviationText = useMemo(() => {
     if (!isCurrentView) return "—";
     if (!reportedPriceInCurrentBucket || reportedPriceInCurrentBucket === 0n) return "—";
@@ -146,7 +146,7 @@ export const NodeRow = ({ address, bucketNumber, showInlineSettings }: NodeRowWi
           </div>
         </td>
         {showInlineSettings ? (
-          // Inline settings mode: only show the settings sliders column
+          // 内联设置模式：只显示设置滑块这一列
           <td className="whitespace-nowrap">
             <div className="flex flex-col gap-2 min-w-[220px]">
               <div className="flex items-center gap-2">
@@ -194,7 +194,7 @@ export const NodeRow = ({ address, bucketNumber, showInlineSettings }: NodeRowWi
           </>
         )}
       </tr>
-      {/* No inline editor row; editor is rendered by parent as floating panel */}
+      {/* 这里不渲染内联编辑行；编辑器由父组件以浮动面板形式渲染 */}
     </>
   );
 };

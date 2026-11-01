@@ -3,21 +3,21 @@ pragma solidity >=0.8.0 <0.9.0;
 
 library StatisticsUtils {
     /////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
     error EmptyArray();
 
     ///////////////////
-    /// Functions /////
+    /// 函数 /////
     ///////////////////
 
     /**
-     * @notice Sorts an array of uint256 values in ascending order using selection sort
-     * @dev Uses selection sort algorithm which is not gas-efficient but acceptable for small arrays.
-     *      This implementation mimics the early MakerDAO Medianizer exactly.
-     *      Modifies the input array in-place.
-     * @param arr The array of uint256 values to sort in ascending order
+     * @notice 使用选择排序将 uint256 数组按升序排序
+     * @dev 使用选择排序算法，gas 效率不高，但对小数组来说可以接受。
+     *      该实现完全仿照早期 MakerDAO 的 Medianizer。
+     *      会原地修改输入数组。
+     * @param arr 要按升序排序的 uint256 数组
      */
     function sort(uint256[] memory arr) internal pure {
         uint256 n = arr.length;
@@ -35,12 +35,12 @@ library StatisticsUtils {
     }
 
     /**
-     * @notice Calculates the median value from a sorted array of uint256 values
-     * @dev For arrays with even length, returns the average of the two middle elements.
-     *      For arrays with odd length, returns the middle element.
-     *      Assumes the input array is already sorted in ascending order.
-     * @param arr The sorted array of uint256 values to calculate median from
-     * @return The median value as a uint256
+     * @notice 计算已排序 uint256 数组的中位数
+     * @dev 对于长度为偶数的数组，返回中间两个元素的平均值。
+     *      对于长度为奇数的数组，返回中间元素。
+     *      假定输入数组已按升序排好序。
+     * @param arr 用于计算中位数的已排序 uint256 数组
+     * @return uint256 类型的中位数
      */
     function getMedian(uint256[] memory arr) internal pure returns (uint256) {
         uint256 length = arr.length;

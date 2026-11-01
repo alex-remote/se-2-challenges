@@ -50,7 +50,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: Whitelist Oracle
+  # CHECKPOINT 1: 白名单预言机
   # ============================================================
   - id: "whitelist-oracle"
     title: "Whitelist Oracle"
@@ -275,7 +275,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 2: Staking Oracle
+  # CHECKPOINT 2: 质押预言机
   # ============================================================
   - id: "staking-oracle"
     title: "Staking Oracle"
@@ -612,7 +612,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 3: Optimistic Oracle — Architecture Overview
+  # CHECKPOINT 3: 乐观预言机——架构概览
   # ============================================================
   - id: "optimistic-overview"
     title: "Optimistic Oracle Architecture"
@@ -684,7 +684,7 @@ checkpoints:
         hint: "If the bond equals the reward, a malicious proposer breaks even on average. What happens when the bond is higher?"
 
   # ============================================================
-  # CHECKPOINT 4: Optimistic Oracle — Core Functions
+  # CHECKPOINT 4: 乐观预言机——核心函数
   # ============================================================
   - id: "optimistic-core"
     title: "Optimistic Oracle — Core Functions"
@@ -883,7 +883,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 5: Optimistic Oracle — Reward Claims
+  # CHECKPOINT 5: 乐观预言机——领取奖励
   # ============================================================
   - id: "optimistic-rewards"
     title: "Optimistic Oracle — Reward Claims"
@@ -1052,7 +1052,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 6: Optimistic Oracle — State Management
+  # CHECKPOINT 6: 乐观预言机——状态管理
   # ============================================================
   - id: "optimistic-state"
     title: "Optimistic Oracle — State Management"

@@ -4,7 +4,7 @@ pragma solidity >=0.8.0 <0.9.0;
 import { ORA } from "./OracleToken.sol";
 
 interface IStakingOracle {
-    // Errors
+    // 错误
     error NodeNotRegistered();
     error InsufficientStake();
     error NodeAlreadyRegistered();
@@ -22,7 +22,7 @@ interface IStakingOracle {
     error BucketMedianAlreadyRecorded();
     error NodeDidNotReport();
 
-    // Events
+    // 事件
     event NodeRegistered(address indexed node, uint256 stakedAmount);
     event PriceReported(address indexed node, uint256 price, uint256 bucketNumber);
     event BucketMedianRecorded(uint256 indexed bucketNumber, uint256 medianPrice);
@@ -31,7 +31,7 @@ interface IStakingOracle {
     event StakeAdded(address indexed node, uint256 amount);
     event NodeExited(address indexed node, uint256 amount);
 
-    // Functions
+    // 函数
     function oracleToken() external view returns (ORA);
     function nodes(address) external view returns (uint256 stakedAmount, uint256 lastReportedBucket, uint256 reportCount, uint256 claimedReportCount, uint256 firstBucket, bool active);
     function nodeAddresses(uint256 index) external view returns (address);

@@ -26,7 +26,7 @@ describe("Checkpoint2 - StakingOracle", function () {
   const contractAddress = process.env.CONTRACT_ADDRESS;
 
   if (contractAddress) {
-    // If env variable is set then skip this test file (for the auto-grader)
+    // 如果设置了该环境变量，则跳过此测试文件（供自动评分程序使用）
     return true;
   }
 
@@ -36,8 +36,8 @@ describe("Checkpoint2 - StakingOracle", function () {
   }
 
   async function moveToFreshBucket() {
-    // Ensure we have plenty of blocks left in the current bucket so a multi-tx reporting sequence
-    // doesn't accidentally cross a bucket boundary mid-test.
+    // 确保当前桶（bucket）中还剩足够多的区块，这样包含多笔交易的上报流程
+    // 不会在测试中途意外跨过桶边界。
     const bucketWindow = Number(await oracle.BUCKET_WINDOW());
     const blockNum = await ethers.provider.getBlockNumber();
     const toNext = (bucketWindow - (blockNum % bucketWindow)) % bucketWindow; // 0..bucketWindow-1
@@ -49,16 +49,16 @@ describe("Checkpoint2 - StakingOracle", function () {
   }
 
   async function stakeForDelayedFirstReport() {
-    // If a node registers and doesn't report in its registration bucket, it will be penalized
-    // once the bucket advances. Give enough buffer so tests can safely mine buckets before first report.
+    // 如果节点注册后没有在其注册所在的桶中上报，那么桶推进后它就会被惩罚。
+    // 留出足够的余量，让测试可以在首次上报前安全地挖过若干个桶。
     const MINIMUM_STAKE = await oracle.MINIMUM_STAKE();
     const INACTIVITY_PENALTY = await oracle.INACTIVITY_PENALTY();
-    // Buffer several missed buckets to avoid edge cases where setup txs + mining advance multiple buckets.
+    // 预留若干个错过桶的余量，以避免设置交易 + 挖块推进了多个桶的边界情况。
     return MINIMUM_STAKE + 10n * INACTIVITY_PENALTY;
   }
 
   async function fundApproveAndRegister(node: HardhatEthersSigner, amount: bigint) {
-    // node1 is the ORA deployer and is minted a huge ORA balance in the ORA constructor.
+    // node1 是 ORA 的部署者，ORA 构造函数中会给它铸造一大笔 ORA 余额。
     if (node.address.toLowerCase() !== node1.address.toLowerCase()) {
       await (await oraToken.connect(node1).transfer(node.address, amount)).wait();
     }
@@ -81,7 +81,7 @@ describe("Checkpoint2 - StakingOracle", function () {
     oracle = (await StakingOracleFactory.deploy(await oraToken.getAddress())) as StakingOracle;
     await oracle.waitForDeployment();
 
-    // StakingOracle must own the ORA token to mint rewards
+    // StakingOracle 必须是 ORA 代币合约的所有者才能铸造奖励
     await (await oraToken.transferOwnership(await oracle.getAddress())).wait();
   });
   describe("constructor", function () {
@@ -182,7 +182,7 @@ describe("Checkpoint2 - StakingOracle", function () {
     });
 
     it("rejects when effective stake falls below minimum after missed buckets", async function () {
-      // With exact MINIMUM_STAKE, missing 1 expected report applies INACTIVITY_PENALTY and drops below MINIMUM_STAKE.
+      // 质押量恰好为 MINIMUM_STAKE 时，错过 1 次应有的上报就会扣除 INACTIVITY_PENALTY，使质押量低于 MINIMUM_STAKE。
       const MINIMUM_STAKE = await oracle.MINIMUM_STAKE();
       await fundApproveAndRegister(node2, MINIMUM_STAKE);
       await mineBuckets(1);
@@ -275,7 +275,7 @@ describe("Checkpoint2 - StakingOracle", function () {
       const INACTIVITY_PENALTY = await oracle.INACTIVITY_PENALTY();
       await mineBuckets(2);
       const eff1 = await oracle.getEffectiveStake(node1.address);
-      // With 2 buckets elapsed since registration and 0 reports, expectedReports=2 so penalty = 2*INACTIVITY_PENALTY.
+      // 自注册以来已过去 2 个桶 且上报次数为 0，expectedReports=2，所以惩罚 = 2*INACTIVITY_PENALTY。
       const staked = (await oracle.nodes(node1.address)).stakedAmount;
       expect(eff1).to.equal(staked - 2n * INACTIVITY_PENALTY);
 
@@ -291,8 +291,8 @@ describe("Checkpoint2 - StakingOracle", function () {
   });
   describe("Slashing - deviation in past bucket", function () {
     beforeEach(async function () {
-      // Ensure we have plenty of blocks left in the current bucket so setup txs + the first report
-      // don't accidentally cross a bucket boundary and trigger an immediate inactivity penalty.
+      // 确保当前桶中还剩足够多的区块，这样设置交易 + 首次上报
+      // 不会意外跨过桶边界而立即触发不活跃惩罚。
       await moveToFreshBucket();
 
       const MINIMUM_STAKE = await oracle.MINIMUM_STAKE();
@@ -300,15 +300,15 @@ describe("Checkpoint2 - StakingOracle", function () {
       await fundApproveAndRegister(node1, stake);
       await fundApproveAndRegister(node2, stake);
 
-      // Keep node3 at exactly MINIMUM_STAKE so MISREPORT_PENALTY can fully slash to zero in removal-path tests.
-      // To avoid inactivity penalties breaking future reports, have node3 report once immediately in its registration bucket.
+      // 让 node3 的质押量恰好为 MINIMUM_STAKE，这样在测试移除路径时 MISREPORT_PENALTY 可以把它完全罚没到零。
+      // 为了避免不活跃惩罚影响之后的上报，让 node3 在其注册所在的桶中立即上报一次。
       await fundApproveAndRegister(node3, MINIMUM_STAKE);
       await (await oracle.connect(node3).reportPrice(1000)).wait();
     });
     it("reverts for current bucket and for non-deviated prices", async function () {
       const current = await oracle.getCurrentBucketNumber();
       const node3AddressesIndex = await indexOfNodeAddress(node3.address);
-      // reportIndex=0 is irrelevant here because current bucket check happens first
+      // 这里 reportIndex=0 无关紧要，因为会先检查是否为当前桶
       await expect(
         oracle.connect(slasher).slashNode(node3.address, current, 0, node3AddressesIndex),
       ).to.be.revertedWithCustomError(oracle, "OnlyPastBucketsAllowed");
@@ -321,15 +321,15 @@ describe("Checkpoint2 - StakingOracle", function () {
       await mineBuckets(1);
       await (await oracle.connect(node4).recordBucketMedian(bucketB)).wait();
       const node3AddressesIndexB = await indexOfNodeAddress(node3.address);
-      // node3 reported third in this bucket => reportIndex=2
+      // node3 是这个桶中第三个上报的 => reportIndex=2
       await expect(
         oracle.connect(slasher).slashNode(node3.address, bucketB, 2, node3AddressesIndexB),
       ).to.be.revertedWithCustomError(oracle, "NotDeviated");
     });
     it("slashes deviated node, rewards slasher, and cannot slash again", async function () {
       const MINIMUM_STAKE = await oracle.MINIMUM_STAKE();
-      const extra = MINIMUM_STAKE; // ensure stake remains after MISREPORT_PENALTY
-      // fund node3 for the extra stake (it spent its entire balance staking MINIMUM_STAKE in beforeEach)
+      const extra = MINIMUM_STAKE; // 确保扣除 MISREPORT_PENALTY 后仍有质押剩余
+      // 为 node3 注入额外质押所需的资金（它在 beforeEach 中已把全部余额用于质押 MINIMUM_STAKE）
       await (await oraToken.connect(node1).transfer(node3.address, extra)).wait();
       await (await oraToken.connect(node3).approve(await oracleAddr(), extra)).wait();
       await (await oracle.connect(node3).addStake(extra)).wait();
@@ -390,11 +390,11 @@ describe("Checkpoint2 - StakingOracle", function () {
       expect(slashedFlag).to.equal(true);
     });
     it("reverts for exact 10% deviation threshold (should not slash)", async function () {
-      // Median is 1000, so 10% deviation means 1100 or 900.
-      // With MAX_DEVIATION_BPS = 1000 (10%), exactly 10% should NOT slash (strict >).
-      // NOTE: Because bucket boundaries depend on block.number and tests mine blocks, it’s possible to
-      // advance more than 1 bucket between registration and this first report (due to setup txs).
-      // Keep this test deterministic by topping up node3 so it always remains >= MINIMUM_STAKE.
+      // 中位数为 1000，因此 10% 的偏差意味着 1100 或 900。
+      // 当 MAX_DEVIATION_BPS = 1000（10%）时，恰好 10% 的偏差不应被罚没（严格大于 >）。
+      // NOTE: 由于桶边界取决于 block.number，而测试会挖块，因此在注册和这次首次上报之间
+      // 有可能推进了不止 1 个桶（因为设置交易）。
+      // 通过给 node3 补充质押使其始终 >= MINIMUM_STAKE，从而让这个测试结果保持确定。
       const MINIMUM_STAKE = await oracle.MINIMUM_STAKE();
       await (await oraToken.connect(node1).transfer(node3.address, MINIMUM_STAKE)).wait();
       await (await oraToken.connect(node3).approve(await oracleAddr(), MINIMUM_STAKE)).wait();
@@ -413,7 +413,7 @@ describe("Checkpoint2 - StakingOracle", function () {
       ).to.be.revertedWithCustomError(oracle, "NotDeviated");
     });
     it("reverts IndexOutOfBounds when index is out of range", async function () {
-      // Trigger the removal path (stake -> 0) and provide an invalid nodeAddressesIndex.
+      // 触发移除路径（质押 -> 0），并提供一个无效的 nodeAddressesIndex。
       await mineBuckets(1);
       const bucketB = await oracle.getCurrentBucketNumber();
       await (await oracle.connect(node1).reportPrice(1000)).wait();
@@ -423,7 +423,7 @@ describe("Checkpoint2 - StakingOracle", function () {
       await (await oracle.connect(node4).recordBucketMedian(bucketB)).wait();
 
       const addresses = await oracle.getNodeAddresses();
-      const invalidIndex = addresses.length; // Index out of bounds
+      const invalidIndex = addresses.length; // 索引越界
       await expect(
         oracle.connect(slasher).slashNode(node3.address, bucketB, 2, invalidIndex),
       ).to.be.revertedWithCustomError(oracle, "IndexOutOfBounds");
@@ -438,7 +438,7 @@ describe("Checkpoint2 - StakingOracle", function () {
       await (await oracle.connect(node4).recordBucketMedian(bucketB)).wait();
 
       const node3AddressesIndex = await indexOfNodeAddress(node3.address);
-      // Try to slash node3 but use node1's reportIndex (0)
+      // 尝试罚没 node3，但使用 node1 的 reportIndex（0）
       await expect(
         oracle.connect(slasher).slashNode(node3.address, bucketB, 0, node3AddressesIndex),
       ).to.be.revertedWithCustomError(oracle, "NodeNotAtGivenIndex");
@@ -465,7 +465,7 @@ describe("Checkpoint2 - StakingOracle", function () {
     });
     it("reverts before waiting period and exits with effective stake after", async function () {
       const idx = await indexOfNodeAddress(node1.address);
-      // Ensure lastReportedBucket is set so the waiting period is measured from the last report.
+      // 确保 lastReportedBucket 已设置，这样等待期就从最后一次上报开始计算。
       await (await oracle.connect(node1).reportPrice(1500)).wait();
       await expect(oracle.connect(node1).exitNode(idx)).to.be.revertedWithCustomError(oracle, "WaitingPeriodNotOver");
       const WAITING_PERIOD = Number(await oracle.WAITING_PERIOD());
@@ -476,16 +476,16 @@ describe("Checkpoint2 - StakingOracle", function () {
       await tx.wait();
       const balAfter = await oraToken.balanceOf(node1.address);
       expect(balAfter - balBefore).to.equal(effectiveStake);
-      // Verify node is removed
+      // 验证节点已被移除
       const addresses = await oracle.getNodeAddresses();
       expect(addresses).to.not.include(node1.address);
-      // Verify node is deleted (effectiveStake should be 0 for inactive nodes)
+      // 验证节点已被删除（对于未激活的节点，effectiveStake 应为 0）
       expect(await oracle.getEffectiveStake(node1.address)).to.equal(0);
     });
     it("reverts IndexOutOfBounds when index is out of range", async function () {
       await mineBuckets(2);
       const addresses = await oracle.getNodeAddresses();
-      const invalidIndex = addresses.length; // Index out of bounds
+      const invalidIndex = addresses.length; // 索引越界
       await expect(oracle.connect(node1).exitNode(invalidIndex)).to.be.revertedWithCustomError(
         oracle,
         "IndexOutOfBounds",
@@ -494,7 +494,7 @@ describe("Checkpoint2 - StakingOracle", function () {
     it("reverts NodeNotAtGivenIndex when index doesn't match address", async function () {
       await mineBuckets(2);
       const idx2 = await indexOfNodeAddress(node2.address);
-      // Try to exit node1 but use node2's index
+      // 尝试让 node1 退出，但使用 node2 的索引
       await expect(oracle.connect(node1).exitNode(idx2)).to.be.revertedWithCustomError(oracle, "NodeNotAtGivenIndex");
     });
   });
@@ -511,7 +511,7 @@ describe("Checkpoint2 - StakingOracle", function () {
     it("returns empty array when no outliers exist", async function () {
       await moveToFreshBucket();
       const bucketB = await oracle.getCurrentBucketNumber();
-      // All nodes report the same price in this bucket
+      // 所有节点在这个桶中上报相同的价格
       await (await oracle.connect(node1).reportPrice(1000)).wait();
       await (await oracle.connect(node2).reportPrice(1000)).wait();
       await (await oracle.connect(node3).reportPrice(1000)).wait();
@@ -526,7 +526,7 @@ describe("Checkpoint2 - StakingOracle", function () {
     it("returns deviated node addresses", async function () {
       await moveToFreshBucket();
       const bucketB = await oracle.getCurrentBucketNumber();
-      // node4 reports 1200 while others report 1000 (median = 1000)
+      // node4 上报 1200，而其他节点上报 1000（中位数 = 1000）
       await (await oracle.connect(node1).reportPrice(1000)).wait();
       await (await oracle.connect(node2).reportPrice(1000)).wait();
       await (await oracle.connect(node3).reportPrice(1000)).wait();
@@ -542,7 +542,7 @@ describe("Checkpoint2 - StakingOracle", function () {
     it("excludes nodes that did not report in the bucket", async function () {
       await moveToFreshBucket();
       const bucketB = await oracle.getCurrentBucketNumber();
-      // Only 4 reporters (meets the 2/3 threshold for 6 nodes: requiredReports = 4)
+      // 只有 4 个上报者（满足 6 个节点的 2/3 阈值：requiredReports = 4）
       await (await oracle.connect(node1).reportPrice(1000)).wait();
       await (await oracle.connect(node2).reportPrice(1000)).wait();
       await (await oracle.connect(node4).reportPrice(1200)).wait();
@@ -560,8 +560,8 @@ describe("Checkpoint2 - StakingOracle", function () {
       await (await oracle.connect(node1).reportPrice(1000)).wait();
       await (await oracle.connect(node2).reportPrice(1000)).wait();
       await (await oracle.connect(node3).reportPrice(1000)).wait();
-      await (await oracle.connect(node4).reportPrice(1400)).wait(); // outlier (>10% from median 1000)
-      await (await oracle.connect(node5).reportPrice(1400)).wait(); // outlier
+      await (await oracle.connect(node4).reportPrice(1400)).wait(); // 离群值（偏离中位数 1000 超过 10%）
+      await (await oracle.connect(node5).reportPrice(1400)).wait(); // 离群值
       await (await oracle.connect(node6).reportPrice(1000)).wait();
       await mineBuckets(1);
       await (await oracle.connect(slasher).recordBucketMedian(bucketB)).wait();

@@ -11,7 +11,7 @@ export const ConfigSlider = ({ nodeAddress, endpoint, label }: ConfigSliderProps
   const [isLoading, setIsLoading] = useState(false);
   const [localValue, setLocalValue] = useState<number>(0.0);
 
-  // Fetch initial value
+  // 获取初始值
   useEffect(() => {
     const fetchValue = async () => {
       try {
@@ -33,7 +33,7 @@ export const ConfigSlider = ({ nodeAddress, endpoint, label }: ConfigSliderProps
   };
 
   const handleFinalChange = async () => {
-    if (localValue === value) return; // Don't send request if value hasn't changed
+    if (localValue === value) return; // 值没有变化时不发送请求
 
     setIsLoading(true);
     try {
@@ -49,10 +49,10 @@ export const ConfigSlider = ({ nodeAddress, endpoint, label }: ConfigSliderProps
         const error = await response.json();
         throw new Error(error.message || `Failed to update ${endpoint}`);
       }
-      setValue(localValue); // Update the committed value after successful API call
+      setValue(localValue); // API 调用成功后更新已提交的值
     } catch (error) {
       console.error(`Error updating ${endpoint}:`, error);
-      setLocalValue(value); // Reset to last known good value on error
+      setLocalValue(value); // 出错时重置为上一个已知的有效值
     } finally {
       setIsLoading(false);
     }

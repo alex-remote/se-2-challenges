@@ -22,7 +22,7 @@ describe("Checkpoint1", function () {
   const contractAddress = process.env.CONTRACT_ADDRESS;
 
   if (contractAddress) {
-    // If env variable is set then skip this test file (for the auto-grader)
+    // 如果设置了该环境变量，则跳过此测试文件（供自动评分程序使用）
     return true;
   }
 
@@ -42,7 +42,7 @@ describe("Checkpoint1", function () {
     const oracleAddress = await whitelistOracle.oracles(0);
     expect(oracleAddress).to.not.equal(ethers.ZeroAddress);
 
-    // Check that the oracle is a SimpleOracle contract
+    // 检查该预言机是否为 SimpleOracle 合约
     const SimpleOracleFactory = await ethers.getContractFactory("SimpleOracle");
     const oracle = SimpleOracleFactory.attach(oracleAddress) as SimpleOracle;
     expect(await oracle.owner()).to.equal(addr1.address);
@@ -56,11 +56,11 @@ describe("Checkpoint1", function () {
 
     await whitelistOracle.removeOracle(0);
 
-    // After removal, the oracle at index 0 should be different (swapped from end)
+    // 移除后，索引 0 处的预言机应当变了（被末尾的元素换过来）
     const newOracle0Address = await whitelistOracle.oracles(0);
     expect(newOracle0Address).to.not.equal(oracle1Address);
 
-    // Should only have one oracle left
+    // 应当只剩下一个预言机
     await expect(whitelistOracle.oracles(1)).to.be.revert(ethers);
   });
 
@@ -162,15 +162,15 @@ describe("Checkpoint1", function () {
     let medianPrice = await whitelistOracle.getPrice();
     expect(medianPrice).to.equal(2000n);
 
-    // Advance time by 25 seconds (more than STALE_DATA_WINDOW of 24 seconds)
+    // 将时间推进 25 秒（超过 24 秒的 STALE_DATA_WINDOW）
     await ethers.provider.send("evm_increaseTime", [25]);
     await ethers.provider.send("evm_mine");
 
-    // Set new prices for only two oracles (the old prices should be stale)
+    // 只为其中两个预言机设置新价格（旧价格应当已过期）
     await oracle1.setPrice(5000n);
     await oracle2.setPrice(3000n);
 
-    // Should only use the two fresh prices: median of [5000, 3000] = 4000
+    // 应当只使用这两个新鲜价格：[5000, 3000] 的中位数 = 4000
     medianPrice = await whitelistOracle.getPrice();
     expect(medianPrice).to.equal(4000n);
   });
@@ -199,11 +199,11 @@ describe("Checkpoint1", function () {
     expect(activeNodes).to.include(oracle1Address);
     expect(activeNodes).to.include(oracle2Address);
 
-    // Make oracle1's price stale
+    // 让 oracle1 的价格过期
     await ethers.provider.send("evm_increaseTime", [25]);
     await ethers.provider.send("evm_mine");
 
-    // Update only oracle2
+    // 只更新 oracle2
     await oracle2.setPrice(3000n);
 
     activeNodes = await whitelistOracle.getActiveOracleNodes();
@@ -222,11 +222,11 @@ describe("Checkpoint1", function () {
     await oracle1.setPrice(1000n);
     await oracle2.setPrice(2000n);
 
-    // Verify median works initially
+    // 先验证中位数在初始状态下能正常计算
     const medianPrice = await whitelistOracle.getPrice();
     expect(medianPrice).to.equal(1500n);
 
-    // Make all prices stale
+    // 让所有价格都过期
     await ethers.provider.send("evm_increaseTime", [25]);
     await ethers.provider.send("evm_mine");
 

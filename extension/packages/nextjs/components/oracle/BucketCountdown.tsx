@@ -14,7 +14,7 @@ export const BucketCountdown = () => {
   const [currentBucketNum, setCurrentBucketNum] = useState<bigint | null>(null);
   const lastBucketCheckTime = useRef<number>(0);
 
-  // Poll getCurrentBucketNumber every second for accuracy
+  // 每秒轮询一次 getCurrentBucketNumber，以保证准确
   const { data: contractBucketNum } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getCurrentBucketNumber",
@@ -41,20 +41,20 @@ export const BucketCountdown = () => {
           return;
         }
 
-        // Calculate blocks remaining in current bucket
-        // Bucket number = (block.number / BUCKET_WINDOW) + 1
-        // So current bucket started at: (currentBucketNum - 1) * BUCKET_WINDOW
+        // 计算当前桶（bucket）中剩余的区块数
+        // 桶编号 = (block.number / BUCKET_WINDOW) + 1
+        // 因此当前桶的起始区块为：(currentBucketNum - 1) * BUCKET_WINDOW
         const bucketStartBlock = (Number(currentBucketNum) - 1) * w;
         const nextBucketBlock = bucketStartBlock + w;
         const blocksRemaining = nextBucketBlock - blockNum;
 
-        // Add 2 second offset since node is ahead of system time
+        // 加上 2 秒偏移，因为节点时间比系统时间超前
         const estimatedSecondsRemaining = Math.max(0, blocksRemaining + 2);
 
         if (mounted) setRemainingSec(estimatedSecondsRemaining > 24 ? 24 : estimatedSecondsRemaining);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (e) {
-        // ignore
+        // 忽略
       }
     };
     update();

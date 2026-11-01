@@ -23,7 +23,7 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
     args: [connectedAddress as any],
     watch: true,
   });
-  // OracleNode struct layout: [0]=stakedAmount, [1]=lastReportedBucket, [2]=reportCount, [3]=claimedReportCount, [4]=firstBucket
+  // OracleNode 结构体布局：[0]=stakedAmount, [1]=lastReportedBucket, [2]=reportCount, [3]=claimedReportCount, [4]=firstBucket
   const stakedAmount = nodeData?.[0] as bigint | undefined;
   const claimedReportCount = nodeData?.[3] as bigint | undefined;
 
@@ -47,7 +47,7 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
     functionName: "oracleToken",
   });
 
-  // Registered addresses array; authoritative for current membership
+  // 已注册地址数组；以它为准判断当前是否为成员
   const { data: allNodeAddresses } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getNodeAddresses",
@@ -83,7 +83,7 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
     return allNodeAddresses.some(a => a?.toLowerCase() === connectedAddress.toLowerCase());
   }, [allNodeAddresses, connectedAddress]);
 
-  // Use wagmi's useReadContract for enabled gating to avoid reverts when not registered
+  // 使用 wagmi 的 useReadContract，借助 enabled 控制是否读取，避免未注册时调用回滚（revert）
   const { data: effectiveStake } = useReadContract({
     address: (stakingDeployment?.address as `0x${string}`) || undefined,
     abi: (stakingDeployment?.abi as any) || undefined,
@@ -96,7 +96,7 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
     effectiveStake !== undefined
       ? Number(formatEther(effectiveStake)).toLocaleString(undefined, { maximumFractionDigits: 2 })
       : "Loading...";
-  // Current bucket reported price from contract (align with NodeRow)
+  // 从合约读取当前桶的上报价格（与 NodeRow 保持一致）
   const { data: currentBucketPrice } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getSlashedStatus",
@@ -117,7 +117,7 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
     return new Intl.NumberFormat("en-US").format(wholeOra);
   }, [claimedReportCount, rewardPerReport]);
 
-  // Track previous staked amount to determine up/down changes for highlight
+  // 记录之前的质押数量，用于判断涨跌并高亮显示
   const [prevStakedAmount, setPrevStakedAmount] = useState<bigint | undefined>(undefined);
   let stakeHighlightColor = "";
   if (prevStakedAmount !== undefined && stakedAmount !== undefined && stakedAmount !== prevStakedAmount) {
@@ -127,7 +127,7 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
     setPrevStakedAmount(stakedAmount);
   }, [stakedAmount]);
 
-  // Deviation for current bucket vs previous bucket average
+  // 当前桶相对上一个桶平均值的偏差
   const currentDeviationText = useMemo(() => {
     if (!reportedPriceInCurrentBucket || reportedPriceInCurrentBucket === 0n) return "—";
     if (!previousMedian || previousMedian === 0n) return "—";
@@ -141,7 +141,7 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
 
   const isCurrentView = bucketNumber === null || bucketNumber === undefined;
 
-  // For past buckets, fetch the reported price at that bucket
+  // 对于历史桶，获取该桶中的上报价格
   const { data: selectedBucketMedian } = useScaffoldReadContract({
     contractName: "StakingOracle",
     functionName: "getPastPrice",
@@ -164,7 +164,7 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
   const pastReportedPrice = !isCurrentView && pastBucketPrice ? pastBucketPrice[0] : undefined;
   const pastSlashed = !isCurrentView && pastBucketPrice ? pastBucketPrice[1] : undefined;
 
-  // Calculate deviation for past bucket
+  // 计算历史桶的偏差
   const pastDeviationText = useMemo(() => {
     if (isCurrentView) return "—";
     if (!pastReportedPrice || pastReportedPrice === 0n || !bucketNumber) return "—";
@@ -181,14 +181,14 @@ export const SelfNodeRow = ({ isStale, bucketNumber }: SelfNodeRowProps) => {
     if (!connectedAddress || !oracleTokenAddress || !stakingAddress || !publicClient) return;
     const additionalStake = parseEther("100");
     try {
-      // Approve max so user doesn't need to re-approve each time
+      // 授权最大额度，这样用户不必每次重新授权
       const approveHash = await writeErc20({
         address: oracleTokenAddress as `0x${string}`,
         abi: erc20Abi,
         functionName: "approve",
         args: [stakingAddress, maxUint256],
       });
-      // Wait for approval to be mined before calling addStake
+      // 等待授权交易被打包后再调用 addStake
       await publicClient.waitForTransactionReceipt({ hash: approveHash });
       await writeStaking({ functionName: "addStake", args: [additionalStake] });
     } catch (e: any) {

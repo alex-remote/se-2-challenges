@@ -13,14 +13,14 @@ contract Decider {
     }
 
     /**
-     * @notice Settle a dispute by determining the true/false outcome
-     * @param assertionId The ID of the assertion to settle
-     * @param resolvedValue The true/false outcome determined by the decider
+     * @notice 通过判定 true/false 结果来结算争议
+     * @param assertionId 要结算的断言 ID
+     * @param resolvedValue 由裁决者判定的 true/false 结果
      */
     function settleDispute(uint256 assertionId, bool resolvedValue) external {
         require(assertionId >= 1, "Invalid assertion ID");
 
-        // Call the oracle's settleAssertion function
+        // 调用预言机的 settleAssertion 函数
         oracle.settleAssertion(assertionId, resolvedValue);
 
         emit DisputeSettled(assertionId, resolvedValue);
@@ -32,7 +32,7 @@ contract Decider {
     }
 
     /**
-     * @notice Allow the contract to receive ETH
+     * @notice 允许合约接收 ETH
      */
     receive() external payable {}
 }

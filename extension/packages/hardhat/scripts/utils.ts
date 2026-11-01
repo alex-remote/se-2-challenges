@@ -81,7 +81,7 @@ export const QUESTIONS_FOR_OO: string[] = [
 ];
 
 const generateRandomPastDate = (now: Date): Date => {
-  const daysBack = Math.floor(Math.random() * 45) + 1; // 1 - 45 days
+  const daysBack = Math.floor(Math.random() * 45) + 1; // 1 - 45 天
 
   const pastDate = new Date(now);
   pastDate.setDate(pastDate.getDate() - daysBack);

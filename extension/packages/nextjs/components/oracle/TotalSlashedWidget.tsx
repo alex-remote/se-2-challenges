@@ -13,7 +13,7 @@ export const TotalSlashedWidget = () => {
     return acc + amount;
   }, 0n);
 
-  // ORA uses 18 decimals (same as ETH), but we intentionally display whole tokens only.
+  // ORA 使用 18 位小数（与 ETH 相同），但这里有意只显示整数个代币。
   const totalSlashedOraFormatted = new Intl.NumberFormat("en-US").format(totalSlashedWei / 10n ** 18n);
 
   const tooltipText = "Aggregated ORA slashed across all nodes. Sums the amount from every NodeSlashed event.";

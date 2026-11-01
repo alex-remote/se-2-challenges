@@ -8,7 +8,7 @@ contract StakingOracle {
     using StatisticsUtils for uint256[];
 
     /////////////////
-    /// Errors //////
+    /// 错误 //////
     /////////////////
 
     error NodeNotRegistered();
@@ -29,7 +29,7 @@ contract StakingOracle {
     error NodeDidNotReport();
 
     //////////////////////
-    /// State Variables //
+    /// 状态变量 //
     //////////////////////
 
     ORA public oracleToken;
@@ -39,7 +39,7 @@ contract StakingOracle {
         uint256 lastReportedBucket;
         uint256 reportCount;
         uint256 claimedReportCount;
-        uint256 firstBucket; // block when node registered
+        uint256 firstBucket; // 节点注册时的区块
         bool active;
     }
 
@@ -51,20 +51,20 @@ contract StakingOracle {
     }
 
     mapping(address => OracleNode) public nodes;
-    mapping(uint256 => BlockBucket) public blockBuckets; // one bucket per 24 blocks
+    mapping(uint256 => BlockBucket) public blockBuckets; // 每 24 个区块为一个桶（bucket）
     address[] public nodeAddresses;
 
     uint256 public constant MINIMUM_STAKE = 100 ether;
-    uint256 public constant BUCKET_WINDOW = 24; // 24 blocks
+    uint256 public constant BUCKET_WINDOW = 24; // 24 个区块
     uint256 public constant SLASHER_REWARD_PERCENTAGE = 10;
-    uint256 public constant REWARD_PER_REPORT = 1 ether; // ORA Token reward per report
+    uint256 public constant REWARD_PER_REPORT = 1 ether; // 每次上报奖励的 ORA 代币数量
     uint256 public constant INACTIVITY_PENALTY = 1 ether;
     uint256 public constant MISREPORT_PENALTY = 100 ether;
-    uint256 public constant MAX_DEVIATION_BPS = 1000; // 10% default threshold
-    uint256 public constant WAITING_PERIOD = 2; // 2 buckets after last report before exit allowed
+    uint256 public constant MAX_DEVIATION_BPS = 1000; // 默认阈值 10%
+    uint256 public constant WAITING_PERIOD = 2; // 最后一次上报后需再经过 2 个桶才允许退出
 
     ////////////////
-    /// Events /////
+    /// 事件 /////
     ////////////////
 
     event NodeRegistered(address indexed node, uint256 stakedAmount);
@@ -76,12 +76,12 @@ contract StakingOracle {
     event NodeExited(address indexed node, uint256 amount);
 
     ///////////////////
-    /// Modifiers /////
+    /// 修饰器 /////
     ///////////////////
 
     /**
-     * @notice Modifier to restrict function access to registered oracle nodes
-     * @dev Checks if the sender has a registered node in the mapping
+     * @notice 将函数访问权限限制为已注册预言机节点的修饰器
+     * @dev 检查调用者在映射中是否有已注册的节点
      */
     modifier onlyNode() {
         if (nodes[msg.sender].active == false) revert NodeNotRegistered();
@@ -89,7 +89,7 @@ contract StakingOracle {
     }
 
     ///////////////////
-    /// Constructor ///
+    /// 构造函数 ///
     ///////////////////
 
     constructor(address oraTokenAddress) {
@@ -97,47 +97,47 @@ contract StakingOracle {
     }
 
     ///////////////////
-    /// Functions /////
+    /// 函数 /////
     ///////////////////
 
     /**
-     * @notice Registers a new oracle node with initial ORA token stake
-     * @dev Creates a new OracleNode struct and adds the sender to the nodeAddresses array.
-     *      Requires minimum stake amount and prevents duplicate registrations.
+     * @notice 以初始 ORA 代币质押注册一个新的预言机节点
+     * @dev 创建新的 OracleNode 结构体，并将调用者加入 nodeAddresses 数组。
+     *      要求达到最低质押数量，并防止重复注册。
      */
     function registerNode(uint256 amount) public {}
 
     /**
-     * @notice Updates the price reported by an oracle node (only registered nodes)
-     * @dev Updates the node's lastReportedBucket and price in that bucket. Requires sufficient stake.
-     * @param price The new price value to report
+     * @notice 更新预言机节点上报的价格（仅限已注册节点）
+     * @dev 更新节点的 lastReportedBucket 以及它在该桶中的价格。要求有足够的质押。
+     * @param price 要上报的新价格
      */
     function reportPrice(uint256 price) public onlyNode {}
 
     /**
-     * @notice Allows active and inactive nodes to claim accumulated ORA token rewards
-     * @dev Calculates rewards based on time elapsed since last claim.
+     * @notice 允许活跃和非活跃节点领取累积的 ORA 代币奖励
+     * @dev 根据自上次领取以来经过的时间计算奖励。
      */
     function claimReward() public {}
 
     /**
-     * @notice Allows a registered node to increase its ORA token stake
+     * @notice 允许已注册节点增加其 ORA 代币质押
      */
     function addStake(uint256 amount) public onlyNode {}
 
     /**
-     * @notice Records the median price for a bucket once sufficient reports are available
-     * @dev Anyone who uses the oracle's price feed can call this function to record the median price for a bucket.
-     * @param bucketNumber The bucket number to finalize
+     * @notice 当上报数量足够时，记录某个桶的中位数价格
+     * @dev 任何使用该预言机喂价的人都可以调用此函数来记录某个桶的中位数价格。
+     * @param bucketNumber 要最终确定的桶编号
      */
     function recordBucketMedian(uint256 bucketNumber) public {}
 
     /**
-     * @notice Slashes a node for giving a price that is deviated too far from the average
-     * @param nodeToSlash The address of the node to slash
-     * @param bucketNumber The bucket number to slash the node from
-     * @param reportIndex The index of node in the prices and reporters arrays
-     * @param nodeAddressesIndex The index of the node to slash in the nodeAddresses array
+     * @notice 罚没（slash）上报价格偏离平均值过远的节点
+     * @param nodeToSlash 要罚没的节点地址
+     * @param bucketNumber 罚没该节点所依据的桶编号
+     * @param reportIndex 该节点在 prices 和 reporters 数组中的索引
+     * @param nodeAddressesIndex 要罚没的节点在 nodeAddresses 数组中的索引
      */
     function slashNode(
         address nodeToSlash,
@@ -147,53 +147,53 @@ contract StakingOracle {
     ) public {}
 
     /**
-     * @notice Allows a registered node to exit the system and withdraw their stake
-     * @dev Removes the node from the system and sends the stake to the node.
-     *      Requires that the the initial waiting period has passed to ensure the
-     *      node has been slashed if it reported a bad price before allowing it to exit.
-     * @param index The index of the node to remove in nodeAddresses
+     * @notice 允许已注册节点退出系统并提取其质押
+     * @dev 将节点从系统中移除，并把质押发送给该节点。
+     *      要求初始等待期已经过去，以确保在允许节点退出之前，
+     *      如果它上报过错误价格，就已经被罚没。
+     * @param index 要移除的节点在 nodeAddresses 中的索引
      */
     function exitNode(uint256 index) public onlyNode {}
 
     ////////////////////////
-    /// View Functions /////
+    /// 视图函数 /////
     ////////////////////////
 
     /**
-     * @notice Returns the current bucket number
-     * @dev Returns the current bucket number based on the block number
-     * @return The current bucket number
+     * @notice 返回当前桶编号
+     * @dev 根据区块号返回当前桶编号
+     * @return 当前桶编号
      */
     function getCurrentBucketNumber() public view returns (uint256) {
         return (block.number / BUCKET_WINDOW) + 1;
     }
 
     /**
-     * @notice Returns the list of registered oracle node addresses
-     * @return Array of registered oracle node addresses
+     * @notice 返回已注册预言机节点的地址列表
+     * @return 已注册预言机节点的地址数组
      */
     function getNodeAddresses() public view returns (address[] memory) {}
 
     /**
-     * @notice Returns the stored median price from the most recently completed bucket
-     * @dev Requires that the median for the bucket be recorded via recordBucketMedian
-     * @return The median price for the last finalized bucket
+     * @notice 返回最近一个已完成的桶中存储的中位数价格
+     * @dev 要求该桶的中位数已通过 recordBucketMedian 记录
+     * @return 最后一个已最终确定的桶的中位数价格
      */
     function getLatestPrice() public view returns (uint256) {}
 
     /**
-     * @notice Returns the stored median price from a specified bucket
-     * @param bucketNumber The bucket number to read the median price from
-     * @return The median price stored for the bucket
+     * @notice 返回指定桶中存储的中位数价格
+     * @param bucketNumber 要读取中位数价格的桶编号
+     * @return 该桶存储的中位数价格
      */
     function getPastPrice(uint256 bucketNumber) public view returns (uint256) {}
 
     /**
-     * @notice Returns the price and slashed status of a node at a given bucket
-     * @param nodeAddress The address of the node to get the data for
-     * @param bucketNumber The bucket number to get the data from
-     * @return price The price of the node at the specified bucket
-     * @return slashed The slashed status of the node at the specified bucket
+     * @notice 返回节点在指定桶中的价格及罚没状态
+     * @param nodeAddress 要查询数据的节点地址
+     * @param bucketNumber 要查询数据的桶编号
+     * @return price 该节点在指定桶中的价格
+     * @return slashed 该节点在指定桶中的罚没状态
      */
     function getSlashedStatus(
         address nodeAddress,
@@ -201,34 +201,34 @@ contract StakingOracle {
     ) public view returns (uint256 price, bool slashed) {}
 
     /**
-     * @notice Returns the effective stake accounting for inactivity penalties via missed buckets
-     * @dev Effective stake = stakedAmount - (missedBuckets * INACTIVITY_PENALTY), floored at 0
+     * @notice 返回扣除因错过桶而产生的不活跃惩罚后的有效质押
+     * @dev 有效质押 = stakedAmount - (missedBuckets * INACTIVITY_PENALTY)，最低为 0
      */
     function getEffectiveStake(address nodeAddress) public view returns (uint256) {}
 
     /**
-     * @notice Returns the addresses of nodes in a bucket whose reported price deviates beyond the threshold
-     * @param bucketNumber The bucket number to get the outliers from
-     * @return Array of node addresses considered outliers
+     * @notice 返回某个桶中上报价格偏离超过阈值的节点地址
+     * @param bucketNumber 要从中找出离群节点的桶编号
+     * @return 被视为离群值的节点地址数组
      */
     function getOutlierNodes(uint256 bucketNumber) public view returns (address[] memory) {}
 
     //////////////////////////
-    /// Internal Functions ///
+    /// 内部函数 ///
     //////////////////////////
 
     /**
-     * @notice Removes a node from the nodeAddresses array
-     * @param nodeAddress The address of the node to remove
-     * @param index The index of the node to remove
+     * @notice 从 nodeAddresses 数组中移除一个节点
+     * @param nodeAddress 要移除的节点地址
+     * @param index 要移除的节点的索引
      */
     function _removeNode(address nodeAddress, uint256 index) internal {}
 
     /**
-     * @notice Checks if the price deviation is greater than the threshold
-     * @param reportedPrice The price reported by the node
-     * @param medianPrice The average price of the bucket
-     * @return True if the price deviation is greater than the threshold, false otherwise
+     * @notice 检查价格偏差是否大于阈值
+     * @param reportedPrice 节点上报的价格
+     * @param medianPrice 该桶的平均价格
+     * @return 价格偏差大于阈值时返回 true，否则返回 false
      */
     function _checkPriceDeviated(uint256 reportedPrice, uint256 medianPrice) internal pure returns (bool) {}
 }

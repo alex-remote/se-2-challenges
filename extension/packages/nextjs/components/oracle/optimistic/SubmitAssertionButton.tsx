@@ -81,7 +81,7 @@ const SubmitAssertionModal = ({ isOpen, onClose }: SubmitAssertionModalProps) =>
         args: [description.trim(), startTimestamp, endTimestamp],
         value: parseEther(reward),
       });
-      // Reset form after successful submission
+      // 提交成功后重置表单
       setDescription("");
       setReward("");
       setStartInMinutes("");
@@ -96,7 +96,7 @@ const SubmitAssertionModal = ({ isOpen, onClose }: SubmitAssertionModalProps) =>
 
   const handleClose = () => {
     onClose();
-    // Reset form when closing
+    // 关闭时重置表单
     setDescription("");
     setReward("");
     setStartInMinutes("");
@@ -111,10 +111,10 @@ const SubmitAssertionModal = ({ isOpen, onClose }: SubmitAssertionModalProps) =>
       <input type="checkbox" id="assertion-modal" className="modal-toggle" checked={isOpen} readOnly />
       <label htmlFor="assertion-modal" className="modal cursor-pointer" onClick={handleClose}>
         <label className="modal-box relative max-w-md w-full bg-base-100" htmlFor="" onClick={e => e.stopPropagation()}>
-          {/* dummy input to capture event onclick on modal box */}
+          {/* 占位用的 input，用于捕获弹窗上的 onclick 事件 */}
           <input className="h-0 w-0 absolute top-0 left-0" />
 
-          {/* Close button */}
+          {/* 关闭按钮 */}
           <button onClick={handleClose} className="btn btn-ghost btn-sm btn-square absolute right-3 top-3">
             ✕
           </button>
@@ -128,16 +128,16 @@ const SubmitAssertionModal = ({ isOpen, onClose }: SubmitAssertionModalProps) =>
             />
           </div>
 
-          {/* Modal Content */}
+          {/* 弹窗内容 */}
           <div>
-            {/* Header */}
+            {/* 标题 */}
             <div className="text-center mb-6">
               <h2 className="text-xl font-bold">Submit New Assertion</h2>
             </div>
 
-            {/* Form */}
+            {/* 表单 */}
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Description Input */}
+              {/* 描述输入框 */}
               <div>
                 <label className="label">
                   <span className="text-accent font-medium">
@@ -181,7 +181,7 @@ const SubmitAssertionModal = ({ isOpen, onClose }: SubmitAssertionModalProps) =>
                   disableMultiplyBy1e18
                 />
               </div>
-              {/* Start Time and End Time Inputs */}
+              {/* 开始时间和结束时间输入框 */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="label">
@@ -208,7 +208,7 @@ const SubmitAssertionModal = ({ isOpen, onClose }: SubmitAssertionModalProps) =>
                   />
                 </div>
               </div>
-              {/* Action Buttons */}
+              {/* 操作按钮 */}
               <div className="flex gap-3 mt-6">
                 <button type="submit" className="btn btn-primary flex-1" disabled={isLoading || !readyToSubmit}>
                   {isLoading && <span className="loading loading-spinner loading-xs"></span>}
@@ -231,14 +231,14 @@ export const SubmitAssertionButton = () => {
 
   return (
     <>
-      {/* Button */}
+      {/* 按钮 */}
       <div className="my-8 flex justify-center">
         <button className="btn btn-primary btn-lg" onClick={openModal}>
           Submit New Assertion
         </button>
       </div>
 
-      {/* Modal - only mounted when open */}
+      {/* 弹窗——仅在打开时挂载 */}
       {isModalOpen && <SubmitAssertionModal isOpen={isModalOpen} onClose={closeModal} />}
     </>
   );

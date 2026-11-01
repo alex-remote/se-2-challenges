@@ -59,9 +59,9 @@ const SlashAllButton = ({ selectedBucket }: { selectedBucket: bigint }) => {
       const bucket = ev?.args?.bucketNumber as bigint | undefined;
       return bucket !== undefined && bucket === selectedBucket;
     });
-    // IMPORTANT: `slashNode` expects `reportIndex` to match the on-chain `timeBuckets[bucket].reporters[]` index,
-    // which follows the order reports were submitted (tx order). Event history may be returned newest-first,
-    // so we sort by (blockNumber, logIndex) ascending to match insertion order.
+    // IMPORTANT: `slashNode` 要求 `reportIndex` 与链上 `timeBuckets[bucket].reporters[]` 的索引一致，
+    // 该索引按上报提交的先后顺序（交易顺序）排列。事件历史可能按从新到旧的顺序返回，
+    // 所以我们按 (blockNumber, logIndex) 升序排序，以匹配插入顺序。
     return [...filtered].sort((a: any, b: any) => {
       const aBlock = BigInt(a?.blockNumber ?? 0);
       const bBlock = BigInt(b?.blockNumber ?? 0);
@@ -89,7 +89,7 @@ const SlashAllButton = ({ selectedBucket }: { selectedBucket: bigint }) => {
           })) as [bigint, boolean];
           if (!isSlashed) list.push(addr);
         } catch {
-          // assume not slashed on read error
+          // 读取出错时，假定未被罚没
           list.push(addr);
         }
       }
@@ -120,7 +120,7 @@ const SlashAllButton = ({ selectedBucket }: { selectedBucket: bigint }) => {
             args: [addr as `0x${string}`, selectedBucket, BigInt(reportIndex), BigInt(idx)],
           });
         } catch {
-          // continue slashing the rest
+          // 继续罚没其余节点
         }
       }
     } catch (e: any) {
@@ -166,8 +166,8 @@ export const NodesTable = ({
   const selectedBucket = externalSelectedBucket ?? internalSelectedBucket;
   const isViewingCurrentBucket = selectedBucket === "current";
   const targetBucket = useMemo<bigint | null>(() => {
-    // When viewing "current", we actually want to record the *last completed* bucket (current - 1),
-    // since the current bucket is still in progress and cannot be finalized.
+    // 查看 "current" 时，我们实际要记录的是*上一个已完成的*桶（current - 1），
+    // 因为当前桶仍在进行中，无法最终确定。
     if (selectedBucket === "current") {
       if (currentBucket === undefined) return null;
       if (currentBucket <= 1n) return null;
@@ -216,7 +216,7 @@ export const NodesTable = ({
   useEffect(() => {
     if (currentBucket === undefined) return;
     const last = lastCurrentBucketRef.current;
-    // In inline settings mode, keep the UI stable (no animation on bucket changes)
+    // 内联设置模式下保持界面稳定（桶切换时不播放动画）
     if (showInlineSettings) {
       lastCurrentBucketRef.current = currentBucket;
       return;
@@ -357,8 +357,8 @@ export const NodesTable = ({
         return;
       }
 
-      // Wait for approval to be mined before registering.
-      // (writeContractAsync returns the tx hash)
+      // 等待授权交易被打包后再注册。
+      // （writeContractAsync 返回交易哈希）
       const approveHash = await writeErc20({
         address: oracleTokenAddress as `0x${string}`,
         abi: erc20Abi,
@@ -434,9 +434,9 @@ export const NodesTable = ({
               >
                 {recordMedianButtonLabel}
               </button>
-              {/* Slash button near navigation (left of left arrow) */}
+              {/* 导航旁的罚没按钮（位于左箭头左侧） */}
               {selectedBucket !== "current" && <SlashAllButton selectedBucket={selectedBucket as bigint} />}
-              {/* Previous (<) */}
+              {/* 上一个 (<) */}
               <button
                 className="btn btn-ghost btn-sm"
                 onClick={() => {
@@ -452,7 +452,7 @@ export const NodesTable = ({
                 ←
               </button>
 
-              {/* Current selected bucket label (non-clickable) */}
+              {/* 当前选中的桶标签（不可点击） */}
               <span className="px-2 text-sm tabular-nums select-none">
                 {selectedBucket === "current"
                   ? currentBucket !== undefined
@@ -461,7 +461,7 @@ export const NodesTable = ({
                   : (selectedBucket as bigint).toString()}
               </span>
 
-              {/* Next (>) */}
+              {/* 下一个 (>) */}
               <button
                 className="btn btn-ghost btn-sm"
                 onClick={() => {
@@ -486,7 +486,7 @@ export const NodesTable = ({
                 →
               </button>
 
-              {/* Go to Current button */}
+              {/* “回到当前”按钮 */}
               <button
                 className="btn btn-ghost btn-sm ml-2"
                 onClick={() => {
@@ -500,16 +500,16 @@ export const NodesTable = ({
                 Go to Current
               </button>
 
-              {/* Inline settings toggle */}
+              {/* 内联设置开关 */}
               <button
                 className={`btn btn-sm ml-1 px-3 ${showInlineSettings ? "btn-primary" : "btn-secondary"}`}
                 style={{ display: "inline-flex" }}
                 onClick={() => {
                   if (!showInlineSettings) {
-                    // Opening settings: slide left
+                    // 打开设置：向左滑动
                     triggerSlide("left");
                   } else {
-                    // Closing settings: slide right for a natural return
+                    // 关闭设置：向右滑动，自然地返回
                     triggerSlide("right");
                   }
                   setShowInlineSettings(v => !v);

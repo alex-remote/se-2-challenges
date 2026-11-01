@@ -15,17 +15,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Value must be a number between 0 and 1" }, { status: 400 });
     }
 
-    // Read current config
+    // 读取当前配置
     const configContent = await fs.promises.readFile(CONFIG_PATH, "utf-8");
     const config = JSON.parse(configContent);
 
-    // Update node-specific config
+    // 更新该节点专属的配置
     if (!config.NODE_CONFIGS[nodeAddress]) {
       config.NODE_CONFIGS[nodeAddress] = { ...config.NODE_CONFIGS.default };
     }
     config.NODE_CONFIGS[nodeAddress].PROBABILITY_OF_SKIPPING_REPORT = value;
 
-    // Write back to file
+    // 写回文件
     await fs.promises.writeFile(CONFIG_PATH, JSON.stringify(config, null, 2));
 
     return NextResponse.json({ success: true, value });

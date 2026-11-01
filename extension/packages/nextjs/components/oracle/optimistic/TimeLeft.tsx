@@ -29,7 +29,7 @@ export const TimeLeft = ({ startTime, endTime }: { startTime: bigint; endTime: b
   const duration = end - now;
   const ended = duration <= 0;
 
-  // Guard against division by zero and clamp to [0, 100]
+  // 防止除以零，并把结果限制在 [0, 100] 范围内
   const totalWindow = Math.max(end - start, 1);
   const rawPercent = ((now - start) / totalWindow) * 100;
   const progressPercent = Math.max(0, Math.min(100, rawPercent));

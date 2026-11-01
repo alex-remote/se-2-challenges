@@ -119,7 +119,7 @@ const getActiveNodeWalletClients = async (address, abi) => {
         nodeClients.push(client);
       }
     } catch {
-      // ignore
+      // 忽略
     }
   }
   return nodeClients;
@@ -203,7 +203,7 @@ const runCycle = async () => {
       `BUCKET_WINDOW=${bucketWindow} | currentBucket=${currentBucket}`
     );
 
-    // Update base price from previous bucket median
+    // 用上一个桶（bucket）的中位数更新基准价格
     try {
       if (previousBucket > 0n) {
         try {
@@ -233,7 +233,7 @@ const runCycle = async () => {
 
     const cfg = getConfig();
 
-    // 1) Reporting
+    // 1) 上报价格
     const nodeWalletClients = await getActiveNodeWalletClients(address, abi);
     if (currentPrice === null) {
       currentPrice = await fetchPriceFromUniswap();
@@ -307,7 +307,7 @@ const runCycle = async () => {
       }
     }
 
-    // 2) Finalize median for previous bucket
+    // 2) 为上一个桶最终确定中位数
     if (previousBucket > 0n) {
       let medianAlreadyRecorded = false;
       try {
@@ -392,7 +392,7 @@ const runCycle = async () => {
       }
     }
 
-    // 3) Slashing
+    // 3) 罚没（slashing）
     if (AUTO_SLASH) {
       try {
         const outliers = await publicClient.readContract({
@@ -460,7 +460,7 @@ const runCycle = async () => {
       );
     }
 
-    // 4) Rewards
+    // 4) 领取奖励
     console.log("Waiting 2s before claiming rewards...");
     await sleep(2000);
     for (const client of nodeWalletClients) {
@@ -498,14 +498,14 @@ const run = async () => {
   currentPrice = await fetchPriceFromUniswap();
   console.log(`Initial base price from Uniswap: ${currentPrice}`);
 
-  // Setup nodes: fund ORA, approve, register
+  // 设置节点：注入 ORA、授权、注册
   try {
     const { address, abi } = getContract("StakingOracle");
     const publicClient = getPublicClient();
     const allClients = getWalletClients();
     const deployerClient = getDeployerClient();
 
-    // Use all non-deployer accounts as nodes
+    // 把除部署者以外的所有账户都用作节点
     const nodeAccounts = allClients.filter(
       (_, i) => i !== DEPLOYER_INDEX
     );
@@ -641,7 +641,7 @@ const run = async () => {
       });
     }
 
-    // 1) Fund nodes from deployer
+    // 1) 由部署者向各节点注资
     if (transfers.length > 0) {
       const deployerNonce = await publicClient.getTransactionCount({
         address: deployerClient.account.address,
@@ -668,7 +668,7 @@ const run = async () => {
       console.log("Funding burst mined.");
     }
 
-    // 2) Approve + register/addStake per node
+    // 2) 每个节点执行授权 + register/addStake
     const nodeNonces = await Promise.all(
       perNodeActions.map((a) =>
         publicClient.getTransactionCount({ address: a.nodeAddress })

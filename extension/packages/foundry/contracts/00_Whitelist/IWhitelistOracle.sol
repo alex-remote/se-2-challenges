@@ -4,16 +4,16 @@ pragma solidity >=0.8.0 <0.9.0;
 import "./SimpleOracle.sol";
 
 interface IWhitelistOracle {
-    // Errors
+    // 错误
     error OnlyOwner();
     error IndexOutOfBounds();
     error NoOraclesAvailable();
 
-    // Events
+    // 事件
     event OracleAdded(address oracleAddress, address oracleOwner);
     event OracleRemoved(address oracleAddress);
 
-    // Functions
+    // 函数
     function owner() external view returns (address);
     function oracles(uint256 index) external view returns (SimpleOracle);
     function STALE_DATA_WINDOW() external view returns (uint256);

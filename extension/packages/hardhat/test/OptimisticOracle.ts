@@ -24,13 +24,13 @@ describe("OptimisticOracle", function () {
 
   let contractArtifact: string;
   if (contractAddress) {
-    // For the autograder
+    // 供自动评分程序使用
     contractArtifact = `contracts/download-${contractAddress}.sol:OptimisticOracle`;
   } else {
     contractArtifact = "contracts/02_Optimistic/OptimisticOracle.sol:OptimisticOracle";
   }
 
-  // Enum for state
+  // 状态枚举
   const State = {
     Invalid: 0n,
     Asserted: 1n,
@@ -43,15 +43,15 @@ describe("OptimisticOracle", function () {
   beforeEach(async function () {
     [owner, asserter, proposer, disputer, otherUser] = await ethers.getSigners();
 
-    // Deploy OptimisticOracle with temporary decider (owner)
+    // 以临时裁决者（owner）部署 OptimisticOracle
     const OptimisticOracleFactory = await ethers.getContractFactory(contractArtifact);
     optimisticOracle = (await OptimisticOracleFactory.deploy(owner.address)) as OptimisticOracle;
 
-    // Deploy Decider
+    // 部署 Decider
     const DeciderFactory = await ethers.getContractFactory("Decider");
     deciderContract = (await DeciderFactory.deploy(optimisticOracle.target)) as Decider;
 
-    // Set the decider in the oracle
+    // 在预言机中设置裁决者
     await optimisticOracle.setDecider(deciderContract.target);
   });
   describe("Checkpoint4", function () {
@@ -70,8 +70,8 @@ describe("OptimisticOracle", function () {
         const minimumAssertionWindow = await optimisticOracle.MINIMUM_ASSERTION_WINDOW();
         const disputeWindow = await optimisticOracle.DISPUTE_WINDOW();
 
-        expect(minimumAssertionWindow).to.equal(180n); // 3 minutes
-        expect(disputeWindow).to.equal(180n); // 3 minutes
+        expect(minimumAssertionWindow).to.equal(180n); // 3 分钟
+        expect(disputeWindow).to.equal(180n); // 3 分钟
       });
 
       it("Should start with nextAssertionId at 1", async function () {
@@ -85,7 +85,7 @@ describe("OptimisticOracle", function () {
 
         const tx = await optimisticOracle.connect(asserter).assertEvent(description, 0, 0, { value: reward });
         const receipt = await tx.wait();
-        // Get the assertionId from the event
+        // 从事件中获取 assertionId
         const event = receipt!.logs.find(
           log => optimisticOracle.interface.parseLog(log as any)?.name === "EventAsserted",
         );
@@ -104,7 +104,7 @@ describe("OptimisticOracle", function () {
         const tx = await optimisticOracle.connect(asserter).assertEvent(description, 0, 0, { value: reward });
         const receipt = await tx.wait();
 
-        // Get the assertionId from the event
+        // 从事件中获取 assertionId
         const event = receipt!.logs.find(
           log => optimisticOracle.interface.parseLog(log as any)?.name === "EventAsserted",
         );
@@ -136,7 +136,7 @@ describe("OptimisticOracle", function () {
         reward = ethers.parseEther("1");
         const tx = await optimisticOracle.connect(asserter).assertEvent(description, 0, 0, { value: reward });
         const receipt = await tx.wait();
-        // Get the assertionId from the event
+        // 从事件中获取 assertionId
         const event = receipt!.logs.find(
           log => optimisticOracle.interface.parseLog(log as any)?.name === "EventAsserted",
         );
@@ -211,8 +211,8 @@ describe("OptimisticOracle", function () {
       });
 
       it("Should reject disputes after deadline", async function () {
-        // Fast forward time past dispute window
-        await ethers.provider.send("evm_increaseTime", [181]); // 3 minutes + 1 second
+        // 将时间快进到争议窗口期之后
+        await ethers.provider.send("evm_increaseTime", [181]); // 3 分钟 + 1 秒
         await ethers.provider.send("evm_mine");
 
         const bond = reward * 2n;
@@ -255,8 +255,8 @@ describe("OptimisticOracle", function () {
       it("Should not allow proposal after endTime", async function () {
         const reward = ethers.parseEther("1");
         const now = (await ethers.provider.getBlock("latest"))!.timestamp;
-        const start = now + 1; // Start time must be in the future
-        const end = now + 200; // 200 seconds, which is more than DISPUTE_WINDOW (180 seconds)
+        const start = now + 1; // 开始时间必须在未来
+        const end = now + 200; // 200 秒，超过 DISPUTE_WINDOW（180 秒）
         const tx = await optimisticOracle.connect(asserter).assertEvent("short event", start, end, { value: reward });
         const receipt = await tx.wait();
         const event = receipt!.logs.find(
@@ -266,7 +266,7 @@ describe("OptimisticOracle", function () {
         if (!parsedEvent) throw new Error("Event not found");
         const assertionId = parsedEvent.args[0];
 
-        // Wait until after endTime
+        // 等到 endTime 之后
         await ethers.provider.send("evm_increaseTime", [201]);
         await ethers.provider.send("evm_mine");
 
@@ -279,8 +279,8 @@ describe("OptimisticOracle", function () {
       it("Should allow proposal only within [startTime, endTime]", async function () {
         const reward = ethers.parseEther("1");
         const now = (await ethers.provider.getBlock("latest"))!.timestamp;
-        const start = now + 10; // Start time in the future
-        const end = start + 200; // Ensure endTime is far enough in the future
+        const start = now + 10; // 开始时间在未来
+        const end = start + 200; // 确保 endTime 在足够远的未来
         const tx = await optimisticOracle.connect(asserter).assertEvent("window event", start, end, { value: reward });
         const receipt = await tx.wait();
         const event = receipt!.logs.find(
@@ -292,16 +292,16 @@ describe("OptimisticOracle", function () {
 
         const bond = reward * 2n;
 
-        // Before startTime - should fail
+        // 在 startTime 之前——应当失败
         await expect(
           optimisticOracle.connect(proposer).proposeOutcome(assertionId, true, { value: bond }),
         ).to.be.revertedWithCustomError(optimisticOracle, "InvalidTime");
 
-        // Move to startTime
+        // 推进到 startTime
         await ethers.provider.send("evm_increaseTime", [10]);
         await ethers.provider.send("evm_mine");
 
-        // Now it should work
+        // 现在应当可以成功
         await optimisticOracle.connect(proposer).proposeOutcome(assertionId, true, { value: bond });
       });
     });
@@ -329,7 +329,7 @@ describe("OptimisticOracle", function () {
       });
 
       it("Should allow claiming undisputed rewards after deadline", async function () {
-        // Fast forward time past dispute window
+        // 将时间快进到争议窗口期之后
         await ethers.provider.send("evm_increaseTime", [181]);
         await ethers.provider.send("evm_mine");
 
@@ -338,7 +338,7 @@ describe("OptimisticOracle", function () {
         const receipt = await tx.wait();
         const finalBalance = await ethers.provider.getBalance(proposer.address);
 
-        // Check that proposer received the reward (reward + bond - gas costs)
+        // 检查提议者是否收到了奖励（奖励 + 保证金 - gas 费用）
         const expectedReward = reward + reward * 2n;
         const gasCost = receipt!.gasUsed * receipt!.gasPrice!;
         expect(finalBalance - initialBalance + gasCost).to.equal(expectedReward);
@@ -360,7 +360,7 @@ describe("OptimisticOracle", function () {
       });
 
       it("Should reject claiming already claimed rewards", async function () {
-        // Fast forward time and claim
+        // 快进时间并领取
         await ethers.provider.send("evm_increaseTime", [181]);
         await ethers.provider.send("evm_mine");
         await optimisticOracle.connect(proposer).claimUndisputedReward(assertionId);
@@ -393,7 +393,7 @@ describe("OptimisticOracle", function () {
       });
 
       it("Should allow winner to claim disputed rewards after settlement", async function () {
-        // Settle with proposer winning
+        // 以提议者胜出进行结算
         await deciderContract.connect(owner).settleDispute(assertionId, true);
 
         const initialBalance = await ethers.provider.getBalance(proposer.address);
@@ -401,14 +401,14 @@ describe("OptimisticOracle", function () {
         const receipt = await tx.wait();
         const finalBalance = await ethers.provider.getBalance(proposer.address);
 
-        // Check that proposer received the reward (reward + bond - gas costs)
+        // 检查提议者是否收到了奖励（奖励 + 保证金 - gas 费用）
         const expectedReward = reward * 3n;
         const gasCost = receipt!.gasUsed * receipt!.gasPrice!;
         expect(finalBalance - initialBalance + gasCost).to.equal(expectedReward);
       });
 
       it("Should allow disputer to claim when they win", async function () {
-        // Settle with disputer winning
+        // 以争议者胜出进行结算
         await deciderContract.connect(owner).settleDispute(assertionId, false);
 
         const initialBalance = await ethers.provider.getBalance(disputer.address);
@@ -416,7 +416,7 @@ describe("OptimisticOracle", function () {
         const receipt = await tx.wait();
         const finalBalance = await ethers.provider.getBalance(disputer.address);
 
-        // Check that disputer received the reward
+        // 检查争议者是否收到了奖励
         const expectedReward = reward * 3n;
         const gasCost = receipt!.gasUsed * receipt!.gasPrice!;
         expect(finalBalance - initialBalance + gasCost).to.equal(expectedReward);
@@ -458,7 +458,7 @@ describe("OptimisticOracle", function () {
       });
 
       it("Should allow asserter to claim refund for assertions without proposals", async function () {
-        // Fast forward time past dispute window
+        // 将时间快进到争议窗口期之后
         await ethers.provider.send("evm_increaseTime", [181]);
         await ethers.provider.send("evm_mine");
 
@@ -467,7 +467,7 @@ describe("OptimisticOracle", function () {
         const receipt = await tx.wait();
         const finalBalance = await ethers.provider.getBalance(asserter.address);
 
-        // Check that asserter received the refund (reward - gas costs)
+        // 检查断言者是否收到了退款（奖励 - gas 费用）
         const gasCost = receipt!.gasUsed * receipt!.gasPrice!;
         expect(finalBalance - initialBalance + gasCost).to.equal(reward);
       });
@@ -483,7 +483,7 @@ describe("OptimisticOracle", function () {
       });
 
       it("Should reject claiming already claimed refunds", async function () {
-        // Fast forward time and claim
+        // 快进时间并领取
         await ethers.provider.send("evm_increaseTime", [181]);
         await ethers.provider.send("evm_mine");
         await optimisticOracle.connect(asserter).claimRefund(assertionId);
@@ -526,9 +526,9 @@ describe("OptimisticOracle", function () {
           .to.emit(optimisticOracle, "AssertionSettled")
           .withArgs(assertionId, resolvedOutcome, proposer.address);
 
-        // Check that the assertion was settled correctly by checking the state
+        // 通过检查状态来确认该断言已被正确结算
         const state = await optimisticOracle.getState(assertionId);
-        expect(state).to.equal(State.Settled); // Settled state
+        expect(state).to.equal(State.Settled); // 已结算状态
       });
 
       it("Should reject settlement by non-decider", async function () {
@@ -540,7 +540,7 @@ describe("OptimisticOracle", function () {
       });
 
       it("Should reject settling undisputed assertions", async function () {
-        // Create a new undisputed assertion
+        // 创建一个新的未被争议的断言
         const newDescription = "Will Ethereum reach $10k by end of 2024?";
         const newTx = await optimisticOracle.connect(asserter).assertEvent(newDescription, 0, 0, { value: reward });
         const newReceipt = await newTx.wait();
@@ -565,11 +565,11 @@ describe("OptimisticOracle", function () {
         const description = "Will Bitcoin reach $1m by end of 2026?";
         const reward = ethers.parseEther("1");
 
-        // Invalid state for non-existent assertion
+        // 不存在的断言为 Invalid 状态
         let state = await optimisticOracle.getState(999n);
-        expect(state).to.equal(State.Invalid); // Invalid
+        expect(state).to.equal(State.Invalid); // 无效
 
-        // Asserted state
+        // Asserted 状态
         const tx = await optimisticOracle.connect(asserter).assertEvent(description, 0, 0, { value: reward });
         const receipt = await tx.wait();
         const event = receipt!.logs.find(
@@ -579,23 +579,23 @@ describe("OptimisticOracle", function () {
         const assertionId = parsedEvent!.args[0];
 
         state = await optimisticOracle.getState(assertionId);
-        expect(state).to.equal(State.Asserted); // Asserted
+        expect(state).to.equal(State.Asserted); // 已断言
 
-        // Proposed state
+        // Proposed 状态
         const bond = reward * 2n;
         await optimisticOracle.connect(proposer).proposeOutcome(assertionId, true, { value: bond });
         state = await optimisticOracle.getState(assertionId);
-        expect(state).to.equal(State.Proposed); // Proposed
+        expect(state).to.equal(State.Proposed); // 已提议
 
-        // Disputed state
+        // Disputed 状态
         await optimisticOracle.connect(disputer).disputeOutcome(assertionId, { value: bond });
         state = await optimisticOracle.getState(assertionId);
-        expect(state).to.equal(State.Disputed); // Disputed
+        expect(state).to.equal(State.Disputed); // 已争议
 
-        // Settled state (after decider resolution)
+        // Settled 状态（在裁决者裁定之后）
         await deciderContract.connect(owner).settleDispute(assertionId, true);
         state = await optimisticOracle.getState(assertionId);
-        expect(state).to.equal(State.Settled); // Settled
+        expect(state).to.equal(State.Settled); // 已结算
       });
 
       it("Should show settled state for claimable uncontested assertions", async function () {
@@ -613,12 +613,12 @@ describe("OptimisticOracle", function () {
         const bond = reward * 2n;
         await optimisticOracle.connect(proposer).proposeOutcome(assertionId, true, { value: bond });
 
-        // Fast forward time past dispute window
+        // 将时间快进到争议窗口期之后
         await ethers.provider.send("evm_increaseTime", [181]);
         await ethers.provider.send("evm_mine");
 
         const state = await optimisticOracle.getState(assertionId);
-        expect(state).to.equal(State.Settled); // Settled (can be claimed)
+        expect(state).to.equal(State.Settled); // 已结算（可以领取）
       });
 
       it("Should show expired state for assertions without proposals after deadline", async function () {
@@ -633,12 +633,12 @@ describe("OptimisticOracle", function () {
         const parsedEvent = optimisticOracle.interface.parseLog(event as any);
         const assertionId = parsedEvent!.args[0];
 
-        // Fast forward time past dispute window without any proposal
+        // 在没有任何提议的情况下，将时间快进到争议窗口期之后
         await ethers.provider.send("evm_increaseTime", [181]);
         await ethers.provider.send("evm_mine");
 
         const state = await optimisticOracle.getState(assertionId);
-        expect(state).to.equal(State.Expired); // Expired
+        expect(state).to.equal(State.Expired); // 已过期
       });
 
       it("Should revert getResolution for expired assertions without proposals", async function () {
@@ -653,12 +653,12 @@ describe("OptimisticOracle", function () {
         const parsedEvent = optimisticOracle.interface.parseLog(event as any);
         const assertionId = parsedEvent!.args[0];
 
-        // Fast forward time past assertion window without any proposal
+        // 在没有任何提议的情况下，将时间快进到断言窗口期之后
         await ethers.provider.send("evm_increaseTime", [181]);
         await ethers.provider.send("evm_mine");
 
-        // getResolution should revert because no proposal was ever made
-        // (expired assertions without proposals have no valid resolution)
+        // getResolution 应当回滚（revert），因为从未有人提议过结果
+        // （没有提议的过期断言不存在有效的最终结果）
         await expect(optimisticOracle.getResolution(assertionId)).to.be.revertedWithCustomError(
           optimisticOracle,
           "NotProposedAssertion",

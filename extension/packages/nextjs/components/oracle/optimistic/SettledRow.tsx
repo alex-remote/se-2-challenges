@@ -44,21 +44,21 @@ export const SettledRow = ({ assertionId }: SettledRowProps) => {
 
   return (
     <tr key={assertionId} className={`border-b border-base-300`}>
-      {/* Query Column */}
+      {/* 问题列 */}
       <td>{assertionData?.description}</td>
 
-      {/* Answer Column */}
+      {/* 答案列 */}
       <td>{outcome ? "True" : "False"}</td>
 
-      {/* Winner Column */}
+      {/* 胜方列 */}
       <td>
         <Address address={winner} format="short" onlyEnsOrAddress disableAddressLink size="sm" />
       </td>
 
-      {/* Reward Column */}
+      {/* 奖励列 */}
       <td>{formatEther(assertionData?.reward)} ETH</td>
 
-      {/* Claimed Column */}
+      {/* 已领取列 */}
       <td>
         {assertionData?.claimed ? (
           <button className="btn btn-primary btn-xs" disabled>

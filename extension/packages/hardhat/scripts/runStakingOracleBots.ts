@@ -102,8 +102,8 @@ const normalizeNodeInfo = (raw: any) => {
   };
 };
 
-// Current base price used by the bot. Initialized once at start from Uniswap
-// and updated from on-chain contract prices thereafter.
+// 机器人当前使用的基准价格。启动时从 Uniswap 初始化一次，
+// 之后根据链上合约的价格进行更新。
 let currentPrice: bigint | null = null;
 
 const stringToBool = (value: string | undefined | null): boolean => {
@@ -112,14 +112,14 @@ const stringToBool = (value: string | undefined | null): boolean => {
   return normalized === "1" || normalized === "true" || normalized === "yes" || normalized === "on";
 };
 
-// Feature flag: enable automatic slashing when the AUTO_SLASH environment variable is truthy
+// 功能开关：当环境变量 AUTO_SLASH 为真值时，启用自动罚没（slashing）
 const AUTO_SLASH: boolean = stringToBool(process.env.AUTO_SLASH);
 
 const getStakingOracleDeployment = () => loadDeployment("StakingOracle");
 
 const getActiveNodeWalletClients = async (stakingAddress: `0x${string}`, stakingAbi: any): Promise<WalletClient[]> => {
   const accounts = await _viem.getWalletClients();
-  // Filter to only those that are registered (firstBucket != 0)
+  // 只筛选出已注册的节点（firstBucket != 0）
   const publicClient = await _viem.getPublicClient();
   const nodeClients: WalletClient[] = [];
   for (const client of accounts) {
@@ -135,7 +135,7 @@ const getActiveNodeWalletClients = async (stakingAddress: `0x${string}`, staking
         nodeClients.push(client);
       }
     } catch {
-      // ignore
+      // 忽略
     }
   }
   return nodeClients;
@@ -147,7 +147,7 @@ const findNodeIndex = async (
   nodeAddress: `0x${string}`,
 ): Promise<number | null> => {
   const publicClient = await _viem.getPublicClient();
-  // Iterate indices until out-of-bounds revert
+  // 逐个遍历索引，直到越界回滚（revert）为止
   try {
     const addresses = (await publicClient.readContract({
       address: stakingAddress,
@@ -199,7 +199,7 @@ const runCycle = async () => {
     const blockNumber = await publicClient.getBlockNumber();
     console.log(`\n[Block ${blockNumber}] Starting new oracle cycle...`);
 
-    // Read current bucket window and bucket number
+    // 读取当前的桶（bucket）窗口和桶编号
     const [bucketWindow, currentBucket] = await Promise.all([
       publicClient
         .readContract({ address, abi, functionName: "BUCKET_WINDOW", args: [] })
@@ -211,13 +211,13 @@ const runCycle = async () => {
     const previousBucket = currentBucket > 0n ? currentBucket - 1n : 0n;
     console.log(`BUCKET_WINDOW=${bucketWindow} | currentBucket=${currentBucket}`);
 
-    // Update base price from previous bucket using the RECORDED MEDIAN (not an average of reports).
-    // Fallback to contract's latest price, then to previous cached value.
+    // 用上一个桶已记录的中位数（RECORDED MEDIAN，而不是各上报价格的平均值）更新基准价格。
+    // 若不可用，则退回到合约的最新价格，再退回到之前缓存的值。
     try {
       const previous = previousBucket;
       if (previous > 0n) {
         try {
-          // `getPastPrice(bucket)` returns the recorded median for that bucket (0 if not recorded yet).
+          // `getPastPrice(bucket)` 返回该桶已记录的中位数（尚未记录则为 0）。
           const pastMedian = await publicClient.readContract({
             address,
             abi,
@@ -229,29 +229,29 @@ const runCycle = async () => {
             currentPrice = median;
           }
         } catch {
-          // ignore and fall back
+          // 忽略并走兜底逻辑
         }
 
         if (currentPrice === null) {
-          // Fallback to on-chain latest average (previous bucket average)
+          // 退回到链上的最新平均价格（上一个桶的平均值）
           try {
             const onchain = await publicClient.readContract({ address, abi, functionName: "getLatestPrice", args: [] });
             currentPrice = BigInt(String(onchain));
           } catch {
-            // keep prior currentPrice
+            // 保留之前的 currentPrice
           }
         }
       }
     } catch {
-      // keep prior currentPrice
+      // 保留之前的 currentPrice
     }
 
-    // Load config once per cycle so runtime edits to the config file are picked up
+    // 每个周期加载一次配置，这样运行期间对配置文件的修改也能生效
     const cfg = getConfig();
 
-    // 1) Reporting: each node only once per bucket
+    // 1) 上报价格：每个节点在每个桶中只上报一次
     const nodeWalletClients = await getActiveNodeWalletClients(address, abi);
-    // Ensure we have an initial price (set once at startup in run())
+    // 确保已有初始价格（在 run() 启动时设置一次）
     if (currentPrice === null) {
       currentPrice = await fetchPriceFromUniswap();
     }
@@ -266,17 +266,17 @@ const runCycle = async () => {
         });
         const node = normalizeNodeInfo(rawNodeInfo);
         if (node.lastReportedBucket !== currentBucket) {
-          // Determine node config (probability to skip and variance)
+          // 确定节点配置（跳过上报的概率和价格波动幅度）
           const nodeCfg = cfg.NODE_CONFIGS[client.account.address.toLowerCase()] || cfg.NODE_CONFIGS.default;
           const skipProb = Number(nodeCfg.PROBABILITY_OF_SKIPPING_REPORT ?? 0);
           if (Math.random() < skipProb) {
             console.log(`Skipping report (by probability) for ${client.account.address}`);
             continue;
           }
-          // Compute deviated price as integer math using parts-per-million (ppm)
+          // 以百万分率（ppm）用整数运算计算偏移后的价格
           const variancePpm = Math.floor((Number(nodeCfg.PRICE_VARIANCE) || 0) * 1_000_000);
           const randomPpm = variancePpm > 0 ? Math.floor(Math.random() * (variancePpm * 2 + 1)) - variancePpm : 0;
-          const basePrice = currentPrice!; // derived from previous bucket excluding outliers
+          const basePrice = currentPrice!; // 由上一个桶排除离群值后得出
           const delta = (basePrice * BigInt(randomPpm)) / 1_000_000n;
           const priceToReport = basePrice + delta;
 
@@ -296,18 +296,18 @@ const runCycle = async () => {
       }
     }
 
-    // Wait for report transactions to be mined so subsequent reads (claiming) see the updated state.
+    // 等待上报交易被打包，使后续读取（领取奖励）能看到更新后的状态。
     if (reportTxHashes.length > 0) {
       try {
         await Promise.all(reportTxHashes.map(hash => publicClient.waitForTransactionReceipt({ hash } as any)));
       } catch (err) {
-        // If waiting fails, continue — claims will be attempted anyway but may not see the latest reports.
+        // 如果等待失败则继续执行——仍会尝试领取奖励，但可能看不到最新的上报。
         console.warn("Error while waiting for report tx receipts:", (err as Error).message);
       }
     }
 
-    // 2) Finalize median automatically when quorum is reached
-    // You can only finalize buckets strictly in the past, so we finalize the *previous* bucket (current - 1).
+    // 2) 达到法定数量（quorum）时自动最终确定中位数
+    // 只能最终确定严格属于过去的桶，所以我们最终确定的是*上一个*桶（current - 1）。
     if (previousBucket > 0n) {
       let medianAlreadyRecorded = false;
       try {
@@ -379,7 +379,7 @@ const runCycle = async () => {
       }
     }
 
-    // 3) Slashing: if previous bucket had outliers
+    // 3) 罚没：如果上一个桶中存在离群值
     if (AUTO_SLASH) {
       try {
         const outliers = (await publicClient.readContract({
@@ -391,7 +391,7 @@ const runCycle = async () => {
 
         if (outliers.length > 0) {
           console.log(`Found ${outliers.length} outliers in bucket ${previousBucket}, attempting to slash...`);
-          // Use the first wallet (deployer) to slash
+          // 使用第一个钱包（部署者）执行罚没
           const slasher = allWalletClients[0];
           for (const nodeAddr of outliers) {
             const index = await findNodeIndex(address, abi, nodeAddr);
@@ -427,16 +427,16 @@ const runCycle = async () => {
           }
         }
       } catch (err) {
-        // getOutlierNodes may revert for small sample sizes (e.g., 0 or 1 report)
+        // 样本量很小时（例如只有 0 或 1 个上报），getOutlierNodes 可能会回滚（revert）
         console.log(`Skipping slashing check for bucket ${previousBucket}:`, (err as Error).message);
       }
     } else {
-      // Auto-slash disabled by flag
+      // 自动罚没已被开关禁用
       console.log(`Auto-slash disabled; skipping slashing for bucket ${previousBucket}`);
     }
 
-    // 4) Rewards: claim when there are unclaimed reports
-    // Wait a couple seconds after reports have been mined before claiming
+    // 4) 奖励：存在未领取奖励的上报时进行领取
+    // 上报交易打包后先等待几秒再领取
     console.log("Waiting 2s before claiming rewards...");
     await sleep(2000);
     for (const client of nodeWalletClients) {
@@ -464,16 +464,16 @@ const runCycle = async () => {
 const run = async () => {
   console.log("Starting oracle bot system...");
   ({ viem: _viem } = await network.connect());
-  // Fetch Uniswap price once at startup; subsequent cycles will base price on on-chain reports
+  // 启动时获取一次 Uniswap 价格；后续周期将以链上上报为基准价格
   currentPrice = await fetchPriceFromUniswap();
   console.log(`Initial base price from Uniswap: ${currentPrice}`);
 
-  // Spin up nodes (fund + approve + register) for local testing if they aren't registered yet.
+  // 如果节点尚未注册，则为本地测试启动节点（注资 + 授权 + 注册）。
   try {
     const { address, abi } = getStakingOracleDeployment();
     const publicClient = await _viem.getPublicClient();
     const accounts = await _viem.getWalletClients();
-    // Mirror deploy script: use accounts[1..10] as oracle nodes
+    // 与部署脚本保持一致：使用 accounts[1..10] 作为预言机节点
     const nodeAccounts = accounts.slice(1, 11);
     const deployerClient = accounts[0];
 
@@ -489,11 +489,11 @@ const run = async () => {
         .then(v => v as unknown as `0x${string}`),
     ]);
 
-    // Default bot stake for local simulations (keep it small so it matches the new UX expectations)
+    // 本地模拟时机器人的默认质押量（保持较小，以符合新的用户体验预期）
     const defaultStake = parseEther("500");
     const stakeAmount = minimumStake > defaultStake ? minimumStake : defaultStake;
 
-    // Build an idempotent setup plan based on current on-chain state (so restarts resume cleanly).
+    // 根据当前链上状态构建一个幂等的设置计划（这样重启后可以干净地接着执行）。
     const snapshots = await Promise.all(
       nodeAccounts.map(async nodeClient => {
         const nodeAddress = nodeClient.account.address;
@@ -568,7 +568,7 @@ const run = async () => {
         continue;
       }
 
-      // Inactive -> fund/approve/register. On restart, we only do the missing pieces.
+      // 未激活 -> 注资/授权/注册。重启时只执行缺失的步骤。
       const transferAmount = balance < stakeAmount ? stakeAmount - balance : 0n;
       if (transferAmount > 0n) transfers.push({ to: nodeAddress, amount: transferAmount });
 
@@ -583,7 +583,7 @@ const run = async () => {
       });
     }
 
-    // 1) Fund nodes in one burst from deployer using nonce chaining.
+    // 1) 由部署者通过连续递增的 nonce 一次性集中为各节点注资。
     if (transfers.length > 0) {
       const deployerNonce = await publicClient.getTransactionCount({ address: deployerClient.account.address });
       const transferTxs: `0x${string}`[] = [];
@@ -602,7 +602,7 @@ const run = async () => {
       console.log("Funding burst mined.");
     }
 
-    // 2) For each node, chain approve -> (register|addStake) with explicit nonces, then wait for all receipts once.
+    // 2) 对每个节点，用显式 nonce 串联执行 approve -> (register|addStake)，最后一次性等待所有回执。
     const nodeNonces = await Promise.all(
       perNodeActions.map(a => publicClient.getTransactionCount({ address: a.nodeAddress })),
     );
@@ -671,7 +671,7 @@ run().catch(error => {
   process.exit(1);
 });
 
-// Handle process termination signals
+// 处理进程终止信号
 process.on("SIGINT", async () => {
   console.log("\nReceived SIGINT (Ctrl+C). Cleaning up...");
   process.exit(0);
@@ -682,13 +682,13 @@ process.on("SIGTERM", async () => {
   process.exit(0);
 });
 
-// Handle uncaught exceptions
+// 处理未捕获的异常
 process.on("uncaughtException", async error => {
   console.error("Uncaught Exception:", error);
   process.exit(1);
 });
 
-// Handle unhandled promise rejections
+// 处理未处理的 promise rejection
 process.on("unhandledRejection", async (reason, promise) => {
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
   process.exit(1);
