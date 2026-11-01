@@ -49,7 +49,7 @@ export const MyHoldings = () => {
 
           const ipfsHash = tokenURI.replace("https://ipfs.io/ipfs/", "");
 
-          // Keep the card (and its transfer form) even if the metadata can't be loaded
+          // 即使元数据无法加载，也保留这张卡片（及其转账表单）
           let nftMetadata: NFTMetaData | undefined;
           try {
             nftMetadata = await getMetadataFromIPFS(ipfsHash);

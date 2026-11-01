@@ -6,7 +6,7 @@ const fetchFromApi = async ({ path, method, body }: { path: string; method: stri
     },
     body: JSON.stringify(body),
   });
-  // A non-JSON answer must not hide the status code
+  // 即使响应不是 JSON，也不能因此丢掉状态码
   const data = await response.json().catch(() => null);
   if (!response.ok) throw new Error(data?.error ?? `Request failed: ${response.status}`);
   return data;

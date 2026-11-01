@@ -1,7 +1,7 @@
-// CHALLENGE-TODO: change for your imports
+// CHALLENGE-TODO: 改成你自己的导入
 export const preContent = `import { PhotoIcon, ArrowPathIcon, ArrowUpTrayIcon, ArrowDownTrayIcon} from "@heroicons/react/24/outline";`;
 
-// CHALLENGE-TODO: change for your extra menu links
+// CHALLENGE-TODO: 改成你自己的额外菜单链接
 export const extraMenuLinksObjects = [
   {
     label: "My NFTs",

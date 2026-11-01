@@ -1,5 +1,5 @@
 //
-// This script executes when you run 'yarn test'
+// 运行 'yarn test' 时会执行此脚本
 //
 
 import { network } from "hardhat";
@@ -19,7 +19,7 @@ describe("🚩 Challenge: 🎟 Tokenization 🤓", function () {
 
     let contractArtifact: string;
     if (contractAddress) {
-      // For the autograder
+      // 供自动评分程序使用
       contractArtifact = `contracts/download-${contractAddress}.sol:YourCollectible`;
     } else {
       contractArtifact = "contracts/YourCollectible.sol:YourCollectible";

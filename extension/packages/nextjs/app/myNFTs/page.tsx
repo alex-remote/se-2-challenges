@@ -23,7 +23,7 @@ const MyNFTs: NextPage = () => {
   });
 
   const handleMintItem = async () => {
-    // circle back to the zero item if we've reached the end of the array
+    // 如果已到达数组末尾，就循环回到第 0 项
     if (tokenIdCounter === undefined) return;
 
     const tokenIdCounterNumber = Number(tokenIdCounter);
@@ -42,7 +42,7 @@ const MyNFTs: NextPage = () => {
       return;
     }
 
-    // First remove previous loading notification and then show success notification
+    // 先移除之前的加载通知，再显示成功通知
     notification.remove(notificationId);
     notification.success("Metadata uploaded to IPFS");
 

@@ -23,7 +23,7 @@ contract YourCollectible is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable 
         return tokenId;
     }
 
-    // Override functions from OpenZeppelin ERC721, ERC721Enumerable and ERC721URIStorage
+    // 重写 OpenZeppelin ERC721、ERC721Enumerable 和 ERC721URIStorage 中的函数
 
     function _update(
         address to,

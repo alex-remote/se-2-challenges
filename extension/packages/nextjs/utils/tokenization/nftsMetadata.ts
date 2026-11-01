@@ -1,7 +1,7 @@
 const nftsMetadata = [
   {
     description: "It's actually a bison?",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
+    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- 这里也可以链接到该文件对应的专属页面
     image: "https://austingriffith.com/images/paintings/buffalo.jpg",
     name: "Buffalo",
     attributes: [
@@ -21,7 +21,7 @@ const nftsMetadata = [
   },
   {
     description: "What is it so worried about?",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
+    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- 这里也可以链接到该文件对应的专属页面
     image: "https://austingriffith.com/images/paintings/zebra.jpg",
     name: "Zebra",
     attributes: [
@@ -41,7 +41,7 @@ const nftsMetadata = [
   },
   {
     description: "What a horn!",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
+    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- 这里也可以链接到该文件对应的专属页面
     image: "https://austingriffith.com/images/paintings/rhino.jpg",
     name: "Rhino",
     attributes: [
@@ -61,7 +61,7 @@ const nftsMetadata = [
   },
   {
     description: "Is that an underbyte?",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
+    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- 这里也可以链接到该文件对应的专属页面
     image: "https://austingriffith.com/images/paintings/fish.jpg",
     name: "Fish",
     attributes: [
@@ -81,7 +81,7 @@ const nftsMetadata = [
   },
   {
     description: "So delicate.",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
+    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- 这里也可以链接到该文件对应的专属页面
     image: "https://austingriffith.com/images/paintings/flamingo.jpg",
     name: "Flamingo",
     attributes: [
@@ -101,7 +101,7 @@ const nftsMetadata = [
   },
   {
     description: "Raaaar!",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
+    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- 这里也可以链接到该文件对应的专属页面
     image: "https://austingriffith.com/images/paintings/godzilla.jpg",
     name: "Godzilla",
     attributes: [

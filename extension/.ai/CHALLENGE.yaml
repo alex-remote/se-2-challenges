@@ -63,7 +63,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # 1. ERC-721 & Imports
+  # 1. ERC-721 与导入
   # ============================================================
   - id: "erc721-imports"
     title: "ERC-721 & Imports"
@@ -122,7 +122,7 @@ checkpoints:
         code: "is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable"
 
   # ============================================================
-  # 2. Token State & Constructor
+  # 2. 代币状态与构造函数
   # ============================================================
   - id: "state-constructor"
     title: "Token State & Constructor"
@@ -188,7 +188,7 @@ checkpoints:
             }
 
   # ============================================================
-  # 3. Minting NFTs
+  # 3. 铸造 NFT
   # ============================================================
   - id: "minting"
     title: "Minting NFTs"
@@ -245,7 +245,7 @@ checkpoints:
             }
 
   # ============================================================
-  # 4. Inheritance & Overrides
+  # 4. 继承与重写
   # ============================================================
   - id: "overrides"
     title: "Inheritance & Overrides"
@@ -322,7 +322,7 @@ checkpoints:
             }
 
   # ============================================================
-  # 5. Gas & Wallets
+  # 5. gas 与钱包
   # ============================================================
   - id: "gas-wallets"
     title: "Gas & Wallets"
@@ -360,7 +360,7 @@ checkpoints:
         hint: "Burner wallets save you from clicking 'confirm' on every transaction. What happens to a wallet that only exists in the browser's memory?"
 
   # ============================================================
-  # 6. Minting & Exploring NFTs
+  # 6. 铸造与浏览 NFT
   # ============================================================
   - id: "minting-exploring"
     title: "Minting & Exploring NFTs"
