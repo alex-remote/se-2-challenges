@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 15:59 UTC　｜　总进度：**9 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:00 UTC　｜　总进度：**37 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -19,13 +19,13 @@
 | [`base-challenge-template`](#base-challenge-template) | 27 | 26 | 1 | 1332 | 7 / 26 | `base-challenge-template_zh` |
 | [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 0 / 46 | `challenge-crowdfunding_zh` |
 | [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 0 / 43 | `challenge-dex_zh` |
-| [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 0 / 46 | `challenge-dice-game_zh` |
+| [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 1 / 46 | `challenge-dice-game_zh` |
 | [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 0 / 123 | `challenge-oracles_zh` |
 | [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 0 / 65 | `challenge-over-collateralized-lending_zh` |
 | [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 0 / 66 | `challenge-prediction-markets_zh` |
 | [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 0 / 77 | `challenge-stablecoins_zh` |
 | [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 0 / 43 | `challenge-token-vendor_zh` |
-| [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 0 / 48 | `challenge-tokenization_zh` |
+| [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 27 / 48 | `challenge-tokenization_zh` |
 | [`challenge-zk-voting`](#challenge-zk-voting) | 72 | 61 | 11 | 10180 | 0 / 61 | `challenge-zk-voting_zh` |
 
 ## 子代理分组
@@ -41,7 +41,7 @@
 | `crowd-code` | 24 | 2656 | 🔄 进行中 |
 | `dex-readme` | 1 | 736 | 🔄 进行中 |
 | `dex-code` | 22 | 3558 | 🔄 进行中 |
-| `dice-readme` | 1 | 468 | 🔄 进行中 |
+| `dice-readme` | 1 | 468 | ✅ 已完成 |
 | `dice-code` | 25 | 2250 | 🔄 进行中 |
 | `orc-readme-p1` | 1 | 541 | ⏸️ 待启动 |
 | `orc-readme-p2` | 1 | 456 | ⏸️ 待启动 |
@@ -63,13 +63,13 @@
 | `pm-test` | 1 | 1508 | ⏸️ 待启动 |
 | `stab-readme-p1` | 1 | 645 | 🔄 进行中 |
 | `stab-readme-p2` | 1 | 570 | 🔄 进行中 |
-| `stab-web` | 26 | 4439 | ⏸️ 待启动 |
+| `stab-web` | 26 | 4439 | 🔄 进行中 |
 | `stab-sol` | 19 | 1556 | 🔄 进行中 |
 | `stab-test` | 10 | 3573 | 🔄 进行中 |
 | `vendor-readme` | 1 | 682 | 🔄 进行中 |
 | `vendor-code` | 21 | 2640 | 🔄 进行中 |
 | `nft-readme` | 1 | 366 | 🔄 进行中 |
-| `nft-code` | 27 | 2045 | 🔄 进行中 |
+| `nft-code` | 27 | 2045 | ✅ 已完成 |
 | `zk-readme-p1` | 1 | 462 | ⏸️ 待启动 |
 | `zk-readme-p2` | 1 | 556 | ⏸️ 待启动 |
 | `zk-readme-p3` | 1 | 548 | ⏸️ 待启动 |
@@ -241,7 +241,7 @@
 
 ### challenge-dice-game
 
-文本文件 46 个（已完成 0），二进制 20 个 → 目标分支 `challenge-dice-game_zh`
+文本文件 46 个（已完成 1），二进制 20 个 → 目标分支 `challenge-dice-game_zh`
 
 - [ ] `.cursorignore.example` — 4 行 · `common-shared`
 - [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
@@ -249,7 +249,7 @@
 - [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
 - [ ] `.gitignore.example` — 26 行 · `common-shared`
 - [ ] `LICENCE.txt` — 21 行 · `common-shared`
-- [ ] `README.md` — 468 行 · `dice-readme`
+- [x] `README.md` — 468 行 · `dice-readme` · ✅ 已生成 `README_zh.md`（/home/user/se-2-challenges/.worktrees/challenge-dice-game/README_zh.md，468 行（与原文一致）；check_md [OK]，9 条 WARN 已确认：L187 为代码块内注释翻译，其余 8 条为行内代码文件路径（不译））
 - [ ] `extension/.ai/CHALLENGE.yaml` — 504 行 · `dice-code`
 - [ ] `extension/.ai/CONCEPTS.yaml` — 86 行 · `dice-code`
 - [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
@@ -763,7 +763,7 @@
 
 ### challenge-tokenization
 
-文本文件 48 个（已完成 0），二进制 5 个 → 目标分支 `challenge-tokenization_zh`
+文本文件 48 个（已完成 27），二进制 5 个 → 目标分支 `challenge-tokenization_zh`
 
 - [ ] `.cursorignore.example` — 4 行 · `common-shared`
 - [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
@@ -772,8 +772,8 @@
 - [ ] `.gitignore.example` — 26 行 · `common-shared`
 - [ ] `LICENCE.txt` — 21 行 · `common-shared`
 - [ ] `README.md` — 366 行 · `nft-readme`
-- [ ] `extension/.ai/CHALLENGE.yaml` — 420 行 · `nft-code`
-- [ ] `extension/.ai/CONCEPTS.yaml` — 119 行 · `nft-code`
+- [x] `extension/.ai/CHALLENGE.yaml` — 420 行 · `nft-code` · ✅ 已翻译注释（改动 6 行：仅翻译结构层 checkpoint 分隔注释（# 1.~# 6.）；setup.template 块标量里的 Solidity TODO[...] 注释及各块标量 Markdown 正文按规范视为字符串未译）
+- [x] `extension/.ai/CONCEPTS.yaml` — 119 行 · `nft-code` · ✅ 无需改动（无结构层 # 注释，全部内容为字符串/块标量）
 - [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
 - [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
 - [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
@@ -785,34 +785,34 @@
 - [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
 - [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
 - [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
-- [ ] `extension/AGENTS.md.args.mjs` — 181 行 · `nft-code`
-- [ ] `extension/README.md.args.mjs` — 286 行 · `nft-code`
-- [ ] `extension/packages/foundry/contracts/YourCollectible.sol` — 49 行 · `nft-code`
-- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `nft-code`
-- [ ] `extension/packages/foundry/script/DeployYourCollectible.s.sol` — 12 行 · `nft-code`
-- [ ] `extension/packages/foundry/test/YourCollectible.t.sol` — 55 行 · `nft-code`
-- [ ] `extension/packages/hardhat/contracts/YourCollectible.sol` — 49 行 · `nft-code`
-- [ ] `extension/packages/hardhat/deploy/01_deploy_your_collectible.ts` — 28 行 · `nft-code`
-- [ ] `extension/packages/hardhat/test/YourCollectible.ts` — 63 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/api/ipfs/add/route.ts` — 15 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/api/ipfs/get-metadata/route.ts` — 13 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/ipfsDownload/page.tsx` — 82 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/ipfsUpload/page.tsx` — 81 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/myNFTs/_components/MyHoldings.tsx` — 104 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/myNFTs/_components/NFTCard.tsx` — 67 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/myNFTs/_components/index.ts` — 1 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/myNFTs/page.tsx` — 84 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 38 行 · `nft-code`
-- [ ] `extension/packages/nextjs/app/transfers/page.tsx` — 69 行 · `nft-code`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 29 行 · `nft-code`
+- [x] `extension/AGENTS.md.args.mjs` — 181 行 · `nft-code` · ✅ 已翻译注释（改动 1 行（L1 JS 注释）；模板字符串中的 Markdown 正文未译）
+- [x] `extension/README.md.args.mjs` — 286 行 · `nft-code` · ✅ 无需改动（无 JS 注释；模板字符串为 Markdown 正文，其中 sh 代码块无注释）
+- [x] `extension/packages/foundry/contracts/YourCollectible.sol` — 49 行 · `nft-code` · ✅ 已翻译注释（改动 1 行（L26）；与 hardhat 同名文件译文完全一致；SPDX 保留）
+- [x] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `nft-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/foundry/script/DeployYourCollectible.s.sol` — 12 行 · `nft-code` · ✅ 无需改动（仅 SPDX 许可标识（保留原样））
+- [x] `extension/packages/foundry/test/YourCollectible.t.sol` — 55 行 · `nft-code` · ✅ 无需改动（仅 SPDX 许可标识（保留原样））
+- [x] `extension/packages/hardhat/contracts/YourCollectible.sol` — 49 行 · `nft-code` · ✅ 已翻译注释（改动 1 行（L26）；与 foundry 同名文件译文完全一致；SPDX 保留）
+- [x] `extension/packages/hardhat/deploy/01_deploy_your_collectible.ts` — 28 行 · `nft-code` · ✅ 已翻译注释（改动 9 行（JSDoc 7 行 + tags 注释 2 行））
+- [x] `extension/packages/hardhat/test/YourCollectible.ts` — 63 行 · `nft-code` · ✅ 已翻译注释（改动 2 行（L2、L22））
+- [x] `extension/packages/nextjs/app/api/ipfs/add/route.ts` — 15 行 · `nft-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/api/ipfs/get-metadata/route.ts` — 13 行 · `nft-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/ipfsDownload/page.tsx` — 82 行 · `nft-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/ipfsUpload/page.tsx` — 81 行 · `nft-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `nft-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/myNFTs/_components/MyHoldings.tsx` — 104 行 · `nft-code` · ✅ 已翻译注释（改动 1 行（L52）；L79 eslint-disable 指令保留）
+- [x] `extension/packages/nextjs/app/myNFTs/_components/NFTCard.tsx` — 67 行 · `nft-code` · ✅ 无需改动（仅 JSX eslint-disable 指令注释（保留原样））
+- [x] `extension/packages/nextjs/app/myNFTs/_components/index.ts` — 1 行 · `nft-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/myNFTs/page.tsx` — 84 行 · `nft-code` · ✅ 已翻译注释（改动 2 行（L26、L45））
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 38 行 · `nft-code` · ✅ 无需改动（无注释（模板字符串为 JSX/UI 文案））
+- [x] `extension/packages/nextjs/app/transfers/page.tsx` — 69 行 · `nft-code` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 29 行 · `nft-code` · ✅ 已翻译注释（改动 2 行（L1、L4），保留 CHALLENGE-TODO: 标记）
 - [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared`
-- [ ] `extension/packages/nextjs/package.json` — 5 行 · `nft-code`
+- [x] `extension/packages/nextjs/package.json` — 5 行 · `nft-code` · ✅ 无需改动（JSON 无注释）
 - [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
 - [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
-- [ ] `extension/packages/nextjs/utils/tokenization/ipfs-fetch.ts` — 18 行 · `nft-code`
-- [ ] `extension/packages/nextjs/utils/tokenization/ipfs.ts` — 31 行 · `nft-code`
-- [ ] `extension/packages/nextjs/utils/tokenization/nftsMetadata.ts` — 126 行 · `nft-code`
+- [x] `extension/packages/nextjs/utils/tokenization/ipfs-fetch.ts` — 18 行 · `nft-code` · ✅ 已翻译注释（改动 1 行（L9））
+- [x] `extension/packages/nextjs/utils/tokenization/ipfs.ts` — 31 行 · `nft-code` · ✅ 已翻译注释（改动 3 行（L1、L13、L25））
+- [x] `extension/packages/nextjs/utils/tokenization/nftsMetadata.ts` — 126 行 · `nft-code` · ✅ 已翻译注释（改动 6 行（6 处相同的行尾注释））
 
 <details><summary>二进制文件 5 个（不处理）</summary>
 
