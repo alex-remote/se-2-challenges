@@ -4,8 +4,8 @@ description: "Build an ERC-20 token and an unstoppable vending machine that buys
 difficulty: "beginner"
 estimated_time: "3 - 8 hours"
 
-# CODE-WRITING challenge — both contracts have skeletons with empty function bodies.
-# No setup.template needed.
+# CODE-WRITING（编写代码）类挑战——两个合约都已提供骨架代码，函数体为空。
+# 不需要 setup.template。
 setup:
   file:
     hardhat: "packages/hardhat/contracts/Vendor.sol"
@@ -52,7 +52,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: ERC-20 Token Creation
+  # CHECKPOINT 1: 创建 ERC-20 代币
   # ============================================================
   - id: "erc20-token"
     title: "ERC-20 Token"
@@ -153,7 +153,7 @@ checkpoints:
         _mint(msg.sender, 1000 * 10 ** 18);
 
   # ============================================================
-  # CHECKPOINT 2: Vendor Buy Tokens
+  # CHECKPOINT 2: 从 Vendor 购买代币
   # ============================================================
   - id: "buy-tokens"
     title: "Vendor Buy Tokens"
@@ -329,7 +329,7 @@ checkpoints:
         emit BuyTokens(msg.sender, msg.value, amountOfTokens);
 
   # ============================================================
-  # CHECKPOINT 3: Ownable & Withdraw
+  # CHECKPOINT 3: Ownable 与提现
   # ============================================================
   - id: "ownable-withdraw"
     title: "Ownable & Withdraw"
@@ -461,7 +461,7 @@ checkpoints:
         if (!success) revert EthTransferFailed(owner(), ownerAmount);
 
   # ============================================================
-  # CHECKPOINT 4: Vendor Buyback (Sell Tokens)
+  # CHECKPOINT 4: Vendor 回购（出售代币）
   # ============================================================
   - id: "sell-tokens"
     title: "Vendor Buyback"

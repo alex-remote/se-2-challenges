@@ -1,4 +1,4 @@
-// If this is passed it will override the full content of the AGENTS.md file
+// 如果传入此项，它将覆盖 AGENTS.md 文件的全部内容
 export const fullContentOverride = ({solidityFramework}) => `# AGENTS.md
 
 ## What is Speedrun Ethereum?

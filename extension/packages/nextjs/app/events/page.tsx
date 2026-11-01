@@ -6,13 +6,13 @@ import { Address } from "@scaffold-ui/components";
 import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 const Events: NextPage = () => {
-  // BuyTokens Events
+  // BuyTokens 事件
   const { data: buyTokenEvents, isLoading: isBuyEventsLoading } = useScaffoldEventHistory({
     contractName: "Vendor",
     eventName: "BuyTokens",
   });
 
-  // // SellTokens Events
+  // // SellTokens 事件
   // const { data: sellTokenEvents, isLoading: isSellEventsLoading } = useScaffoldEventHistory({
   //   contractName: "Vendor",
   //   eventName: "SellTokens",
@@ -20,7 +20,7 @@ const Events: NextPage = () => {
 
   return (
     <div className="flex items-center flex-col flex-grow pt-10">
-      {/* BuyTokens Events */}
+      {/* BuyTokens 事件 */}
       <div>
         <div className="text-center mb-4">
           <span className="block text-2xl font-bold">Buy Token Events</span>
@@ -65,7 +65,7 @@ const Events: NextPage = () => {
         )}
       </div>
 
-      {/* SellTokens Events */}
+      {/* SellTokens 事件 */}
       {/* <div className="mt-14">
         <div className="text-center mb-4">
           <span className="block text-2xl font-bold">Sell Token Events</span>

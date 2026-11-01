@@ -4,7 +4,7 @@ export function multiplyTo1e18(tokens: string | bigint) {
   try {
     return parseEther(tokens.toString());
   } catch (err) {
-    // wrong tokens value
+    // 代币数量格式错误
     return 0n;
   }
 }

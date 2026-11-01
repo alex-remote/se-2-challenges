@@ -1,4 +1,4 @@
-pragma solidity 0.8.20; //Do not change the solidity version as it negatively impacts submission grading
+pragma solidity 0.8.20; //请勿更改 solidity 版本，否则会对提交评分产生不利影响
 // SPDX-License-Identifier: MIT
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -6,25 +6,25 @@ import "./YourToken.sol";
 
 contract Vendor is Ownable {
     /////////////////
-    /// Errors //////
+    /// 错误 ////////
     /////////////////
  
-    // Errors go here...
+    // 在这里定义错误...
 
     //////////////////////
-    /// State Variables //
+    /// 状态变量 /////////
     //////////////////////
 
     YourToken public immutable yourToken;
 
     ////////////////
-    /// Events /////
+    /// 事件 ///////
     ////////////////
 
-    // Events go here...
+    // 在这里定义事件...
 
     ///////////////////
-    /// Constructor ///
+    /// 构造函数 //////
     ///////////////////
 
     constructor(address tokenAddress) Ownable(msg.sender) {
@@ -32,7 +32,7 @@ contract Vendor is Ownable {
     }
 
     ///////////////////
-    /// Functions /////
+    /// 函数 //////////
     ///////////////////
 
     function buyTokens() external payable {

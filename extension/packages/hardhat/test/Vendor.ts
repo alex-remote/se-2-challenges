@@ -1,5 +1,5 @@
 //
-// this script executes when you run 'yarn harhat:test'
+// 当你运行 'yarn harhat:test' 时会执行此脚本
 //
 
 import { network } from "hardhat";
@@ -7,7 +7,7 @@ import { expect } from "chai";
 import type { Vendor, YourToken } from "../types/ethers-contracts/index.js";
 
 describe("🚩 Challenge: 🏵 Token Vendor 🤖", function () {
-  // NOTE: The README expects tests grouped by checkpoint so you can run:
+  // NOTE: README 要求测试按 checkpoint 分组，这样你就可以运行：
   //   yarn test --grep "Checkpoint1"
   //   yarn test --grep "Checkpoint2"
   //   yarn test --grep "Checkpoint3"
@@ -92,11 +92,11 @@ describe("🚩 Challenge: 🏵 Token Vendor 🤖", function () {
       const { user, yourToken, yourTokenAddress } = await deployYourTokenFixture();
       const { vendor, vendorAddress } = await deployVendorFixture(yourTokenAddress);
 
-      // Seed the Vendor with the full supply so it can sell.
+      // 把全部供应量注入 Vendor，使其可以出售代币。
       await yourToken.transfer(vendorAddress, INITIAL_SUPPLY);
 
       const ethToSpend = ethers.parseEther("0.1");
-      const expectedTokens = ethToSpend * TOKENS_PER_ETH; // 0.1 ETH * 100 = 10 tokens (18 decimals)
+      const expectedTokens = ethToSpend * TOKENS_PER_ETH; // 0.1 ETH * 100 = 10 个代币（18 位小数）
 
       const startingBalance = await yourToken.balanceOf(user.address);
       const tx = vendor.connect(user).buyTokens({ value: ethToSpend });
@@ -137,7 +137,7 @@ describe("🚩 Challenge: 🏵 Token Vendor 🤖", function () {
       const { deployer, user, yourToken, yourTokenAddress } = await deployYourTokenFixture();
       const { vendor, vendorAddress } = await deployVendorFixture(yourTokenAddress);
 
-      // Seed Vendor with tokens and buy tokens to fund Vendor with ETH.
+      // 向 Vendor 注入代币，并通过购买代币为 Vendor 注入 ETH。
       await yourToken.transfer(vendorAddress, INITIAL_SUPPLY);
       await vendor.connect(user).buyTokens({ value: ethers.parseEther("0.1") });
 
@@ -165,12 +165,12 @@ describe("🚩 Challenge: 🏵 Token Vendor 🤖", function () {
       const { deployer, user, yourToken, yourTokenAddress } = await deployYourTokenFixture();
       const { vendor, vendorAddress } = await deployVendorFixture(yourTokenAddress);
 
-      // Seed Vendor with tokens and fund Vendor with ETH.
+      // 向 Vendor 注入代币，并为 Vendor 注入 ETH。
       await yourToken.transfer(vendorAddress, INITIAL_SUPPLY);
       await vendor.connect(user).buyTokens({ value: ethers.parseEther("0.1") });
 
-      // Make the Vendor the owner of itself. Since Vendor has no receive()/payable fallback,
-      // sending ETH to it will revert by default, which should trigger EthTransferFailed.
+      // 让 Vendor 成为它自己的所有者。由于 Vendor 没有 receive()/payable fallback，
+      // 向它发送 ETH 默认会回滚（revert），从而应当触发 EthTransferFailed。
       await vendor.connect(deployer).transferOwnership(vendorAddress);
 
       const vendorEthBefore = await ethers.provider.getBalance(vendorAddress);
@@ -178,8 +178,8 @@ describe("🚩 Challenge: 🏵 Token Vendor 🤖", function () {
       await networkHelpers.impersonateAccount(vendorAddress);
       try {
         const vendorAsOwner = await ethers.getSigner(vendorAddress);
-        // Use a simulation call (no gas is paid from vendorAddress), otherwise the tx gas would
-        // be deducted from vendorAddress and `address(this).balance` would be smaller than vendorEthBefore.
+        // 使用模拟调用（不会从 vendorAddress 支付 gas），否则交易的 gas 会
+        // 从 vendorAddress 中扣除，导致 `address(this).balance` 小于 vendorEthBefore。
         await expect(vendor.connect(vendorAsOwner).withdraw.staticCall())
           .to.be.revertedWithCustomError(vendor, "EthTransferFailed")
           .withArgs(vendorAddress, vendorEthBefore);
@@ -201,11 +201,11 @@ describe("🚩 Challenge: 🏵 Token Vendor 🤖", function () {
       const { user, yourToken, yourTokenAddress } = await deployYourTokenFixture();
       const { vendor, vendorAddress } = await deployVendorFixture(yourTokenAddress);
 
-      // Give the user tokens directly so they can attempt to sell back.
+      // 直接给用户发放代币，以便他们尝试卖回。
       await yourToken.transfer(user.address, ethers.parseEther("10"));
       await yourToken.connect(user).approve(vendorAddress, ethers.parseEther("10"));
 
-      const amountToSell = ethers.parseEther("10"); // 10 tokens -> expects 0.1 ETH back
+      const amountToSell = ethers.parseEther("10"); // 10 个代币 -> 预期换回 0.1 ETH
       const expectedEth = amountToSell / TOKENS_PER_ETH;
 
       await expect(vendor.connect(user).sellTokens(amountToSell))
@@ -217,9 +217,9 @@ describe("🚩 Challenge: 🏵 Token Vendor 🤖", function () {
       const { user, yourToken, yourTokenAddress } = await deployYourTokenFixture();
       const { vendor, vendorAddress } = await deployVendorFixture(yourTokenAddress);
 
-      // Seed vendor with tokens and fund vendor with ETH by buying first.
+      // 向 Vendor 注入代币，并先通过购买为 Vendor 注入 ETH。
       await yourToken.transfer(vendorAddress, INITIAL_SUPPLY);
-      await vendor.connect(user).buyTokens({ value: ethers.parseEther("0.1") }); // user receives 10 tokens
+      await vendor.connect(user).buyTokens({ value: ethers.parseEther("0.1") }); // 用户获得 10 个代币
 
       const amountToSell = ethers.parseEther("10");
       const expectedEth = amountToSell / TOKENS_PER_ETH; // 0.1 ETH
@@ -235,11 +235,11 @@ describe("🚩 Challenge: 🏵 Token Vendor 🤖", function () {
       expect(receipt?.status).to.equal(1);
 
       const userEthAfter = await ethers.provider.getBalance(user.address);
-      // ethers v6 receipts expose `gasPrice` (effective gas price). Some toolchains expose `effectiveGasPrice`.
+      // ethers v6 的交易回执提供 `gasPrice`（实际生效的 gas 价格）。某些工具链提供的是 `effectiveGasPrice`。
       const effectiveGasPrice = ((receipt as any)?.gasPrice ?? (receipt as any)?.effectiveGasPrice ?? 0n) as bigint;
       const gasCost = (receipt?.gasUsed ?? 0n) * effectiveGasPrice;
 
-      // ETH change = +expectedEth - gas
+      // ETH 变化量 = +expectedEth - gas
       expect(userEthAfter).to.equal(userEthBefore + expectedEth - gasCost);
     });
   });

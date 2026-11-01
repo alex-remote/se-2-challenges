@@ -28,16 +28,16 @@ contract VendorTest is Test {
         yourToken = IERC20(address(tokenImpl));
         vendor = IVendor(address(new Vendor(address(yourToken))));
 
-        // Seed vendor with tokens
+        // 向 Vendor 注入初始代币
         yourToken.transfer(address(vendor), INITIAL_SUPPLY);
     }
 
     // ============================================================
-    // Checkpoint 1: YourToken (ERC20 mint + transfer)
+    // Checkpoint 1: YourToken（ERC20 铸造 + 转账）
     // ============================================================
 
     function test_Checkpoint1_MintsExactly1000TokensToDeployer() public {
-        // Deploy a fresh token to test initial state
+        // 部署一个全新的代币来测试初始状态
         IERC20 freshToken = IERC20(address(new YourToken()));
         assertEq(freshToken.totalSupply(), INITIAL_SUPPLY);
         assertEq(freshToken.balanceOf(address(this)), INITIAL_SUPPLY);
@@ -91,7 +91,7 @@ contract VendorTest is Test {
     }
 
     function test_Checkpoint2_RevertsIfVendorLacksTokens() public {
-        // Deploy a vendor with no tokens
+        // 部署一个没有任何代币的 Vendor
         IVendor emptyVendor = IVendor(address(new Vendor(address(yourToken))));
         uint256 ethToSpend = 1 ether;
         uint256 requiredTokens = ethToSpend * TOKENS_PER_ETH;
@@ -110,7 +110,7 @@ contract VendorTest is Test {
     }
 
     function test_Checkpoint3_NonOwnerCannotWithdraw() public {
-        // Fund vendor with ETH
+        // 向 Vendor 注入 ETH
         vm.prank(user);
         vendor.buyTokens{ value: 0.1 ether }();
 
@@ -120,7 +120,7 @@ contract VendorTest is Test {
     }
 
     function test_Checkpoint3_OwnerWithdrawsAllEth() public {
-        // Fund vendor with ETH via buy
+        // 通过购买向 Vendor 注入 ETH
         vm.prank(user);
         vendor.buyTokens{ value: 0.1 ether }();
 
@@ -136,7 +136,7 @@ contract VendorTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 4: Vendor buyback (sellTokens + approve)
+    // Checkpoint 4: Vendor 回购（sellTokens + approve）
     // ============================================================
 
     function test_Checkpoint4_SellTokensRejectsZeroAmount() public {
@@ -146,7 +146,7 @@ contract VendorTest is Test {
     }
 
     function test_Checkpoint4_SellTokensRevertsIfVendorLacksEth() public {
-        // Give user tokens directly
+        // 直接给用户发放代币
         IERC20 freshToken = IERC20(address(new YourToken()));
         IVendor noEthVendor = IVendor(address(new Vendor(address(freshToken))));
         freshToken.transfer(user, 10 ether);
@@ -163,11 +163,11 @@ contract VendorTest is Test {
     }
 
     function test_Checkpoint4_ApproveAndSellReturnsCorrectEth() public {
-        // User buys tokens first
+        // 用户先购买代币
         vm.prank(user);
         vendor.buyTokens{ value: 0.1 ether }();
 
-        uint256 amountToSell = 10 ether; // 10 tokens
+        uint256 amountToSell = 10 ether; // 10 个代币
         uint256 expectedEth = amountToSell / TOKENS_PER_ETH; // 0.1 ether
 
         vm.startPrank(user);
@@ -184,7 +184,7 @@ contract VendorTest is Test {
     }
 
     function test_Checkpoint4_SellTokensEmitsSellTokensEvent() public {
-        // User buys tokens first
+        // 用户先购买代币
         vm.prank(user);
         vendor.buyTokens{ value: 0.1 ether }();
 
@@ -201,6 +201,6 @@ contract VendorTest is Test {
         vm.stopPrank();
     }
 
-    // Allow this contract to receive ETH (for withdraw)
+    // 允许本合约接收 ETH（用于 withdraw）
     receive() external payable { }
 }
