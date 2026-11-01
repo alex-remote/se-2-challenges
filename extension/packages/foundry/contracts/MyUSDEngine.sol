@@ -15,8 +15,8 @@ error Engine__InsufficientCollateral();
 error Engine__TransferFailed();
 
 contract MyUSDEngine is Ownable {
-    uint256 private constant COLLATERAL_RATIO = 150; // 150% collateralization required
-    uint256 private constant LIQUIDATOR_REWARD = 10; // 10% reward for liquidators
+    uint256 private constant COLLATERAL_RATIO = 150; // 要求 150% 的抵押率
+    uint256 private constant LIQUIDATOR_REWARD = 10; // 清算人可获得 10% 的奖励
     uint256 private constant SECONDS_PER_YEAR = 365 days;
     uint256 private constant PRECISION = 1e18;
 
@@ -25,12 +25,12 @@ contract MyUSDEngine is Ownable {
     MyUSDStaking private i_staking;
     address private i_rateController;
 
-    uint256 public borrowRate; // Annual interest rate for borrowers in basis points (1% = 100)
+    uint256 public borrowRate; // 借款人的年利率，以基点表示（1% = 100）
 
-    // Total debt shares in the pool
+    // 池中的债务份额总量
     uint256 public totalDebtShares;
 
-    // Exchange rate between debt shares and MyUSD (1e18 precision)
+    // 债务份额与 MyUSD 之间的兑换率（1e18 精度）
     uint256 public debtExchangeRate;
     uint256 public lastUpdateTime;
 
@@ -66,10 +66,10 @@ contract MyUSDEngine is Ownable {
         i_staking = MyUSDStaking(_stakingAddress);
         i_rateController = _rateController;
         lastUpdateTime = block.timestamp;
-        debtExchangeRate = PRECISION; // 1:1 initially
+        debtExchangeRate = PRECISION; // 初始为 1:1
     }
 
-    // Checkpoint 2: Depositing Collateral & Understanding Value
+    // Checkpoint 2: 存入抵押品与理解价值
     function addCollateral() public payable {
         
     }
@@ -78,7 +78,7 @@ contract MyUSDEngine is Ownable {
         
     }
 
-    // Checkpoint 3: Interest Calculation System
+    // Checkpoint 3: 利息计算系统
     function _getCurrentExchangeRate() internal view returns (uint256) {
         
     }
@@ -91,7 +91,7 @@ contract MyUSDEngine is Ownable {
         
     }
 
-    // Checkpoint 4: Minting MyUSD & Position Health
+    // Checkpoint 4: 铸造 MyUSD 与仓位健康度
     function getCurrentDebtValue(address user) public view returns (uint256) {
         
     }
@@ -108,12 +108,12 @@ contract MyUSDEngine is Ownable {
         
     }
 
-    // Checkpoint 5: Accruing Interest & Managing Borrow Rates
+    // Checkpoint 5: 累积利息与管理借款利率
     function setBorrowRate(uint256 newRate) external onlyRateController {
         
     }
 
-    // Checkpoint 6: Repaying Debt & Withdrawing Collateral
+    // Checkpoint 6: 偿还债务与提取抵押品
     function repayUpTo(uint256 amount) public {
         
     }
@@ -122,7 +122,7 @@ contract MyUSDEngine is Ownable {
         
     }
 
-    // Checkpoint 7: Liquidation - Enforcing System Stability
+    // Checkpoint 7: 清算——维护系统稳定
     function isLiquidatable(address user) public view returns (bool) {
         
     }

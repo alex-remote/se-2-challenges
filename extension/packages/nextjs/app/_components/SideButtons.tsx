@@ -102,7 +102,7 @@ const SideButtons: React.FC = () => {
           ))}
         </div>
 
-        {/* Invisible bridge to cover the gap */}
+        {/* 用于填补间隙的不可见桥接层 */}
         {hoveredButton && (
           <div
             className="absolute top-1/2 -translate-y-1/2 right-full w-4 h-full pointer-events-auto"
@@ -111,7 +111,7 @@ const SideButtons: React.FC = () => {
           />
         )}
 
-        {/* Hover Windows */}
+        {/* 悬停弹出窗口 */}
         <div
           className={`absolute top-1/2 -translate-y-1/2 right-full mr-4 transition-all duration-300 z-20 ease-in-out ${hoveredButton ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
           onMouseEnter={handleContainerEnter}

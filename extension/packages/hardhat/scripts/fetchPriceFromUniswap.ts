@@ -76,11 +76,11 @@ export const fetchPriceFromUniswap = async (): Promise<bigint> => {
     const tokenReserve = isToken0 ? reserves[0] : reserves[1];
     const daiReserve = isToken0 ? reserves[1] : reserves[0];
 
-    // Calculate price (DAI per token)
+    // 计算价格（每个代币值多少 DAI）
     const price = BigInt(Math.floor((Number(daiReserve) / Number(tokenReserve)) * 1e18));
     return price;
   } catch (error) {
     console.error("Error fetching ETH price from Uniswap: ", error);
-    return 2600n * 10n ** 18n; // Default price as of 2025-06-02
+    return 2600n * 10n ** 18n; // 截至 2025-06-02 的默认价格
   }
 };

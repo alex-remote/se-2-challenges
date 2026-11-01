@@ -1,5 +1,5 @@
 //
-// This script executes when you run 'yarn test'
+// 此脚本会在你运行 'yarn test' 时执行
 //
 
 import { network } from "hardhat";
@@ -31,7 +31,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     borrowAmount = ethers.parseEther("5000");
     [owner, user1, user2] = await ethers.getSigners();
 
-    // For SRE Auto-grader - use the the downloaded contract instead of default contract
+    // 供 SRE 自动评分器使用——使用下载的合约而不是默认合约
     let contractArtifact = "";
     if (contractAddress) {
       contractArtifact = `contracts/download-${contractAddress}.sol:MyUSDEngine`;
@@ -39,42 +39,42 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
       contractArtifact = "contracts/MyUSDEngine.sol:MyUSDEngine";
     }
 
-    // Get the deployer's current nonce
+    // 获取部署者当前的 nonce
     const deployerNonce = await ethers.provider.getTransactionCount(owner.address);
 
-    // Calculate future addresses based on nonce
+    // 根据 nonce 计算合约未来的地址
     const futureStakingAddress = ethers.getCreateAddress({
       from: owner.address,
-      nonce: deployerNonce + 4, // +4 because it will be our fifth deployment
+      nonce: deployerNonce + 4, // +4，因为这将是我们的第五次部署
     });
 
     const futureEngineAddress = ethers.getCreateAddress({
       from: owner.address,
-      nonce: deployerNonce + 5, // +5 because it will be our sixth deployment
+      nonce: deployerNonce + 5, // +5，因为这将是我们的第六次部署
     });
 
-    // Deploy RateController first
+    // 先部署 RateController
     const RateControllerFactory = await ethers.getContractFactory("RateController");
     rateController = (await RateControllerFactory.deploy(
       futureEngineAddress,
       futureStakingAddress,
     )) as unknown as RateController;
 
-    // Deploy MyUSD with future addresses
+    // 使用预先计算的未来地址部署 MyUSD
     const MyUSDFactory = await ethers.getContractFactory("MyUSD");
     myUSDToken = (await MyUSDFactory.deploy(futureEngineAddress, futureStakingAddress)) as unknown as MyUSD;
 
-    // Deploy DEX
+    // 部署 DEX
     const DEXFactory = await ethers.getContractFactory("DEX");
     dex = (await DEXFactory.deploy(await myUSDToken.getAddress())) as unknown as DEX;
 
     const ethPrice = await fetchPriceFromUniswap();
 
-    // Deploy Oracle
+    // 部署 Oracle
     const OracleFactory = await ethers.getContractFactory("Oracle");
     oracle = (await OracleFactory.deploy(await dex.getAddress(), ethPrice)) as unknown as Oracle;
 
-    // Deploy MyUSDStaking
+    // 部署 MyUSDStaking
     const MyUSDStakingFactory = await ethers.getContractFactory("MyUSDStaking");
     staking = (await MyUSDStakingFactory.deploy(
       await myUSDToken.getAddress(),
@@ -82,7 +82,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
       await rateController.getAddress(),
     )) as unknown as MyUSDStaking;
 
-    // Finally deploy the MyUSDEngine at the predicted address
+    // 最后在预测的地址上部署 MyUSDEngine
     const MyUSDEngineFactory = await ethers.getContractFactory(contractArtifact);
     myUSDEngine = (await MyUSDEngineFactory.deploy(
       await oracle.getAddress(),
@@ -91,23 +91,23 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
       await rateController.getAddress(),
     )) as unknown as MyUSDEngine;
 
-    // Verify addresses match predictions
+    // 验证地址与预测结果一致
     expect(await myUSDEngine.getAddress()).to.equal(futureEngineAddress);
     expect(await staking.getAddress()).to.equal(futureStakingAddress);
 
     const ethCollateralAmount = ethers.parseEther("5000");
-    // Initialize DEX with liquidity
+    // 为 DEX 初始化流动性
     const ethDEXAmount = ethers.parseEther("1000");
     const myUSDAmount = (await oracle.getETHUSDPrice()) * 1000n;
 
-    // Add collateral and mint MyUSD for DEX initialization
+    // 添加抵押品并铸造 MyUSD，用于初始化 DEX
     await myUSDEngine.addCollateral({ value: ethCollateralAmount });
     await myUSDEngine.mintMyUSD(myUSDAmount);
 
     const confirmedBalance = await myUSDToken.balanceOf(owner.address);
-    // Don't add DEX liquidity if the deployer account doesn't have the stablecoins
+    // 如果部署者账户没有这些稳定币，就不向 DEX 添加流动性
     if (confirmedBalance == myUSDAmount) {
-      // Approve DEX to use tokens and initialize DEX
+      // 授权 DEX 使用代币并初始化 DEX
       await myUSDToken.approve(dex.target, myUSDAmount);
       await dex.init(myUSDAmount, { value: ethDEXAmount });
     }
@@ -226,7 +226,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should allow liquidation when position is unsafe", async function () {
-      // drop price of eth so that user1 position is below 1.5
+      // 压低 ETH 价格，使 user1 的仓位低于 1.5
       const amountToSwap = ethers.parseEther("10");
       await dex.swap(amountToSwap, { value: amountToSwap });
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -268,11 +268,11 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
     it("Should prevent non-rate controller from setting borrow rate", async function () {
       const newRate = 500;
-      // First verify rate controller can set it (will fail with empty function)
+      // 先验证利率控制器可以设置它（若函数为空则会失败）
       await rateController.setBorrowRate(newRate);
       expect(await myUSDEngine.borrowRate()).to.equal(newRate);
 
-      // Then verify non-rate controller cannot
+      // 再验证非利率控制器无法设置
       await expect(myUSDEngine.connect(user1).setBorrowRate(newRate)).to.be.revertedWithCustomError(
         myUSDEngine,
         "Engine__NotRateController",
@@ -280,12 +280,12 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should prevent setting borrow rate below savings rate", async function () {
-      // First set borrow rate to 4%
+      // 先把借款利率设为 4%
       await rateController.setBorrowRate(400);
-      // Then set savings rate to 3%
+      // 再把储蓄利率设为 3%
       await rateController.setSavingsRate(300);
 
-      // Try to set borrow rate to 2% (below savings rate) - should revert
+      // 尝试把借款利率设为 2%（低于储蓄利率）——应当回滚（revert）
       await expect(rateController.setBorrowRate(200)).to.be.revertedWithCustomError(
         myUSDEngine,
         "Engine__InvalidBorrowRate",
@@ -315,9 +315,9 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
     it("Should not accrue interest with zero borrow rate", async function () {
       const initialDebt = await myUSDEngine.getCurrentDebtValue(user1.address);
-      expect(initialDebt).to.be.gt(0); // Verify debt was actually created
+      expect(initialDebt).to.be.gt(0); // 验证确实产生了债务
 
-      // Fast forward time by 1 year
+      // 让时间快进 1 年
       await ethers.provider.send("evm_increaseTime", [365 * 24 * 60 * 60]);
       await ethers.provider.send("evm_mine", []);
 
@@ -326,13 +326,13 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should accrue interest correctly over time", async function () {
-      const borrowRate = 1000; // 10% annual
+      const borrowRate = 1000; // 年化 10%
       await rateController.setBorrowRate(borrowRate);
 
       const initialDebt = await myUSDEngine.getCurrentDebtValue(user1.address);
-      expect(initialDebt).to.be.gt(0); // Verify debt was actually created
+      expect(initialDebt).to.be.gt(0); // 验证确实产生了债务
 
-      // Fast forward time by 1 year
+      // 让时间快进 1 年
       await ethers.provider.send("evm_increaseTime", [365 * 24 * 60 * 60]);
       await ethers.provider.send("evm_mine", []);
 
@@ -343,14 +343,14 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should accrue interest proportionally over partial time periods", async function () {
-      const borrowRate = 1200; // 12% annual
+      const borrowRate = 1200; // 年化 12%
       await rateController.setBorrowRate(borrowRate);
 
       const initialDebt = await myUSDEngine.getCurrentDebtValue(user1.address);
-      expect(initialDebt).to.be.gt(0); // Verify debt was actually created
+      expect(initialDebt).to.be.gt(0); // 验证确实产生了债务
 
-      // Fast forward time by 6 months
-      await ethers.provider.send("evm_increaseTime", [182 * 24 * 60 * 60]); // ~6 months
+      // 让时间快进 6 个月
+      await ethers.provider.send("evm_increaseTime", [182 * 24 * 60 * 60]); // 约 6 个月
       await ethers.provider.send("evm_mine", []);
 
       const finalDebt = await myUSDEngine.getCurrentDebtValue(user1.address);
@@ -360,21 +360,21 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should handle multiple interest accrual periods", async function () {
-      const borrowRate = 500; // 5% annual
+      const borrowRate = 500; // 年化 5%
       await rateController.setBorrowRate(borrowRate);
 
       const initialDebt = await myUSDEngine.getCurrentDebtValue(user1.address);
-      expect(initialDebt).to.be.gt(0); // Verify debt was actually created
+      expect(initialDebt).to.be.gt(0); // 验证确实产生了债务
 
-      // Fast forward 3 months
+      // 快进 3 个月
       await ethers.provider.send("evm_increaseTime", [91 * 24 * 60 * 60]);
       await ethers.provider.send("evm_mine", []);
 
       const midDebt = await myUSDEngine.getCurrentDebtValue(user1.address);
       const expectedMidDebt = initialDebt + (initialDebt * BigInt(borrowRate) * 91n) / (365n * 10000n);
 
-      // Change rate and fast forward another 3 months
-      await rateController.setBorrowRate(800); // 8% annual
+      // 修改利率，并再快进 3 个月
+      await rateController.setBorrowRate(800); // 年化 8%
 
       const afterRateChangeDebt = await myUSDEngine.getCurrentDebtValue(user1.address);
       await ethers.provider.send("evm_increaseTime", [91 * 24 * 60 * 60]);
@@ -407,11 +407,11 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
     it("Should prevent non-rate controller from setting savings rate", async function () {
       const newRate = 300;
-      // First verify rate controller can set it (will fail with empty function)
+      // 先验证利率控制器可以设置它（若函数为空则会失败）
       await rateController.setSavingsRate(newRate);
       expect(await staking.savingsRate()).to.equal(newRate);
 
-      // Then verify non-rate controller cannot
+      // 再验证非利率控制器无法设置
       await expect(staking.connect(user1).setSavingsRate(newRate)).to.be.revertedWithCustomError(
         staking,
         "Staking__NotRateController",
@@ -419,7 +419,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should prevent setting savings rate above borrow rate", async function () {
-      // Try to set savings rate to 5% (above borrow rate) - should revert
+      // 尝试把储蓄利率设为 5%（高于借款利率）——应当回滚
       await expect(rateController.setSavingsRate(500)).to.be.revertedWithCustomError(
         staking,
         "Staking__InvalidSavingsRate",
@@ -443,11 +443,11 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
   describe("Staking Operations", function () {
     beforeEach(async function () {
-      // Get some MyUSD tokens for testing
+      // 获取一些 MyUSD 代币用于测试
       await myUSDEngine.connect(user1).addCollateral({ value: collateralAmount });
       await myUSDEngine.connect(user1).mintMyUSD(borrowAmount);
 
-      // Verify that user1 got the tokens
+      // 验证 user1 拿到了代币
       expect(await myUSDToken.balanceOf(user1.address)).to.be.gt(0);
     });
 
@@ -466,7 +466,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
       await expect(staking.connect(user1).stake(stakeAmount))
         .to.emit(staking, "Staked")
-        .withArgs(user1.address, stakeAmount, stakeAmount); // 1:1 initially
+        .withArgs(user1.address, stakeAmount, stakeAmount); // 初始为 1:1
     });
 
     it("Should prevent staking zero amount", async function () {
@@ -474,7 +474,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should prevent staking without sufficient balance", async function () {
-      const stakeAmount = ethers.parseEther("100000"); // More than user has
+      const stakeAmount = ethers.parseEther("100000"); // 超过用户持有的数量
       await myUSDToken.connect(user1).approve(staking.target, stakeAmount);
 
       await expect(staking.connect(user1).stake(stakeAmount)).to.be.revertedWithCustomError(
@@ -485,7 +485,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
     it("Should prevent staking without sufficient allowance", async function () {
       const stakeAmount = ethers.parseEther("1000");
-      // Don't approve or approve less
+      // 不授权，或授权不足的额度
       await myUSDToken.connect(user1).approve(staking.target, stakeAmount / 2n);
 
       await expect(staking.connect(user1).stake(stakeAmount)).to.be.revertedWithCustomError(
@@ -513,7 +513,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
   describe("Withdrawal Operations", function () {
     beforeEach(async function () {
-      // Setup user with MyUSD and stake some
+      // 为用户准备 MyUSD 并质押一部分
       await myUSDEngine.connect(user1).addCollateral({ value: collateralAmount });
       await myUSDEngine.connect(user1).mintMyUSD(borrowAmount);
 
@@ -550,8 +550,8 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     it("Should handle withdrawal after partial time with no interest", async function () {
       const stakeAmount = ethers.parseEther("1000");
 
-      // Fast forward time but no savings rate set
-      await ethers.provider.send("evm_increaseTime", [30 * 24 * 60 * 60]); // 30 days
+      // 让时间快进，但不设置储蓄利率
+      await ethers.provider.send("evm_increaseTime", [30 * 24 * 60 * 60]); // 30 天
       await ethers.provider.send("evm_mine", []);
 
       const balanceBeforeWithdraw = await staking.getBalance(user1.address);
@@ -564,7 +564,7 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
   describe("Savings Interest Accrual", function () {
     beforeEach(async function () {
-      // Setup user with MyUSD and stake some
+      // 为用户准备 MyUSD 并质押一部分
       await myUSDEngine.connect(user1).addCollateral({ value: collateralAmount });
       await myUSDEngine.connect(user1).mintMyUSD(borrowAmount);
 
@@ -575,9 +575,9 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
     it("Should not accrue interest with zero savings rate", async function () {
       const initialBalance = await staking.getBalance(user1.address);
-      expect(initialBalance).to.be.gt(0); // Verify tokens were actually staked
+      expect(initialBalance).to.be.gt(0); // 验证代币确实已被质押
 
-      // Fast forward time by 1 year
+      // 让时间快进 1 年
       await ethers.provider.send("evm_increaseTime", [365 * 24 * 60 * 60]);
       await ethers.provider.send("evm_mine", []);
 
@@ -586,15 +586,15 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should accrue interest correctly over time", async function () {
-      const borrowRate = 1000; // 10% annual
-      const savingsRate = 800; // 8% annual
+      const borrowRate = 1000; // 年化 10%
+      const savingsRate = 800; // 年化 8%
       await rateController.setBorrowRate(borrowRate);
       await rateController.setSavingsRate(savingsRate);
 
       const initialBalance = await staking.getBalance(user1.address);
-      expect(initialBalance).to.be.gt(0); // Verify tokens were actually staked
+      expect(initialBalance).to.be.gt(0); // 验证代币确实已被质押
 
-      // Fast forward time by 1 year
+      // 让时间快进 1 年
       await ethers.provider.send("evm_increaseTime", [365 * 24 * 60 * 60]);
       await ethers.provider.send("evm_mine", []);
 
@@ -605,16 +605,16 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
     });
 
     it("Should accrue interest proportionally over partial time periods", async function () {
-      const borrowRate = 1200; // 12% annual
-      const savingsRate = 900; // 9% annual
+      const borrowRate = 1200; // 年化 12%
+      const savingsRate = 900; // 年化 9%
       await rateController.setBorrowRate(borrowRate);
       await rateController.setSavingsRate(savingsRate);
 
       const initialBalance = await staking.getBalance(user1.address);
-      expect(initialBalance).to.be.gt(0); // Verify tokens were actually staked
+      expect(initialBalance).to.be.gt(0); // 验证代币确实已被质押
 
-      // Fast forward time by 6 months
-      await ethers.provider.send("evm_increaseTime", [182 * 24 * 60 * 60]); // ~6 months
+      // 让时间快进 6 个月
+      await ethers.provider.send("evm_increaseTime", [182 * 24 * 60 * 60]); // 约 6 个月
       await ethers.provider.send("evm_mine", []);
 
       const finalBalance = await staking.getBalance(user1.address);
@@ -625,25 +625,25 @@ describe("🚩 Stablecoin Challenge 🤓", function () {
 
     it("Should handle multiple interest accrual periods", async function () {
       await rateController.setBorrowRate(600); // 6%
-      await rateController.setSavingsRate(400); // 4% annual
+      await rateController.setSavingsRate(400); // 年化 4%
 
       const initialBalance = await staking.getBalance(user1.address);
-      expect(initialBalance).to.be.gt(0); // Verify tokens were actually staked
+      expect(initialBalance).to.be.gt(0); // 验证代币确实已被质押
 
-      // Fast forward 3 months
+      // 快进 3 个月
       await ethers.provider.send("evm_increaseTime", [91 * 24 * 60 * 60]);
       await ethers.provider.send("evm_mine", []);
 
-      // Get the balance before rate change - this should include 91 days of 4% interest
+      // 获取利率变更前的余额——应包含 91 天、4% 利率的利息
       const expectedMidBalance = initialBalance + (initialBalance * BigInt(400) * 91n) / (365n * 10000n);
       const midBalance = await staking.getBalance(user1.address);
 
-      // Change rate and fast forward another 3 months
+      // 修改利率，并再快进 3 个月
       await rateController.setBorrowRate(1000); // 10%
-      await rateController.setSavingsRate(700); // 7% annual
+      await rateController.setSavingsRate(700); // 年化 7%
 
       const balanceAfterRateChange = await staking.getBalance(user1.address);
-      // Now we fast forward time with the new 7% rate
+      // 现在按新的 7% 利率让时间快进
       await ethers.provider.send("evm_increaseTime", [91 * 24 * 60 * 60]);
       await ethers.provider.send("evm_mine", []);
 

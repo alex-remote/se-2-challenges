@@ -4,21 +4,21 @@ pragma solidity ^0.8.20;
 import "./DEX.sol";
 
 contract Oracle {
-    /* ========== STATE VARIABLES ========== */
+    /* ========== 状态变量 ========== */
 
     DEX public dexAddress;
     uint256 public defaultPrice;
-    /* ========== CONSTRUCTOR ========== */
+    /* ========== 构造函数 ========== */
 
     constructor(address _dexAddress, uint256 _defaultPrice) {
         dexAddress = DEX(_dexAddress);
         defaultPrice = _defaultPrice;
     }
 
-    /* ========== PUBLIC FUNCTIONS ========== */
+    /* ========== 公共函数 ========== */
 
     function getETHMyUSDPrice() public view returns (uint256) {
-        // Oracle just returns price from DEX unless no liquidity is available
+        // 预言机直接返回 DEX 的价格，除非没有可用的流动性
         uint256 _price = dexAddress.currentPrice();
         if (_price == 0) {
             _price = defaultPrice;

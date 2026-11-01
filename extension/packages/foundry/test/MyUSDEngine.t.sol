@@ -22,7 +22,7 @@ contract MyUSDEngineTest is Test {
     address public user1;
     address public user2;
 
-    uint256 constant ETH_PRICE = 2000 ether; // $2000 per ETH
+    uint256 constant ETH_PRICE = 2000 ether; // 每个 ETH 价值 $2000
     uint256 constant COLLATERAL_AMOUNT = 10 ether;
     uint256 constant BORROW_AMOUNT = 5000 ether;
 
@@ -35,12 +35,12 @@ contract MyUSDEngineTest is Test {
         vm.deal(user2, 100 ether);
         vm.deal(owner, 100_000_000 ether);
 
-        // Pre-compute addresses for circular dependencies
+        // 预先计算地址，以解决合约之间的循环依赖
         uint64 nonce = vm.getNonce(owner);
         address futureStakingAddress = vm.computeCreateAddress(owner, nonce + 4);
         address futureEngineAddress = vm.computeCreateAddress(owner, nonce + 5);
 
-        // Deploy in order: RateController, MyUSD, DEX, Oracle, MyUSDStaking, MyUSDEngine
+        // 按顺序部署：RateController、MyUSD、DEX、Oracle、MyUSDStaking、MyUSDEngine
         rateController = new RateController(futureEngineAddress, futureStakingAddress);
         myUSD = new MyUSD(futureEngineAddress, futureStakingAddress);
         dex = new DEX(address(myUSD));
@@ -50,11 +50,11 @@ contract MyUSDEngineTest is Test {
             address(new MyUSDEngine(address(oracle), address(myUSD), address(staking), address(rateController)))
         );
 
-        // Verify addresses match predictions
+        // 验证地址与预测结果一致
         assertEq(address(staking), futureStakingAddress, "Staking address mismatch");
         assertEq(address(engine), futureEngineAddress, "Engine address mismatch");
 
-        // Seed DEX liquidity: deposit collateral, mint MyUSD, init DEX
+        // 为 DEX 注入初始流动性：存入抵押品、铸造 MyUSD、初始化 DEX
         uint256 ethDEXAmount = 1000 ether;
         uint256 myUSDAmount = ETH_PRICE / 1e18 * ethDEXAmount; // 2000 * 1000 = 2_000_000 ether
 
@@ -66,7 +66,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Deployment
+    // 部署
     // ============================================================
 
     function test_DeployWithCorrectInitialState() public view {
@@ -78,7 +78,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 1: Collateral, Interest System & Minting
+    // Checkpoint 1: 抵押品、利息系统与铸造
     // ============================================================
 
     function test_Checkpoint1_AllowAddingCollateral() public {
@@ -119,7 +119,7 @@ contract MyUSDEngineTest is Test {
         vm.stopPrank();
     }
 
-    // (Checkpoint 1 continued: Borrowing)
+    // （Checkpoint 1 续：借款）
 
     function test_Checkpoint1_AllowWhenSufficientlyCollateralized() public {
         vm.startPrank(user1);
@@ -136,7 +136,7 @@ contract MyUSDEngineTest is Test {
         vm.startPrank(user1);
         engine.addCollateral{ value: COLLATERAL_AMOUNT }();
 
-        // Try to borrow 100% of collateral value (exceeds 150% ratio)
+        // 尝试借入抵押品价值的 100%（超过 150% 抵押率的限制）
         uint256 tooMuchBorrow = (oracle.getETHMyUSDPrice() * COLLATERAL_AMOUNT) / 1e18;
         vm.expectRevert(abi.encodeWithSelector(bytes4(keccak256("Engine__UnsafePositionRatio()"))));
         engine.mintMyUSD(tooMuchBorrow);
@@ -162,7 +162,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 3: Repaying Debt & Withdrawing Collateral
+    // Checkpoint 3: 偿还债务与提取抵押品
     // ============================================================
 
     function _setupBorrower() internal {
@@ -198,7 +198,7 @@ contract MyUSDEngineTest is Test {
 
         vm.startPrank(user1);
         myUSD.approve(address(engine), BORROW_AMOUNT * 2);
-        // Get more MyUSD by swapping ETH
+        // 通过用 ETH 兑换来获取更多 MyUSD
         dex.swap{ value: 10 ether }(10 ether);
         engine.repayUpTo(BORROW_AMOUNT * 2);
         assertEq(engine.s_userDebtShares(user1), 0);
@@ -225,20 +225,20 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 4: Liquidation
+    // Checkpoint 4: 清算
     // ============================================================
 
     function _setupLiquidation() internal returns (uint256 borrowedAmount) {
-        // user1 deposits 1 ETH and borrows near-max
+        // user1 存入 1 ETH 并借入接近上限的金额
         uint256 ethPrice = oracle.getETHMyUSDPrice();
-        borrowedAmount = (ethPrice * 1000) / 1505; // ~66% of collateral value
+        borrowedAmount = (ethPrice * 1000) / 1505; // 约为抵押品价值的 66%
 
         vm.prank(user1);
         engine.addCollateral{ value: 1 ether }();
         vm.prank(user1);
         engine.mintMyUSD(borrowedAmount);
 
-        // Give user2 enough MyUSD to liquidate
+        // 给 user2 足够的 MyUSD 用于清算
         uint256 liquidatorAmount = borrowedAmount * 10;
         engine.addCollateral{ value: 100 ether }();
         engine.mintMyUSD(liquidatorAmount);
@@ -251,7 +251,7 @@ contract MyUSDEngineTest is Test {
     function test_Checkpoint4_AllowWhenPositionUnsafe() public {
         _setupLiquidation();
 
-        // Drop ETH price by swapping ETH for MyUSD
+        // 通过用 ETH 兑换 MyUSD 来压低 ETH 价格
         dex.swap{ value: 10 ether }(10 ether);
 
         assertTrue(engine.isLiquidatable(user1));
@@ -277,7 +277,7 @@ contract MyUSDEngineTest is Test {
     function test_Checkpoint4_EmitEvent() public {
         _setupLiquidation();
 
-        // Drop ETH price
+        // 压低 ETH 价格
         dex.swap{ value: 10 ether }(10 ether);
 
         vm.prank(user2);
@@ -295,7 +295,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 5: Borrow Rate Management
+    // Checkpoint 5: 借款利率管理
     // ============================================================
 
     function test_Checkpoint5_AllowRateControllerToSet() public {
@@ -348,7 +348,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 2: Interest Accrual & Borrow Rate
+    // Checkpoint 2: 利息累积与借款利率
     // ============================================================
 
     function test_Checkpoint2_NoAccrualWithZeroBorrowRate() public {
@@ -377,7 +377,7 @@ contract MyUSDEngineTest is Test {
         rateController.setBorrowRate(1200); // 12%
         uint256 initialDebt = engine.getCurrentDebtValue(user1);
 
-        vm.warp(block.timestamp + 182 days); // ~6 months
+        vm.warp(block.timestamp + 182 days); // 约 6 个月
         uint256 finalDebt = engine.getCurrentDebtValue(user1);
         uint256 expectedDebt = initialDebt + (initialDebt * 1200 * 182) / (365 * 10000);
         assertApproxEqAbs(finalDebt, expectedDebt, 0.001 ether);
@@ -388,17 +388,17 @@ contract MyUSDEngineTest is Test {
         rateController.setBorrowRate(500); // 5%
         uint256 initialDebt = engine.getCurrentDebtValue(user1);
 
-        // First period: 91 days at 5%
+        // 第一阶段：以 5% 计息 91 天
         vm.warp(block.timestamp + 91 days);
         uint256 midDebt = engine.getCurrentDebtValue(user1);
         uint256 expectedMid = initialDebt + (initialDebt * 500 * 91) / (365 * 10000);
         assertApproxEqAbs(midDebt, expectedMid, 0.001 ether);
 
-        // Change rate to 8%
+        // 将利率改为 8%
         rateController.setBorrowRate(800);
         uint256 debtAfterRateChange = engine.getCurrentDebtValue(user1);
 
-        // Second period: 91 more days at 8%
+        // 第二阶段：再以 8% 计息 91 天
         vm.warp(block.timestamp + 91 days);
         uint256 finalDebt = engine.getCurrentDebtValue(user1);
         uint256 expectedFinal = debtAfterRateChange + (debtAfterRateChange * 800 * 91) / (365 * 10000);
@@ -406,7 +406,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Savings Rate Management
+    // 储蓄利率管理
     // ============================================================
 
     function test_SavingsRate_AllowRateControllerToSet() public {
@@ -454,7 +454,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Staking Operations
+    // 质押操作
     // ============================================================
 
     function _setupStaker() internal {
@@ -537,7 +537,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Withdrawal Operations
+    // 提取操作
     // ============================================================
 
     function _setupStakerWithStake() internal {
@@ -586,7 +586,7 @@ contract MyUSDEngineTest is Test {
         _setupStakerWithStake();
 
         vm.warp(block.timestamp + 30 days);
-        assertEq(staking.getBalance(user1), 1000 ether); // No interest accrual at 0% rate
+        assertEq(staking.getBalance(user1), 1000 ether); // 利率为 0% 时不产生利息
 
         vm.prank(user1);
         staking.withdraw();
@@ -594,7 +594,7 @@ contract MyUSDEngineTest is Test {
     }
 
     // ============================================================
-    // Savings Interest Accrual
+    // 储蓄利息累积
     // ============================================================
 
     function test_SavingsInterest_NoAccrualWithZeroRate() public {
@@ -635,18 +635,18 @@ contract MyUSDEngineTest is Test {
         rateController.setSavingsRate(400); // 4%
         uint256 initialBalance = staking.getBalance(user1);
 
-        // First period: 91 days at 4%
+        // 第一阶段：以 4% 计息 91 天
         vm.warp(block.timestamp + 91 days);
         uint256 midBalance = staking.getBalance(user1);
         uint256 expectedMid = initialBalance + (initialBalance * 400 * 91) / (365 * 10000);
         assertApproxEqAbs(midBalance, expectedMid, 0.001 ether);
 
-        // Change rates
+        // 修改利率
         rateController.setBorrowRate(1000);
         rateController.setSavingsRate(700); // 7%
         uint256 balanceAfterRateChange = staking.getBalance(user1);
 
-        // Second period: 91 more days at 7%
+        // 第二阶段：再以 7% 计息 91 天
         vm.warp(block.timestamp + 91 days);
         uint256 finalBalance = staking.getBalance(user1);
         uint256 expectedFinal = balanceAfterRateChange + (balanceAfterRateChange * 700 * 91) / (365 * 10000);

@@ -52,7 +52,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: Collateral, Interest System & Minting
+  # CHECKPOINT 1: 抵押品、利息系统与铸造
   # ============================================================
   - id: "collateral-and-minting"
     title: "Collateral, Interest System & Minting"
@@ -354,7 +354,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 2: Borrow Rate Management
+  # CHECKPOINT 2: 借款利率管理
   # ============================================================
   - id: "borrow-rate"
     title: "Borrow Rate Management"
@@ -433,7 +433,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 3: Repaying Debt & Withdrawing Collateral
+  # CHECKPOINT 3: 偿还债务与提取抵押品
   # ============================================================
   - id: "repay-and-withdraw"
     title: "Repaying Debt & Withdrawing Collateral"
@@ -601,7 +601,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 4: Liquidation
+  # CHECKPOINT 4: 清算
   # ============================================================
   - id: "liquidation"
     title: "Liquidation - Enforcing System Stability"
@@ -785,7 +785,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 5: Rate Validation - Savings Rate Constraint
+  # CHECKPOINT 5: 利率校验——储蓄利率约束
   # ============================================================
   - id: "rate-validation"
     title: "Rate Validation - The Savings Rate Constraint"

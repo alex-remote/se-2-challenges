@@ -42,7 +42,7 @@ export const TokenTransferModal = ({ tokenBalance, connectedAddress, modalId }: 
       <input type="checkbox" id={`${modalId}`} className="modal-toggle" />
       <label htmlFor={`${modalId}`} className="modal cursor-pointer">
         <label className="modal-box relative">
-          {/* dummy input to capture event onclick on modal box */}
+          {/* 用于捕获模态框 onclick 事件的占位 input */}
           <input className="h-0 w-0 absolute top-0 left-0" />
           <h3 className="text-xl font-bold mb-3">Send {tokenName}</h3>
           <div className="absolute top-3 right-3 flex items-center space-x-2">

@@ -15,8 +15,8 @@ contract RateController {
     }
 
     /**
-     * @notice Set the borrow rate for the MyUSD engine
-     * @param newRate The new borrow rate to set
+     * @notice 设置 MyUSD 引擎的借款利率
+     * @param newRate 要设置的新借款利率
      */
     function setBorrowRate(uint256 newRate) external {
         try i_myUSD.setBorrowRate(newRate) {} catch {
@@ -25,8 +25,8 @@ contract RateController {
     }
 
     /**
-     * @notice Set the savings rate for the MyUSD staking contract
-     * @param newRate The new savings rate to set
+     * @notice 设置 MyUSD 质押合约的储蓄利率
+     * @param newRate 要设置的新储蓄利率
      */
     function setSavingsRate(uint256 newRate) external {
         try i_staking.setSavingsRate(newRate) {} catch {

@@ -7,7 +7,7 @@ interface TooltipInfoProps {
   infoText: string;
 }
 
-// Note: The indicator should be added to the outer component where this component is used.
+// Note: indicator（指示器）应添加到使用本组件的外层组件上。
 const TooltipInfo: React.FC<TooltipInfoProps> = ({ top, right, infoText }) => {
   return (
     <span className={`top-${top} right-${right} indicator-item flex justify-center`}>

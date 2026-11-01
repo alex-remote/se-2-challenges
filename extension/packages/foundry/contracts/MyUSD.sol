@@ -29,7 +29,7 @@ contract MyUSD is ERC20, ERC20Burnable, Ownable {
     }
 
     function mintTo(address to, uint256 amount) external returns (bool) {
-        // Only the engine contract can mint because MyUSD must always have collateral backing it
+        // 只有引擎合约可以铸造，因为 MyUSD 必须始终有抵押品作为支撑
         if (msg.sender != engineContract) revert MyUSD__NotAuthorized();
 
         if (to == address(0)) {
@@ -43,24 +43,24 @@ contract MyUSD is ERC20, ERC20Burnable, Ownable {
     }
 
     /**
-     * @dev Overrides the standard balanceOf function to handle virtual balances for staking
+     * @dev 重写标准的 balanceOf 函数，以处理质押的虚拟余额
      */
     function balanceOf(address account) public view override returns (uint256) {
-        // For normal accounts, return standard balance
+        // 对于普通账户，返回标准余额
         if (account != stakingContract) {
             return super.balanceOf(account);
         }
 
-        // For the staking contract, return the value of the shares
+        // 对于质押合约，返回份额的价值
         MyUSDStaking staking = MyUSDStaking(stakingContract);
         return staking.getSharesValue(staking.totalShares());
     }
 
     /**
-     * @dev Overrides the standard _update function to handle virtual balances for staking
+     * @dev 重写标准的 _update 函数，以处理质押的虚拟余额
      */
     function _update(address from, address to, uint256 value) internal override {
-        // If staking contract is transferring burn or mint since its balance is virtual
+        // 如果是质押合约参与转账，则改为销毁或铸造，因为它的余额是虚拟的
         if (from == stakingContract) {
             super._mint(to, value);
         } else if (to == stakingContract) {
@@ -71,7 +71,7 @@ contract MyUSD is ERC20, ERC20Burnable, Ownable {
     }
 
     /**
-     * @dev Overrides the standard totalSupply function to handle virtual balances for staking
+     * @dev 重写标准的 totalSupply 函数，以处理质押的虚拟余额
      */
     function totalSupply() public view override returns (uint256) {
         MyUSDStaking staking = MyUSDStaking(stakingContract);

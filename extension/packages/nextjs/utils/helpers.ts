@@ -9,8 +9,8 @@ export function getRatioColorClass(ratio: number | string): string {
 
 export function calculatePositionRatio(userCollateral: number, mintedAmount: number, ethPrice: number): number {
   const collateralValue = userCollateral * ethPrice;
-  if (mintedAmount === 0) return Number.MAX_SAFE_INTEGER; // Return max if no tokens are minted
-  return (collateralValue / mintedAmount) * 100; // Calculate position ratio
+  if (mintedAmount === 0) return Number.MAX_SAFE_INTEGER; // 如果没有铸造任何代币，返回最大值
+  return (collateralValue / mintedAmount) * 100; // 计算仓位比率
 }
 
 export const formatDisplayValue = (value: number) => {

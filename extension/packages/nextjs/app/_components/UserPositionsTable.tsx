@@ -73,7 +73,7 @@ const UserPositionsTable = () => {
                   <div className="skeleton w-20 h-6"></div>
                 </td>
               </tr>
-            ) : users.length < 2 ? ( // Only deployer account is has a position, but we hide it
+            ) : users.length < 2 ? ( // 只有部署者账户有仓位，但我们把它隐藏了
               <tr>
                 <td colSpan={5} className="text-center">
                   No user positions available

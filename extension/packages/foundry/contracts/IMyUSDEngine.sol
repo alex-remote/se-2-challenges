@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 interface IMyUSDEngine {
-    // Errors
+    // 错误
     error Engine__InvalidAmount();
     error Engine__UnsafePositionRatio();
     error Engine__NotLiquidatable();
@@ -11,7 +11,7 @@ interface IMyUSDEngine {
     error Engine__InsufficientCollateral();
     error Engine__TransferFailed();
 
-    // Events
+    // 事件
     event CollateralAdded(address indexed user, uint256 indexed amount, uint256 price);
     event CollateralWithdrawn(address indexed withdrawer, uint256 indexed amount, uint256 price);
     event BorrowRateUpdated(uint256 newRate);
@@ -25,7 +25,7 @@ interface IMyUSDEngine {
         uint256 price
     );
 
-    // State variable getters
+    // 状态变量的 getter
     function borrowRate() external view returns (uint256);
     function totalDebtShares() external view returns (uint256);
     function debtExchangeRate() external view returns (uint256);
@@ -33,7 +33,7 @@ interface IMyUSDEngine {
     function s_userCollateral(address user) external view returns (uint256);
     function s_userDebtShares(address user) external view returns (uint256);
 
-    // Functions
+    // 函数
     function addCollateral() external payable;
     function calculateCollateralValue(address user) external view returns (uint256);
     function getCurrentDebtValue(address user) external view returns (uint256);

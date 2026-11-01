@@ -23,22 +23,22 @@ contract MyUSDStaking is Ownable, ReentrancyGuard {
     IMyUSDEngine public engine;
     address private i_rateController;
 
-    // Total shares in the pool
+    // 池中的份额总量
     uint256 public totalShares;
 
-    // Exchange rate between shares and MyUSD (1e18 precision)
+    // 份额与 MyUSD 之间的兑换率（1e18 精度）
     uint256 public exchangeRate;
 
-    // Last update timestamp
+    // 上次更新的时间戳
     uint256 public lastUpdateTime;
 
-    // Interest rate in basis points (1% = 100)
+    // 以基点表示的利率（1% = 100）
     uint256 public savingsRate;
 
-    // User's share balance
+    // 用户的份额余额
     mapping(address => uint256) public userShares;
 
-    // Constants
+    // 常量
     uint256 private constant PRECISION = 1e18;
     uint256 private constant SECONDS_PER_YEAR = 365 days;
 
@@ -55,13 +55,13 @@ contract MyUSDStaking is Ownable, ReentrancyGuard {
         myUSD = MyUSD(_myUSD);
         engine = IMyUSDEngine(_engine);
         i_rateController = _rateController;
-        exchangeRate = PRECISION; // 1:1 initially
+        exchangeRate = PRECISION; // 初始为 1:1
         lastUpdateTime = block.timestamp;
     }
 
     /**
-     * @notice Set the savings rate for the staking contract
-     * @param newRate The new savings rate to set
+     * @notice 设置质押合约的储蓄利率
+     * @param newRate 要设置的新储蓄利率
      */
     function setSavingsRate(uint256 newRate) external onlyRateController {
         if (newRate > engine.borrowRate()) revert Staking__InvalidSavingsRate();
@@ -79,12 +79,12 @@ contract MyUSDStaking is Ownable, ReentrancyGuard {
         uint256 timeElapsed = block.timestamp - lastUpdateTime;
         if (timeElapsed == 0) return;
 
-        // Calculate interest based on total shares and exchange rate
+        // 根据总份额和兑换率计算利息
         uint256 totalValue = getSharesValue(totalShares);
         uint256 interest = (totalValue * savingsRate * timeElapsed) / (SECONDS_PER_YEAR * 10000);
 
         if (interest > 0) {
-            // Update exchange rate to reflect new value
+            // 更新兑换率以反映新的价值
             exchangeRate += (interest * PRECISION) / totalShares;
         }
 
@@ -94,10 +94,10 @@ contract MyUSDStaking is Ownable, ReentrancyGuard {
     function stake(uint256 amount) external nonReentrant {
         if (amount == 0) revert Staking__InvalidAmount();
 
-        // Calculate shares based on current exchange rate
+        // 根据当前兑换率计算份额
         uint256 shares = (amount * PRECISION) / _getCurrentExchangeRate();
 
-        // Update user's shares and total shares
+        // 更新用户份额和总份额
         userShares[msg.sender] += shares;
         totalShares += shares;
 
@@ -109,7 +109,7 @@ contract MyUSDStaking is Ownable, ReentrancyGuard {
             revert MyUSD__InsufficientAllowance();
         }
 
-        // Transfer tokens to contract
+        // 将代币转入合约
         bool success = myUSD.transferFrom(msg.sender, address(this), amount);
         if (!success) revert Staking__TransferFailed();
 
@@ -122,16 +122,16 @@ contract MyUSDStaking is Ownable, ReentrancyGuard {
         uint256 shareAmount = userShares[msg.sender];
         if (shareAmount == 0) revert Staking__InsufficientBalance();
 
-        // Calculate MyUSD amount based on current exchange rate
+        // 根据当前兑换率计算 MyUSD 数量
         uint256 amount = getSharesValue(shareAmount);
 
-        // Update user's shares
+        // 更新用户份额
         userShares[msg.sender] = 0;
 
-        // Transfer tokens to user
+        // 将代币转给用户
         bool success = myUSD.transfer(msg.sender, amount);
         if (!success) revert Staking__TransferFailed();
-        // Now update total shares since MyUSD uses this to determine this contract's token balance
+        // 现在再更新总份额，因为 MyUSD 用它来确定本合约的代币余额
         totalShares -= shareAmount;
 
         emit Withdrawn(msg.sender, amount, shareAmount);

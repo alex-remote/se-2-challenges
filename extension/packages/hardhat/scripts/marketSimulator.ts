@@ -17,33 +17,33 @@ const { ethers, networkName } = await network.create();
 
 const getDeployedAddress = createDeploymentReader(networkName);
 
-// Account types and preferences
+// 账户类型与偏好
 interface BorrowerProfile {
   type: "borrower";
   wallet: HDNodeWallet;
-  debtTolerance: number; // 0-100, higher = willing to borrow more of their collateral value
-  rateSensitivity: number; // 0-100, higher = more sensitive to high borrow rates
-  maxAcceptableRate: number; // Basis points - will still borrow if rate below this
+  debtTolerance: number; // 0-100，越高 = 越愿意按抵押品价值借入更多
+  rateSensitivity: number; // 0-100，越高 = 对高借款利率越敏感
+  maxAcceptableRate: number; // 基点——利率低于此值时仍会借款
   initialEth: bigint;
 }
 
 interface StakerProfile {
   type: "staker";
   wallet: HDNodeWallet;
-  yieldSensitivity: number; // 0-100, higher = more sensitive to staking yield
-  minAcceptableRate: number; // Basis points - minimum acceptable savings rate
+  yieldSensitivity: number; // 0-100，越高 = 对质押收益越敏感
+  minAcceptableRate: number; // 基点——可接受的最低储蓄利率
   initialEth: bigint;
 }
 
 type SimulatedAccount = BorrowerProfile | StakerProfile;
 
-// Configuration
+// 配置
 const NUM_BORROWERS = 5;
 const NUM_STAKERS = 5;
 const SIMULATION_INTERVAL_MS = 2000;
 const UI_REFRESH_MS = 500;
 
-// UI global variables
+// 界面全局变量
 let screen: blessed.Widgets.Screen;
 let grid: any;
 let systemInfoBox: blessed.Widgets.BoxElement;
@@ -51,7 +51,7 @@ let borrowersTable: any;
 let stakersTable: any;
 let activityLog: blessed.Widgets.Log;
 
-// Activity log with timestamp
+// 带时间戳的活动日志
 function logActivity(message: string) {
   const timestamp = new Date().toLocaleTimeString();
   if (activityLog) {
@@ -62,23 +62,23 @@ function logActivity(message: string) {
   }
 }
 
-// Initialize UI
+// 初始化界面
 function initializeUI() {
-  // Create blessed screen
+  // 创建 blessed 屏幕
   screen = blessed.screen({
     smartCSR: true,
     title: "MyUSD Stablecoin Market Simulator",
   });
 
-  // Help user exit
+  // 帮助用户退出
   screen.key(["escape", "q", "C-c"], function () {
     return process.exit(0);
   });
 
-  // Create layout grid
+  // 创建布局网格
   grid = new contrib.grid({ rows: 12, cols: 12, screen: screen });
 
-  // System info box - full width, 2 rows
+  // 系统信息框——全宽，2 行
   systemInfoBox = grid.set(0, 0, 2, 12, blessed.box, {
     label: "System Status",
     tags: true,
@@ -88,7 +88,7 @@ function initializeUI() {
     },
   });
 
-  // Borrowers table - full width, 3 rows
+  // 借款人表格——全宽，3 行
   borrowersTable = grid.set(2, 0, 4, 12, contrib.table, {
     label: "Borrowers",
     keys: true,
@@ -100,7 +100,7 @@ function initializeUI() {
     columnWidth: [14, 14, 14, 14, 40],
   });
 
-  // Stakers table - full width, 3 rows
+  // 质押者表格——全宽，3 行
   stakersTable = grid.set(6, 0, 4, 12, contrib.table, {
     label: "Stakers",
     keys: true,
@@ -112,7 +112,7 @@ function initializeUI() {
     columnWidth: [14, 14, 14, 14, 40],
   });
 
-  // Activity log - full width, 4 rows at the bottom
+  // 活动日志——全宽，位于底部的 4 行
   activityLog = grid.set(10, 0, 2, 12, blessed.log, {
     label: "Activity Log",
     tags: true,
@@ -135,7 +135,7 @@ function initializeUI() {
     },
   });
 
-  // Setup tables
+  // 设置表格
   borrowersTable.setData({
     headers: ["Address", "Collateral", "Debt", "Max Rate", "Status"],
     data: [["Loading...", "...", "...", "...", "..."]],
@@ -146,19 +146,19 @@ function initializeUI() {
     data: [["Loading...", "...", "...", "...", "..."]],
   });
 
-  // Initial render
+  // 初次渲染
   logActivity("Market simulator started");
   screen.render();
 }
 
-// Get borrower status description based on conditions
+// 根据当前情况获取借款人的状态描述
 function getBorrowerStatus(
   borrower: BorrowerProfile,
   currentDebt: bigint,
   collateralValue: bigint,
   currentBorrowRate: number,
 ): string {
-  // Check rate acceptability first
+  // 先检查利率是否可接受
   if (currentBorrowRate > borrower.maxAcceptableRate) {
     if (currentDebt > 0n) {
       return "{yellow-fg}Rate too high, unwinding debt";
@@ -167,18 +167,18 @@ function getBorrowerStatus(
     }
   }
 
-  // If no collateral at all but rate is acceptable
+  // 如果完全没有抵押品但利率可接受
   if (collateralValue <= 0n) {
     return "{cyan-fg}Adding collateral";
   }
 
-  // Max debt check
-  const maxPossibleDebt = (collateralValue * 2n) / 3n; // ~66% of collateral value
+  // 最大债务检查
+  const maxPossibleDebt = (collateralValue * 2n) / 3n; // 约为抵押品价值的 66%
   if (currentDebt >= maxPossibleDebt) {
     return "{red-fg}At max debt capacity";
   }
 
-  // Determine borrowing willingness
+  // 确定借款意愿
   const rateFactor =
     1 -
     (Math.min(currentBorrowRate, borrower.maxAcceptableRate) / borrower.maxAcceptableRate) *
@@ -186,7 +186,7 @@ function getBorrowerStatus(
 
   const borrowingWillingness = (borrower.debtTolerance / 100) * rateFactor;
 
-  // Calculate leverage ratio (debt to collateral)
+  // 计算杠杆率（债务与抵押品之比）
   const leverageRatio = collateralValue > 0n ? (Number(currentDebt) / Number(collateralValue)) * 100 : 0;
 
   if (borrowingWillingness > 0.7) {
@@ -208,21 +208,21 @@ function getBorrowerStatus(
   }
 }
 
-// Get staker status description based on conditions
+// 根据当前情况获取质押者的状态描述
 function getStakerStatus(
   staker: StakerProfile,
   myUSDBalance: bigint,
   stakedShares: bigint,
   currentSavingsRate: number,
 ): string {
-  // Check if staker has any staked position
+  // 检查质押者是否有质押仓位
   if (stakedShares > 0n) {
     if (currentSavingsRate < staker.minAcceptableRate) {
       return "{yellow-fg}Rate too low, unstaking";
     } else {
-      // If current rate exceeds minimum by a lot, it's very appealing
+      // 如果当前利率远高于最低要求，就非常有吸引力
       const rateDifference = currentSavingsRate - staker.minAcceptableRate;
-      const rateAppeal = Math.min(1, rateDifference / 500); // Cap at 1.0 for very high rates
+      const rateAppeal = Math.min(1, rateDifference / 500); // 利率很高时上限为 1.0
 
       if (rateAppeal > 0.5) {
         return "{green-fg}Staked, great yield";
@@ -232,12 +232,12 @@ function getStakerStatus(
     }
   }
 
-  // No staked position
+  // 没有质押仓位
   if (myUSDBalance > ethers.parseEther("0.5")) {
     if (currentSavingsRate >= staker.minAcceptableRate) {
-      // Positive rate difference means attractive staking opportunity
+      // 利率差为正，说明是有吸引力的质押机会
       const rateDifference = currentSavingsRate - staker.minAcceptableRate;
-      const rateAppeal = Math.min(1, rateDifference / 500); // Cap at 1.0 for very high rates
+      const rateAppeal = Math.min(1, rateDifference / 500); // 利率很高时上限为 1.0
       const stakingWillingness = (staker.yieldSensitivity / 100) * rateAppeal;
 
       if (stakingWillingness > 0.5) {
@@ -257,7 +257,7 @@ function getStakerStatus(
   }
 }
 
-// Update UI with latest data
+// 用最新数据更新界面
 async function updateUI(
   dex: DEX,
   ethPrice: bigint,
@@ -268,19 +268,19 @@ async function updateUI(
   stakers: StakerProfile[],
 ) {
   try {
-    // Get price data
+    // 获取价格数据
     const ethToMyUSDPrice = await dex.currentPrice();
     const ethToMyUSDPriceNum = Number(ethers.formatEther(ethToMyUSDPrice));
     const ethPriceDecimal = Number(ethers.formatEther(ethPrice));
     const myUSDPriceInUSD = 1 / (ethToMyUSDPriceNum / ethPriceDecimal);
 
-    // Get common data needed by multiple sections
+    // 获取多个部分都要用到的公共数据
     const savingsRate = Number(await staking.savingsRate());
     const borrowRate = Number(await engine.borrowRate());
     const debtExchangeRate = await engine.debtExchangeRate();
     const stakingExchangeRate = await staking.exchangeRate();
 
-    // Update system info
+    // 更新系统信息
     try {
       systemInfoBox.setContent(
         `MyUSD Price: {yellow-fg}${myUSDPriceInUSD.toFixed(6)}{/yellow-fg}  |  ` +
@@ -292,7 +292,7 @@ async function updateUI(
       console.log(`Error updating system info: ${error}`);
     }
 
-    // Update borrowers table
+    // 更新借款人表格
     try {
       const borrowerRows: string[][] = [];
       for (const borrower of borrowers) {
@@ -300,7 +300,7 @@ async function updateUI(
         const debtShares = await engine.s_userDebtShares(borrower.wallet.address);
         const debt = (debtShares * debtExchangeRate) / BigInt(1e18);
 
-        // Get status text based on borrower's position and market conditions
+        // 根据借款人的仓位和市场情况获取状态文字
         const statusText = getBorrowerStatus(borrower, debt, collateralAmount, borrowRate);
 
         borrowerRows.push([
@@ -320,7 +320,7 @@ async function updateUI(
       console.log(`Error updating borrowers table: ${error}`);
     }
 
-    // Update stakers table
+    // 更新质押者表格
     try {
       const stakerRows: string[][] = [];
       for (const staker of stakers) {
@@ -328,7 +328,7 @@ async function updateUI(
         const stakedShares = await staking.userShares(staker.wallet.address);
         const stakedValue = (stakedShares * stakingExchangeRate) / BigInt(1e18);
 
-        // Get status text based on staker's position and market conditions
+        // 根据质押者的仓位和市场情况获取状态文字
         const statusText = getStakerStatus(staker, myUSDBalance, stakedShares, savingsRate);
 
         stakerRows.push([
@@ -349,23 +349,23 @@ async function updateUI(
       console.log(`Error updating stakers table: ${error}`);
     }
 
-    // Render the screen
+    // 渲染屏幕
     screen.render();
   } catch (error: any) {
     console.log(`Error updating UI: ${error}`);
   }
 }
 
-// Account fund management
+// 账户资金管理
 async function fundAccountsIfNeeded(accounts: SimulatedAccount[], deployer: any) {
   for (const account of accounts) {
     const currentBalance = await ethers.provider.getBalance(account.wallet.address);
 
-    // Fund if balance drops below 2 ETH
+    // 余额低于 2 ETH 时注资
     if (currentBalance < ethers.parseEther("2")) {
-      // Random amount between 30-130 ETH
+      // 随机金额，介于 30-130 ETH 之间
       const randomEth = 30 + Math.random() * 100;
-      // Stakers receive more since they can't use leverage to have a compounded effect on the price.
+      // 质押者获得更多，因为他们无法利用杠杆对价格产生复利式的影响。
       const multiplier = account.type === "staker" ? 1.66 : 1;
       const topUpAmount = ethers.parseEther((randomEth * multiplier).toString());
 
@@ -379,31 +379,31 @@ async function fundAccountsIfNeeded(accounts: SimulatedAccount[], deployer: any)
   }
 }
 
-// Create accounts with different profiles
+// 创建具有不同画像的账户
 async function setupAccounts(): Promise<SimulatedAccount[]> {
   const accounts: SimulatedAccount[] = [];
-  const initialEth = ethers.parseEther("120"); // 120 ETH each
+  const initialEth = ethers.parseEther("120"); // 每个账户 120 ETH
   const [deployer] = await ethers.getSigners();
 
-  // Create deterministic wallets using a base mnemonic
+  // 使用基础助记词创建确定性钱包
   const baseMnemonic = "test test test test test test test test test test test junk";
 
-  // Create borrower accounts
+  // 创建借款人账户
   for (let i = 0; i < NUM_BORROWERS; i++) {
     const wallet = ethers.HDNodeWallet.fromPhrase(baseMnemonic, `m/44'/60'/0'/0/${i}`).connect(ethers.provider);
 
-    // Create varied profiles
+    // 创建各不相同的画像
     accounts.push({
       type: "borrower",
       wallet,
       debtTolerance: 20 + Math.floor(Math.random() * 70), // 20-90%
       rateSensitivity: 25 + Math.floor(Math.random() * 75), // 25-100%
-      maxAcceptableRate: 100 + Math.floor(Math.random() * 2100), // 100-2200 basis points
+      maxAcceptableRate: 100 + Math.floor(Math.random() * 2100), // 100-2200 基点
       initialEth,
     });
   }
 
-  // Create staker accounts
+  // 创建质押者账户
   for (let i = 0; i < NUM_STAKERS; i++) {
     const wallet = ethers.HDNodeWallet.fromPhrase(baseMnemonic, `m/44'/60'/0'/0/${i + NUM_BORROWERS}`).connect(
       ethers.provider,
@@ -413,18 +413,18 @@ async function setupAccounts(): Promise<SimulatedAccount[]> {
       type: "staker",
       wallet,
       yieldSensitivity: 25 + Math.floor(Math.random() * 75), // 25-100%
-      minAcceptableRate: 200 + Math.floor(Math.random() * 800), // 200-1000 basis points
+      minAcceptableRate: 200 + Math.floor(Math.random() * 800), // 200-1000 基点
       initialEth,
     });
   }
 
-  // Do initial funding
+  // 进行初始注资
   await fundAccountsIfNeeded(accounts, deployer);
 
   return accounts;
 }
 
-// Simulate borrower behavior
+// 模拟借款人行为
 async function simulateBorrowing(
   engine: MyUSDEngine,
   myUSD: MyUSD,
@@ -436,27 +436,27 @@ async function simulateBorrowing(
     const engineWithBorrower = engine.connect(borrower.wallet);
     const myUSDWithBorrower = myUSD.connect(borrower.wallet);
 
-    // Get current debt and collateral
+    // 获取当前债务和抵押品
     const collateralValue = await engine.calculateCollateralValue(borrower.wallet.address);
     const currentDebt = await engine.getCurrentDebtValue(borrower.wallet.address);
-    // Calculate fixed amount to keep based on borrower's profile
-    const baseAmount = ethers.parseEther("100000"); // Base amount of 100000 MyUSD
+    // 根据借款人画像计算要保留的固定债务额
+    const baseAmount = ethers.parseEther("100000"); // 基础金额为 100000 MyUSD
     const riskMultiplier = (borrower.debtTolerance / 100) * (1 - borrower.rateSensitivity / 200);
     const amountToKeep = (baseAmount * BigInt(Math.floor(riskMultiplier * 100))) / 100n;
-    // Check if borrower should pay down debt due to high rates
+    // 检查借款人是否因利率过高而需要偿还债务
     if (currentDebt > amountToKeep && currentBorrowRate > borrower.maxAcceptableRate) {
       const myUSDBalance = await myUSD.balanceOf(borrower.wallet.address);
 
       if (myUSDBalance > ethers.parseEther("10")) {
         try {
-          // Calculate amount to burn (current debt - amount to keep)
+          // 计算要销毁的数量（当前债务 - 要保留的数量）
           let amountToBurn = currentDebt - amountToKeep;
           if (amountToBurn < 0n) amountToBurn = 0n;
           if (amountToBurn > myUSDBalance) {
             amountToBurn = myUSDBalance;
           }
 
-          // Approve and burn debt
+          // 授权并销毁债务
           await myUSDWithBorrower.approve(engine.target, amountToBurn);
           await engineWithBorrower.repayUpTo(amountToBurn);
 
@@ -469,13 +469,13 @@ async function simulateBorrowing(
         }
         continue;
       } else {
-        // If no MyUSD balance but rates are too high, try to get some by swapping ETH
+        // 如果没有 MyUSD 余额但利率过高，尝试用 ETH 兑换一些
         const ethBalance = await ethers.provider.getBalance(borrower.wallet.address);
-        const safeEthToSwap = ethBalance - ethers.parseEther("1"); // Keep 1 ETH minimum
+        const safeEthToSwap = ethBalance - ethers.parseEther("1"); // 至少保留 1 ETH
 
         if (safeEthToSwap > 0n) {
           try {
-            // Swap ETH for MyUSD to repay
+            // 用 ETH 兑换 MyUSD 用于偿还
             const dexWithBorrower = dex.connect(borrower.wallet);
             await dexWithBorrower.swap(safeEthToSwap, { value: safeEthToSwap });
 
@@ -491,19 +491,19 @@ async function simulateBorrowing(
       }
     }
 
-    // Normal borrowing behavior if rates acceptable
+    // 利率可接受时的正常借款行为
     if (currentBorrowRate <= borrower.maxAcceptableRate) {
-      // Calculate willingness based on rate sensitivity
+      // 根据利率敏感度计算借款意愿
       const rateFactor =
         1 -
         (Math.min(currentBorrowRate, borrower.maxAcceptableRate) / borrower.maxAcceptableRate) *
         (borrower.rateSensitivity / 100);
 
-      // Higher tolerance + lower rate sensitivity = more borrowing
+      // 容忍度越高 + 利率敏感度越低 = 借得越多
       const borrowingWillingness = (borrower.debtTolerance / 100) * rateFactor;
 
       if (collateralValue <= 0n) {
-        // Add some collateral if none exists
+        // 如果没有抵押品，先添加一些
         const collateralToAdd = ethers.parseEther((1 + Math.random() * 5).toString());
         const balance = await ethers.provider.getBalance(borrower.wallet.address);
 
@@ -520,21 +520,21 @@ async function simulateBorrowing(
         continue;
       }
 
-      // Calculate max possible debt (based on 150% collateralization)
-      const maxPossibleDebt = (collateralValue * 2n) / 3n; // ~66% of collateral value (150% collateralization)
+      // 计算最大可借债务（基于 150% 抵押率）
+      const maxPossibleDebt = (collateralValue * 2n) / 3n; // 约为抵押品价值的 66%（150% 抵押率）
 
       if (currentDebt >= maxPossibleDebt) {
         logActivity(`Borrower ${borrower.wallet.address.slice(0, 6)}... at max debt capacity`);
         continue;
       }
 
-      // Calculate amount to borrow based on willingness
+      // 根据借款意愿计算要借的数量
       const availableToBorrow = maxPossibleDebt - currentDebt;
       const borrowAmount = (availableToBorrow * BigInt(Math.floor(borrowingWillingness * 100))) / 100n;
 
       if (borrowAmount > 0n) {
         try {
-          // Leveraged borrowing strategy - performs one leverage cycle each time
+          // 杠杆借款策略——每次执行一轮杠杆循环
           await executeBorrowing(borrower, engine, myUSD, dex, borrowAmount, borrowingWillingness, currentBorrowRate);
         } catch (error: any) {
           logActivity(
@@ -546,7 +546,7 @@ async function simulateBorrowing(
   }
 }
 
-// Execute single-cycle leveraged borrowing strategy
+// 执行单轮杠杆借款策略
 async function executeBorrowing(
   borrower: BorrowerProfile,
   engine: MyUSDEngine,
@@ -560,16 +560,16 @@ async function executeBorrowing(
   const myUSDWithBorrower = myUSD.connect(borrower.wallet);
   const dexWithBorrower = dex.connect(borrower.wallet);
 
-  // If remaining amount is too small, don't bother
+  // 如果剩余数量太小，就不必操作了
   if (borrowAmount < ethers.parseEther("0.1")) {
     return;
   }
 
   try {
-    // 1. Borrow MyUSD
+    // 1. 借入 MyUSD
     await engineWithBorrower.mintMyUSD(borrowAmount);
 
-    // 2. Approve and swap MyUSD for ETH (percent based on risk appetite)
+    // 2. 授权并将 MyUSD 兑换成 ETH（比例取决于风险偏好）
     let percentToSwapNum = 60 + borrower.debtTolerance * 0.3 - borrower.rateSensitivity * 0.2;
     percentToSwapNum = Math.max(10, Math.min(100, percentToSwapNum));
     const percentToSwap = BigInt(Math.round(percentToSwapNum));
@@ -578,15 +578,15 @@ async function executeBorrowing(
     const swapTx = await dexWithBorrower.swap(myUSDToSwap);
     await swapTx.wait();
 
-    // 4. Add the ETH as collateral (use 90% of balance above 1 ETH safety margin)
+    // 4. 把 ETH 添加为抵押品（使用超出 1 ETH 安全余量部分的 90%）
     const ethBalance = await ethers.provider.getBalance(borrower.wallet.address);
     const safetyMargin = ethers.parseEther("1");
 
     if (ethBalance > safetyMargin) {
-      const ethToAdd = ((ethBalance - safetyMargin) * 90n) / 100n; // Add 90% of available ETH
+      const ethToAdd = ((ethBalance - safetyMargin) * 90n) / 100n; // 添加可用 ETH 的 90%
 
       if (ethToAdd > ethers.parseEther("0.05")) {
-        // Only if it's a meaningful amount
+        // 仅在数量足够有意义时执行
         const addCollateralTx = await engineWithBorrower.addCollateral({ value: ethToAdd });
         await addCollateralTx.wait();
       }
@@ -601,7 +601,7 @@ async function executeBorrowing(
   }
 }
 
-// Simulate staker behavior
+// 模拟质押者行为
 async function simulateStaking(
   dex: DEX,
   myUSD: MyUSD,
@@ -610,7 +610,7 @@ async function simulateStaking(
   currentSavingsRate: number,
 ) {
   for (const staker of stakers) {
-    // Get current MyUSD balance and staked amount
+    // 获取当前 MyUSD 余额和已质押数量
     const myUSDBalance = await myUSD.balanceOf(staker.wallet.address);
     const stakedShares = await staking.userShares(staker.wallet.address);
 
@@ -618,12 +618,12 @@ async function simulateStaking(
     const myUSDWithStaker = myUSD.connect(staker.wallet);
     const dexWithStaker = dex.connect(staker.wallet);
 
-    // Determine if staker should unstake based on rate
+    // 根据利率判断质押者是否应取消质押
     if (stakedShares > 0n && currentSavingsRate < staker.minAcceptableRate) {
       try {
-        // Unstake ALL shares when rate is below minimum acceptable rate
+        // 当利率低于最低可接受利率时，取消质押全部份额
         if (stakedShares > 0n) {
-          // Unstake all shares
+          // 取消质押全部份额
           await stakingWithStaker.withdraw();
 
           logActivity(
@@ -635,14 +635,14 @@ async function simulateStaking(
         logActivity(`Failed to unstake for ${staker.wallet.address.slice(0, 6)}...`);
       }
 
-      // Sell ALL MyUSD for ETH if unstaked or have existing balance
+      // 如果已取消质押或已有余额，把全部 MyUSD 卖出换成 ETH
       const sellableBalance = await myUSD.balanceOf(staker.wallet.address);
 
       if (sellableBalance > 0n) {
         try {
-          // Swap ALL MyUSD for ETH when rate is below minimum
+          // 利率低于最低要求时，把全部 MyUSD 兑换成 ETH
           if (sellableBalance > 0n) {
-            // Approve and swap MyUSD for ETH
+            // 授权并将 MyUSD 兑换成 ETH
             await myUSDWithStaker.approve(dex.target, sellableBalance);
             await dexWithStaker.swap(sellableBalance);
 
@@ -659,13 +659,13 @@ async function simulateStaking(
       continue;
     }
 
-    // Determine if staker should acquire MyUSD
-    const ethReserve = ethers.parseEther("0.1"); // For gas
+    // 判断质押者是否应获取 MyUSD
+    const ethReserve = ethers.parseEther("0.1"); // 用于支付 gas
     if (myUSDBalance < ethReserve && currentSavingsRate >= staker.minAcceptableRate) {
       const ethBalance = await ethers.provider.getBalance(staker.wallet.address);
       if (ethBalance > ethReserve) {
         try {
-          // Swap ETH for MyUSD
+          // 用 ETH 兑换 MyUSD
           const ethToSwap = ethBalance - ethReserve;
           await dexWithStaker.swap(ethToSwap, { value: ethToSwap });
           logActivity(
@@ -678,20 +678,20 @@ async function simulateStaking(
       }
     }
 
-    // Decide whether to stake based on current rate
+    // 根据当前利率决定是否质押
     if (currentSavingsRate >= staker.minAcceptableRate) {
-      // Calculate staking willingness based on rate and sensitivity
-      // For higher rates, increase willingness proportionally
+      // 根据利率和敏感度计算质押意愿
+      // 利率越高，意愿按比例越强
       const rateDifference = currentSavingsRate - staker.minAcceptableRate;
-      const rateAppeal = Math.min(1, rateDifference / 500); // Cap at 1.0 for very high rates
+      const rateAppeal = Math.min(1, rateDifference / 500); // 利率很高时上限为 1.0
       const stakingWillingness = (staker.yieldSensitivity / 100) * rateAppeal;
 
-      // Calculate amount to stake
+      // 计算要质押的数量
       const amountToStake = (myUSDBalance * BigInt(Math.floor(stakingWillingness * 100))) / 100n;
 
       if (amountToStake > 0n) {
         try {
-          // Approve and stake
+          // 授权并质押
           await myUSDWithStaker.approve(staking.target, amountToStake);
           await stakingWithStaker.stake(amountToStake);
           logActivity(
@@ -706,7 +706,7 @@ async function simulateStaking(
   }
 }
 
-// Main simulation function
+// 主模拟函数
 async function simulateMarket(
   dex: DEX,
   ethPrice: bigint,
@@ -718,37 +718,37 @@ async function simulateMarket(
 ) {
   logActivity("Starting market simulation...");
 
-  // Separate accounts by type
+  // 按类型区分账户
   const borrowers = accounts.filter(a => a.type === "borrower") as BorrowerProfile[];
   const stakers = accounts.filter(a => a.type === "staker") as StakerProfile[];
 
   logActivity(`Initialized with ${borrowers.length} borrowers and ${stakers.length} stakers`);
 
-  // Get current rates from contracts
+  // 从合约获取当前利率
   const currentSavingsRate = Number(await staking.savingsRate());
   const currentBorrowRate = Number(await engine.borrowRate());
 
   logActivity(`Initial rates - Savings: ${currentSavingsRate} bps, Borrow: ${currentBorrowRate} bps`);
 
-  // Start UI update timer
+  // 启动界面更新定时器
   setInterval(() => updateUI(dex, ethPrice, engine, myUSD, staking, borrowers, stakers), UI_REFRESH_MS);
 
-  // Run market actions on interval
+  // 按固定间隔执行市场行为
   setInterval(async () => {
     try {
-      // Get latest rates
+      // 获取最新利率
       const latestSavingsRate = Number(await staking.savingsRate());
       const latestBorrowRate = Number(await engine.borrowRate());
 
-      // Check and fund accounts if needed
+      // 检查账户，需要时注资
       await fundAccountsIfNeeded(accounts, deployer);
 
-      // Simulate borrower behavior (50% chance each cycle)
+      // 模拟借款人行为（每轮 50% 概率）
       if (Math.random() < 0.5) {
         await simulateBorrowing(engine, myUSD, dex, borrowers, latestBorrowRate);
       }
 
-      // Simulate staker behavior (50% chance each cycle)
+      // 模拟质押者行为（每轮 50% 概率）
       if (Math.random() < 0.5) {
         await simulateStaking(dex, myUSD, staking, stakers, latestSavingsRate);
       }
@@ -760,7 +760,7 @@ async function simulateMarket(
 
 async function main() {
   try {
-    // Initialize UI first
+    // 先初始化界面
     initializeUI();
     logActivity("Initializing simulator...");
 
@@ -776,7 +776,7 @@ async function main() {
     const accounts = await setupAccounts();
     logActivity("Created simulated accounts");
 
-    // Start the market simulation
+    // 启动市场模拟
     await simulateMarket(dex, ethPrice, engine, myUSD, staking, accounts, deployer);
   } catch (error: any) {
     logActivity(`Fatal error: ${error}`);

@@ -4,8 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
 
-// Returns a reader that resolves a deployed contract's address from its
-// deployment JSON for the given network.
+// 返回一个读取函数：根据给定网络的部署 JSON，
+// 解析出已部署合约的地址。
 export function createDeploymentReader(networkName: string) {
   const deploymentsDir = path.join(scriptsDir, "..", "deployments", networkName);
   return (name: string): string => {

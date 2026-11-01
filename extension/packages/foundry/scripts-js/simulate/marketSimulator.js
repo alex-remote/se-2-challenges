@@ -11,7 +11,7 @@ import { getContract } from "./contractHelper.js";
 import blessed from "blessed";
 import contrib from "blessed-contrib";
 
-// Configuration
+// 配置
 const SIMULATION_INTERVAL_MS = 2000;
 const UI_REFRESH_MS = 500;
 const PRECISION = 10n ** 18n;
@@ -25,7 +25,7 @@ const dex = getContract("DEX");
 const oracle = getContract("Oracle");
 const staking = getContract("MyUSDStaking");
 
-// Build borrower/staker profiles from anvil accounts
+// 根据 anvil 账户构建借款人/质押者画像
 const borrowerClients = getBorrowerClients();
 const stakerClients = getStakerClients();
 
@@ -44,7 +44,7 @@ const stakers = stakerClients.map((client) => ({
   minAcceptableRate: 200 + Math.floor(Math.random() * 800),
 }));
 
-// --- UI ---
+// --- 界面 ---
 let screen, grid, systemInfoBox, borrowersTable, stakersTable, activityLog;
 
 function logActivity(message) {
@@ -106,7 +106,7 @@ function initializeUI() {
   screen.render();
 }
 
-// --- Status helpers ---
+// --- 状态辅助函数 ---
 
 function getBorrowerStatus(borrower, currentDebt, collateralValue, currentBorrowRate) {
   if (currentBorrowRate > borrower.maxAcceptableRate) {
@@ -153,7 +153,7 @@ function getStakerStatus(staker, myUSDBalance, stakedShares, currentSavingsRate)
     : "{gray-fg}Waiting for better rates";
 }
 
-// --- UI update ---
+// --- 界面更新 ---
 
 async function updateUI() {
   try {
@@ -245,11 +245,11 @@ async function updateUI() {
 
     screen.render();
   } catch (error) {
-    // silently ignore UI update errors
+    // 静默忽略界面更新错误
   }
 }
 
-// --- Account funding ---
+// --- 账户注资 ---
 
 const TARGET_ACCOUNT_BALANCE = parseEther("120");
 
@@ -290,7 +290,7 @@ async function fundAccountsIfNeeded() {
   }
 }
 
-// --- Borrower simulation ---
+// --- 借款人模拟 ---
 
 async function simulateBorrowing(currentBorrowRate) {
   for (const borrower of borrowers) {
@@ -309,7 +309,7 @@ async function simulateBorrowing(currentBorrowRate) {
     const riskMultiplier = (borrower.debtTolerance / 100) * (1 - borrower.rateSensitivity / 200);
     const amountToKeep = (baseAmount * BigInt(Math.floor(riskMultiplier * 100))) / 100n;
 
-    // Rate too high — unwind debt
+    // 利率过高——削减债务
     if (currentDebt > amountToKeep && currentBorrowRate > borrower.maxAcceptableRate) {
       const myUSDBalance = await publicClient.readContract({
         ...myUSD,
@@ -343,7 +343,7 @@ async function simulateBorrowing(currentBorrowRate) {
         }
         continue;
       } else {
-        // Swap ETH for MyUSD to repay
+        // 用 ETH 兑换 MyUSD 用于偿还
         const ethBalance = await publicClient.getBalance({ address: borrower.address });
         const safeEthToSwap = ethBalance - parseEther("1");
         if (safeEthToSwap > 0n) {
@@ -366,7 +366,7 @@ async function simulateBorrowing(currentBorrowRate) {
       }
     }
 
-    // Normal borrowing if rates acceptable
+    // 利率可接受时正常借款
     if (currentBorrowRate <= borrower.maxAcceptableRate) {
       const rateFactor =
         1 -
@@ -413,7 +413,7 @@ async function simulateBorrowing(currentBorrowRate) {
 }
 
 async function executeLeveragedBorrowing(borrower, borrowAmount, borrowingWillingness, currentBorrowRate) {
-  // 1. Mint MyUSD
+  // 1. 铸造 MyUSD
   let hash = await borrower.client.writeContract({
     ...engine,
     functionName: "mintMyUSD",
@@ -421,7 +421,7 @@ async function executeLeveragedBorrowing(borrower, borrowAmount, borrowingWillin
   });
   await publicClient.waitForTransactionReceipt({ hash });
 
-  // 2. Swap a portion of MyUSD for ETH
+  // 2. 将一部分 MyUSD 兑换成 ETH
   let percentToSwapNum = 60 + borrower.debtTolerance * 0.3 - borrower.rateSensitivity * 0.2;
   percentToSwapNum = Math.max(10, Math.min(100, percentToSwapNum));
   const myUSDToSwap = (borrowAmount * BigInt(Math.round(percentToSwapNum))) / 100n;
@@ -439,7 +439,7 @@ async function executeLeveragedBorrowing(borrower, borrowAmount, borrowingWillin
   });
   await publicClient.waitForTransactionReceipt({ hash });
 
-  // 3. Re-deposit ETH as collateral
+  // 3. 把 ETH 重新存入作为抵押品
   const ethBalance = await publicClient.getBalance({ address: borrower.address });
   const safetyMargin = parseEther("1");
   if (ethBalance > safetyMargin) {
@@ -460,7 +460,7 @@ async function executeLeveragedBorrowing(borrower, borrowAmount, borrowingWillin
   );
 }
 
-// --- Staker simulation ---
+// --- 质押者模拟 ---
 
 async function simulateStaking(currentSavingsRate) {
   for (const staker of stakers) {
@@ -475,7 +475,7 @@ async function simulateStaking(currentSavingsRate) {
       args: [staker.address],
     });
 
-    // Unstake if rate too low
+    // 利率过低时取消质押
     if (stakedShares > 0n && currentSavingsRate < staker.minAcceptableRate) {
       try {
         let hash = await staker.client.writeContract({
@@ -490,7 +490,7 @@ async function simulateStaking(currentSavingsRate) {
         logActivity(`Failed to unstake for ${staker.address.slice(0, 6)}...`);
       }
 
-      // Sell all MyUSD for ETH
+      // 把全部 MyUSD 卖出换成 ETH
       const sellableBalance = await publicClient.readContract({
         ...myUSD,
         functionName: "balanceOf",
@@ -520,7 +520,7 @@ async function simulateStaking(currentSavingsRate) {
       continue;
     }
 
-    // Acquire MyUSD if needed
+    // 需要时获取 MyUSD
     const ethReserve = parseEther("0.1");
     if (myUSDBalance < ethReserve && currentSavingsRate >= staker.minAcceptableRate) {
       const ethBalance = await publicClient.getBalance({ address: staker.address });
@@ -544,7 +544,7 @@ async function simulateStaking(currentSavingsRate) {
       }
     }
 
-    // Stake if rate attractive
+    // 利率有吸引力时进行质押
     if (currentSavingsRate >= staker.minAcceptableRate) {
       const rateDifference = currentSavingsRate - staker.minAcceptableRate;
       const rateAppeal = Math.min(1, rateDifference / 500);
@@ -577,7 +577,7 @@ async function simulateStaking(currentSavingsRate) {
   }
 }
 
-// --- Main ---
+// --- 主流程 ---
 
 async function main() {
   initializeUI();
@@ -588,10 +588,10 @@ async function main() {
   await fundAccountsIfNeeded();
   logActivity("Accounts funded");
 
-  // UI refresh timer
+  // 界面刷新定时器
   setInterval(updateUI, UI_REFRESH_MS);
 
-  // Market action timer
+  // 市场行为定时器
   setInterval(async () => {
     try {
       const latestBorrowRate = Number(
