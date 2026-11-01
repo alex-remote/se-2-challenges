@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:06 UTC　｜　总进度：**512 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:06 UTC　｜　总进度：**543 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -22,11 +22,11 @@
 | [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 46 / 46 ✅ | `challenge-dice-game_zh` |
 | [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 21 / 123 | `challenge-oracles_zh` |
 | [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 65 / 65 ✅ | `challenge-over-collateralized-lending_zh` |
-| [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 54 / 66 | `challenge-prediction-markets_zh` |
+| [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 65 / 66 | `challenge-prediction-markets_zh` |
 | [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 77 / 77 ✅ | `challenge-stablecoins_zh` |
 | [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 43 / 43 ✅ | `challenge-token-vendor_zh` |
 | [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 48 / 48 ✅ | `challenge-tokenization_zh` |
-| [`challenge-zk-voting`](#challenge-zk-voting) | 72 | 61 | 11 | 10180 | 40 / 61 | `challenge-zk-voting_zh` |
+| [`challenge-zk-voting`](#challenge-zk-voting) | 72 | 61 | 11 | 10180 | 60 / 61 | `challenge-zk-voting_zh` |
 
 ## 子代理分组
 
@@ -59,7 +59,7 @@
 | `pm-readme-p2` | 1 | 662 | ✅ 已完成 |
 | `pm-readme-p3` | 1 | 482 | 🔄 进行中 |
 | `pm-web` | 33 | 6291 | ✅ 已完成 |
-| `pm-sol` | 11 | 1590 | 🔄 进行中 |
+| `pm-sol` | 11 | 1590 | ✅ 已完成 |
 | `pm-test` | 1 | 1508 | ✅ 已完成 |
 | `stab-readme-p1` | 1 | 645 | ✅ 已完成 |
 | `stab-readme-p2` | 1 | 570 | ✅ 已完成 |
@@ -74,7 +74,7 @@
 | `zk-readme-p2` | 1 | 556 | 🔄 进行中 |
 | `zk-readme-p3` | 1 | 548 | 🔄 进行中 |
 | `zk-readme-p4` | 1 | 529 | 🔄 进行中 |
-| `zk-sol` | 20 | 4872 | 🔄 进行中 |
+| `zk-sol` | 20 | 4872 | ✅ 已完成 |
 | `zk-web` | 20 | 2214 | ✅ 已完成 |
 
 ## 文件清单
@@ -530,7 +530,7 @@
 
 ### challenge-prediction-markets
 
-文本文件 66 个（已完成 54），二进制 12 个 → 目标分支 `challenge-prediction-markets_zh`
+文本文件 66 个（已完成 65），二进制 12 个 → 目标分支 `challenge-prediction-markets_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -553,17 +553,17 @@
 - [x] `extension/.vscode/settings.json` — 5 行 · `common-shared` · ✅ 无需改动（JSON 配置，无注释）
 - [x] `extension/AGENTS.md.args.mjs` — 300 行 · `pm-web` · ✅ 已翻译注释（改动 1 行（首行 JS 注释）；模板字符串内容按统一规则不译）
 - [x] `extension/README.md.args.mjs` — 1594 行 · `pm-web` · ✅ 已翻译注释（改动 2 行（第 2-3 行 JS 注释，原文首句即残缺，按原样翻译）；模板字符串内容按统一规则不译）
-- [ ] `extension/packages/foundry/contracts/IPredictionMarket.sol` — 98 行 · `pm-sol`
-- [ ] `extension/packages/foundry/contracts/PredictionMarket.sol` — 255 行 · `pm-sol`
-- [ ] `extension/packages/foundry/contracts/PredictionMarketToken.sol` — 52 行 · `pm-sol`
-- [ ] `extension/packages/foundry/foundry.toml.args.mjs` — 1 行 · `pm-sol`
-- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `pm-sol`
-- [ ] `extension/packages/foundry/script/DeployPredictionMarket.s.sol` — 31 行 · `pm-sol`
-- [ ] `extension/packages/foundry/test/PredictionMarket.t.sol` — 767 行 · `pm-sol`
-- [ ] `extension/packages/hardhat/contracts/PredictionMarket.sol` — 255 行 · `pm-sol`
-- [ ] `extension/packages/hardhat/contracts/PredictionMarketToken.sol` — 52 行 · `pm-sol`
-- [ ] `extension/packages/hardhat/deploy/00_deploy_your_contract.ts` — 57 行 · `pm-sol`
-- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 17 行 · `pm-sol`
+- [x] `extension/packages/foundry/contracts/IPredictionMarket.sol` — 98 行 · `pm-sol` · ✅ 已翻译注释（改动 5 行（分节横幅：错误/枚举/事件/函数/Getter 函数））
+- [x] `extension/packages/foundry/contracts/PredictionMarket.sol` — 255 行 · `pm-sol` · ✅ 已翻译注释（改动 48 行（NatSpec 与分节横幅）；与 hardhat 副本译文完全相同；Checkpoint 标记与被注释的代码保留原样）
+- [x] `extension/packages/foundry/contracts/PredictionMarketToken.sol` — 52 行 · `pm-sol` · ✅ 无需改动（只有 SPDX 行，没有英文注释）
+- [x] `extension/packages/foundry/foundry.toml.args.mjs` — 1 行 · `pm-sol` · ✅ 无需改动（没有注释（只有 1 行代码））
+- [x] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 5 行 · `pm-sol` · ✅ 无需改动（没有注释（模板字符串里也没有代码注释））
+- [x] `extension/packages/foundry/script/DeployPredictionMarket.s.sol` — 31 行 · `pm-sol` · ✅ 无需改动（只有 SPDX 行，没有英文注释）
+- [x] `extension/packages/foundry/test/PredictionMarket.t.sol` — 767 行 · `pm-sol` · ✅ 已翻译注释（改动 61 行；CHECKPOINT N 标记、分隔线和 SPDX 保留原样）
+- [x] `extension/packages/hardhat/contracts/PredictionMarket.sol` — 255 行 · `pm-sol` · ✅ 已翻译注释（改动 48 行；与 foundry 副本译文完全相同）
+- [x] `extension/packages/hardhat/contracts/PredictionMarketToken.sol` — 52 行 · `pm-sol` · ✅ 无需改动（只有 SPDX 行，没有英文注释）
+- [x] `extension/packages/hardhat/deploy/00_deploy_your_contract.ts` — 57 行 · `pm-sol` · ✅ 已翻译注释（改动 10 行；文件头说明块沿用 stablecoins/token-vendor 部署脚本的已有译法）
+- [x] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 17 行 · `pm-sol` · ✅ 无需改动（只有一条纯 URL 注释）
 - [x] `extension/packages/hardhat/test/PredictionMarket.ts` — 1508 行 · `pm-test` · ✅ 已翻译注释（改动 194 行；纯百分比注释（// 50%、// 25%）保留，it()/describe() 字符串未动；check_inplace [OK]，--leftover 无残留）
 - [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `pm-web` · ✅ 无需改动（无注释）
 - [x] `extension/packages/nextjs/app/liquidity-provider/page.tsx` — 72 行 · `pm-web` · ✅ 无需改动（无注释）
@@ -826,7 +826,7 @@
 
 ### challenge-zk-voting
 
-文本文件 61 个（已完成 40），二进制 11 个 → 目标分支 `challenge-zk-voting_zh`
+文本文件 61 个（已完成 60），二进制 11 个 → 目标分支 `challenge-zk-voting_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -835,7 +835,7 @@
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
 - [ ] `README.md` — 2095 行 · `zk-readme-p1, zk-readme-p2, zk-readme-p3, zk-readme-p4` · ⏳ 分段翻译进度 0/4
-- [ ] `extension/.ai/CHALLENGE.yaml` — 1363 行 · `zk-sol`
+- [x] `extension/.ai/CHALLENGE.yaml` — 1363 行 · `zk-sol` · ✅ 已翻译注释（改动 8 行：结构层 # CHECKPOINT 1-8 分隔标题（CHECKPOINT 标记保留英文，冒号后译）；纯分隔线保留；块标量内 Markdown 正文与代码（含 Noir/Solidity 注释）属 YAML 字符串值，未译；check_inplace [OK]）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start` · ✅ 已生成 `start-content_zh.md`（/home/user/se-2-challenges/.worktrees/challenge-zk-voting/extension/.ai/instructions/start-content_zh.md（416 行，check_md OK；WARN 47 条均为代码块内自然语言消息模板的翻译，已人工确认））
@@ -847,25 +847,25 @@
 - [x] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared` · ✅ 已生成 `skip_zh.md`（extension/.cursor/commands/skip_zh.md，5 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.cursor/commands/start.md` — 5 行 · `common-shared` · ✅ 已生成 `start_zh.md`（extension/.cursor/commands/start_zh.md，5 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.vscode/settings.json` — 5 行 · `common-shared` · ✅ 无需改动（JSON 配置，无注释）
-- [ ] `extension/AGENTS.md.args.mjs` — 407 行 · `zk-sol`
-- [ ] `extension/README.md.args.mjs` — 1970 行 · `zk-sol`
-- [ ] `extension/packages/circuits/Nargo.toml` — 7 行 · `zk-sol`
-- [ ] `extension/packages/circuits/src/main.nr` — 25 行 · `zk-sol`
-- [ ] `extension/packages/foundry/contracts/IVoting.sol` — 42 行 · `zk-sol`
-- [ ] `extension/packages/foundry/contracts/Verifier.sol` — 6 行 · `zk-sol`
-- [ ] `extension/packages/foundry/contracts/Voting.sol` — 137 行 · `zk-sol`
-- [ ] `extension/packages/foundry/contracts/mocks/VerifierMock.sol` — 51 行 · `zk-sol`
-- [ ] `extension/packages/foundry/package.json` — 10 行 · `zk-sol`
-- [ ] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 6 行 · `zk-sol`
-- [ ] `extension/packages/foundry/script/DeployVoting.s.sol` — 30 行 · `zk-sol`
-- [ ] `extension/packages/foundry/test/Voting.t.sol` — 267 行 · `zk-sol`
-- [ ] `extension/packages/hardhat/contracts/Verifier.sol` — 6 行 · `zk-sol`
-- [ ] `extension/packages/hardhat/contracts/Voting.sol` — 137 行 · `zk-sol`
-- [ ] `extension/packages/hardhat/contracts/mocks/VerifierMock.sol` — 54 行 · `zk-sol`
-- [ ] `extension/packages/hardhat/deploy/00_deploy_your_voting_contract.ts` — 68 行 · `zk-sol`
-- [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 22 行 · `zk-sol`
-- [ ] `extension/packages/hardhat/package.json` — 5 行 · `zk-sol`
-- [ ] `extension/packages/hardhat/test/Voting.ts` — 259 行 · `zk-sol`
+- [x] `extension/AGENTS.md.args.mjs` — 407 行 · `zk-sol` · ✅ 已翻译注释（改动 1 行（L1 JS 注释，与其他分支译法一致）；模板字符串内 AGENTS.md 正文（含代码块注释）按统一规则未译；check_inplace [OK]）
+- [x] `extension/README.md.args.mjs` — 1970 行 · `zk-sol` · ✅ 无需改动（模板字符串外无 JS 注释；模板内 README 正文（含 Solidity/Noir 代码块中的 // 注释与分节横幅）按统一规则不译）
+- [x] `extension/packages/circuits/Nargo.toml` — 7 行 · `zk-sol` · ✅ 无需改动（TOML 文件无 # 注释）
+- [x] `extension/packages/circuits/src/main.nr` — 25 行 · `zk-sol` · ✅ 已翻译注释（改动 4 行：public/private inputs 注释（含被注释掉代码块里的 // // 注释说明，一并译为公开输入/私有输入）；Checkpoint 标记与被注释掉的代码保留；check_inplace [OK]）
+- [x] `extension/packages/foundry/contracts/IVoting.sol` — 42 行 · `zk-sol` · ✅ 已翻译注释（改动 3 行（Errors/Events/Functions 分节注释）；SPDX 保留；check_inplace [OK]）
+- [x] `extension/packages/foundry/contracts/Verifier.sol` — 6 行 · `zk-sol` · ✅ 无需改动（仅 SPDX 许可证注释）
+- [x] `extension/packages/foundry/contracts/Voting.sol` — 137 行 · `zk-sol` · ✅ 已翻译注释（改动 24 行：分节横幅 + NatSpec 说明（标签与参数名保留）；Checkpoint 标记、被注释掉的代码、SPDX 保留；与 hardhat 同名文件译文逐行一致；check_inplace [OK]）
+- [x] `extension/packages/foundry/contracts/mocks/VerifierMock.sol` — 51 行 · `zk-sol` · ✅ 已翻译注释（改动 1 行（L10）；Checkpoint 标记、SPDX 保留；与 hardhat 同名文件译文一致；check_inplace [OK]）
+- [x] `extension/packages/foundry/package.json` — 10 行 · `zk-sol` · ✅ 无需改动（JSON 文件，无注释）
+- [x] `extension/packages/foundry/script/Deploy.s.sol.args.mjs` — 6 行 · `zk-sol` · ✅ 无需改动（无注释（仅模板字符串代码））
+- [x] `extension/packages/foundry/script/DeployVoting.s.sol` — 30 行 · `zk-sol` · ✅ 已翻译注释（改动 4 行（placeholder 行尾注释 + NOTE 说明 3 行，NOTE 标记保留）；Checkpoint 标记、被注释掉的代码、SPDX 保留；check_inplace [OK]）
+- [x] `extension/packages/foundry/test/Voting.t.sol` — 267 行 · `zk-sol` · ✅ 已翻译注释（改动 5 行；SPDX 保留；check_inplace [OK]）
+- [x] `extension/packages/hardhat/contracts/Verifier.sol` — 6 行 · `zk-sol` · ✅ 无需改动（仅 SPDX 许可证注释）
+- [x] `extension/packages/hardhat/contracts/Voting.sol` — 137 行 · `zk-sol` · ✅ 已翻译注释（改动 24 行；与 foundry 同名文件译文逐行一致（两版仅 import 花括号空格不同）；check_inplace [OK]）
+- [x] `extension/packages/hardhat/contracts/mocks/VerifierMock.sol` — 54 行 · `zk-sol` · ✅ 已翻译注释（改动 1 行（L10）；与 foundry 版译文一致；check_inplace [OK]）
+- [x] `extension/packages/hardhat/deploy/00_deploy_your_voting_contract.ts` — 68 行 · `zk-sol` · ✅ 已翻译注释（改动 11 行：文件头 JSDoc 7 行、placeholder 行尾注释 2 行、tags 说明 2 行（参照其他分支部署脚本译法）；小写 checkpoint 标记与被注释掉的 deploy 代码保留；check_inplace [OK]）
+- [x] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 22 行 · `zk-sol` · ✅ 无需改动（仅一条纯 URL 注释）
+- [x] `extension/packages/hardhat/package.json` — 5 行 · `zk-sol` · ✅ 无需改动（JSON 文件，无注释）
+- [x] `extension/packages/hardhat/test/Voting.ts` — 259 行 · `zk-sol` · ✅ 已翻译注释（改动 12 行；L229 行尾 // bytes32(0) 为值标注，保留；check_inplace [OK]）
 - [x] `extension/packages/nextjs/.env.example.args.mjs` — 5 行 · `zk-web` · ✅ 已翻译注释（改动 3 行（args 参考说明、默认参数注释；URL 原样保留））
 - [x] `extension/packages/nextjs/app/api/circuit/route.ts` — 24 行 · `zk-web` · ✅ 无需改动（无注释）
 - [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `zk-web` · ✅ 无需改动（无注释（模板字符串内也无注释））
