@@ -4,26 +4,26 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /**
- * @notice Simple DEX contract that allows users to swap ETH for CORN and CORN for ETH
+ * @notice 简单的 DEX 合约，允许用户用 ETH 兑换 CORN，或用 CORN 兑换 ETH
  */
 contract CornDEX {
-    /* ========== GLOBAL VARIABLES ========== */
+    /* ========== 全局变量 ========== */
 
-    IERC20 token; //instantiates the imported contract
+    IERC20 token; //实例化导入的合约
     uint256 public totalLiquidity;
     mapping(address => uint256) public liquidity;
 
-    /* ========== EVENTS ========== */
+    /* ========== 事件 ========== */
 
     event Swap(address swapper, address inputToken, uint256 inputAmount, address outputToken, uint256 outputAmount);
     event PriceUpdated(uint256 price);
     /**
-     * @notice Emitted when liquidity provided to DEX and mints LPTs.
+     * @notice 向 DEX 提供流动性并铸造 LPT 时触发。
      */
     event LiquidityProvided(address liquidityProvider, uint256 liquidityMinted, uint256 ethInput, uint256 tokensInput);
 
     /**
-     * @notice Emitted when liquidity removed from DEX and decreases LPT count within DEX.
+     * @notice 从 DEX 移除流动性并减少 DEX 内的 LPT 数量时触发。
      */
     event LiquidityRemoved(
         address liquidityRemover,
@@ -32,19 +32,19 @@ contract CornDEX {
         uint256 ethOutput
     );
 
-    /* ========== CONSTRUCTOR ========== */
+    /* ========== 构造函数 ========== */
 
     constructor(address tokenAddr) {
-        token = IERC20(tokenAddr); //specifies the token address that will hook into the interface and be used through the variable 'token'
+        token = IERC20(tokenAddr); //指定代币地址，该地址将接入接口，并通过变量 'token' 来使用
     }
 
-    /* ========== MUTATIVE FUNCTIONS ========== */
+    /* ========== 状态修改函数 ========== */
 
     /**
-     * @notice initializes amount of tokens that will be transferred to the DEX itself from the erc20 contract. Loads contract up with both ETH and CORN.
-     * @param tokens amount to be transferred to DEX
-     * @return totalLiquidity is the number of LPTs minting as a result of deposits made to DEX contract
-     * NOTE: since ratio is 1:1, this is fine to initialize the totalLiquidity as equal to eth balance of contract.
+     * @notice 初始化将从 erc20 合约转入 DEX 本身的代币数量。为合约同时注入 ETH 和 CORN。
+     * @param tokens 要转入 DEX 的数量
+     * @return totalLiquidity 向 DEX 合约存入资产后所铸造的 LPT 数量
+     * NOTE: 由于比例为 1:1，将 totalLiquidity 初始化为合约的 eth 余额是没问题的。
      */
     function init(uint256 tokens) public payable returns (uint256) {
         require(totalLiquidity == 0, "DEX: init - already has liquidity");
@@ -55,7 +55,7 @@ contract CornDEX {
     }
 
     /**
-     * @notice returns the amount you should receive (yOutput) when given the reserves of both assets in the pool
+     * @notice 给定池中两种资产的储备时，返回你应收到的数量（yOutput）
      */
     function price(uint256 xInput, uint256 xReserves, uint256 yReserves) public pure returns (uint256 yOutput) {
         uint256 numerator = xInput * yReserves;
@@ -64,14 +64,14 @@ contract CornDEX {
     }
 
     /**
-     * @notice returns the current price of ETH in CORN
+     * @notice 返回以 CORN 计价的 ETH 当前价格
      */
     function currentPrice() public view returns (uint256 _currentPrice) {
         _currentPrice = price(1 ether, address(this).balance, token.balanceOf(address(this)));
     }
 
     /**
-     * @notice returns the amount you need to put in (xInput) when given the amount of yOutput you want along with the reserves of both assets in the pool
+     * @notice 给定你想得到的 yOutput 数量以及池中两种资产的储备时，返回你需要投入的数量（xInput）
      */
     function calculateXInput(
         uint256 yOutput,
@@ -85,7 +85,7 @@ contract CornDEX {
     }
 
     /**
-     * @notice sends Ether to DEX in exchange for $CORN
+     * @notice 向 DEX 发送 Ether 以换取 $CORN
      */
     function ethToToken() internal returns (uint256 tokenOutput) {
         require(msg.value > 0, "cannot swap 0 ETH");
@@ -99,7 +99,7 @@ contract CornDEX {
     }
 
     /**
-     * @notice sends $CORN tokens to DEX in exchange for Ether
+     * @notice 向 DEX 发送 $CORN 代币以换取 Ether
      */
     function tokenToEth(uint256 tokenInput) internal returns (uint256 ethOutput) {
         require(tokenInput > 0, "cannot swap 0 tokens");
@@ -115,7 +115,7 @@ contract CornDEX {
     }
 
     /**
-     * @notice allows users to swap ETH for $CORN or $CORN for ETH with a single method
+     * @notice 允许用户通过同一个方法用 ETH 兑换 $CORN，或用 $CORN 兑换 ETH
      */
     function swap(uint256 inputAmount) public payable returns (uint256 outputAmount) {
         if (msg.value > 0 && inputAmount == msg.value) {
@@ -127,10 +127,10 @@ contract CornDEX {
     }
 
     /**
-     * @notice allows deposits of $CORN and $ETH to liquidity pool
-     * NOTE: parameter is the msg.value sent with this function call. That amount is used to determine the amount of $CORN needed as well and taken from the depositor.
-     * NOTE: user has to make sure to give DEX approval to spend their tokens on their behalf by calling approve function prior to this function call.
-     * NOTE: Equal parts of both assets will be removed from the user's wallet with respect to the price outlined by the AMM.
+     * @notice 允许向流动性池存入 $CORN 和 $ETH
+     * NOTE: 参数是调用此函数时附带发送的 msg.value。该数额也用于确定所需的 $CORN 数量，并从存款人处扣取。
+     * NOTE: 用户必须在调用此函数之前先调用 approve 函数，授权 DEX 代其花费代币。
+     * NOTE: 将按照 AMM 给出的价格，从用户钱包中扣除等值的两种资产。
      */
     function deposit() public payable returns (uint256 tokensDeposited) {
         require(msg.value > 0, "Must send value when depositing");
@@ -153,8 +153,8 @@ contract CornDEX {
     }
 
     /**
-     * @notice allows withdrawal of $CORN and $ETH from liquidity pool
-     * NOTE: with this current code, the msg caller could end up getting very little back if the liquidity is super low in the pool. I guess they could see that with the UI.
+     * @notice 允许从流动性池中提取 $CORN 和 $ETH
+     * NOTE: 按当前代码，如果池中流动性极低，调用者最终可能只取回很少的资产。我想他们可以通过界面看到这一点。
      */
     function withdraw(uint256 amount) public returns (uint256 ethAmount, uint256 tokenAmount) {
         require(liquidity[msg.sender] >= amount, "withdraw: sender does not have enough liquidity to withdraw.");

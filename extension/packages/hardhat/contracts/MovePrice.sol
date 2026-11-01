@@ -5,14 +5,14 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./CornDEX.sol";
 
 /**
- * @notice This contract acts as a whale account that moves the price of CORN up and down whenever anyone calls it
+ * @notice 该合约充当一个巨鲸账户，任何人调用它时都会推动 CORN 的价格上涨或下跌
  */
 contract MovePrice {
     CornDEX cornDex;
 
     constructor(address _cornDex, address _cornToken) {
         cornDex = CornDEX(_cornDex);
-        // Approve the cornDEX to use the cornToken
+        // 授权 cornDEX 使用 cornToken
         IERC20(_cornToken).approve(address(cornDex), type(uint256).max);
     }
 

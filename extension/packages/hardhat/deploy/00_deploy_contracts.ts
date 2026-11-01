@@ -2,16 +2,16 @@ import { artifacts, deployScript } from "../rocketh/deploy.js";
 import { parseEther } from "viem";
 
 /**
- * Deploys "Corn", "CornDEX", "Lending" and "MovePrice" using the deployer account.
+ * 使用部署者账户部署 "Corn"、"CornDEX"、"Lending" 和 "MovePrice"。
  *
- * On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
+ * 在 localhost 上，部署者账户是 Hardhat 自带的账户，已经预先充值了资金。
  *
- * When deploying to live networks (e.g `yarn deploy --network sepolia`), the deployer account
- * should have sufficient balance to pay for the gas fees for contract creation.
+ * 部署到真实网络时（例如 `yarn deploy --network sepolia`），部署者账户
+ * 应有足够的余额来支付创建合约的 gas 费用。
  *
- * You can generate a random account with `yarn generate` or `yarn account:import` to import your
- * existing PK which will fill DEPLOYER_PRIVATE_KEY_ENCRYPTED in the .env file (used in hardhat.config.ts).
- * Run `yarn account` to check the deployer balance on every network.
+ * 你可以用 `yarn generate` 生成一个随机账户，或用 `yarn account:import` 导入你
+ * 已有的私钥（PK），这会填充 .env 文件中的 DEPLOYER_PRIVATE_KEY_ENCRYPTED（在 hardhat.config.ts 中使用）。
+ * 运行 `yarn account` 查看部署者在各个网络上的余额。
  */
 export default deployScript(
   async env => {
@@ -35,16 +35,16 @@ export default deployScript(
       args: [cornDEX.address, cornToken.address],
     });
 
-    // Set up the move price contract
+    // 设置 MovePrice（推动价格）合约
     const movePrice = await env.deploy("MovePrice", {
       account: deployer,
       artifact: artifacts.MovePrice,
       args: [cornDEX.address, cornToken.address],
     });
 
-    // Only set up contract state on local network
+    // 仅在本地网络上设置合约状态
     if (env.name === "default" || env.name === "localhost") {
-      // Give ETH and CORN to the move price contract
+      // 给 MovePrice 合约发放 ETH 和 CORN
       await env.network.provider.request<{ params: [`0x${string}`, `0x${string}`]; result: null }>({
         method: "hardhat_setBalance",
         params: [movePrice.address, `0x${parseEther("10000000000000000000000").toString(16)}`],
@@ -54,13 +54,13 @@ export default deployScript(
         args: [movePrice.address, parseEther("10000000000000000000000")],
         account: deployer,
       });
-      // Lenders deposit CORN to the lending contract
+      // 出借人向 Lending 合约存入 CORN
       await env.execute(cornToken, {
         functionName: "mintTo",
         args: [lending.address, parseEther("10000000000000000000000")],
         account: deployer,
       });
-      // Give CORN and ETH to the deployer
+      // 给部署者发放 CORN 和 ETH
       await env.execute(cornToken, {
         functionName: "mintTo",
         args: [deployer, parseEther("1000000000000")],

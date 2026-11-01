@@ -17,7 +17,7 @@ const publicClient = getPublicClient();
 const walletClients = getWalletClients();
 const deployer = getDeployerClient();
 
-// Use anvil accounts 0-4 as bot accounts (deployer is account 9)
+// 使用 anvil 的 0-4 号账户作为机器人账户（部署者是 9 号账户）
 const botClients = walletClients.slice(0, NUM_ACCOUNTS);
 
 const lending = getContract("Lending");
@@ -76,7 +76,7 @@ async function simulateBorrowing() {
       `${client.account.address} borrowed ${formatEther(maxBorrowAmount)} CORN (${aggressive ? "aggressive" : "conservative"}, ${((Number(maxBorrowAmount) * 100) / Number(collateralValue)).toFixed(1)}% of collateral)`
     );
   } catch {
-    // position would be unsafe, skip
+    // 借款后仓位将不安全，跳过
   }
 }
 
@@ -106,14 +106,14 @@ async function simulateAddCollateral() {
           `${client.account.address} added ${formatEther(amountToAdd)} ETH as collateral`
         );
       } catch {
-        // skip
+        // 跳过
       }
     }
   }
 }
 
 async function checkAndPerformLiquidations() {
-  // Get all users who have added collateral via events
+  // 通过事件获取所有添加过抵押品的用户
   const logs = await publicClient.getLogs({
     address: lending.address,
     event: {
@@ -149,12 +149,12 @@ async function checkAndPerformLiquidations() {
     });
     if (!isLiquidatable) continue;
 
-    // Find a liquidator that isn't the user being liquidated
+    // 找一个不是被清算用户本人的清算人
     const liquidators = botClients.filter(
       (c) => c.account.address.toLowerCase() !== user.toLowerCase()
     );
 
-    // Check which liquidators have enough CORN
+    // 检查哪些清算人持有足够的 CORN
     let liquidator = null;
     for (const candidate of liquidators) {
       const cornBalance = await publicClient.readContract({
@@ -169,7 +169,7 @@ async function checkAndPerformLiquidations() {
       }
     }
 
-    // If no one has enough CORN, try to swap ETH for CORN
+    // 如果没有人持有足够的 CORN，尝试用 ETH 兑换 CORN
     if (!liquidator) {
       const swapper =
         liquidators[Math.floor(Math.random() * liquidators.length)];
@@ -225,7 +225,7 @@ async function checkAndPerformLiquidations() {
     );
 
     try {
-      // Approve lending contract to pull CORN
+      // 授权 Lending 合约转走 CORN
       const approveHash = await liquidator.writeContract({
         address: corn.address,
         abi: corn.abi,
@@ -234,7 +234,7 @@ async function checkAndPerformLiquidations() {
       });
       await publicClient.waitForTransactionReceipt({ hash: approveHash });
 
-      // Liquidate
+      // 清算
       const liqHash = await liquidator.writeContract({
         address: lending.address,
         abi: lending.abi,
@@ -243,7 +243,7 @@ async function checkAndPerformLiquidations() {
       });
       await publicClient.waitForTransactionReceipt({ hash: liqHash });
 
-      // Re-deposit some collateral with the proceeds
+      // 用清算所得重新存入一部分抵押品
       const liqBalance = await publicClient.getBalance({
         address: liquidator.account.address,
       });
@@ -257,7 +257,7 @@ async function checkAndPerformLiquidations() {
           });
           await publicClient.waitForTransactionReceipt({ hash: depHash });
         } catch {
-          // skip
+          // 跳过
         }
       }
 
@@ -283,7 +283,7 @@ async function main() {
 
   const run = async () => {
     try {
-      // 1. Move price
+      // 1. 推动价格
       trendDuration++;
       if (trendDuration >= maxTrendDuration) {
         trend *= -1;
@@ -297,7 +297,7 @@ async function main() {
       const amount = parseEther("24");
       const amountToSell = direction > 0 ? amount : -amount * 1000n;
 
-      // Skip if MovePrice lacks the asset it would spend
+      // 如果 MovePrice 缺少将要花费的资产则跳过
       if (amountToSell > 0n) {
         const mpEth = await publicClient.getBalance({ address: movePrice.address });
         if (mpEth < amountToSell) {
@@ -337,20 +337,20 @@ async function main() {
         });
       }
 
-      // 2. Fund accounts if needed
+      // 2. 如有需要则为账户充值
       await fundAccountsIfNeeded();
 
-      // 3. Random borrowing
+      // 3. 随机借款
       if (Math.random() < CHANCE_TO_BORROW) {
         await simulateBorrowing();
       }
 
-      // 4. Random collateral addition
+      // 4. 随机添加抵押品
       if (Math.random() < CHANCE_TO_ADD_COLLATERAL) {
         await simulateAddCollateral();
       }
 
-      // 5. Check for liquidations
+      // 5. 检查清算
       await checkAndPerformLiquidations();
     } catch (error) {
       if (process.env.DEBUG) {
@@ -361,7 +361,7 @@ async function main() {
 
   setInterval(run, 2000);
 
-  // Keep alive
+  // 保持进程运行
   process.stdin.resume();
 }
 

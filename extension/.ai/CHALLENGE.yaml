@@ -51,7 +51,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: Adding and Removing Collateral
+  # CHECKPOINT 1: 添加和移除抵押品
   # ============================================================
   - id: "collateral"
     title: "Adding and Removing Collateral"
@@ -178,7 +178,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 2: Helper Methods
+  # CHECKPOINT 2: 辅助方法
   # ============================================================
   - id: "helpers"
     title: "Helper Methods"
@@ -309,7 +309,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 3: Borrowing and Repaying CORN
+  # CHECKPOINT 3: 借入和偿还 CORN
   # ============================================================
   - id: "borrowing"
     title: "Borrowing and Repaying CORN"
@@ -448,7 +448,7 @@ checkpoints:
         // if (s_userBorrowed[msg.sender] > 0) { _validatePosition(msg.sender); }
 
   # ============================================================
-  # CHECKPOINT 4: Liquidation
+  # CHECKPOINT 4: 清算
   # ============================================================
   - id: "liquidation"
     title: "Liquidation Mechanism"

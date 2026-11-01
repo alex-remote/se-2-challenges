@@ -1,5 +1,5 @@
 //
-// This script executes when you run 'yarn test'
+// 运行 'yarn test' 时会执行此脚本
 //
 
 import { network } from "hardhat";
@@ -36,7 +36,7 @@ describe("💳🌽 Over-collateralized Lending Challenge 🤓", function () {
     await cornToken.approve(cornDEX.target, ethers.parseEther("1000000"));
     await cornDEX.init(ethers.parseEther("1000000"), { value: ethers.parseEther("1000") });
 
-    // For SRE Auto-grader - use the the downloaded contract instead of default contract
+    // 供 SRE 自动评分器使用 - 使用下载的合约代替默认合约
     let contractArtifact = "";
     if (contractAddress) {
       contractArtifact = `contracts/download-${contractAddress}.sol:Lending`;
@@ -197,18 +197,18 @@ describe("💳🌽 Over-collateralized Lending Challenge 🤓", function () {
     });
 
     it("Should allow liquidation when position is unsafe", async function () {
-      // drop price of eth so that user1 position is below 1.2
+      // 压低 eth 价格，使 user1 的仓位低于 1.2
       await cornDEX.swap(ethers.parseEther("300"), { value: ethers.parseEther("300") });
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       expect(await lending.isLiquidatable(user1)).to.be.true;
-      // get balance before liquidation
+      // 获取清算前的余额
       const beforeBalance = await ethers.provider.getBalance(user2.address);
       await lending.connect(user2).liquidate(user1.address);
-      // get balance after liquidation
+      // 获取清算后的余额
       const afterBalance = await ethers.provider.getBalance(user2.address);
-      // check if user1's borrowed amount is 0
+      // 检查 user1 的借款数量是否为 0
       expect(await lending.s_userBorrowed(user1.address)).to.equal(0);
-      // check if user2's ETH balance increased
+      // 检查 user2 的 ETH 余额是否增加
       expect(afterBalance).to.be.gt(beforeBalance);
     });
 
@@ -225,7 +225,7 @@ describe("💳🌽 Over-collateralized Lending Challenge 🤓", function () {
       await cornDEX.swap(ethers.parseEther("300"), { value: ethers.parseEther("300") });
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       expect(await lending.isLiquidatable(user1)).to.be.true;
-      // transfer half of the needed CORN to another account
+      // 把所需 CORN 的一半转到另一个账户
       await cornToken.connect(user2).transfer(owner.address, borrowAmount / 2n);
       await expect(lending.connect(user2).liquidate(user1.address)).to.be.revertedWithCustomError(
         lending,

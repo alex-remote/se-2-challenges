@@ -40,7 +40,7 @@ contract LendingTest is Test {
     }
 
     // ============================================================
-    // Deployment
+    // 部署
     // ============================================================
 
     function test_DeployWithCorrectInitialState() public view {
@@ -48,7 +48,7 @@ contract LendingTest is Test {
     }
 
     // ============================================================
-    // Collateral Operations
+    // 抵押品操作
     // ============================================================
 
     function test_Collateral_AllowAddingCollateral() public {
@@ -112,7 +112,7 @@ contract LendingTest is Test {
     }
 
     // ============================================================
-    // Withdraw Protection
+    // 提取保护
     // ============================================================
 
     function test_Withdraw_PreventIfMakesLiquidatable() public {
@@ -126,7 +126,7 @@ contract LendingTest is Test {
     }
 
     // ============================================================
-    // Borrowing Operations
+    // 借款操作
     // ============================================================
 
     function test_Borrowing_AllowWhenSufficientlyCollateralized() public {
@@ -178,7 +178,7 @@ contract LendingTest is Test {
     }
 
     // ============================================================
-    // Repayment Operations
+    // 还款操作
     // ============================================================
 
     function test_Repayment_AllowRepayingFullAmount() public {
@@ -245,7 +245,7 @@ contract LendingTest is Test {
     }
 
     // ============================================================
-    // Liquidation
+    // 清算
     // ============================================================
 
     function _setupLiquidation() internal {
@@ -254,7 +254,7 @@ contract LendingTest is Test {
         vm.prank(user1);
         lending.borrowCorn(BORROW_AMOUNT);
 
-        // Mint CORN to user2 for liquidation
+        // 给 user2 铸造 CORN，用于清算
         cornToken.mintTo(user2, BORROW_AMOUNT);
         vm.prank(user2);
         cornToken.approve(address(lending), BORROW_AMOUNT);
@@ -263,7 +263,7 @@ contract LendingTest is Test {
     function test_Liquidation_AllowWhenPositionUnsafe() public {
         _setupLiquidation();
 
-        // Drop price of ETH by swapping a large amount
+        // 通过大额兑换压低 ETH 价格
         cornToken.mintTo(owner, 300 ether);
         cornToken.approve(address(cornDEX), 300 ether);
         cornDEX.swap{ value: 300 ether }(300 ether);
@@ -292,14 +292,14 @@ contract LendingTest is Test {
     function test_Liquidation_RequireEnoughCorn() public {
         _setupLiquidation();
 
-        // Drop price
+        // 压低价格
         cornToken.mintTo(owner, 300 ether);
         cornToken.approve(address(cornDEX), 300 ether);
         cornDEX.swap{ value: 300 ether }(300 ether);
 
         assertTrue(lending.isLiquidatable(user1));
 
-        // Transfer half of user2's CORN away
+        // 把 user2 的一半 CORN 转走
         vm.prank(user2);
         cornToken.transfer(owner, BORROW_AMOUNT / 2);
 
@@ -311,7 +311,7 @@ contract LendingTest is Test {
     function test_Liquidation_EmitEvent() public {
         _setupLiquidation();
 
-        // Drop price
+        // 压低价格
         cornToken.mintTo(owner, 300 ether);
         cornToken.approve(address(cornDEX), 300 ether);
         cornDEX.swap{ value: 300 ether }(300 ether);

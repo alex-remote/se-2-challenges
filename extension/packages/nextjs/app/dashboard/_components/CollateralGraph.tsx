@@ -122,7 +122,7 @@ const CollateralGraph = () => {
     ];
   }, []);
 
-  // Filter the ratioData to keep only the last occurrence of each block number
+  // 过滤 ratioData，每个区块号只保留最后一次出现的记录
   const filteredRatioData = Object.values(
     ratioData.reduce(
       (acc, dataPoint) => {

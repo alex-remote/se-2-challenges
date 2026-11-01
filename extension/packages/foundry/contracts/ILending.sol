@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 interface ILending {
-    // Errors
+    // 错误
     error Lending__InvalidAmount();
     error Lending__TransferFailed();
     error Lending__UnsafePositionRatio();
@@ -12,7 +12,7 @@ interface ILending {
     error Lending__NotLiquidatable();
     error Lending__InsufficientLiquidatorCorn();
 
-    // Events
+    // 事件
     event CollateralAdded(address indexed user, uint256 indexed amount, uint256 price);
     event CollateralWithdrawn(address indexed user, uint256 indexed amount, uint256 price);
     event AssetBorrowed(address indexed user, uint256 indexed amount, uint256 price);
@@ -25,7 +25,7 @@ interface ILending {
         uint256 price
     );
 
-    // Functions
+    // 函数
     function addCollateral() external payable;
     function withdrawCollateral(uint256 amount) external;
     function calculateCollateralValue(address user) external view returns (uint256);

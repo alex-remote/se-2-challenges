@@ -9,8 +9,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const { ethers } = await network.create();
 
-// This script only runs against the local chain: it reads contract addresses
-// from the `default` deployments folder written by the local `yarn deploy`.
+// 该脚本只针对本地链运行：它从本地 `yarn deploy` 写入的
+// `default` 部署文件夹中读取合约地址。
 function loadDeployment(name: string): { address: string; abi: any } {
   const path = join(__dirname, `../deployments/default/${name}.json`);
   return JSON.parse(readFileSync(path, "utf8"));
@@ -21,9 +21,9 @@ interface SimulatedAccount {
   initialEth: bigint;
 }
 
-const NUM_ACCOUNTS = 5; // Number of simulated accounts
-const CHANCE_TO_BORROW = 0.3; // 30% chance to borrow
-const CHANCE_TO_ADD_COLLATERAL = 0.2; // 20% chance to add collateral
+const NUM_ACCOUNTS = 5; // 模拟账户的数量
+const CHANCE_TO_BORROW = 0.3; // 30% 的概率借款
+const CHANCE_TO_ADD_COLLATERAL = 0.2; // 20% 的概率添加抵押品
 
 const liquidationInProgress = new Set<string>();
 
@@ -31,9 +31,9 @@ async function fundAccountsIfNeeded(accounts: SimulatedAccount[], deployer: any)
   for (const account of accounts) {
     const currentBalance = await ethers.provider.getBalance(account.wallet.address);
 
-    // Fund if balance drops below 2 ETH
+    // 余额低于 2 ETH 时进行充值
     if (currentBalance < ethers.parseEther("2")) {
-      // Random amount between 3-13 ETH
+      // 3-13 ETH 之间的随机数额
       const randomEth = 3 + Math.random() * 10;
       const topUpAmount = ethers.parseEther(randomEth.toString());
 
@@ -51,13 +51,13 @@ async function setupAccounts(): Promise<SimulatedAccount[]> {
   console.log("Setting up simulated accounts...");
 
   const accounts: SimulatedAccount[] = [];
-  const initialEth = ethers.parseEther("12"); // 12 ETH each
+  const initialEth = ethers.parseEther("12"); // 每个账户 12 ETH
   const [deployer] = await ethers.getSigners();
 
-  // Create deterministic wallets using a base mnemonic
+  // 使用一个基础助记词创建确定性钱包
   const baseMnemonic = "test test test test test test test test test test test junk";
 
-  // Create 5 deterministic wallets
+  // 创建 5 个确定性钱包
   for (let i = 0; i < NUM_ACCOUNTS; i++) {
     const wallet = ethers.HDNodeWallet.fromPhrase(baseMnemonic, `m/44'/60'/0'/0/${i}`).connect(ethers.provider);
     accounts.push({
@@ -66,7 +66,7 @@ async function setupAccounts(): Promise<SimulatedAccount[]> {
     });
   }
 
-  // Do initial funding
+  // 进行初始充值
   await fundAccountsIfNeeded(accounts, deployer);
 
   return accounts;
@@ -86,10 +86,10 @@ async function simulateMarketActions(
   let trendDuration = 0;
   let maxTrendDuration = Math.floor(Math.random() * 8) + 7;
 
-  // Run market actions every 2 seconds
+  // 每 2 秒执行一次市场操作
   setInterval(async () => {
     try {
-      // 1. Update price
+      // 1. 更新价格
       trendDuration++;
       if (trendDuration >= maxTrendDuration) {
         trend *= -1;
@@ -105,20 +105,20 @@ async function simulateMarketActions(
 
       await movePrice.movePrice(amountToSell);
 
-      // 2. Check and fund accounts if needed
+      // 2. 检查账户，如有需要则充值
       await fundAccountsIfNeeded(accounts, deployer);
 
-      // 3. Random borrowing (30% chance)
+      // 3. 随机借款（30% 概率）
       if (Math.random() < CHANCE_TO_BORROW) {
         await simulateBorrowing(lending, accounts);
       }
 
-      // 4. Random collateral addition (20% chance)
+      // 4. 随机添加抵押品（20% 概率）
       if (Math.random() < CHANCE_TO_ADD_COLLATERAL) {
         await simulateAddCollateral(lending, accounts);
       }
 
-      // 5. Check for and perform liquidations
+      // 5. 检查并执行清算
       await checkAndPerformLiquidations(lending, corn, cornDEX, accounts);
     } catch (error) {
       console.error("Error in market simulation interval");
@@ -126,7 +126,7 @@ async function simulateMarketActions(
         console.error(error);
       }
     }
-  }, 2000); // 2 second interval
+  }, 2000); // 间隔 2 秒
 }
 
 async function simulateBorrowing(lending: Lending, accounts: SimulatedAccount[]) {
@@ -138,10 +138,10 @@ async function simulateBorrowing(lending: Lending, accounts: SimulatedAccount[])
 
   const aggressiveBorrower = Math.random() < CHANCE_TO_BORROW;
 
-  // Calculate max borrow amount
+  // 计算最大借款数量
   const percentage = aggressiveBorrower
-    ? 85 + Math.random() * 14 // Aggressive: 85-99%
-    : 30 + Math.random() * 40; // Conservative: 30-70%
+    ? 85 + Math.random() * 14 // 激进型：85-99%
+    : 30 + Math.random() * 40; // 保守型：30-70%
 
   const maxBorrowAmount = (collateralValue * BigInt(Math.floor(percentage * 10))) / 1000n;
 
@@ -169,7 +169,7 @@ async function simulateAddCollateral(lending: Lending, accounts: SimulatedAccoun
   const currentCollateral = await lending.s_userCollateral(randomAccount.wallet.address);
 
   if (balance > ethers.parseEther("3")) {
-    const maxPossible = balance - ethers.parseEther("2"); // Keep 2 ETH for operations
+    const maxPossible = balance - ethers.parseEther("2"); // 保留 2 ETH 用于后续操作
     const percentage = 20 + Math.random() * 60;
     const amountToAdd = (maxPossible * BigInt(Math.floor(percentage * 10))) / 1000n;
 
@@ -311,10 +311,10 @@ async function main() {
 
   const accounts = await setupAccounts();
 
-  // Start the combined market simulation
+  // 启动综合市场模拟
   await simulateMarketActions(movePriceContract, lending, corn, cornDEX, accounts, deployer);
 
-  // Keep the script running
+  // 保持脚本持续运行
   process.stdin.resume();
 }
 

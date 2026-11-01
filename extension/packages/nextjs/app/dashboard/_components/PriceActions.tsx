@@ -17,7 +17,7 @@ const PriceActions = () => {
 
   const { writeContractAsync } = useScaffoldWriteContract({ contractName: "MovePrice" });
 
-  const priceOfOneCORN = price ? parseEther((1 / Number(formatEther(price))).toString()) : undefined; // Fixed parentheses and added toString()
+  const priceOfOneCORN = price ? parseEther((1 / Number(formatEther(price))).toString()) : undefined; // 修正了括号并添加了 toString()
   const renderPrice =
     priceOfOneCORN === undefined ? (
       <div className="mr-1 skeleton w-10 h-4"></div>
@@ -31,7 +31,7 @@ const PriceActions = () => {
       console.error("Price or DEX balance is undefined");
       return;
     }
-    // Swap 5% of the DEX's ETH reserve so each click produces a meaningful but bounded price move
+    // 兑换 DEX 中 ETH 储备的 5%，使每次点击都能产生明显但有上限的价格变动
     const amount = dexBalance.value / 20n;
     const amountToSell = isIncrease ? amount : -amount * 1000n;
 
