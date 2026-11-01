@@ -44,7 +44,7 @@ const parseHexColor = (raw: string): Rgb | null => {
 };
 
 const parseRgbColor = (raw: string): Rgb | null => {
-  // rgb(255 255 255) or rgb(255, 255, 255) or rgba(...)
+  // rgb(255 255 255) 或 rgb(255, 255, 255) 或 rgba(...)
   const m = raw.trim().match(/^rgba?\(\s*([0-9.]+)\s*[, ]\s*([0-9.]+)\s*[, ]\s*([0-9.]+)(?:\s*[,/]\s*[0-9.]+)?\s*\)$/i);
   if (!m) return null;
   const r = Number.parseFloat(m[1]);
@@ -110,7 +110,7 @@ const drawPillLabel = (
   const textLeft =
     align === "center" ? x - metrics.textW / 2 : align === "right" || align === "end" ? x - metrics.textW : x;
 
-  // Convert baseline-based y into a top-left for the text.
+  // 把基于基线（baseline）的 y 转换为文本的左上角坐标。
   const textTop =
     baseline === "top"
       ? y
@@ -118,9 +118,9 @@ const drawPillLabel = (
         ? y - metrics.textH / 2
         : baseline === "bottom"
           ? y - metrics.textH
-          : y - metrics.ascent; // alphabetic
+          : y - metrics.ascent; // alphabetic（字母基线）
 
-  // Expand to pill rect and keep text vertically centered if we enforced a min height.
+  // 扩展为胶囊形矩形；如果强制了最小高度，则保持文本垂直居中。
   const baseRectH = metrics.textH + paddingY * 2;
   const extraH = metrics.rectH - baseRectH;
 
@@ -166,7 +166,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
   const [themeTick, setThemeTick] = useState(0);
   const [view, setView] = useState<{ centerEth: number; scale: number } | null>(null);
 
-  // Re-render on theme toggle (daisyUI toggles via data-theme and/or class changes).
+  // 切换主题时重新渲染（daisyUI 通过 data-theme 和/或 class 的变化来切换主题）。
   useEffect(() => {
     if (typeof window === "undefined") return;
     const root = document.documentElement;
@@ -175,9 +175,9 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     return () => obs.disconnect();
   }, []);
 
-  // Keep a stable viewport so the point actually moves along the curve when reserves change.
-  // If a swap is so large that the point would go out of view, we *zoom out* (expand the x-range)
-  // instead of re-centering (which would visually pin the point back to the same location).
+  // 保持视口稳定，这样储备变化时，点才会真正沿着曲线移动。
+  // 如果一次兑换大到点会移出视野，我们会*缩小*视图（扩大 x 范围），
+  // 而不是重新居中（那样在视觉上会把点钉回原来的位置）。
   useEffect(() => {
     if (!(props.ethReserve > 0) || !(props.tokenReserve > 0)) return;
 
@@ -193,8 +193,8 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
       const minX = Math.max(centerEth / scale, 1e-9);
       const maxX = centerEth * scale;
 
-      // Expand x-range when the new point would be off-screen.
-      // Keep a little margin so it doesn't sit flush on the edge.
+      // 当新的点会超出屏幕时，扩大 x 范围。
+      // 留一点边距，避免点紧贴在边缘上。
       const margin = 1.2;
       const x = Math.max(props.ethReserve, 1e-9);
       if (x < minX) {
@@ -203,7 +203,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
         scale = Math.max(scale, (x * margin) / centerEth);
       }
 
-      // Avoid pathological zoom-out.
+      // 避免极端的过度缩小。
       scale = Math.min(Math.max(scale, 1.5), 1e6);
 
       if (scale === prev.scale) return prev;
@@ -212,11 +212,11 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
   }, [props.ethReserve, props.tokenReserve]);
 
   const colors = useMemo(() => {
-    // Intentionally "use" themeTick so this recomputes on theme toggle.
+    // 有意“使用” themeTick，这样切换主题时会重新计算。
     void themeTick;
 
     if (typeof window === "undefined") {
-      // Reasonable defaults (won't really render on SSR anyway).
+      // 合理的默认值（反正在 SSR 时也不会真正渲染）。
       const base100 = { r: 240, g: 252, b: 255 };
       const base200 = { r: 225, g: 250, b: 255 };
       const base300 = { r: 200, g: 245, b: 255 };
@@ -242,7 +242,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     const style = getComputedStyle(document.documentElement);
     const readRgbVar = (name: string, fallback: Rgb) => parseCssColorToRgb(style.getPropertyValue(name)) ?? fallback;
 
-    // These are defined in `globals.css` via the DaisyUI theme plugin.
+    // 这些变量由 DaisyUI 主题插件在 `globals.css` 中定义。
     const base100 = readRgbVar("--color-base-100", { r: 255, g: 255, b: 255 });
     const base200 = readRgbVar("--color-base-200", { r: 244, g: 248, b: 255 });
     const base300 = readRgbVar("--color-base-300", { r: 218, g: 232, b: 255 });
@@ -275,7 +275,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // HiDPI/retina rendering for a sharper, more modern look.
+    // HiDPI/视网膜屏渲染，让画面更清晰、更现代。
     const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
     canvas.width = Math.floor(props.width * dpr);
     canvas.height = Math.floor(props.height * dpr);
@@ -286,13 +286,13 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     const width = props.width;
     const height = props.height;
 
-    // Styling
+    // 样式
     const textSize = 14;
     const padding = 16;
     const { chartBg, labelBg, labelStroke, grid, axis, ink, curveStart, curveEnd, point, ethArrow, tokenArrow } =
       colors;
 
-    // Clear + background
+    // 清空 + 背景
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = chartBg;
     ctx.fillRect(0, 0, width, height);
@@ -312,8 +312,8 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
 
     const k = props.ethReserve * props.tokenReserve;
 
-    // Viewport X-range: stable and anchored to the initial reserves (not the current ones),
-    // otherwise the point would appear "stuck" at the same place.
+    // 视口 X 范围：保持稳定，并锚定在初始储备上（而不是当前储备），
+    // 否则点看起来会“卡”在同一个位置。
     const centerEth = view?.centerEth ?? props.ethReserve;
     const scale = view?.scale ?? 4;
     const minX = Math.max(centerEth / scale, 1e-9);
@@ -322,7 +322,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     const plotWidth = width - padding * 2;
     const plotHeight = height - padding * 2;
 
-    // Fit the curve for the chosen X-range.
+    // 根据选定的 X 范围拟合曲线。
     const maxY = k / minX;
     const minY = k / maxX;
 
@@ -332,7 +332,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     const plotX = (x: number) => padding + ((x - minX) / denomX) * plotWidth;
     const plotY = (y: number) => padding + (1 - (y - minY) / denomY) * plotHeight;
 
-    // Grid
+    // 网格
     ctx.strokeStyle = grid;
     ctx.lineWidth = 1;
     for (let i = 1; i <= 4; i++) {
@@ -348,7 +348,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
       ctx.stroke();
     }
 
-    // Axes
+    // 坐标轴
     ctx.strokeStyle = axis;
     ctx.lineWidth = 1.25;
     ctx.beginPath();
@@ -360,7 +360,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     ctx.lineTo(padding + plotWidth, padding + plotHeight);
     ctx.stroke();
 
-    // Curve stroke (theme primary)
+    // 曲线描边（主题主色）
     const gradient = ctx.createLinearGradient(padding, padding + plotHeight, padding + plotWidth, padding);
     gradient.addColorStop(0, curveStart);
     gradient.addColorStop(1, curveEnd);
@@ -368,7 +368,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     ctx.lineWidth = 2.25;
     ctx.beginPath();
 
-    // Avoid x=0 (infinite y)
+    // 避开 x=0（此时 y 为无穷大）
     const step = Math.max((maxX - minX) / plotWidth, 1e-9);
     let first = true;
     for (let x = Math.max(minX + step, step); x <= maxX; x += step) {
@@ -385,7 +385,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     }
     ctx.stroke();
 
-    // Current reserves point
+    // 当前储备点
     const rx = plotX(props.ethReserve);
     const ry = plotY(props.tokenReserve);
     ctx.save();
@@ -397,14 +397,14 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
     ctx.fill();
     ctx.restore();
 
-    // Arrows + annotations
+    // 箭头 + 标注
     ctx.lineWidth = 1.5;
     const pillPaddingX = 8;
     const pillPaddingY = 4;
-    const pillMinHeight = getFontPx(ctx) * 1.8; // make ETH pill match emoji pill height
-    const pillGap = 8; // predictable spacing from point
+    const pillMinHeight = getFontPx(ctx) * 1.8; // 让 ETH 胶囊标签与 emoji 胶囊标签高度一致
+    const pillGap = 8; // 与点之间的固定间距
 
-    // Clamp the pill's LEFT edge so it's always visible, but keep it aligned with the point when possible.
+    // 限制胶囊标签的左边缘，使其始终可见，但在可能时仍与点对齐。
     const clampPillLeftX = (rectW: number, leftX: number) => clamp(leftX, padding, width - padding - rectW);
     const clampPillCenterY = (rectH: number, cy: number) =>
       clamp(cy, padding + rectH / 2, height - padding - rectH / 2);
@@ -421,7 +421,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
       drawArrow(ctx, nx, ry, nx, ny);
 
       {
-        // ETH pill: directly ABOVE the current point.
+        // ETH 胶囊标签：位于当前点的正上方。
         const text = `${props.addingEth} ETH in`;
         const { rectW, rectH } = measurePill(ctx, text, {
           paddingX: pillPaddingX,
@@ -429,7 +429,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
           minHeightPx: pillMinHeight,
         });
         const leftX = clampPillLeftX(rectW, rx);
-        // When preview moves down the curve, add a bit more vertical gap for ETH pill.
+        // 预览沿曲线向下移动时，给 ETH 胶囊标签多留一点垂直间距。
         const extraGap = 4;
         const cy = clampPillCenterY(rectH, ry - (pillGap + extraGap) - rectH / 2);
         ctx.textAlign = "left";
@@ -445,7 +445,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
 
       const amountGained = Math.round((10000 * (props.addingEth * props.tokenReserve)) / newEthReserve) / 10000;
       {
-        // 🎈 pill: directly BELOW the lower (new) point.
+        // 🎈 胶囊标签：位于较低的（新）点的正下方。
         const text = `${amountGained} 🎈 out (fee incl.)`;
         const { rectW, rectH } = measurePill(ctx, text, {
           paddingX: pillPaddingX,
@@ -476,7 +476,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
       drawArrow(ctx, rx, ny, nx, ny);
 
       {
-        // 🎈 pill: directly BELOW the lower (current) point.
+        // 🎈 胶囊标签：位于较低的（当前）点的正下方。
         const text = `${props.addingToken} 🎈 in`;
         const { rectW, rectH } = measurePill(ctx, text, {
           paddingX: pillPaddingX,
@@ -498,7 +498,7 @@ export const Curve: FC<ICurveProps> = (props: ICurveProps) => {
 
       const amountGained = Math.round((10000 * (props.addingToken * props.ethReserve)) / newTokenReserve) / 10000;
       {
-        // ETH pill: directly ABOVE the new point.
+        // ETH 胶囊标签：位于新点的正上方。
         const text = `${amountGained} ETH out (fee incl.)`;
         const { rectW, rectH } = measurePill(ctx, text, {
           paddingX: pillPaddingX,

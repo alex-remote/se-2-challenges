@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 interface IDEX {
     /////////////////
-    /// Errors //////
+    /// 错误 ////////
     /////////////////
 
     error DexAlreadyInitialized();
@@ -14,7 +14,7 @@ interface IDEX {
     error InsufficientLiquidity(uint256 available, uint256 required);
 
     ////////////////
-    /// Events /////
+    /// 事件 ///////
     ////////////////
 
     event EthToTokenSwap(address swapper, uint256 ethInput, uint256 tokenOutput);
@@ -23,7 +23,7 @@ interface IDEX {
     event LiquidityRemoved(address provider, uint256 liquidityRemoved, uint256 ethWithdrawn, uint256 tokensWithdrawn);
 
     ///////////////////
-    /// Functions /////
+    /// 函数 //////////
     ///////////////////
 
     function token() external view returns (IERC20);

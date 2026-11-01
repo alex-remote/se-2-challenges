@@ -1,7 +1,7 @@
 //
-// This script executes when you run 'yarn hardhat:test'
+// 运行 'yarn hardhat:test' 时会执行此脚本
 //
-// NOTE: The README expects tests grouped by checkpoint so you can run:
+// NOTE: README 要求测试按 checkpoint 分组，这样你就可以运行：
 //   yarn test --grep "Checkpoint2"
 //   yarn test --grep "Checkpoint3"
 //   yarn test --grep "Checkpoint4"
@@ -50,11 +50,11 @@ describe("🚩 Challenge: ⚖️ 🪙 DEX", function () {
   async function deployInitializedFixture() {
     const { deployer, user2, user3, balloons, dex, dexAddress } = await deployFixture();
 
-    // Seed user2/user3 with tokens for later trading / liquidity.
+    // 给 user2/user3 转一些代币，供之后的交易 / 流动性测试使用。
     await balloons.transfer(user2.address, ethers.parseEther("10"));
     await balloons.transfer(user3.address, ethers.parseEther("10"));
 
-    // Approve + init from deployer (deployer holds the initial 1000 BAL supply).
+    // 由 deployer 授权 + init（deployer 持有初始的 1000 BAL 供应量）。
     await balloons.approve(dexAddress, ethers.parseEther("100"));
     await dex.init(ethers.parseEther("5"), { value: ethers.parseEther("5"), gasLimit: 200000 });
 
@@ -89,7 +89,7 @@ describe("🚩 Challenge: ⚖️ 🪙 DEX", function () {
     it("Checkpoint2: getLiquidity returns the LP balance for an address", async function () {
       const { deployer, dex } = await deployInitializedFixture();
 
-      // In this challenge, initial LP is equal to the ETH added in init.
+      // 在本挑战中，初始 LP 数量等于 init 时存入的 ETH 数量。
       expect(await dex.getLiquidity(deployer.address)).to.equal(ethers.parseEther("5"));
     });
   });
@@ -150,7 +150,7 @@ describe("🚩 Challenge: ⚖️ 🪙 DEX", function () {
     it("Checkpoint4: tokenToEth emits TokenToEthSwap and transfers ETH out", async function () {
       const { deployer, balloons, dex, dexAddress } = await deployInitializedFixture();
 
-      // Approve and swap 1 token from deployer.
+      // 由 deployer 授权并兑换 1 个代币。
       await balloons.approve(dexAddress, ethers.parseEther("1"));
 
       const dexEthBefore = await ethers.provider.getBalance(dexAddress);
@@ -178,7 +178,7 @@ describe("🚩 Challenge: ⚖️ 🪙 DEX", function () {
       const userLpStart = await dex.getLiquidity(user2.address);
       expect(userLpStart).to.equal(0);
 
-      // Deposit 5 ETH. Tokens required depends on reserves, so we don't assert the exact tokenDeposit here.
+      // 存入 5 ETH。所需代币数量取决于储备，因此这里不对确切的 tokenDeposit 做断言。
       const tx = dex.connect(user2).deposit({ value: ethers.parseEther("5") });
       await expect(tx)
         .to.emit(dex, "LiquidityProvided")

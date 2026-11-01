@@ -52,7 +52,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CHECKPOINT 1: Reserves & init()
+  # CHECKPOINT 1: 储备与 init()
   # ============================================================
   - id: "reserves-init"
     title: "Reserves & init()"
@@ -196,7 +196,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 2: Price Function
+  # CHECKPOINT 2: 价格函数
   # ============================================================
   - id: "price"
     title: "Price Function"
@@ -313,7 +313,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 3: Trading (ethToToken + tokenToEth)
+  # CHECKPOINT 3: 交易（ethToToken + tokenToEth）
   # ============================================================
   - id: "swapping"
     title: "Trading"
@@ -510,7 +510,7 @@ checkpoints:
         }
 
   # ============================================================
-  # CHECKPOINT 4: Liquidity (deposit + withdraw)
+  # CHECKPOINT 4: 流动性（deposit + withdraw）
   # ============================================================
   - id: "liquidity"
     title: "Liquidity"

@@ -38,7 +38,7 @@ contract DEXTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 2: Reserves + init() + getLiquidity()
+    // Checkpoint 2: 储备 + init() + getLiquidity()
     // ============================================================
 
     function test_Checkpoint2_TotalLiquidityStartsAtZeroAndInitSetsIt() public {
@@ -85,7 +85,7 @@ contract DEXTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 4: Trading (ethToToken + tokenToEth)
+    // Checkpoint 4: 交易（ethToToken + tokenToEth）
     // ============================================================
 
     function test_Checkpoint4_EthToTokenRevertsOnZeroEth() public {
@@ -113,7 +113,7 @@ contract DEXTest is Test {
 
         assertEq(address(dex).balance, xReserves + xInput, "DEX ETH should increase by swap input");
 
-        // Check EthToTokenSwap event was emitted
+        // 检查是否触发了 EthToTokenSwap 事件
         Vm.Log[] memory entries = vm.getRecordedLogs();
         bool found = false;
         for (uint256 i = 0; i < entries.length; i++) {
@@ -145,7 +145,7 @@ contract DEXTest is Test {
         uint256 dexEthAfter = address(dex).balance;
         assertLt(dexEthAfter, dexEthBefore, "DEX should have less ETH after token-to-eth swap");
 
-        // Check TokenToEthSwap event was emitted
+        // 检查是否触发了 TokenToEthSwap 事件
         Vm.Log[] memory entries = vm.getRecordedLogs();
         bool found = false;
         for (uint256 i = 0; i < entries.length; i++) {
@@ -157,7 +157,7 @@ contract DEXTest is Test {
     }
 
     // ============================================================
-    // Checkpoint 5: Liquidity (deposit + withdraw)
+    // Checkpoint 5: 流动性（deposit + withdraw）
     // ============================================================
 
     function test_Checkpoint5_DepositRevertsOnZeroEth() public {
@@ -186,7 +186,7 @@ contract DEXTest is Test {
         uint256 userLpEnd = dex.getLiquidity(user2);
         assertEq(userLpEnd, 5 ether);
 
-        // Check LiquidityProvided event
+        // 检查 LiquidityProvided 事件
         Vm.Log[] memory entries = vm.getRecordedLogs();
         bool found = false;
         for (uint256 i = 0; i < entries.length; i++) {
@@ -217,7 +217,7 @@ contract DEXTest is Test {
         uint256 totalLpAfter = dex.totalLiquidity();
         assertEq(totalLpAfter, totalLpBefore - 1.5 ether);
 
-        // Check LiquidityRemoved event
+        // 检查 LiquidityRemoved 事件
         Vm.Log[] memory entries = vm.getRecordedLogs();
         bool found = false;
         for (uint256 i = 0; i < entries.length; i++) {

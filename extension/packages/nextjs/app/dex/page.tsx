@@ -10,7 +10,7 @@ import { Address as AddressType, formatEther, isAddress, parseEther } from "viem
 import { useAccount } from "wagmi";
 import { useDeployedContractInfo, useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
-// REGEX for number inputs (only allow numbers and a single decimal point)
+// 数字输入的正则（只允许数字和一个小数点）
 const NUMBER_REGEX = /^\.?\d+\.?\d*$/;
 
 const Dex: NextPage = () => {
@@ -52,7 +52,7 @@ const Dex: NextPage = () => {
       const entry = entries[0];
       const width = entry?.contentRect?.width ?? 0;
       if (!Number.isFinite(width) || width <= 0) return;
-      // Keep the chart from causing horizontal overflow and scrollbars.
+      // 防止图表导致水平溢出和出现滚动条。
       const next = Math.max(260, Math.min(500, Math.floor(width)));
       setCurveSize(next);
     });
@@ -185,7 +185,7 @@ const Dex: NextPage = () => {
                     try {
                       await writeDexContractAsync({
                         functionName: "tokenToEth",
-                        // @ts-expect-error - Show error on frontend while sending, if user types invalid number
+                        // @ts-expect-error - 若用户输入了无效数字，发送时在前端显示错误
                         args: [NUMBER_REGEX.test(tokenToETHAmount) ? parseEther(tokenToETHAmount) : tokenToETHAmount],
                       });
                       setEthToTokenAmount("");
@@ -247,7 +247,7 @@ const Dex: NextPage = () => {
                     try {
                       await writeDexContractAsync({
                         functionName: "withdraw",
-                        // @ts-expect-error - Show error on frontend while sending, if user types invalid number
+                        // @ts-expect-error - 若用户输入了无效数字，发送时在前端显示错误
                         args: [NUMBER_REGEX.test(withdrawAmount) ? parseEther(withdrawAmount) : withdrawAmount],
                       });
                       setWithdrawAmount("");
@@ -297,7 +297,7 @@ const Dex: NextPage = () => {
                         functionName: "approve",
                         args: [
                           approveSpender as AddressType,
-                          // @ts-expect-error - Show error on frontend while sending, if user types invalid number
+                          // @ts-expect-error - 若用户输入了无效数字，发送时在前端显示错误
                           NUMBER_REGEX.test(approveAmount) ? parseEther(approveAmount) : approveAmount,
                         ],
                       });
