@@ -50,12 +50,12 @@
 | `orc-sol` | 21 | 5567 | 🔄 进行中 |
 | `orc-ftest` | 16 | 3345 | 🔄 进行中 |
 | `orc-htest` | 15 | 3065 | 🔄 进行中 |
-| `orc-web` | 49 | 4239 | ⏸️ 待启动 |
+| `orc-web` | 49 | 4239 | 🔄 进行中 |
 | `lend-readme-p1` | 1 | 521 | ✅ 已完成 |
 | `lend-readme-p2` | 1 | 567 | ✅ 已完成 |
 | `lend-web` | 22 | 3019 | ✅ 已完成 |
 | `lend-sol` | 20 | 2248 | ✅ 已完成 |
-| `pm-readme-p1` | 1 | 627 | 🔄 进行中 |
+| `pm-readme-p1` | 1 | 627 | ✅ 已完成 |
 | `pm-readme-p2` | 1 | 662 | 🔄 进行中 |
 | `pm-readme-p3` | 1 | 482 | 🔄 进行中 |
 | `pm-web` | 33 | 6291 | 🔄 进行中 |
@@ -538,7 +538,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 1771 行 · `pm-readme-p1, pm-readme-p2, pm-readme-p3` · ⏳ 分段翻译进度 0/3
+- [ ] `README.md` — 1771 行 · `pm-readme-p1, pm-readme-p2, pm-readme-p3` · ⏳ 分段翻译进度 1/3
 - [ ] `extension/.ai/CHALLENGE.yaml` — 919 行 · `pm-web`
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
