@@ -43,7 +43,7 @@
 | `dex-code` | 22 | 3558 | ✅ 已完成 |
 | `dice-readme` | 1 | 468 | ✅ 已完成 |
 | `dice-code` | 25 | 2250 | ✅ 已完成 |
-| `orc-readme-p1` | 1 | 541 | 🔄 进行中 |
+| `orc-readme-p1` | 1 | 541 | ✅ 已完成 |
 | `orc-readme-p2` | 1 | 456 | ✅ 已完成 |
 | `orc-readme-p3` | 1 | 623 | 🔄 进行中 |
 | `orc-readme-p4` | 1 | 610 | 🔄 进行中 |
@@ -325,7 +325,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 2230 行 · `orc-readme-p1, orc-readme-p2, orc-readme-p3, orc-readme-p4` · ⏳ 分段翻译进度 1/4
+- [ ] `README.md` — 2230 行 · `orc-readme-p1, orc-readme-p2, orc-readme-p3, orc-readme-p4` · ⏳ 分段翻译进度 2/4
 - [ ] `extension/.ai/CHALLENGE.yaml` — 1240 行 · `orc-sol`
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
