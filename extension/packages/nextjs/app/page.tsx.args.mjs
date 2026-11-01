@@ -1,7 +1,7 @@
-// CHALLENGE-TODO: imports and other pre-content
+// CHALLENGE-TODO: 导入语句及其他前置内容
 // export const preContent = ``;
 
-// CHALLENGE-TODO: Update the title, description, and deliverable to reflect your challenge
+// CHALLENGE-TODO: 更新标题、描述和最终交付物以反映你的挑战
 export const description = `
   <div className="flex items-center flex-col flex-grow mt-4">
     <div className="px-5 w-[90%]">
@@ -27,5 +27,5 @@ export const description = `
   </div>
 `;
 
-// CHALLENGE-TODO: Update the externalExtensionName to reflect your challenge
+// CHALLENGE-TODO: 更新 externalExtensionName 以反映你的挑战
 export const externalExtensionName = "Speedrun Ethereum CHALLENGE TITLE";

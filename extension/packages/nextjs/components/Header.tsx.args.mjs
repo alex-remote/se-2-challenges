@@ -1,7 +1,7 @@
-// CHALLENGE-TODO: change for your imports
+// CHALLENGE-TODO: 改成你需要的导入语句
 export const preContent = `import { BanknotesIcon } from "@heroicons/react/24/outline";`;
 
-// CHALLENGE-TODO: change for your extra menu links
+// CHALLENGE-TODO: 改成你的额外菜单链接
 export const extraMenuLinksObjects = [
   {
     label: "Example",
@@ -11,5 +11,5 @@ export const extraMenuLinksObjects = [
 ];
 
 export const logoTitle = "SRE Challenges";
-// CHALLENGE-TODO: Update the logoSubtitle to reflect your challenge title
+// CHALLENGE-TODO: 更新 logoSubtitle 以反映你的挑战标题
 export const logoSubtitle = "YOUR CHALLENGE TITLE";

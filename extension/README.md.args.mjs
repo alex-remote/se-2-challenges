@@ -1,16 +1,16 @@
 export const skipQuickStart = true;
-// CHALLENGE-TODO: Update the readme to reflect your challenge. In the very end you will need a non-template
-// README.md file in the extension root so it is recommended to copy the template in a markdown file and then
-// update extraContents after confirming the template is correct.
-// include following code at the start of checkpoint 0 of the README.md file
-// *Start of the code block*
+// CHALLENGE-TODO: 更新 readme 以反映你的挑战。最终你需要在扩展根目录下放一个非模板形式的
+// README.md 文件，因此建议先把模板复制到一个 markdown 文件中，在确认模板无误后再
+// 更新 extraContents。
+// 在 README.md 文件 checkpoint 0 的开头加入以下代码
+// *代码块开始*
 // \`\`\`sh
 // npx create-eth@<version> -e {challengeName} {challengeName}
 // cd {challengeName}
 // \`\`\`
 
 // > in the same terminal, start your local network (a blockchain emulator in your computer):
-// *End of the code block*
+// *代码块结束*
 
 export const extraContents = `# {challengeEmoji} {challengeTitle}
 

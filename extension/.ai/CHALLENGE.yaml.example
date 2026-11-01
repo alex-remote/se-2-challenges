@@ -1,33 +1,33 @@
-# CHALLENGE.yaml Example Template
-# Copy this file as CHALLENGE.yaml and customize for your challenge
+# CHALLENGE.yaml 示例模板
+# 将此文件复制为 CHALLENGE.yaml，并针对你的挑战进行自定义
 #
-# TWO CHECKPOINT TYPES:
+# 两种 CHECKPOINT 类型：
 #
-# 1. CONCEPT CHECKPOINT (has `unlocks`):
-#    AI teaches → asks questions → auto-unlocks code by replacing TODO markers.
-#    The contract starts COMPLETE in the repo. The setup.template contains a
-#    TODO-marked version that gets applied when user runs /start.
-#    Example: Tokenization challenge
+# 1. 概念型 CHECKPOINT（含 `unlocks`）：
+#    AI 讲解 → 提问 → 通过替换 TODO 标记自动解锁代码。
+#    仓库中的合约一开始是完整的。setup.template 中包含一个
+#    带 TODO 标记的版本，会在用户运行 /start 时被应用。
+#    示例：Tokenization 挑战
 #
-# 2. CODE-WRITING CHECKPOINT (has `task`):
-#    AI teaches → optional questions → presents coding task → user writes code →
-#    tests validate. The contract has a SKELETON with empty function bodies.
-#    No setup.template needed — the contract stays as-is.
-#    Example: Crowdfunding challenge
+# 2. 编写代码型 CHECKPOINT（含 `task`）：
+#    AI 讲解 → 可选的提问 → 给出编码任务 → 用户编写代码 →
+#    测试进行验证。合约是一个函数体为空的骨架（SKELETON）。
+#    不需要 setup.template——合约保持原样即可。
+#    示例：Crowdfunding 挑战
 #
-# A checkpoint can have `questions` + `task` (questions first, then coding).
-# Detection: presence of `task` → code-writing; presence of `unlocks` → concept.
+# 一个 checkpoint 可以同时包含 `questions` 和 `task`（先提问，再编码）。
+# 判定方式：存在 `task` → 编写代码型；存在 `unlocks` → 概念型。
 
 name: "Your Challenge Name"
 version: "1.0"
 description: "Brief description of what users will learn and build"
-difficulty: "beginner" # Metadata about the challenge's inherent complexity (beginner/intermediate/advanced)
+difficulty: "beginner" # 关于该挑战本身复杂度的元数据（beginner/intermediate/advanced）
 estimated_time: "30-45 minutes"
 
-# Setup template - OPTIONAL
-# Only needed for CONCEPT challenges where the complete contract gets replaced
-# with a TODO-marked version. Omit entirely for CODE-WRITING challenges where
-# the contract already has a skeleton with empty function bodies.
+# Setup 模板——可选
+# 仅概念型挑战需要：完整的合约会被替换为
+# 带 TODO 标记的版本。对于编写代码型挑战请完全省略，因为这类挑战中
+# 合约本身已经是一个函数体为空的骨架。
 setup:
   description: "Transform the contract to TODO template for progressive learning"
   file: "packages/hardhat/contracts/YourContract.sol"
@@ -64,7 +64,7 @@ welcome_message: |
 
 checkpoints:
   # ============================================================
-  # CONCEPT CHECKPOINT EXAMPLE (AI auto-unlocks code)
+  # 概念型 CHECKPOINT 示例（AI 自动解锁代码）
   # ============================================================
   - id: "checkpoint-1"
     title: "First Concept Title"
@@ -86,23 +86,23 @@ checkpoints:
 
     questions:
       - text: "Your question here? Make it specific and test understanding."
-        concepts: ["keyword1", "keyword2", "keyword3"]  # Words/phrases that indicate understanding
+        concepts: ["keyword1", "keyword2", "keyword3"]  # 表明已理解的关键词/短语
         hint: "A helpful hint that guides without giving away the answer"
 
       - text: "Second question for this checkpoint?"
         concepts: ["concept1", "concept2"]
         hint: "Another helpful hint"
 
-    # Code unlocked when this checkpoint is completed
+    # 完成此 checkpoint 时解锁的代码
     unlocks:
       file: "packages/hardhat/contracts/YourContract.sol"
-      todo: "imports"  # Matches // TODO[imports] marker
+      todo: "imports"  # 对应 // TODO[imports] 标记
       code: |
         import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
         // ... other imports
 
   # ============================================================
-  # CODE-WRITING CHECKPOINT EXAMPLE (user writes code, tests validate)
+  # 编写代码型 CHECKPOINT 示例（用户编写代码，测试进行验证）
   # ============================================================
   - id: "checkpoint-code-writing"
     title: "A Hands-On Coding Task"
@@ -116,13 +116,13 @@ checkpoints:
       [Explain the Solidity patterns they'll need.]
       [Include examples and analogies.]
 
-    # Optional: conceptual questions before the coding task
+    # 可选：编码任务之前的概念性问题
     questions:
       - text: "Question to check understanding before they code?"
         concepts: ["keyword1", "keyword2"]
         hint: "Helpful hint"
 
-    # Coding task - presence of this field makes it a code-writing checkpoint
+    # 编码任务——存在该字段即表示这是一个编写代码型 checkpoint
     task:
       description: |
         Implement the `myFunction()` in the contract.
@@ -136,7 +136,7 @@ checkpoints:
         - Emit the event
       file: "packages/hardhat/contracts/YourContract.sol"
       test: "yarn test --grep 'Checkpoint2'"
-      # Progressive hints: gentle → specific → solution
+      # 渐进式提示：委婉 → 具体 → 答案
       hints:
         - "Think about msg.sender and msg.value - they give you the caller's address and the ETH sent"
         - "For the mapping update: balances[msg.sender] += msg.value. Why += instead of =?"
@@ -151,7 +151,7 @@ checkpoints:
               emit MyEvent(msg.sender, msg.value);
           }
           ```
-      # Full solution code that /skip will apply
+      # /skip 将会应用的完整答案代码
       solution: |
         // Add under State Variables:
         mapping(address => uint256) public balances;
@@ -163,7 +163,7 @@ checkpoints:
         balances[msg.sender] += msg.value;
         emit MyEvent(msg.sender, msg.value);
 
-# Add more checkpoints as needed...
+# 根据需要添加更多 checkpoint……
 
 completion_message: |
   Congratulations! You've completed the [Challenge Name]!
