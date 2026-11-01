@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 16:04 UTC　｜　总进度：**458 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 16:04 UTC　｜　总进度：**492 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -22,7 +22,7 @@
 | [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 46 / 46 ✅ | `challenge-dice-game_zh` |
 | [`challenge-oracles`](#challenge-oracles) | 126 | 123 | 3 | 19492 | 21 / 123 | `challenge-oracles_zh` |
 | [`challenge-over-collateralized-lending`](#challenge-over-collateralized-lending) | 67 | 65 | 2 | 7419 | 65 / 65 ✅ | `challenge-over-collateralized-lending_zh` |
-| [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 20 / 66 | `challenge-prediction-markets_zh` |
+| [`challenge-prediction-markets`](#challenge-prediction-markets) | 78 | 66 | 12 | 12159 | 54 / 66 | `challenge-prediction-markets_zh` |
 | [`challenge-stablecoins`](#challenge-stablecoins) | 79 | 77 | 2 | 11803 | 77 / 77 ✅ | `challenge-stablecoins_zh` |
 | [`challenge-token-vendor`](#challenge-token-vendor) | 46 | 43 | 3 | 4345 | 43 / 43 ✅ | `challenge-token-vendor_zh` |
 | [`challenge-tokenization`](#challenge-tokenization) | 53 | 48 | 5 | 3410 | 48 / 48 ✅ | `challenge-tokenization_zh` |
@@ -58,9 +58,9 @@
 | `pm-readme-p1` | 1 | 627 | ✅ 已完成 |
 | `pm-readme-p2` | 1 | 662 | 🔄 进行中 |
 | `pm-readme-p3` | 1 | 482 | 🔄 进行中 |
-| `pm-web` | 33 | 6291 | 🔄 进行中 |
+| `pm-web` | 33 | 6291 | ✅ 已完成 |
 | `pm-sol` | 11 | 1590 | 🔄 进行中 |
-| `pm-test` | 1 | 1508 | 🔄 进行中 |
+| `pm-test` | 1 | 1508 | ✅ 已完成 |
 | `stab-readme-p1` | 1 | 645 | ✅ 已完成 |
 | `stab-readme-p2` | 1 | 570 | ✅ 已完成 |
 | `stab-web` | 26 | 4439 | ✅ 已完成 |
@@ -530,7 +530,7 @@
 
 ### challenge-prediction-markets
 
-文本文件 66 个（已完成 20），二进制 12 个 → 目标分支 `challenge-prediction-markets_zh`
+文本文件 66 个（已完成 54），二进制 12 个 → 目标分支 `challenge-prediction-markets_zh`
 
 - [x] `.cursorignore.example` — 4 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 OK）
 - [x] `.github/Revalidation.md` — 75 行 · `common-shared` · ✅ 已生成 `Revalidation_zh.md`（.github/Revalidation_zh.md，75 行；check_md OK，WARN 1（均为标识符/路径，已确认））
@@ -539,7 +539,7 @@
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
 - [ ] `README.md` — 1771 行 · `pm-readme-p1, pm-readme-p2, pm-readme-p3` · ⏳ 分段翻译进度 1/3
-- [ ] `extension/.ai/CHALLENGE.yaml` — 919 行 · `pm-web`
+- [x] `extension/.ai/CHALLENGE.yaml` — 919 行 · `pm-web` · ✅ 已翻译注释（改动 7 行（结构层 # CHECKPOINT 标题注释）；块标量正文为字符串未译）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start` · ✅ 已生成 `start-content_zh.md`（/home/user/se-2-challenges/.worktrees/challenge-prediction-markets/extension/.ai/instructions/start-content_zh.md（416 行，check_md OK；WARN 47 条均为代码块内自然语言消息模板的翻译，已人工确认））
@@ -551,8 +551,8 @@
 - [x] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared` · ✅ 已生成 `skip_zh.md`（extension/.cursor/commands/skip_zh.md，5 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.cursor/commands/start.md` — 5 行 · `common-shared` · ✅ 已生成 `start_zh.md`（extension/.cursor/commands/start_zh.md，5 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.vscode/settings.json` — 5 行 · `common-shared` · ✅ 无需改动（JSON 配置，无注释）
-- [ ] `extension/AGENTS.md.args.mjs` — 300 行 · `pm-web`
-- [ ] `extension/README.md.args.mjs` — 1594 行 · `pm-web`
+- [x] `extension/AGENTS.md.args.mjs` — 300 行 · `pm-web` · ✅ 已翻译注释（改动 1 行（首行 JS 注释）；模板字符串内容按统一规则不译）
+- [x] `extension/README.md.args.mjs` — 1594 行 · `pm-web` · ✅ 已翻译注释（改动 2 行（第 2-3 行 JS 注释，原文首句即残缺，按原样翻译）；模板字符串内容按统一规则不译）
 - [ ] `extension/packages/foundry/contracts/IPredictionMarket.sol` — 98 行 · `pm-sol`
 - [ ] `extension/packages/foundry/contracts/PredictionMarket.sol` — 255 行 · `pm-sol`
 - [ ] `extension/packages/foundry/contracts/PredictionMarketToken.sol` — 52 行 · `pm-sol`
@@ -564,38 +564,38 @@
 - [ ] `extension/packages/hardhat/contracts/PredictionMarketToken.sol` — 52 行 · `pm-sol`
 - [ ] `extension/packages/hardhat/deploy/00_deploy_your_contract.ts` — 57 行 · `pm-sol`
 - [ ] `extension/packages/hardhat/hardhat.config.ts.args.mjs` — 17 行 · `pm-sol`
-- [ ] `extension/packages/hardhat/test/PredictionMarket.ts` — 1508 行 · `pm-test`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `pm-web`
-- [ ] `extension/packages/nextjs/app/liquidity-provider/page.tsx` — 72 行 · `pm-web`
-- [ ] `extension/packages/nextjs/app/oracle/page.tsx` — 59 行 · `pm-web`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 39 行 · `pm-web`
-- [ ] `extension/packages/nextjs/app/user/page.tsx` — 57 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 22 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/assets/race-assets/background-dark.svg` — 184 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/assets/race-assets/background.svg` — 120 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/assets/race-assets/crown.svg` — 28 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/assets/race-assets/green-car.svg` — 492 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/assets/race-assets/red-car.svg` — 492 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/constants.ts` — 16 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/liquidity-provider/AddRemoveLiquidty.tsx` — 154 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/liquidity-provider/LPAddress.tsx` — 38 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/liquidity-provider/LPFinalTokenBalance.tsx` — 64 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/liquidity-provider/PredictionMarketInfoLP.tsx` — 248 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/liquidity-provider/ResolveMarketAndWithdraw.tsx` — 90 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/oracle/OracleAddress.tsx` — 40 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/oracle/ReportPrediction.tsx` — 79 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/race/Car.tsx` — 49 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/race/Race.tsx` — 296 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/race/RaceEffects.tsx` — 78 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/user/GiveAllowance.tsx` — 72 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/user/OverviewBuySellShares.tsx` — 89 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/user/PredictionBuySellShare.tsx` — 244 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/user/PredictionMarketInfo.tsx` — 56 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/user/ProbabilityDisplay.tsx` — 85 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/user/Redeem.tsx` — 76 行 · `pm-web`
-- [ ] `extension/packages/nextjs/components/user/TokenBalance.tsx` — 65 行 · `pm-web`
+- [x] `extension/packages/hardhat/test/PredictionMarket.ts` — 1508 行 · `pm-test` · ✅ 已翻译注释（改动 194 行；纯百分比注释（// 50%、// 25%）保留，it()/describe() 字符串未动；check_inplace [OK]，--leftover 无残留）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 15 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/liquidity-provider/page.tsx` — 72 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/oracle/page.tsx` — 59 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 39 行 · `pm-web` · ✅ 无需改动（无注释（模板字符串内仅 JSX 文案））
+- [x] `extension/packages/nextjs/app/user/page.tsx` — 57 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 22 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/assets/race-assets/background-dark.svg` — 184 行 · `pm-web` · ✅ 无需改动（SVG 图形文件，无注释，不改）
+- [x] `extension/packages/nextjs/components/assets/race-assets/background.svg` — 120 行 · `pm-web` · ✅ 无需改动（SVG 图形文件，无注释，不改）
+- [x] `extension/packages/nextjs/components/assets/race-assets/crown.svg` — 28 行 · `pm-web` · ✅ 无需改动（SVG 图形文件，无注释，不改）
+- [x] `extension/packages/nextjs/components/assets/race-assets/green-car.svg` — 492 行 · `pm-web` · ✅ 无需改动（SVG 图形文件，无注释，不改）
+- [x] `extension/packages/nextjs/components/assets/race-assets/red-car.svg` — 492 行 · `pm-web` · ✅ 无需改动（SVG 图形文件，无注释，不改）
+- [x] `extension/packages/nextjs/components/constants.ts` — 16 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/liquidity-provider/AddRemoveLiquidty.tsx` — 154 行 · `pm-web` · ✅ 已翻译注释（改动 1 行（JSX {/* */} 注释））
+- [x] `extension/packages/nextjs/components/liquidity-provider/LPAddress.tsx` — 38 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/liquidity-provider/LPFinalTokenBalance.tsx` — 64 行 · `pm-web` · ✅ 无需改动（仅 eslint-disable 指令注释，保留原样）
+- [x] `extension/packages/nextjs/components/liquidity-provider/PredictionMarketInfoLP.tsx` — 248 行 · `pm-web` · ✅ 已翻译注释（改动 2 行（JSX {/* */} 注释））
+- [x] `extension/packages/nextjs/components/liquidity-provider/ResolveMarketAndWithdraw.tsx` — 90 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/oracle/OracleAddress.tsx` — 40 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/oracle/ReportPrediction.tsx` — 79 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/race/Car.tsx` — 49 行 · `pm-web` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/components/race/Race.tsx` — 296 行 · `pm-web` · ✅ 已翻译注释（改动 25 行（含行尾注释））
+- [x] `extension/packages/nextjs/components/race/RaceEffects.tsx` — 78 行 · `pm-web` · ✅ 已翻译注释（改动 2 行（JSX 注释）；eslint-disable 指令保留）
+- [x] `extension/packages/nextjs/components/user/GiveAllowance.tsx` — 72 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/user/OverviewBuySellShares.tsx` — 89 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/user/PredictionBuySellShare.tsx` — 244 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/user/PredictionMarketInfo.tsx` — 56 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/user/ProbabilityDisplay.tsx` — 85 行 · `pm-web` · ✅ 已翻译注释（改动 2 行；L35 被注释掉的代码保留原样）
+- [x] `extension/packages/nextjs/components/user/Redeem.tsx` — 76 行 · `pm-web` · ✅ 无需改动（无注释）
+- [x] `extension/packages/nextjs/components/user/TokenBalance.tsx` — 65 行 · `pm-web` · ✅ 无需改动（仅 eslint-disable 指令注释，保留原样）
 - [x] `extension/packages/nextjs/next.config.ts.args.mjs` — 5 行 · `common-shared` · ✅ 无需改动（无注释）
-- [ ] `extension/packages/nextjs/services/store/raceStore.ts` — 59 行 · `pm-web`
+- [x] `extension/packages/nextjs/services/store/raceStore.ts` — 59 行 · `pm-web` · ✅ 无需改动（无注释）
 - [x] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared` · ✅ 已翻译注释（改动 4 行；校验 CODE-CHANGED(误报,已确认)；模板字符串内 CSS 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared` · ✅ 无需改动（无注释）
 
