@@ -1,6 +1,6 @@
 # 英文注释中文翻译 · 任务进度跟踪
 
-> 最后更新：2026-11-01 15:57 UTC　｜　总进度：**0 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
+> 最后更新：2026-11-01 15:59 UTC　｜　总进度：**9 / 647** 个文本文件　｜　12 个分支，712 个文件（文本 647、二进制 65），文本共 83661 行
 
 ## 任务规则
 
@@ -15,8 +15,8 @@
 
 | 分支 | 文件总数 | 文本文件 | 二进制 | 文本总行数 | 已完成 | 目标分支 |
 |---|---:|---:|---:|---:|---:|---|
-| [`main`](#main) | 3 | 3 | 0 | 188 | 0 / 3 | `main_zh` |
-| [`base-challenge-template`](#base-challenge-template) | 27 | 26 | 1 | 1332 | 0 / 26 | `base-challenge-template_zh` |
+| [`main`](#main) | 3 | 3 | 0 | 188 | 2 / 3 | `main_zh` |
+| [`base-challenge-template`](#base-challenge-template) | 27 | 26 | 1 | 1332 | 7 / 26 | `base-challenge-template_zh` |
 | [`challenge-crowdfunding`](#challenge-crowdfunding) | 49 | 46 | 3 | 4323 | 0 / 46 | `challenge-crowdfunding_zh` |
 | [`challenge-dex`](#challenge-dex) | 46 | 43 | 3 | 5293 | 0 / 43 | `challenge-dex_zh` |
 | [`challenge-dice-game`](#challenge-dice-game) | 66 | 46 | 20 | 3717 | 0 / 46 | `challenge-dice-game_zh` |
@@ -35,7 +35,7 @@
 | 分组 | 文件数 | 行数 | 状态 |
 |---|---:|---:|---|
 | `common-shared` | 24 个（复制到各分支共 215 份） | 6594 | 🔄 进行中 |
-| `base-main` | 9 | 521 | 🔄 进行中 |
+| `base-main` | 9 | 521 | ✅ 已完成 |
 | `common-start` | 1 个（复制到各分支共 11 份） | 4576 | 🔄 进行中 |
 | `crowd-readme` | 1 | 644 | 🔄 进行中 |
 | `crowd-code` | 24 | 2656 | 🔄 进行中 |
@@ -65,7 +65,7 @@
 | `stab-readme-p2` | 1 | 570 | 🔄 进行中 |
 | `stab-web` | 26 | 4439 | ⏸️ 待启动 |
 | `stab-sol` | 19 | 1556 | 🔄 进行中 |
-| `stab-test` | 10 | 3573 | ⏸️ 待启动 |
+| `stab-test` | 10 | 3573 | 🔄 进行中 |
 | `vendor-readme` | 1 | 682 | 🔄 进行中 |
 | `vendor-code` | 21 | 2640 | 🔄 进行中 |
 | `nft-readme` | 1 | 366 | 🔄 进行中 |
@@ -81,15 +81,15 @@
 
 ### main
 
-文本文件 3 个（已完成 0），二进制 0 个 → 目标分支 `main_zh`
+文本文件 3 个（已完成 2），二进制 0 个 → 目标分支 `main_zh`
 
-- [ ] `LICENCE.txt` — 21 行 · `base-main`
-- [ ] `README.md` — 162 行 · `base-main`
+- [x] `LICENCE.txt` — 21 行 · `base-main` · ✅ 无需改动（MIT 许可证法律文本，不翻译）
+- [x] `README.md` — 162 行 · `base-main` · ✅ 已生成 `README_zh.md`（/home/user/se-2-challenges/.worktrees/main/README_zh.md，162 行）
 - [ ] `funding.json` — 5 行 · `common-shared`
 
 ### base-challenge-template
 
-文本文件 26 个（已完成 0），二进制 1 个 → 目标分支 `base-challenge-template_zh`
+文本文件 26 个（已完成 7），二进制 1 个 → 目标分支 `base-challenge-template_zh`
 
 - [ ] `.cursorignore.example` — 4 行 · `common-shared`
 - [ ] `.github/Revalidation.md` — 75 行 · `common-shared`
@@ -97,8 +97,8 @@
 - [ ] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared`
 - [ ] `.gitignore.example` — 26 行 · `common-shared`
 - [ ] `LICENCE.txt` — 21 行 · `common-shared`
-- [ ] `README.md` — 6 行 · `base-main`
-- [ ] `extension/.ai/CHALLENGE.yaml.example` — 183 行 · `base-main`
+- [x] `README.md` — 6 行 · `base-main` · ✅ 已生成 `README_zh.md`（/home/user/se-2-challenges/.worktrees/base-challenge-template/README_zh.md，6 行）
+- [x] `extension/.ai/CHALLENGE.yaml.example` — 183 行 · `base-main` · ✅ 已翻译注释（改动 30 行；块标量（setup.template/code/solution/context/completion_message 等）内的 // 与 ## 内容属于 YAML 字符串值，按规范未翻译；纯分隔线保留）
 - [ ] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared`
 - [ ] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared`
 - [ ] `extension/.ai/instructions/start-content.md` — 416 行 · `common-start`
@@ -110,11 +110,11 @@
 - [ ] `extension/.cursor/commands/skip.md` — 5 行 · `common-shared`
 - [ ] `extension/.cursor/commands/start.md` — 5 行 · `common-shared`
 - [ ] `extension/.vscode/settings.json` — 5 行 · `common-shared`
-- [ ] `extension/README.md.args.mjs` — 79 行 · `base-main`
-- [ ] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 16 行 · `base-main`
-- [ ] `extension/packages/nextjs/app/page.tsx.args.mjs` — 31 行 · `base-main`
-- [ ] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 15 行 · `base-main`
-- [ ] `extension/packages/nextjs/next.config.ts.args.mjs` — 8 行 · `base-main`
+- [x] `extension/README.md.args.mjs` — 79 行 · `base-main` · ✅ 已翻译注释（改动 6 行；extraContents 模板字符串正文未动；注释中“代码块开始/结束”之间的待粘贴内容（L7-10 命令代码、L12 待复制进英文 README 的 Markdown 句子）保留原文；CHALLENGE-TODO 标记保留英文）
+- [x] `extension/packages/nextjs/app/layout.tsx.args.mjs` — 16 行 · `base-main` · ✅ 已翻译注释（改动 1 行）
+- [x] `extension/packages/nextjs/app/page.tsx.args.mjs` — 31 行 · `base-main` · ✅ 已翻译注释（改动 3 行；L2 为注释掉的代码，保留）
+- [x] `extension/packages/nextjs/components/Header.tsx.args.mjs` — 15 行 · `base-main` · ✅ 已翻译注释（改动 3 行）
+- [x] `extension/packages/nextjs/next.config.ts.args.mjs` — 8 行 · `base-main` · ✅ 无需改动（文件中没有注释）
 - [ ] `extension/packages/nextjs/styles/globals.css.args.mjs` — 83 行 · `common-shared`
 - [ ] `extension/packages/nextjs/utils/scaffold-eth/getMetadata.ts.args.mjs` — 2 行 · `common-shared`
 
