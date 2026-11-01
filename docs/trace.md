@@ -70,7 +70,7 @@
 | `vendor-code` | 21 | 2640 | ✅ 已完成 |
 | `nft-readme` | 1 | 366 | ✅ 已完成 |
 | `nft-code` | 27 | 2045 | ✅ 已完成 |
-| `zk-readme-p1` | 1 | 462 | 🔄 进行中 |
+| `zk-readme-p1` | 1 | 462 | ✅ 已完成 |
 | `zk-readme-p2` | 1 | 556 | 🔄 进行中 |
 | `zk-readme-p3` | 1 | 548 | ✅ 已完成 |
 | `zk-readme-p4` | 1 | 529 | ✅ 已完成 |
@@ -834,7 +834,7 @@
 - [x] `.github/workflows/revalidate-challenge-readme.yml` — 68 行 · `common-shared` · ✅ 已翻译注释（改动 2 行；校验 CODE-CHANGED(误报,已确认)；run: | 块内 shell 注释，check_inplace 报 CODE-CHANGED 属误报，已人工确认）
 - [x] `.gitignore.example` — 26 行 · `common-shared` · ✅ 已翻译注释（改动 3 行；校验 OK；yarn/eslint/IDE/cli 分组标签保留英文）
 - [x] `LICENCE.txt` — 21 行 · `common-shared` · ✅ 无需改动（MIT 许可证法律文本，按规范不翻译）
-- [ ] `README.md` — 2095 行 · `zk-readme-p1, zk-readme-p2, zk-readme-p3, zk-readme-p4` · ⏳ 分段翻译进度 2/4
+- [ ] `README.md` — 2095 行 · `zk-readme-p1, zk-readme-p2, zk-readme-p3, zk-readme-p4` · ⏳ 分段翻译进度 3/4
 - [x] `extension/.ai/CHALLENGE.yaml` — 1363 行 · `zk-sol` · ✅ 已翻译注释（改动 8 行：结构层 # CHECKPOINT 1-8 分隔标题（CHECKPOINT 标记保留英文，冒号后译）；纯分隔线保留；块标量内 Markdown 正文与代码（含 Noir/Solidity 注释）属 YAML 字符串值，未译；check_inplace [OK]）
 - [x] `extension/.ai/agents/progress-tracker-content.md` — 94 行 · `common-shared` · ✅ 已生成 `progress-tracker-content_zh.md`（extension/.ai/agents/progress-tracker-content_zh.md，94 行；check_md OK，WARN 0（均为标识符/路径，已确认））
 - [x] `extension/.ai/instructions/skip-content.md` — 63 行 · `common-shared` · ✅ 已生成 `skip-content_zh.md`（extension/.ai/instructions/skip-content_zh.md，63 行；check_md OK，WARN 0（均为标识符/路径，已确认））
